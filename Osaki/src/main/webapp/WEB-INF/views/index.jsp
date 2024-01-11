@@ -12,5 +12,6 @@
 </head>
 <body>
     <h2>Hello ${u.id} name ${u.name}</h2>
+    <img src="${u.picture}"/>
 </body>
 </html>
