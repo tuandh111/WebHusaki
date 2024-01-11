@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h2>Hello ${u.id} name ${u.name}</h2>
 </body>
 </html>
