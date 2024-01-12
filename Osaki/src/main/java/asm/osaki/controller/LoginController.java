@@ -23,7 +23,6 @@ import java.io.IOException;
 @Controller
 @RequestMapping("login")
 public class LoginController {
-    int anInt = 0;
 
     @SneakyThrows
     @GetMapping()
@@ -39,12 +38,12 @@ public class LoginController {
 //            return "redirect:/login/index";
 //        }
         //Login Google
-		if (code != null) {
-			String accessToken = RestGG.getToken(code);
-			UserGoogleDto user =  RestGG.getUserInfo(accessToken);
-			session.setAttribute("loggedInUser", user);
-			return "redirect:/login/index";
-		}
+        if (code != null) {
+            String accessToken = RestGG.getToken(code);
+            UserGoogleDto user = RestGG.getUserInfo(accessToken);
+            session.setAttribute("loggedInUser", user);
+            return "redirect:/login/index";
+        }
         return "login";
     }
 
@@ -65,36 +64,15 @@ public class LoginController {
             String accessToken = null;
             try {
                 accessToken = RestGG.getToken(code);
-                UserGoogleDto user =  RestGG.getUserInfo(accessToken);
+                UserGoogleDto user = RestGG.getUserInfo(accessToken);
                 model.addAttribute("user", user);
                 session.setAttribute("loggedInUser", user);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
             return "redirect:/login/index";
         }
-
         return "index";
     }
-
-//    public static String getToken(String code) throws IOException {
-//        // call api to get token
-//        String response = Request.Post(Constants.GOOGLE_LINK_GET_TOKEN).bodyForm(Form.form().add("client_id", Constants.GOOGLE_CLIENT_ID).add("client_secret", Constants.GOOGLE_CLIENT_SECRET).add("redirect_uri", Constants.GOOGLE_REDIRECT_URI).add("code", code).add("grant_type", Constants.GOOGLE_GRANT_TYPE).build()).execute().returnContent().asString();
-//
-//        JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
-//        String accessToken = jobj.get("access_token").toString().replaceAll("\"", "");
-//        return accessToken;
-//    }
-//
-//    public static UserGoogleDto getUserInfo(final String accessToken) throws ClientProtocolException, IOException {
-//        String link = Constants.GOOGLE_LINK_GET_USER_INFO + accessToken;
-//        String response = Request.Get(link).execute().returnContent().asString();
-//
-//        UserGoogleDto googlePojo = new Gson().fromJson(response, UserGoogleDto.class);
-//
-//        return googlePojo;
-//    }
-
 
 }
