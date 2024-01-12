@@ -12,4 +12,10 @@ public class Constants {
     public static String GOOGLE_LINK_GET_USER_INFO = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=";
 
     public static String GOOGLE_GRANT_TYPE = "authorization_code";
+
+
+    public static String FACEBOOK_APP_ID = "894672849328719";
+    public static String FACEBOOK_APP_SECRET = "1f5ce84b95e7019abb201e5fb5426624";
+    public static String FACEBOOK_REDIRECT_URL = "http://localhost:8080/login";
+    public static String FACEBOOK_LINK_GET_TOKEN = "https://graph.facebook.com/oauth/access_token?client_id=%s&client_secret=%s&redirect_uri=%s&code=%s";
 }

@@ -42,7 +42,7 @@
             <div class="col-12 social-login">
                 <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/login&response_type=code
 		   &client_id=696627188228-lppdd724j8bftrq7pi0pj6eefjqh8erl.apps.googleusercontent.com&approval_prompt=force"><i class="bi bi-google google"></i></a>
-                <i class="bi bi-facebook facebook"></i>
+                <a href="https://www.facebook.com/dialog/oauth?client_id=894672849328719&redirect_uri=http://localhost:8080/login"> <i class="bi bi-facebook facebook"></i></a>
             </div>
         </div>
     </div>
