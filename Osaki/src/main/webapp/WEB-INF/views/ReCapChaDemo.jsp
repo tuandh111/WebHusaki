@@ -5,7 +5,7 @@
     </head>
     <body>
         <form action="login/index" method="GET" id="form">
-            <input type="text">
+            <input type="text"/>
             <div id="recaptchaContainer" style="display: none;">
                 <div class="g-recaptcha" data-sitekey="6LdosU4pAAAAAO_EzhGlRqWLJqns6eULivmzGWWE"></div>
             </div>

@@ -78,7 +78,12 @@
             <artifactId>restfb</artifactId>
             <version>2022.7.0</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
 
     </dependencies>
 
