@@ -10,4 +10,4 @@ public class OsakiApplication {
 		SpringApplication.run(OsakiApplication.class, args);
 	}
 
-}g
+}
