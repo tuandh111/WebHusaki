@@ -1,31 +1,23 @@
 package asm.osaki.controller;
 
-import asm.osaki.Rest.RestFB;
 import asm.osaki.Rest.RestGG;
-import asm.osaki.constants.Constants;
 import asm.osaki.user.UserGoogleDto;
-import com.google.gson.Gson;
-import com.restfb.json.JsonObject;
-import com.restfb.types.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.fluent.Form;
-import org.apache.http.client.fluent.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 
 @Controller
-@RequestMapping("login")
-public class LoginController {
+public class AccountController {
 
     @SneakyThrows
-    @GetMapping()
+    @GetMapping("login")
     public String login(HttpServletRequest request, HttpSession session) {
         String code = request.getParameter("code");
 
@@ -47,7 +39,7 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("index")
+    @GetMapping("/login/index")
     public String index(Model model, HttpServletRequest request, HttpSession session) {
         //Login Facebook
         //User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -73,6 +65,12 @@ public class LoginController {
             return "redirect:/login/index";
         }
         return "index";
+    }
+
+    @GetMapping("/register")
+    public String regis(Model model) {
+        model.addAttribute("title", "Đăng ký");
+        return "register";
     }
 
 }

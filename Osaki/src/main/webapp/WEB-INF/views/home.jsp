@@ -1,7 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Furnics Furniture Store</title>
+    <title>HASAGI</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,9 +26,10 @@
     ================================================== -->
     <script src="js/modernizr.js"></script>
 </head>
+
 <body class="bg-body" data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%"
       data-bs-smooth-scroll="true" tabindex="0">
-<button id="scrollToTop"><i class="bi bi-house">Home</i></button>
+<button id="scrollToTop"><i class="bi bi-house"></i>Home1</button>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
         <title>Search</title>
@@ -87,9 +93,9 @@
                 <use xlink:href="#close"></use>
             </svg>
         </div>
-        <form id="search-form" class="text-center pt-3" action="" method="">
-            <input type="text" class="search-input fs-5 p-4 bg-transparent" placeholder="Search...">
-            <svg class="search" width="22" height="22">
+        <form id="search-form" class="text-center pt-3" action="" method="post">
+            <input type="text" id="search-input" class="search-input fs-5 p-4 bg-transparent" placeholder="Search...">
+            <svg id="search-icon" class="search" width="22" height="22">
                 <use xlink:href="#search"></use>
             </svg>
         </form>
@@ -97,6 +103,9 @@
 </div>
 
 <header id="header" class="site-header text-black">
+    <svg class="search" width="22" height="22">
+        <use xlink:href="#search"></use>
+    </svg>
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">
@@ -121,25 +130,14 @@
                     <ul id="navbar"
                         class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
                         <li class="nav-item dropdown">
-                            <a class="nav-link me-4 active dropdown-toggle" href="#billboard" id="dropdownPages"
-                               data-bs-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Home</a>
-                            <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                                <li>
-                                    <a href="index.html" class="dropdown-item item-anchor">Homepage 1</a>
-                                </li>
-                                <li>
-                                    <a href="home2.html" class="dropdown-item item-anchor">Homepage V2 <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                            </ul>
+                            <a class="nav-link me-4" href="/home">Home Tuấn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#about-us">About Us</a>
+                            <a class="nav-link me-4" href="#about-us">Product</a>
                         </li>
                         <li class="nav-item dropdown me-4">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Shop</a>
+                               aria-haspopup="true" aria-expanded="false">Promotion</a>
                             <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
                                 <li>
                                     <a href="shop-sidebar.html" class="dropdown-item item-anchor">Shop Sidebar <span
@@ -152,72 +150,10 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown me-4">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Blog</a>
-                            <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                                <li>
-                                    <a href="blog-classic.html" class="dropdown-item item-anchor">Blog Classic <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog-grid-four-column.html" class="dropdown-item item-anchor">Blog 4 Column
-                                        <span class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog-with-sidebar.html" class="dropdown-item item-anchor">Blog With Sidebar
-                                        <span class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                            </ul>
+                            <a class="nav-link " href="#">Contact</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Pages</a>
-                            <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                                <li>
-                                    <a href="about-us.html" class="dropdown-item item-anchor">About <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="cart.html" class="dropdown-item item-anchor">Cart <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="checkout.html" class="dropdown-item item-anchor">Checkout <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="contact.html" class="dropdown-item item-anchor">Contact <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="error-page.html" class="dropdown-item item-anchor">Error Page <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="faqs.html" class="dropdown-item item-anchor">FAQs <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="my-account.html" class="dropdown-item item-anchor">My Account <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="single-post.html" class="dropdown-item item-anchor">Single Post <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                                <li>
-                                    <a href="single-product.html" class="dropdown-item item-anchor">Single Product <span
-                                            class="badge bg-secondary text-dark ms-2">PRO</span></a>
-                                </li>
-                            </ul>
+                            <a class="nav-link" href="#">Feedback</a>
                         </li>
                         <li class="nav-item">
                             <div class="user-items ps-5">
@@ -262,11 +198,13 @@
                             <div class="banner-item"
                                  style="background-image: url(images/banner-image1.jpg); background-repeat: no-repeat; background-position: right; height: 682px;">
                                 <div class="banner-content padding-large">
-                                    <h1 class="display-1 text-uppercase text-dark pb-2">wooden table set</h1>
-                                    <p>Aliquet donec ut arcu risus amet mattis diam gravida. Ac vestibulum quis proin in
-                                       aliquam et et auctor. Amet urna est arcu euismod egestas morbi nunc lacus. Nec id
-                                       rutrum mauris commodo habitant amet quisque. Velit ornare pellentesque facilisi
-                                       in odio nibh.</p>
+                                    <h1 class="display-1 text-uppercase text-dark pb-2">Face wash</h1>
+                                    <p> Simple Refreshing facial cleanser is gentle and clean - for sensitive skin
+                                        containing X2 Vitamin B5*,
+                                        Vitamin E and Pro Amino Acids to help clean the skin effectively, removing
+                                        sebum, dirt and other impurities and Does not cause irritation,
+                                        makes the skin soft and smooth, while bringing a fresh and clean feeling to the
+                                        skin.</p>
                                     <a href="shop.html" class="btn btn-medium btn-arrow position-relative mt-5">
                                         <span class="text-uppercase">Shop Now</span>
                                         <svg class="arrow-right position-absolute" width="18" height="20">
@@ -286,11 +224,13 @@
                             <div class="banner-item"
                                  style="background-image: url(images/banner-image1.jpg); background-repeat: no-repeat; background-position: right; height: 682px;">
                                 <div class="banner-content padding-large">
-                                    <h1 class="display-1 text-uppercase text-dark pb-2">Comfortable Sofa Set</h1>
-                                    <p>Aliquet donec ut arcu risus amet mattis diam gravida. Ac vestibulum quis proin in
-                                       aliquam et et auctor. Amet urna est arcu euismod egestas morbi nunc lacus. Nec id
-                                       rutrum mauris commodo habitant amet quisque. Velit ornare pellentesque facilisi
-                                       in odio nibh.
+                                    <h1 class="display-1 text-uppercase text-dark pb-2">Face wash</h1>
+                                    <p>Simple Refreshing facial cleanser is gentle and clean - for sensitive skin
+                                       containing X2 Vitamin B5*,
+                                       Vitamin E and Pro Amino Acids to help clean the skin effectively, removing
+                                       sebum, dirt and other impurities and Does not cause irritation,
+                                       makes the skin soft and smooth, while bringing a fresh and clean feeling to the
+                                       skin.
                                     </p>
                                     <a href="shop.html" class="btn btn-medium btn-arrow position-relative mt-5">
                                         <span class="text-uppercase">Shop Now</span>
@@ -420,11 +360,11 @@
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">Black Sofa Set</a>
+                                        <a href="single-product.html" class="text-primary">HADA LABO</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#"
-                                           data-after="ADD TO CART"><span>$200</span></a>
+                                           data-after="ADD TO CART"><span>$69.000</span></a>
                                     </div>
                                 </div>
                             </div>
@@ -437,11 +377,11 @@
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">Circle Dining Table</a>
+                                        <a href="single-product.html" class="text-primary">HATOMUGI</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
+                                            <span>$120.000</span>
                                         </a>
                                     </div>
                                 </div>
@@ -455,11 +395,11 @@
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">Minimal Sofa</a>
+                                        <a href="single-product.html" class="text-primary">CETAPHIL</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
+                                            <span>$139.000 - $568.000</span>
                                         </a>
                                     </div>
                                 </div>
@@ -473,11 +413,11 @@
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">Pattern Tea Table</a>
+                                        <a href="single-product.html" class="text-primary">HADA LABO</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
+                                            <span>$93.000</span>
                                         </a>
                                     </div>
                                 </div>
@@ -491,11 +431,11 @@
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">Black Sofa Set</a>
+                                        <a href="single-product.html" class="text-primary">COSRX</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
+                                            <span>$139.000</span>
                                         </a>
                                     </div>
                                 </div>
@@ -509,11 +449,29 @@
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">Minimal Sofa</a>
+                                        <a href="single-product.html" class="text-primary">CERAVE</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
+                                            <span>$29 - $408.000</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
+                                <div class="image-holder">
+                                    <img src="images/product-item6.jpg" alt="product-item"
+                                         class="product-image img-fluid">
+                                </div>
+                                <div class="cart-concern">
+                                    <h3 class="card-title text-uppercase pt-3 text-primary">
+                                        <a href="single-product.html" class="text-primary">CERAVE</a>
+                                    </h3>
+                                    <div class="cart-info">
+                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
+                                            <span>$29 - $408.000</span>
                                         </a>
                                     </div>
                                 </div>
@@ -546,9 +504,9 @@
                         <div class="swiper-slide text-center d-flex justify-content-center">
                             <div class="review-item col-md-10">
                                 <i class="icon icon-review"></i>
-                                <blockquote class="fs-4">“Tempus oncu enim pellen tesque este pretium in neque, elit
+                                <blockquote class="fs-4">âTempus oncu enim pellen tesque este pretium in neque, elit
                                                          morbi sagittis lorem habi mattis Pellen tesque pretium feugiat
-                                                         vel morbi suspen dise sagittis lorem habi tasse morbi.”
+                                                         vel morbi suspen dise sagittis lorem habi tasse morbi.â
                                 </blockquote>
                                 <div class="author-detail">
                                     <div class="name text-primary text-uppercase pt-2">Hana Kimusaki</div>
@@ -558,10 +516,11 @@
                         <div class="swiper-slide text-center d-flex justify-content-center">
                             <div class="review-item col-md-10">
                                 <i class="icon icon-review"></i>
-                                <blockquote class="fs-4">“A blog is a digital publication that can complement a website
+                                <blockquote class="fs-4">âA blog is a digital publication that can complement a
+                                                         website
                                                          or exist independently. A blog may include articles, short
                                                          posts, listicles, infographics, videos, and other digital
-                                                         content.”
+                                                         content.â
                                 </blockquote>
                                 <div class="author-detail">
                                     <div class="name text-primary text-uppercase pt-2">Jennie Rose</div>
@@ -734,7 +693,7 @@
     <div class="container-fluid">
         <div class="row overflow-hidden">
             <div class="display-header pb-3 d-flex justify-content-between col-md-12">
-                <h2 class="display-2 text-dark text-uppercase">Trending products</h2>
+                <h4 class="display-2 text-dark ">Outstanding products</h4>
                 <a href="shop.html" class="btn btn-medium btn-arrow btn-normal position-relative">
                     <span class="text-uppercase">Shop all</span>
                     <svg class="arrow-right position-absolute" width="18" height="20">
@@ -954,7 +913,7 @@
                            Dolor tempus arcu sit quis nunc arcu facilisis quis eget nisi morbi integer.</p>
                     </div>
                     <div class="copyright">
-                        <p>© Copyright 2023. Design by <a href="https://templatesjungle.com/">TemplatesJungle</a>
+                        <p>Â© Copyright 2023. Design by <a href="https://templatesjungle.com/">TemplatesJungle</a>
                            Distributed by <a href="https://themewagon.com">ThemeWagon</a>
                         </p>
                     </div>
@@ -1017,12 +976,9 @@
         </div>
     </div>
 </footer>
-<button id="scrollToTop">Lên dau trang</button>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var scrollToTopButton = document.getElementById('scrollToTop');
-
-        // Hiển thị nút khi người dùng cuộn xuống một khoảng cụ thể
         window.addEventListener('scroll', function () {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 scrollToTopButton.style.display = 'block';
@@ -1031,13 +987,19 @@
             }
         });
 
-        // Thêm sự kiện click cho nút cuộn lên đầu trang
         scrollToTopButton.addEventListener('click', function () {
-            // Sử dụng phương thức scrollTo để cuộn lên đầu trang
             window.scrollTo({
                 top: 0,
-                behavior: 'smooth' // Tạo hiệu ứng cuộn mượt mà
+                behavior: 'smooth'
             });
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        var searchForm = document.getElementById('search-form');
+        var searchIcon = document.getElementById('search-icon');
+        searchIcon.addEventListener('click', function (event) {
+            event.preventDefault();
+            searchForm.submit();
         });
     });
 </script>

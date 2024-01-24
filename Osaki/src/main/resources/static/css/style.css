@@ -19,10 +19,11 @@ This is main CSS file that contains custom style rules used in this template
 
 CSS STRUCTURE:
 
-    
+
 /*--------------------------------------------------------------
 /** 1. VARIABLES
 --------------------------------------------------------------*/
+@charset "UTF-8";
 #scrollToTop {
     display: none;
     position: fixed;
