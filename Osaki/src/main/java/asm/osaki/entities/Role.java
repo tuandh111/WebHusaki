@@ -11,17 +11,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Data
+// @NoArgsConstructor
+// @AllArgsConstructor
+// @Entity
+// @Data
 public class Role {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int RoleID;
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	// private int RoleID;
 		
-	private String RoleName;
+	// private String RoleName;
 			
-	@OneToMany(mappedBy = "RoleName")
-	private List<User> role;
+	// @OneToMany(mappedBy = "RoleName")
+	// private List<User> role;
 }

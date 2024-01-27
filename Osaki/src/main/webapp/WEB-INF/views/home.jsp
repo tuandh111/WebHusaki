@@ -22,6 +22,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@200;300;400;500&display=swap"
           rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
@@ -192,62 +197,47 @@
     <div class="swiper main-swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
+
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="banner-item"
-                                 style="background-image: url(images/banner-image1.jpg); background-repeat: no-repeat; background-position: right; height: 682px;">
-                                <div class="banner-content padding-large">
-                                    <h1 class="display-1 text-uppercase text-dark pb-2">Sữa rửa mặt</h1>
-                                    <p> Sữa rửa mặt Simple Refreshing nhẹ nhàng và sạch sẽ - dành cho da nhạy cảm
-                                        chứa X2 Vitamin B5*,
-                                        Vitamin E và Pro Amino Acids giúp làm sạch da hiệu quả, loại bỏ
-                                        bã nhờn, bụi bẩn và các tạp chất khác và không gây kích ứng,
-                                        làm cho làn da mềm mại và mịn màng, đồng thời mang lại cảm giác tươi mát và sạch sẽ cho làn da.
-                                        da.</p>
-                                    <a href="shop.html" class="btn btn-medium btn-arrow position-relative mt-5">
-                                        <span class="text-uppercase">Shop Now</span>
-                                        <svg class="arrow-right position-absolute" width="18" height="20">
-                                            <use xlink:href="#arrow-right"></use>
-                                        </svg>
-                                    </a>
-                                </div>
+                            <div class="banner-item">
+
+                                <div id="carouselExample" class="carousel slide">
+                                    <div class="carousel-inner">
+                                      <div class="carousel-item active">
+                                        <img src="./images/banner5.jpg" class="d-block w-100" alt="...">
+                                      </div>
+                                      <div class="carousel-item">
+                                        <img src="./images/banner4.jpg" class="d-block w-100" alt="...">
+                                      </div>
+                                      <div class="carousel-item">
+                                        <img src="./images/banner3.jpg" class="d-block w-100" alt="...">
+                                      </div>
+                                      <div class="carousel-item">
+                                        <img src="./images/banner1.jpg" class="d-block w-100" alt="...">
+                                      </div>
+                                    </div>
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                      <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                      <span class="visually-hidden">Next</span>
+                                    </button>
+                                  </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="banner-item"
-                                 style="background-image: url(images/banner-image1.jpg); background-repeat: no-repeat; background-position: right; height: 682px;">
-                                <div class="banner-content padding-large">
-                                    <h1 class="display-1 text-uppercase text-dark pb-2">Face wash</h1>
-                                    <p>Simple Refreshing facial cleanser is gentle and clean - for sensitive skin
-                                       containing X2 Vitamin B5*,
-                                       Vitamin E and Pro Amino Acids to help clean the skin effectively, removing
-                                       sebum, dirt and other impurities and Does not cause irritation,
-                                       makes the skin soft and smooth, while bringing a fresh and clean feeling to the
-                                       skin.
-                                    </p>
-                                    <a href="shop.html" class="btn btn-medium btn-arrow position-relative mt-5">
-                                        <span class="text-uppercase">Shop Now</span>
-                                        <svg class="arrow-right position-absolute" width="18" height="20">
-                                            <use xlink:href="#arrow-right"></use>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            </div>          
         </div>
-    </div>
-    <div class="swiper-pagination position-absolute"></div>
+    </div>  
 </section>
+
 
 <section id="company-services" class="padding-large">
     <div class="container-fluid">
@@ -260,7 +250,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content ps-3">
-                        <h3 class="card-title text-uppercase text-dark">Quick delivery</h3>
+                        <h3 class="card-title text-uppercase text-dark">GIAO HÀNG NHANH CHÓNG</h3>
                     </div>
                 </div>
             </div>
@@ -272,7 +262,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content ps-3">
-                        <h3 class="card-title text-uppercase text-dark">Pick up in store</h3>
+                        <h3 class="card-title text-uppercase text-dark">MUA SẮM TRỰC TUYẾN</h3>
                     </div>
                 </div>
             </div>
@@ -284,7 +274,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content ps-3">
-                        <h3 class="card-title text-uppercase text-dark">Special Packaging</h3>
+                        <h3 class="card-title text-uppercase text-dark">ĐÓNG GÓI ĐẶC BIỆT</h3>
                     </div>
                 </div>
             </div>
@@ -296,7 +286,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content ps-3">
-                        <h3 class="card-title text-uppercase text-dark">Return & refund policy</h3>
+                        <h3 class="card-title text-uppercase text-dark">CHÍNH SÁCH ĐỔI TRẢ & HOÀN TIỀN</h3>
                     </div>
                 </div>
             </div>
@@ -309,25 +299,20 @@
         <div class="row align-items-center justify-content-between g-5">
             <div class="col-lg-6">
                 <div class="image-holder mb-4 jarallax">
-                    <img src="images/single-image1.jpg" alt="single" class="img-fluid jarallax-img">
+                    <img src="./images/img_about.jfif" alt="single" class="img-fluid jarallax-img">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="detail p-5">
                     <div class="display-header">
-                        <h2 class="display-2 text-uppercase text-dark pb-2">About Us</h2>
-                        <p class="pb-3">Ac varius lectus tellus tellus quisque tristique aenean. Volutpat velit nulla eu
-                                        iaculis risus in urna. Eu morbi vel purus velit dui vel egestas purus sed. Eget
-                                        turpis tincidunt faucibus montes arcu in nullam tortor orci. Nulla tellus sed
-                                        purus vestibulum sagittis pretium donec nec mattis ollis porta sit ut.</p>
-                        <p>Facilisi ut vulputate volutpat a aliquet. Facilisis sed quis pretium amet hac. Justo
-                           tristique sagittis sodales viverra venenatis integer fringilla. </p>
-                        <a href="about-us.html" class="btn btn-medium btn-arrow outline-dark position-relative mt-3">
-                            <span class="text-uppercase">About us</span>
-                            <svg class="arrow-right position-absolute" width="18" height="20">
-                                <use xlink:href="#arrow-right"></use>
-                            </svg>
-                        </a>
+                        <h2 class="display-2 text-uppercase text-dark pb-2">GIỚI THIỆU VỀ CỬA HÀNG HASAGI</h2>
+                        <h4 class="pb-3">
+                            Chào mừng bạn đến với cửa hàng bán mỹ phẩm HASAGI. 
+                            Chúng tôi cung cấp các sản phẩm chăm sóc da chất lượng cao từ các thương hiệu uy tín nhất trên thị trường. 
+                            Chúng tôi cam kết mang đến cho khách hàng những sản phẩm chất lượng tốt nhất để giúp bạn có được làn da khỏe đẹp và tự tin hơn. 
+                            Ngoài ra, chúng tôi cũng cung cấp các dịch vụ tư vấn chuyên nghiệp để giúp bạn chọn lựa sản phẩm phù hợp nhất với nhu cầu của mình. 
+                            Hãy đến với cửa hàng của chúng tôi để trải nghiệm những sản phẩm chăm sóc da tốt nhất và được tư vấn bởi những chuyên gia hàng đầu trong ngành mỹ phẩm.
+                        </h4>                                       
                     </div>
                 </div>
             </div>
@@ -339,9 +324,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="display-header pb-3 d-flex justify-content-between flex-wrap col-md-12">
-                <h2 class="display-2 text-dark text-uppercase">Our Featured Products</h2>
+                <h2 class="display-2 text-dark text-uppercase">SẢN PHẨM NỔI BẬT</h2>
                 <a href="shop.html" class="btn btn-medium btn-arrow btn-normal position-relative">
-                    <span class="text-uppercase">Shop All</span>
+                    <span class="text-uppercase">TẤT CẢ SẢN PHẨM</span>
                     <svg class="arrow-right position-absolute" width="18" height="20">
                         <use xlink:href="#arrow-right"></use>
                     </svg>
@@ -352,10 +337,12 @@
             <div id="featured-swiper" class="product-swiper col-md-12">
                 <div class="swiper">
                     <div class="swiper-wrapper">
+
+
                         <div class="swiper-slide">
                             <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
                                 <div class="image-holder">
-                                    <img src="images/product-item1.jpg" alt="product-item"
+                                    <img src="./images/product1.png" alt="product-item"
                                          class="product-image img-fluid">
                                 </div>
                                 <div class="cart-concern">
@@ -364,33 +351,17 @@
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#"
-                                           data-after="ADD TO CART"><span>$69.000</span></a>
+                                           data-after="ADD TO CART"><span>67.000 <u>đ</u></span></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        
                         <div class="swiper-slide">
                             <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
                                 <div class="image-holder">
-                                    <img src="images/product-item2.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                </div>
-                                <div class="cart-concern">
-                                    <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">HATOMUGI</a>
-                                    </h3>
-                                    <div class="cart-info">
-                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$120.000</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
-                                <div class="image-holder">
-                                    <img src="images/product-item3.jpg" alt="product-item"
+                                    <img src="./images/product2.png" alt="product-item"
                                          class="product-image img-fluid">
                                 </div>
                                 <div class="cart-concern">
@@ -399,7 +370,7 @@
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$139.000 - $568.000</span>
+                                            <span>126.000 <u>đ</u></span>
                                         </a>
                                     </div>
                                 </div>
@@ -408,16 +379,16 @@
                         <div class="swiper-slide">
                             <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
                                 <div class="image-holder">
-                                    <img src="images/product-item4.jpg" alt="product-item"
+                                    <img src="images/product3.png" alt="product-item"
                                          class="product-image img-fluid">
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">HADA LABO</a>
+                                        <a href="single-product.html" class="text-primary">SIMPLE</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$93.000</span>
+                                            <span>95.000 <u>đ</u></span>
                                         </a>
                                     </div>
                                 </div>
@@ -426,16 +397,16 @@
                         <div class="swiper-slide">
                             <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
                                 <div class="image-holder">
-                                    <img src="images/product-item5.jpg" alt="product-item"
+                                    <img src="images/product4.jpg" alt="product-item"
                                          class="product-image img-fluid">
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">COSRX</a>
+                                        <a href="single-product.html" class="text-primary">3CE</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$139.000</span>
+                                            <span>373.000 <u>đ</u></span>
                                         </a>
                                     </div>
                                 </div>
@@ -444,16 +415,16 @@
                         <div class="swiper-slide">
                             <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
                                 <div class="image-holder">
-                                    <img src="images/product-item6.jpg" alt="product-item"
+                                    <img src="images/product5.png" alt="product-item"
                                          class="product-image img-fluid">
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">CERAVE</a>
+                                        <a href="single-product.html" class="text-primary">Cocoon</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$29 - $408.000</span>
+                                            <span>207.000 <u>đ</u></span>
                                         </a>
                                     </div>
                                 </div>
@@ -462,21 +433,41 @@
                         <div class="swiper-slide">
                             <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
                                 <div class="image-holder">
-                                    <img src="images/product-item6.jpg" alt="product-item"
+                                    <img src="images/product6.jpg" alt="product-item"
                                          class="product-image img-fluid">
                                 </div>
                                 <div class="cart-concern">
                                     <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html" class="text-primary">CERAVE</a>
+                                        <a href="single-product.html" class="text-primary">Vaseline</a>
                                     </h3>
                                     <div class="cart-info">
                                         <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$29 - $408.000</span>
+                                            <span>70.000 <u>đ</u></span>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="swiper-slide">
+                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
+                                <div class="image-holder">
+                                    <img src="images/product7.jpg" alt="product-item"
+                                         class="product-image img-fluid">
+                                </div>
+                                <div class="cart-concern">
+                                    <h3 class="card-title text-uppercase pt-3 text-primary">
+                                        <a href="single-product.html" class="text-primary">Klairs</a>
+                                    </h3>
+                                    <div class="cart-info">
+                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
+                                            <span>374.000 <u>đ</u></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="swiper-pagination text-center mt-5"></div>
@@ -504,27 +495,19 @@
                         <div class="swiper-slide text-center d-flex justify-content-center">
                             <div class="review-item col-md-10">
                                 <i class="icon icon-review"></i>
-                                <blockquote class="fs-4">âTempus oncu enim pellen tesque este pretium in neque, elit
-                                                         morbi sagittis lorem habi mattis Pellen tesque pretium feugiat
-                                                         vel morbi suspen dise sagittis lorem habi tasse morbi.â
-                                </blockquote>
-                                <div class="author-detail">
-                                    <div class="name text-primary text-uppercase pt-2">Hana Kimusaki</div>
-                                </div>
+                                <blockquote class="fs-4"><h2>Khám phá vẻ đẹp tự nhiên của bạn:</h2>
+                                    Chúng tôi cung cấp các sản phẩm chăm sóc da và trang điểm tự nhiên 
+                                    để giúp bạn giữ cho làn da của mình luôn khỏe mạnh và rạng rỡ.
+                                </blockquote>                               
                             </div>
                         </div>
                         <div class="swiper-slide text-center d-flex justify-content-center">
                             <div class="review-item col-md-10">
                                 <i class="icon icon-review"></i>
-                                <blockquote class="fs-4">âA blog is a digital publication that can complement a
-                                                         website
-                                                         or exist independently. A blog may include articles, short
-                                                         posts, listicles, infographics, videos, and other digital
-                                                         content.â
-                                </blockquote>
-                                <div class="author-detail">
-                                    <div class="name text-primary text-uppercase pt-2">Jennie Rose</div>
-                                </div>
+                                <blockquote class="fs-4"><h2>Chăm sóc da của bạn, chăm sóc cuộc sống của bạn:</h2>
+                                    Chúng tôi cung cấp các sản phẩm chăm sóc da và trang điểm chất lượng cao 
+                                    để giúp bạn giữ cho làn da của mình luôn khỏe mạnh và rạng rỡ.
+                                </blockquote>                               
                             </div>
                         </div>
                     </div>
@@ -540,135 +523,7 @@
     <div class="swiper-pagination text-center position-absolute"></div>
 </section>
 
-<section id="collections" class="position-relative padding-large">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="swiper collection-swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide overflow-hidden">
-                        <div class="product-card">
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a href="shop.html">Living Rooms</a>
-                                </h3>
-                            </div>
-                            <div class="image-overlay position-relative">
-                                <div class="product-image">
-                                    <img src="images/product-item5.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                    <div class="text-box box-slide position-absolute">
-                                        <div class="text-content p-5 bg-light">
-                                            <h3>About Room</h3>
-                                            <p>Assumenda temporibus quidem ipsam. fuga corporis iusto similique
-                                               voluptates sint quibusdam.</p>
-                                            <ul>
-                                                <li>Various Types of Bedroom</li>
-                                                <li>Different Size of Bed</li>
-                                                <li>Comfortable and Clean Room</li>
-                                            </ul>
-                                            <a href="#" class="btn btn-normal mt-3">Learn More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide overflow-hidden">
-                        <div class="product-card">
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a href="shop.html">Bed Rooms</a>
-                                </h3>
-                            </div>
-                            <div class="image-overlay position-relative">
-                                <div class="product-image">
-                                    <img src="images/product-item6.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-
-                                    <div class="text-box box-slide position-absolute">
-                                        <div class="text-content p-5 bg-light">
-                                            <h3>About Room</h3>
-                                            <p>Assumenda temporibus quidem ipsam. fuga corporis iusto similique
-                                               voluptates sint quibusdam.</p>
-                                            <ul>
-                                                <li>Various Types of Bedroom</li>
-                                                <li>Different Size of Bed</li>
-                                                <li>Comfortable and Clean Room</li>
-                                            </ul>
-                                            <a href="#" class="btn btn-normal mt-3">Learn More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-image -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide overflow-hidden">
-                        <div class="product-card">
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a href="shop.html">Kitchens</a>
-                                </h3>
-                            </div>
-                            <div class="image-overlay position-relative">
-                                <div class="product-image">
-                                    <img src="images/product-item7.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-
-                                    <div class="text-box box-slide position-absolute">
-                                        <div class="text-content p-5 bg-light">
-                                            <h3>About Kitchen</h3>
-                                            <p>Assumenda temporibus quidem ipsam. fuga corporis iusto similique
-                                               voluptates sint quibusdam.</p>
-                                            <ul>
-                                                <li>Various Types of Bedroom</li>
-                                                <li>Different Size of Bed</li>
-                                                <li>Comfortable and Clean Room</li>
-                                            </ul>
-                                            <a href="#" class="btn btn-normal mt-3">Learn More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-image -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide overflow-hidden">
-                        <div class="product-card">
-                            <div class="card-detail d-flex justify-content-between align-items-baseline pt-3">
-                                <h3 class="card-title text-uppercase">
-                                    <a href="shop.html">Guest Rooms</a>
-                                </h3>
-                            </div>
-                            <div class="image-overlay position-relative">
-                                <div class="product-image">
-                                    <img src="images/product-item8.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-
-                                    <div class="text-box box-slide position-absolute">
-                                        <div class="text-content p-5 bg-light">
-                                            <h3>About Kitchen</h3>
-                                            <p>Assumenda temporibus quidem ipsam. fuga corporis iusto similique
-                                               voluptates sint quibusdam.</p>
-                                            <ul>
-                                                <li>Various Types of Bedroom</li>
-                                                <li>Different Size of Bed</li>
-                                                <li>Comfortable and Clean Room</li>
-                                            </ul>
-                                            <a href="#" class="btn btn-normal mt-3">Learn More</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-image -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="swiper-pagination position-absolute text-center"></div>
-</section>
+<hr>
 
 <section class="subscribe">
     <div class="container">
@@ -676,12 +531,12 @@
             <div class="col-lg-8">
                 <div class="subscribe-content padding-large">
                     <div class="subscribe-header">
-                        <h2 class="display-4">Get offers & discounts by subscribing us</h2>
+                        <h2 class="display-4">Đăng ký để nhận ưu đãi & giảm giá</h2>
                     </div>
                     <form id="form">
-                        <input type="text" name="email" placeholder="Enter Your Email Addresss"
+                        <input type="text" name="email" placeholder="hoten@gmail.com"
                                class="w-100 bg-light border-0 ps-5 fst-italic">
-                        <button class="btn btn-full btn-black text-uppercase">Subscribe Now</button>
+                        <button class="btn btn-full btn-black text-uppercase">ĐĂNG</button>
                     </form>
                 </div>
             </div>
@@ -689,220 +544,8 @@
     </div>
 </section>
 
-<section id="trending-products" class="product-store padding-large">
-    <div class="container-fluid">
-        <div class="row overflow-hidden">
-            <div class="display-header pb-3 d-flex justify-content-between col-md-12">
-                <h4 class="display-2 text-dark ">Outstanding products</h4>
-                <a href="shop.html" class="btn btn-medium btn-arrow btn-normal position-relative">
-                    <span class="text-uppercase">Shop all</span>
-                    <svg class="arrow-right position-absolute" width="18" height="20">
-                        <use xlink:href="#arrow-right"></use>
-                    </svg>
-                </a>
-            </div>
-            <div id="trending-swiper" class="product-swiper col-md-12">
-                <div class="swiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
-                                <div class="image-holder">
-                                    <img src="images/product-item1.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                </div>
-                                <div class="cart-concern">
-                                    <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html">Black Sofa Set</a>
-                                    </h3>
-                                    <div class="cart-info">
-                                        <a class="pseudo-text-effect" href="#"
-                                           data-after="ADD TO CART"><span>$200</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
-                                <div class="image-holder">
-                                    <img src="images/product-item2.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                </div>
-                                <div class="cart-concern">
-                                    <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html">Circle Dining Table</a>
-                                    </h3>
-                                    <div class="cart-info">
-                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
-                                <div class="image-holder">
-                                    <img src="images/product-item3.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                </div>
-                                <div class="cart-concern">
-                                    <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html">Minimal Sofa</a>
-                                    </h3>
-                                    <div class="cart-info">
-                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
-                                <div class="image-holder">
-                                    <img src="images/product-item4.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                </div>
-                                <div class="cart-concern">
-                                    <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html">Pattern Tea Table</a>
-                                    </h3>
-                                    <div class="cart-info">
-                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
-                                <div class="image-holder">
-                                    <img src="images/product-item5.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                </div>
-                                <div class="cart-concern">
-                                    <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html">Black Sofa Set</a>
-                                    </h3>
-                                    <div class="cart-info">
-                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="product-card image-zoom-effect link-effect d-flex flex-wrap">
-                                <div class="image-holder">
-                                    <img src="images/product-item6.jpg" alt="product-item"
-                                         class="product-image img-fluid">
-                                </div>
-                                <div class="cart-concern">
-                                    <h3 class="card-title text-uppercase pt-3 text-primary">
-                                        <a href="single-product.html">Minimal Sofa</a>
-                                    </h3>
-                                    <div class="cart-info">
-                                        <a class="pseudo-text-effect" href="#" data-after="ADD TO CART">
-                                            <span>$200</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-pagination text-center mt-5"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section id="latest-blog">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="display-header d-flex flex-wrap justify-content-between pb-3">
-                    <h2 class="display-2 text-dark text-uppercase">Read Our Articles</h2>
-                    <a href="blog.html" class="btn btn-medium btn-arrow btn-normal position-relative">
-                        <span class="text-uppercase">See all articles</span>
-                        <svg class="arrow-right position-absolute" width="18" height="20">
-                            <use xlink:href="#arrow-right"></use>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="row g-3 post-grid">
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-                <div class="card-item">
-                    <div class="card border-0 bg-transparent">
-                        <div class="card-image">
-                            <img src="images/post-item1.jpg" alt="" class="post-image img-fluid">
-                        </div>
-                    </div>
-                    <div class="card-body p-0 mt-4">
-                        <h3 class="card-title text-uppercase">
-                            <a href="single-post.html">Best looking interior things for bedrooms</a>
-                        </h3>
-                        <p>Enim ut nunc, ultrices mauris felis viverra amet. Ante sed dictum nisi suscipit ac ut
-                           faucibus pretium interdum.</p>
-                        <a href="single-post.html" class="btn btn-normal text-uppercase p-0"><em>Read More</em></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-                <div class="card-item">
-                    <div class="card border-0">
-                        <div class="card-image">
-                            <img src="images/post-item2.jpg" alt="" class="post-image img-fluid">
-                        </div>
-                    </div>
-                    <div class="card-body p-0 mt-4">
-                        <h3 class="card-title text-uppercase">
-                            <a href="single-post.html">Trending modern furniture design in 2022</a>
-                        </h3>
-                        <p>Enim ut nunc, ultrices mauris felis viverra amet. Ante sed dictum nisi suscipit ac ut
-                           faucibus pretium interdum.</p>
-                        <a href="single-post.html" class="btn btn-normal text-uppercase p-0"><em>Read More</em></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-                <div class="card-item">
-                    <div class="card border-0">
-                        <div class="card-image">
-                            <img src="images/post-item3.jpg" alt="" class="post-image img-fluid">
-                        </div>
-                    </div>
-                    <div class="card-body p-0 mt-4">
-                        <h3 class="card-title text-uppercase">
-                            <a href="single-post.html">Why is simple firniture design looks fabulous</a>
-                        </h3>
-                        <p>Enim ut nunc, ultrices mauris felis viverra amet. Ante sed dictum nisi suscipit ac ut
-                           faucibus pretium interdum.</p>
-                        <a href="single-post.html" class="btn btn-normal text-uppercase p-0"><em>Read More</em></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="brand-collection" class="padding-small border-top border-bottom overflow-hidden margin-large mb-0">
-    <div class="container">
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-            <a href="#"><img src="images/brand-logo-1.svg" alt="brand"></a>
-            <a href="#"><img src="images/brand-logo-2.svg" alt="brand"></a>
-            <a href="#"><img src="images/brand-logo-3.svg" alt="brand"></a>
-            <a href="#"><img src="images/brand-logo-4.svg" alt="brand"></a>
-            <a href="#"><img src="images/brand-logo-5.svg" alt="brand"></a>
-        </div>
-    </div>
-</section>
-
-<footer id="footer" class="overflow-hidden padding-large">
+<footer id="footer" class="overflow-hidden padding-large" style="background-color: #DCDCDC;">
     <div class="container-fluid">
         <div class="row">
             <div class="row d-flex flex-wrap justify-content-between">
