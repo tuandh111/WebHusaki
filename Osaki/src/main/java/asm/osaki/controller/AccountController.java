@@ -21,15 +21,15 @@ public class AccountController {
     public String login(HttpServletRequest request, HttpSession session) {
         String code = request.getParameter("code");
 
-        //Login Facebook
-//        if (code != null) {
-//            String accessToken = RestFB.getToken(code);
-//            User user = RestFB.getUserInfo(accessToken);
-//            request.setAttribute("u", user);
-//            session.setAttribute("loggedInUser", user);
-//            return "redirect:/login/index";
-//        }
-        //Login Google
+        // Login Facebook
+        // if (code != null) {
+        // String accessToken = RestFB.getToken(code);
+        // User user = RestFB.getUserInfo(accessToken);
+        // request.setAttribute("u", user);
+        // session.setAttribute("loggedInUser", user);
+        // return "redirect:/login/index";
+        // }
+        // Login Google
         if (code != null) {
             String accessToken = RestGG.getToken(code);
             UserGoogleDto user = RestGG.getUserInfo(accessToken);
@@ -41,9 +41,9 @@ public class AccountController {
 
     @GetMapping("/login/index")
     public String index(Model model, HttpServletRequest request, HttpSession session) {
-        //Login Facebook
-        //User loggedInUser = (User) session.getAttribute("loggedInUser");
-        //Login Google
+        // Login Facebook
+        // User loggedInUser = (User) session.getAttribute("loggedInUser");
+        // Login Google
         UserGoogleDto loggedInUser = (UserGoogleDto) session.getAttribute("loggedInUser");
         System.out.println("loggedInUser" + loggedInUser);
         if (loggedInUser != null) {

@@ -94,7 +94,7 @@
             </svg>
         </div>
         <form id="search-form" class="text-center pt-3" action="" method="post">
-            <input type="text" id="search-input" class="search-input fs-5 p-4 bg-transparent" placeholder="Search...">
+            <input type="text" id="search-input" class="search-input fs-5 p-4 bg-transparent" placeholder="Tìm kiếm">
             <svg id="search-icon" class="search" width="22" height="22">
                 <use xlink:href="#search"></use>
             </svg>
@@ -130,14 +130,14 @@
                     <ul id="navbar"
                         class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
                         <li class="nav-item dropdown">
-                            <a class="nav-link me-4" href="/home">Home Tuấn</a>
+                            <a class="nav-link me-4" href="/home">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#about-us">Product</a>
+                            <a class="nav-link me-4" href="#about-us">Sản phẩm</a>
                         </li>
                         <li class="nav-item dropdown me-4">
                             <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Promotion</a>
+                               aria-haspopup="true" aria-expanded="false">Khuyến mại</a>
                             <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
                                 <li>
                                     <a href="shop-sidebar.html" class="dropdown-item item-anchor">Shop Sidebar <span
@@ -150,10 +150,10 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown me-4">
-                            <a class="nav-link " href="#">Contact</a>
+                            <a class="nav-link " href="#">Liên hệ</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="#">Feedback</a>
+                            <a class="nav-link" href="#">Góp ý</a>
                         </li>
                         <li class="nav-item">
                             <div class="user-items ps-5">
@@ -198,13 +198,13 @@
                             <div class="banner-item"
                                  style="background-image: url(images/banner-image1.jpg); background-repeat: no-repeat; background-position: right; height: 682px;">
                                 <div class="banner-content padding-large">
-                                    <h1 class="display-1 text-uppercase text-dark pb-2">Face wash</h1>
-                                    <p> Simple Refreshing facial cleanser is gentle and clean - for sensitive skin
-                                        containing X2 Vitamin B5*,
-                                        Vitamin E and Pro Amino Acids to help clean the skin effectively, removing
-                                        sebum, dirt and other impurities and Does not cause irritation,
-                                        makes the skin soft and smooth, while bringing a fresh and clean feeling to the
-                                        skin.</p>
+                                    <h1 class="display-1 text-uppercase text-dark pb-2">Sữa rửa mặt</h1>
+                                    <p> Sữa rửa mặt Simple Refreshing nhẹ nhàng và sạch sẽ - dành cho da nhạy cảm
+                                        chứa X2 Vitamin B5*,
+                                        Vitamin E và Pro Amino Acids giúp làm sạch da hiệu quả, loại bỏ
+                                        bã nhờn, bụi bẩn và các tạp chất khác và không gây kích ứng,
+                                        làm cho làn da mềm mại và mịn màng, đồng thời mang lại cảm giác tươi mát và sạch sẽ cho làn da.
+                                        da.</p>
                                     <a href="shop.html" class="btn btn-medium btn-arrow position-relative mt-5">
                                         <span class="text-uppercase">Shop Now</span>
                                         <svg class="arrow-right position-absolute" width="18" height="20">

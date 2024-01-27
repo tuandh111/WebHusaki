@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-OsakiApplication<Osaki>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "asm.osaki.OsakiApplication",
+            "projectName": "Osaki",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

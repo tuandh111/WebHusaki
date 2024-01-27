@@ -64,8 +64,8 @@ CSS STRUCTURE:
 
 /* Fonts */
 :root {
-    --body-font: "Poppins", sans-serif;
-    --heading-font: "Cinzel", sans-serif;
+    --body-font: "Times New Roman", serif;
+    --heading-font: "Times New Roman", serif;
 }
 
 /*----------------------------------------------*/
