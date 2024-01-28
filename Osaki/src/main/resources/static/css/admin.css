@@ -1,0 +1,15 @@
+.admin-menu{
+	background-color: gray;
+	height: 100vh;
+}
+
+.admin-menu-accordion{
+	width: 100%;
+}
+
+
+
+.admin-content{
+	background-color: silver;
+	height: 100vh;
+}
