@@ -16,17 +16,28 @@ import java.util.List;
 @Table
 public class Invoice {
     @Id
-    private String Invoice;
+    private String invoiceID;
+
+    @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
     private Date createAt = new Date();
+
     @Temporal(TemporalType.DATE)
     @Column(name = "deleteAt")
     private Date deleteAt;
+
+    @Column
     private Boolean isDelete;
+
     @Nationalized
     private String note;
+
+    @Column
     private String status;
+
+    @Column
     private double totalAmount;
+
     @ManyToOne
     @JoinColumn(name = "invoices")
     private UserCustom userID;

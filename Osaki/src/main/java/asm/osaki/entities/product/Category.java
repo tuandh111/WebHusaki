@@ -18,14 +18,17 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryID;
 
+    @Column
     private String categoryName;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
     private Date createAt = new Date();
+
     @Temporal(TemporalType.DATE)
     @Column(name = "deleteAt")
     private Date deleteAt;
+
     private Boolean isDelete;
 
     @OneToMany(mappedBy = "categoryID")

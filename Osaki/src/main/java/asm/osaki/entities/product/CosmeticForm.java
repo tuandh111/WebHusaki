@@ -18,14 +18,18 @@ public class CosmeticForm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryID;
 
+    @Column
     private String cosmeticFormName;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
     private Date createAt = new Date();
+
     @Temporal(TemporalType.DATE)
     @Column(name = "deleteAt")
     private Date deleteAt;
+
+    @Column
     private Boolean isDelete;
 
     @OneToMany(mappedBy = "cosmeticFormID")

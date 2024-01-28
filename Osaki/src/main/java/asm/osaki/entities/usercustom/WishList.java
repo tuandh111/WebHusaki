@@ -17,11 +17,16 @@ public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
+
+    @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
     private Date createAt = new Date();
+
     @Temporal(TemporalType.DATE)
     @Column(name = "deleteAt")
     private Date deleteAt;
+
+    @Column
     private Boolean isDelete;
 
     @ManyToOne

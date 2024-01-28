@@ -15,12 +15,18 @@ import java.util.Date;
 public class Address {
     @Id
     private String phoneID;
+
+    @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
     private Date createAt = new Date();
+
     @Temporal(TemporalType.DATE)
     @Column(name = "deleteAt")
     private Date deleteAt;
+
+    @Column
     private Boolean isDelete;
+
     @ManyToOne
     @JoinColumn(name = "addresses")
     private UserCustom userID;

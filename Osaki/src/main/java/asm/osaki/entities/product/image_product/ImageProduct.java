@@ -18,15 +18,20 @@ public class ImageProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int imageID;
 
+    @Column
     private String imageName;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
     private Date createAt = new Date();
+
     @Temporal(TemporalType.DATE)
     @Column(name = "deleteAt")
     private Date deleteAt;
+
+    @Column
     private Boolean isDelete;
+
     @ManyToOne
     @JoinColumn(name = "productImages")
     private Product productID;
