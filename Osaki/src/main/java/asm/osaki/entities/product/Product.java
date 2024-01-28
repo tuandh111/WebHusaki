@@ -1,11 +1,10 @@
 package asm.osaki.entities.product;
 
 import asm.osaki.entities.product.image_product.ImageProduct;
-import asm.osaki.entities.usercustom.Comment;
-import asm.osaki.entities.usercustom.InvoiceDetail;
-import asm.osaki.entities.usercustom.UserCustom;
-import asm.osaki.entities.usercustom.WishList;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import asm.osaki.entities.user.Comment;
+import asm.osaki.entities.user.InvoiceDetail;
+import asm.osaki.entities.user.UserCustom;
+import asm.osaki.entities.user.WishList;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;

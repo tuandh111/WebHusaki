@@ -1,25 +1,22 @@
-package asm.osaki.entities.usercustom.images_comment;
+package asm.osaki.entities.user;
 
-import asm.osaki.entities.usercustom.Comment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Data
 @Table
-public class ImageComment {
+public class Invoice {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column
-    private String imageName;
+    private String invoiceID;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -29,9 +26,24 @@ public class ImageComment {
     @Column(name = "deleteAt")
     private Date deleteAt;
 
+    @Column
     private Boolean isDelete;
 
+    @Nationalized
+    private String note;
+
+    @Column
+    private String status;
+
+    @Column
+    private double totalAmount;
+
     @ManyToOne
-    @JoinColumn(name = "images")
-    private Comment commentID;
+    @JoinColumn(name = "invoices")
+    private UserCustom userID;
+
+    @OneToMany(mappedBy = "invoiceID")
+    private List<InvoiceDetail> invoiceDetails;
+
+
 }

@@ -1,6 +1,5 @@
-package asm.osaki.entities.usercustom;
+package asm.osaki.entities.user;
 
-import asm.osaki.entities.usercustom.UserCustom;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,13 +12,9 @@ import java.util.Date;
 @Entity
 @Data
 @Table
-public class Voucher {
+public class CardVNPay {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column
-    private String discount;
+    private String id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -32,8 +27,21 @@ public class Voucher {
     @Column
     private Boolean isDelete;
 
+    @Column
+    private double amount;
+
+    @Column
+    private String productCard;
+
+    @Column
+    private String backCode;
+
     @ManyToOne
-    @JoinColumn(name = "vouchers")
+    @JoinColumn(name = "cardVNPays")
     private UserCustom userID;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "invoiceID")
+    private Invoice invoiceID;
 
 }

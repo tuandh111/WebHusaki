@@ -1,4 +1,4 @@
-package asm.osaki.entities.usercustom;
+package asm.osaki.entities.user;
 
 import java.util.Date;
 import java.util.List;

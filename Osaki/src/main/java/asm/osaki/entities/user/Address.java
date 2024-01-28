@@ -1,22 +1,20 @@
-package asm.osaki.entities.usercustom;
+package asm.osaki.entities.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Nationalized;
 
 import java.util.Date;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Data
 @Table
-public class Invoice {
+public class Address {
     @Id
-    private String invoiceID;
+    private String phoneID;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -29,21 +27,7 @@ public class Invoice {
     @Column
     private Boolean isDelete;
 
-    @Nationalized
-    private String note;
-
-    @Column
-    private String status;
-
-    @Column
-    private double totalAmount;
-
     @ManyToOne
-    @JoinColumn(name = "invoices")
+    @JoinColumn(name = "addresses")
     private UserCustom userID;
-
-    @OneToMany(mappedBy = "invoiceID")
-    private List<InvoiceDetail> invoiceDetails;
-
-
 }

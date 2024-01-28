@@ -1,4 +1,4 @@
-package asm.osaki.entities.usercustom;
+package asm.osaki.entities.user;
 
 import asm.osaki.entities.product.Product;
 import jakarta.persistence.*;
@@ -13,10 +13,16 @@ import java.util.Date;
 @Entity
 @Data
 @Table
-public class WishList {
+public class InvoiceDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
+    private int id;
+
+    @Column
+    private double price;
+
+    @Column
+    private double quantity;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -30,11 +36,11 @@ public class WishList {
     private Boolean isDelete;
 
     @ManyToOne
-    @JoinColumn(name = "userCustom_id")
-    private UserCustom userID;
-
+    @JoinColumn(name = "invoice_id")
+    private Invoice invoiceID;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product productID;
+
 }

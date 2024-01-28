@@ -1,4 +1,4 @@
-package asm.osaki.entities.usercustom;
+package asm.osaki.entities.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,9 +12,13 @@ import java.util.Date;
 @Entity
 @Data
 @Table
-public class Address {
+public class Voucher {
     @Id
-    private String phoneID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column
+    private String discount;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -28,6 +32,7 @@ public class Address {
     private Boolean isDelete;
 
     @ManyToOne
-    @JoinColumn(name = "addresses")
+    @JoinColumn(name = "vouchers")
     private UserCustom userID;
+
 }

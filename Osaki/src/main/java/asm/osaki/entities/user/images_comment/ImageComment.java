@@ -1,5 +1,6 @@
-package asm.osaki.entities.usercustom;
+package asm.osaki.entities.user.images_comment;
 
+import asm.osaki.entities.user.Comment;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +13,13 @@ import java.util.Date;
 @Entity
 @Data
 @Table
-public class CardVNPay {
+public class ImageComment {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column
+    private String imageName;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -24,24 +29,9 @@ public class CardVNPay {
     @Column(name = "deleteAt")
     private Date deleteAt;
 
-    @Column
     private Boolean isDelete;
 
-    @Column
-    private double amount;
-
-    @Column
-    private String productCard;
-
-    @Column
-    private String backCode;
-
     @ManyToOne
-    @JoinColumn(name = "cardVNPays")
-    private UserCustom userID;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "invoiceID")
-    private Invoice invoiceID;
-
+    @JoinColumn(name = "images")
+    private Comment commentID;
 }

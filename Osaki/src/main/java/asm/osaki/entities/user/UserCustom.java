@@ -1,4 +1,4 @@
-package asm.osaki.entities.usercustom;
+package asm.osaki.entities.user;
 
 
 import asm.osaki.entities.product.Product;
