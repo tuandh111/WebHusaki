@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Lab 5 Bài 2</title>
+<title>HASAGI WEBSITE MANAGER</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -20,12 +20,12 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<h3>CATEGORY MANAGEMENT</h3>
+		<h3>Đặt Banner quảng cáo sản phẩm ở đây</h3>
 		<div class="row">
-			<div class="col-2 admin-menu">
+			<div class="col-2 admin-menu p-3">
 				<jsp:include page="_menu.jsp" />
 			</div>
-			<div class="col-10 admin-content">
+			<div class="col-10 admin-content p-3">
 				
 				<jsp:include page="${content}" />
 				<!-- <jsp:include page="_content.jsp" /> -->

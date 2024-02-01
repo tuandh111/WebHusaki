@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<h1>HASAGI</h3>
 <ul class="nav flex-column bd-links">
 	<li class="nav-item">
 	    <button class="btn d-inline-flex align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse">
