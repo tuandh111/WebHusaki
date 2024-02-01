@@ -31,14 +31,13 @@
 	       </div>
 	       <div class="col-8 d-flex justify-content-end">
 	             <!-- <jsp:include page="__navigation-button.jsp" /> -->
-	             
-	            <span class="me-2">135 items ${totalElement}</span>
-				<button class="me-2">First</button>
-				<button class="me-2">Prev</button>
-				<input class="me-2" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 10%;">
-				<span class="me-2">of 5 ${totalPage}</span>
-				<button class="me-2">Next</button>
-				<button class="me-2">Last</button>            
+	            <input class="form-control me-2" value="135 items ${totalElement}" style="max-width: 20%;background-color: #c5c6b9;" disabled="disabled">
+                <button class="btn btn-outline-secondary me-2">First</button>
+                <button class="btn btn-outline-secondary me-2">Prev</button>
+                <input class="form-control" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 10%;background-color: #c5c6b9;">
+                <input class="form-control me-2" value="of 5 ${totalPage}" style="max-width: 10%; background-color: #c5c6b9;" disabled="disabled">
+                <button class="btn btn-outline-secondary me-2">Next</button>
+                <button class="btn btn-outline-secondary me-2">Last</button>         
            </div>	         
 	   </div>
 	   <div class="row">
