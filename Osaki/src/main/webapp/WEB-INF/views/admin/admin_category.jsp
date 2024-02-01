@@ -23,11 +23,10 @@
 		<h3>Đặt Banner quảng cáo sản phẩm ở đây</h3>
 		<div class="row">
 			<div class="col-2 admin-menu p-3">
-				<jsp:include page="_menu3.jsp" />
+				<jsp:include page="_menu.jsp" />
 			</div>
-			<div class="col-10 admin-content p-3">
-				
-				 <jsp:include page="${content}" />
+			<div class="col-10 admin-content p-3">				
+				 <jsp:include page="_content-category.jsp" />
 				
 			</div>
 		</div>		
