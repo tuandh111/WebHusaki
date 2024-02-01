@@ -56,7 +56,7 @@ public class AdminController {
 	
 	@GetMapping
 	public String getHome(Model model) {
-		model.addAttribute("content","_content.jsp");
+		model.addAttribute("content","_dashboard.jsp");
 		return "admin/admin";
 	}
 	
