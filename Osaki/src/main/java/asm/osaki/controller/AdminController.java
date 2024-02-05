@@ -14,97 +14,58 @@ import jakarta.servlet.http.HttpSession;
 
 
 @Controller
-
 @RequestMapping("admin")
 public class AdminController {
 	
-	@Autowired
-	private SessionService session;
-
-//	@GetMapping
-//	public String getHome(Model model) {
-//	    String content = session.get("content","_content.jsp");
-//	    if (content != null) {
-//	        model.addAttribute("content", content);
-//	        session.remove("content");
-//	    } else {
-//	        model.addAttribute("content", "_content.jsp");
-//	    }
-//	    return "admin/admin";
-//	}
-//	
-//
-//	@GetMapping("account-manager")
-//	public String accountManager() {
-//		session.set("content", "_content-account.jsp");
-//	    return "redirect:/admin";
-//	}
-//	
-//	@GetMapping("category-manager")
-//	public String categoryManager() {
-//		session.set("content", "_content-category.jsp");
-//	    return "redirect:/admin";
-//	}
-//	
-//	@GetMapping("product-manager")
-//	public String productManager() {
-//		session.set("content", "_content-product.jsp");
-//		return "redirect:/admin";
-//	}
-	
-	
-	
 	@GetMapping
-	public String getHome(Model model) {
-		model.addAttribute("content","_dashboard.jsp");
+	public String getHome(@RequestParam(name = "content", required = false) String content,Model model) {
+		 if (content != null && !content.isEmpty()) {
+		        model.addAttribute("content", content);
+		    } else {		        
+		        model.addAttribute("content", "_dashboard.jsp");
+		    }
+		 
 		return "admin/admin";
 	}
 	
 	@GetMapping("account-manager")
-	public String accountManager(Model model) {
-		model.addAttribute("content","_content-account.jsp");
-		return "admin/admin";
+	public String accountManager(Model model) {	
+		return "redirect:/admin?content=_content-account.jsp";
 	}
 	
 	@GetMapping("category-manager")
 	public String categoryManager(Model model) {
-		model.addAttribute("content","_content-category.jsp");
-		return "admin/admin";
+		return "redirect:/admin?content=_content-category.jsp";
 	}
 	
 	@GetMapping("product-manager")
 	public String productManager(Model model,RedirectAttributes redirectAttributes) {
-		model.addAttribute("content","_content-product.jsp");
-		return "admin/admin";
+		return "redirect:/admin?content=_content-product.jsp";
 	}
 	
 	@GetMapping("revenue-statistics")
-	public String revenueStatistics(Model model) {
-		model.addAttribute("content","_content-revenue-statistics.jsp");
-		return "admin/admin";
+	public String revenueStatistics(Model model) {	
+		return "redirect:/admin?content=_content-revenue-statistics.jsp";
 	}
 	
 	@GetMapping("product-statistics")
 	public String productStatistics(Model model) {
-		model.addAttribute("content","_content-product-statistics.jsp");
-		return "admin/admin";
+		return "redirect:/admin?content=_content-product-statistics.jsp";
 	}
 	
 	@GetMapping("account-statistics")
 	public String accountStatistics(Model model) {
-		model.addAttribute("content","_content-account-statistics.jsp");
-		return "admin/admin";
+		return "redirect:/admin?content=_content-account-statistics.jsp";
 	}
 	
 	@GetMapping("category-statistics")
 	public String categoryStatistics(Model model) {
-		model.addAttribute("content","_content-category-statistics.jsp");
-		return "admin/admin";
+		return "redirect:/admin?content=_content-category-statistics.jsp";
 	}
 	
 	@GetMapping("add-or-edit-product")
-	public String addOrEditProduct(Model model) {
-		model.addAttribute("content","__form-control-product.jsp");
-		return "admin/admin";
+	public String addOrEditProduct(@RequestParam(name = "action") String action, Model model) {
+		model.addAttribute("action", action);
+		return "redirect:/admin?content=__form-control-product.jsp&action="+action;
 	}
 }

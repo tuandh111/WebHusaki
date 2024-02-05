@@ -64,8 +64,8 @@
                             <td>Cái Răng, Cần Thơ</td>
                             <td>5</td>
                             <td>
-                                <a href="#" class="stretched-link">Edit</a> |
-                                <a href="#" class="stretched-link text-danger">Delete</a>
+                                <a href="#">Edit</a> |
+                                <a href="#" class="text-danger">Delete</a>
                             </td>
                         </tr>                  
                    </tbody>

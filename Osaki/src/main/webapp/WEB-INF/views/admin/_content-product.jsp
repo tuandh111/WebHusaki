@@ -3,7 +3,7 @@
 <div class="row mb-3">
       <div class="d-flex flex-row">
         <h4 class="me-2">Product</h4>
-        <a href="/admin/add-or-edit-product" class="btn btn-outline-primary">Add new product</a>
+        <a href="/admin/add-or-edit-product?action=add" class="btn btn-outline-primary">Add new product</a>
       </div>
 </div>
 <div class="row">
@@ -30,31 +30,54 @@
                <table class="table table-hover">
                    <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>In Stock</th>
-                            <th>Active</th>
-                            <th>Category</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Tồn kho</th>
+                            <th>Trang thái</th>
+                            <th>Danh mục</th>
                             <th></th> 
                         </tr>
                    </thead>
                    <tbody>   
                         <!-- Vòng lặp c:forEach -->                
                         <tr>
-                            <td>1</td>
+                            <td>12213457</td>
                             <td>
-                                <img src="/images/product-item1.jpg" class="img-thumbnail" alt="Ảnh đại diện" style="width: 50px;height: 50px">
+                                <div class="d-flex">
+                                    <img src="/images/product-item1.jpg" class="img-thumbnail me-3" alt="Ảnh đại diện" style="width: 50px;height: 50px">
+	                                <div class="row">
+	                                    <div class="col-4">
+	                                        <i class="bi bi-bag"></i>
+	                                        <span>100</span>                                       
+	                                    </div>
+	                                    <div class="col-4">
+	                                        <i class="bi bi-balloon-heart-fill"></i>
+	                                        <span>100</span>                                       
+	                                    </div>
+	                                    <div class="col-4">
+	                                        <i class="bi bi-eye"></i>
+	                                        <span>100</span>                                       
+	                                    </div>
+	                                </div>
+                                </div>                                   
                             </td>
                             <td>Sữa rửa mặt Vichy</td>
-                            <td>215.000 đ</td>
-                            <td>3</td>
+                            <td>
+                                <input name="price" value="${item.price}"
+                                        onblur="this.form.submit()" style="width:50px;">
+                            </td>
+                            <td>
+                                <input name="qty" value="${item.qty}"
+                                        onblur="this.form.submit()" style="width:50px;">
+                            </td>
                             <td>Đang hoạt động</td>
                             <td>Sữa rửa mặt</td>
                             <td>
-                                <a href="#" class="stretched-link">Edit</a> |
-                                <a href="#" class="stretched-link text-danger">Delete</a>
+                                <a href="/admin/add-or-edit-product?action=edit" class="btn btn-outline-primary">Edit</a>
+                                |
+                                <a href="#" class="btn btn-outline-danger">Delete</a>
                             </td>
                         </tr>                  
                    </tbody>

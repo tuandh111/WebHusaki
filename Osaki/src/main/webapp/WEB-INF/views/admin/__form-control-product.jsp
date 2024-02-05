@@ -2,5 +2,5 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-
-<h3>Form thêm sửa sản phẩm</h3>
+<c:set var="action" value="${param.action}" />
+<h3>Form ${action} sản phẩm</h3>
