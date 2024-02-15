@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<div class="row mb-4">
+<div class="row mb-4 p-5">
 	<h2>Categories</h2>
 </div>
 
-<div class="row">
+<div class="row p-5">
 	<div class="col-4">
 		<h5>Add New Category</h5>
 		<form action="">
@@ -31,11 +31,11 @@
 	       </div>
 	       <div class="col-8 d-flex justify-content-end">
 	             <!-- <jsp:include page="__navigation-button.jsp" /> -->
-	            <input class="form-control me-2" value="135 items ${totalElement}" style="max-width: 20%;background-color: #c5c6b9;" disabled="disabled">
+	            <input class="form-control me-2" value="135 items ${totalElement}" style="max-width: 20%;background-color: #b7a888;" disabled="disabled">
                 <button class="btn btn-outline-secondary me-2">First</button>
                 <button class="btn btn-outline-secondary me-2">Prev</button>
-                <input class="form-control" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 10%;background-color: #c5c6b9;">
-                <input class="form-control me-2" value="of 5 ${totalPage}" style="max-width: 10%; background-color: #c5c6b9;" disabled="disabled">
+                <input class="form-control" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 10%;background-color: #b7a888;">
+                <input class="form-control me-2" value="of ${totalPage}" style="max-width: 10%; background-color: #b7a888;" disabled="disabled">
                 <button class="btn btn-outline-secondary me-2">Next</button>
                 <button class="btn btn-outline-secondary me-2">Last</button>         
            </div>	         

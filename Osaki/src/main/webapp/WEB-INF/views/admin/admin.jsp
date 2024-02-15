@@ -19,25 +19,12 @@
 <link rel="stylesheet" type="text/css" href="/css/admin.css" />
 </head>
 <body>
-<!-- 
-<div class="container-fluid">
-        <h3>Đặt Banner quảng cáo sản phẩm ở đây</h3>
-        <div class="row">
-            <div class="col-2 admin-menu p-3">
-                <jsp:include page="_menu5.jsp" />
-            </div>
-            <div class="col-10 admin-content p-3">
-                
-                 <jsp:include page="${content}" />
-                
-            </div>
-        </div>      
-    </div>
- -->
+
  <div class="container-fluid">
     <jsp:include page="_menu5.jsp" />
+   
     <div class="main">
-         <jsp:include page="_dashboard3.jsp" />
+        <jsp:include page="${content}" />
     </div>
  </div>
  
@@ -48,6 +35,8 @@
 		crossorigin="anonymous"></script>
 	<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="/js/chart-admin.js"></script>
 	<script>
 	   //menu toggle
 	   let toggle = document.querySelector('.toggle');
@@ -70,6 +59,7 @@
        list.forEach(
                (item) => item.addEventListener('mouseover',activeLink)
        )
+       
     </script>
 </body>
 </html>

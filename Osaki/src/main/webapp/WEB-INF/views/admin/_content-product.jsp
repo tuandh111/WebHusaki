@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="row mb-3">
+<div class="row mb-3 p-5">
       <div class="d-flex flex-row">
         <h4 class="me-2">Product</h4>
         <a href="/admin/add-or-edit-product?action=add" class="btn btn-outline-primary">Add new product</a>
       </div>
 </div>
-<div class="row">
+<div class="row p-5">
     <div class="filer-category d-flex flex-row mb-3">
         <select class="form-select me-2" style="max-width: 30%;">
 		  <option selected>All Categories</option>
@@ -18,11 +18,11 @@
     </div>
     <div class="control-product d-flex flex-row mb-3">
          <!-- <jsp:include page="__navigation-button.jsp" /> -->
-         <input class="form-control me-2" value="135 items ${totalElement}" style="max-width: 10%;background-color: #c5c6b9;" disabled="disabled">
+         <input class="form-control me-2" value="135 items ${totalElement}" style="max-width: 10%;background-color: #b7a888;" disabled="disabled">
          <button class="btn btn-outline-secondary me-2">First</button>
          <button class="btn btn-outline-secondary me-2">Prev</button>
-         <input class="form-control" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 5%;background-color: #c5c6b9;">
-         <input class="form-control me-2" value="of 5 ${totalPage}" style="max-width: 5%; background-color: #c5c6b9;" disabled="disabled">
+         <input class="form-control" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 5%;background-color: #b7a888;">
+         <input class="form-control me-2" value="of ${totalPage}" style="max-width: 5%; background-color: #b7a888;" disabled="disabled">
          <button class="btn btn-outline-secondary me-2">Next</button>
          <button class="btn btn-outline-secondary me-2">Last</button>    
     </div>

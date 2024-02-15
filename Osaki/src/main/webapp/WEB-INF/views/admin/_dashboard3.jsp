@@ -18,10 +18,38 @@
     <div class="cardP">
         <div class="cardP-body">
             <div class="numbers">1,504</div>
+            <div class="cardName">Lượt mua</div>
+        </div> 
+        <div class="iconBox">
+            <ion-icon name="cart-outline"></ion-icon>
+        </div>      
+    </div>
+    
+    <div class="cardP">
+        <div class="cardP-body">
+            <div class="numbers">1,504</div>
             <div class="cardName">Lượt xem</div>
         </div> 
         <div class="iconBox">
             <ion-icon name="eye-outline"></ion-icon>
+        </div>      
+    </div>
+    <div class="cardP">
+        <div class="cardP-body">
+            <div class="numbers">854</div>
+            <div class="cardName">Bình luận</div>
+        </div> 
+        <div class="iconBox">
+            <ion-icon name="chatbubbles-outline"></ion-icon>
+        </div>      
+    </div>
+    <div class="cardP">
+        <div class="cardP-body">
+            <div class="numbers">$8549</div>
+            <div class="cardName">Doanh thu</div>
+        </div> 
+        <div class="iconBox">
+            <ion-icon name="cash-outline"></ion-icon>
         </div>      
     </div>
 </div>
@@ -29,9 +57,9 @@
 <!-- Oder -->
 <div class="details">
     <div class="recentOrders">
-        <div class="cardHeader">
+        <div class="cardHeader d-flex flex-row justify-content-between">
             <h2>Đơn hàng gần đây</h2>
-            <a href="#" class="btn">Xem tất cả</a>
+            <a href="#" class="btn btn-custom">Xem tất cả</a>
         </div>
         <table class="table table-hover table-custom">
             <thead>
@@ -54,5 +82,36 @@
                 
             </tbody>
         </table>
+    </div>
+    <div class="recentCustomer">
+        <div class="cardHeader">
+            <h2>Khách hàng vừa truy cập</h2>
+        </div>
+         <table class="table table-hover table-custom">
+                <tr>
+                    <td width="60px">
+                        <div class="img-thumbnail imgBox">
+                            <img src="/images/author-item.jpg">
+                        </div>
+                    </td>
+                    <td>
+                        <h4>
+                            Trung nguyễn
+                            <br>
+                            <span>An Giang</span>
+                        </h4>
+                    </td>
+                </tr>
+        </table>
+    </div>
+</div>
+
+<!-- Chart -->
+<div class="graphicBox">
+    <div class="box">        
+        <canvas id="myChartDoughnut"></canvas>
+    </div>
+    <div class="box">
+        <canvas id="myChartLine"></canvas>
     </div>
 </div>

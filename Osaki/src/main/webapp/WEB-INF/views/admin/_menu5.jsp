@@ -8,27 +8,46 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin">
                 <span class="icon"><ion-icon name="home-outline"></ion-icon></span>
                 <span class="title">Dashboard</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/account-manager">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                 <span class="title">Tài khoản</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/product-manager">
                 <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
                 <span class="title">Sản phẩm</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/category-manager">
                 <span class="icon"><ion-icon name="list-circle-outline"></ion-icon></span>
                 <span class="title">Danh mục</span>
+            </a>
+        </li>
+        
+        <li>
+            <a href="/admin/brand-manager">
+                <span class="icon"><ion-icon name="bookmarks-outline"></ion-icon></span>
+                <span class="title">Thương hiệu</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon"><ion-icon name="grid-outline"></ion-icon></span>
+                <span class="title">Đơn hàng</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="icon"><ion-icon name="thumbs-up-outline"></ion-icon></span>
+                <span class="title">Đánh giá</span>
             </a>
         </li>
         <li>
