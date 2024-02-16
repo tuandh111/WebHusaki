@@ -10,9 +10,8 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "invoiceDetail")
 @Data
-@Table
 public class InvoiceDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +26,11 @@ public class InvoiceDetail {
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
     private Date createAt = new Date();
+
+    @Override
+    public String toString() {
+        return "InvoiceDetail{" + "id=" + id + ", price=" + price + ", quantity=" + quantity + ", createAt=" + createAt + ", deleteAt=" + deleteAt + ", isDelete=" + isDelete + ", invoiceID=" + invoiceID + ", productID=" + productID + '}';
+    }
 
     @Temporal(TemporalType.DATE)
     @Column(name = "deleteAt")

@@ -12,30 +12,28 @@ import org.hibernate.annotations.Nationalized;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "role")
 @Data
-@Table
 public class Role {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int roleID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	@Nationalized
-	@NotNull(message = "Khong duoc de trong ten")
-	private String roleName;
+    private String roleName;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "createAt")
-	private Date createAt= new Date();
+    @OneToMany(mappedBy = "roleName", fetch = FetchType.LAZY)
+    private List<UserCustom> role;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "deleteAt")
-	private Date deleteAt;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "createAt")
+    private Date createAt = new Date();
 
-	@Column
-	private Boolean isDelete;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "deleteAt")
+    private Date deleteAt;
 
-	@OneToMany(mappedBy = "roleID")
-	private List<UserCustom> role;
+    @Column
+    private Boolean isDelete;
+
 
 }

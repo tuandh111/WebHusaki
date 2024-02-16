@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>Hello ${u.id} name ${u.name}</h2>
-    <img src="${u.picture}"/>
+<h2>Hello ${u.googleID} name ${u.fullName}</h2>
+<img src="${u.image}"/>
 </body>
 </html>

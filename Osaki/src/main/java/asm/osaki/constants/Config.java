@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Config {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "/payment";
+    public static String vnp_ReturnUrl = "http://localhost:8080/payment";
     public static String vnp_TmnCode = "FYDRTG41";
     public static String secretKey = "HSKOFSKOGKYHIUQGMDKLMVQYGVRCSVIB";
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
@@ -118,5 +118,19 @@ public class Config {
             sb.append(chars.charAt(rnd.nextInt(chars.length())));
         }
         return sb.toString();
+    }
+
+    public static String getRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            char randomChar = characters.charAt(index);
+            stringBuilder.append(randomChar);
+        }
+
+        return stringBuilder.toString();
     }
 }

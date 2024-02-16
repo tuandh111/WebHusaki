@@ -1,17 +1,19 @@
 package asm.osaki.entities.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "UserAddress")
 @Data
-@Table
 public class Address {
     @Id
     private String phoneID;
@@ -25,9 +27,15 @@ public class Address {
     private Date deleteAt;
 
     @Column
+    @Nationalized
+    @NotBlank(message = "Vui lòng chọn địa chỉ")
+    private String address;
+
+    @Column
     private Boolean isDelete;
 
-    @ManyToOne
-    @JoinColumn(name = "addresses")
-    private UserCustom userID;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="userInfor")
+    private UserCustom user;
+
 }

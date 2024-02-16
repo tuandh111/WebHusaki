@@ -1,6 +1,8 @@
 package asm.osaki.Rest;
 
 import asm.osaki.constants.Constants;
+import asm.osaki.entities.user.UserCustom;
+import asm.osaki.user.UserFacebookDto;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.restfb.DefaultFacebookClient;
@@ -22,9 +24,14 @@ public class RestFB {
         return accessToken;
     }
 
-    public static User getUserInfo(String accessToken) {
+    public static UserCustom getUserInfo(String accessToken) {
         FacebookClient facebookClient = new DefaultFacebookClient(accessToken, Constants.FACEBOOK_APP_SECRET, Version.LATEST);
-        return facebookClient.fetchObject("me", User.class);
+        UserCustom userCustom = new UserCustom();
+        User userFacebookDto = facebookClient.fetchObject("me", User.class);
+        userCustom.setFacebookID(userFacebookDto.getId());
+        userCustom.setFullName(userFacebookDto.getName());
+        userCustom.setPassword("Tuan123456789");
+        return userCustom;
     }
 
 }

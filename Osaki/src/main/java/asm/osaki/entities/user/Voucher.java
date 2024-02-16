@@ -4,21 +4,21 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "voucher")
 @Data
-@Table
 public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column
-    private String discount;
+    private double discount;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -33,6 +33,6 @@ public class Voucher {
 
     @ManyToOne
     @JoinColumn(name = "vouchers")
-    private UserCustom userID;
+    private UserCustom user;
 
 }

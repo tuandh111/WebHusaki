@@ -10,13 +10,12 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "wish_list_entity")
 @Data
-@Table
 public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int id;
+    private int id;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -31,10 +30,11 @@ public class WishList {
 
     @ManyToOne
     @JoinColumn(name = "userCustom_id")
-    private UserCustom userID;
+    private UserCustom user;
 
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product productID;
+
 }

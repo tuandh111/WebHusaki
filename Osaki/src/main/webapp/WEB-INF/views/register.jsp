@@ -57,7 +57,31 @@
     <link rel="stylesheet" href="../../css/custom-nav.css">
     <link rel="stylesheet" href="../css/register.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet">
+    <!-- Icon fontanwesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- Reset css & grid sytem -->
+    <link rel="stylesheet" href="/css/library.css">
+    <link href="/owlCarousel/assets/owl.carousel.min.css" rel="stylesheet"/>
+    <!-- Layout -->
+    <link rel="stylesheet" href="/css/common.css">
+    <!-- index -->
+    <link href="/css/home.css" rel="stylesheet"/>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Owl caroucel Js-->
+    <script src="/owlCarousel/owl.carousel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bao gồm thư viện Swal -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
     <%--     <script --%>
     <%--             src="<c:url value="/webjars/sweetalert2/11.7.12/dist/sweetalert2.min.js"/>"></script> --%>
@@ -333,86 +357,43 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="container my-1 d-flex justify-content-center align-items-center formRegister">
-            <form action="/account/register" method="post" cssClass="w-100" id="formRegister">
-                <div class="card-login px-5 py-3">
-                    <a class="login my-1">TẠO TÀI KHOẢN</a> <span class="">Nếu bạn đã
-                        có tài khoản <a href="/login" class="loginHere">Đăng nhập tại đây.</a></span>
-                    <div class="group-input w-100">
-                        <div class="inputBox">
-                            <input type="text" required="required"
-                                   autocomplete="none"/>
-                            <span>Fullname</span>
-                        </div>
-                        <small class="text-danger" id="fullnameError"></small>
-                    </div>
-
-                    <div class="group-input w-100">
-                        <div class="inputBox">
-                            <input type="text" required="required"
-                                   autocomplete="none"/>
-                            <span>Email</span>
-                        </div>
-                        <small class="text-danger" id="emailError"></small>
-                    </div>
-
-                    <div class="group-input w-100">
-                        <div class="inputBox">
-                            <input type="password" required="required"/>
-                            <span>Password </span>
-                        </div>
-                        <small class="text-danger" id="passwordError"></small>
-                    </div>
-
-                    <div class="group-input w-100">
-                        <div class="inputBox">
-                            <input type="password" name="confirmPassword" required="required">
-                            <span>ConfimPassword</span>
-                        </div>
-                        <small class="text-danger" id="confirmPasswordError"></small>
-                    </div>
-                    <div class="check">
-                        <input type="checkbox" required="required" id="checkRole">
-                        <label for="checkRole" class="text-black">Đồng ý với chính
-                                                                  sách & điều khoản</label>
-
-                    </div>
-                    <div id="recaptchaContainer" style="display: none;">
-                        <div class="g-recaptcha" data-sitekey="6LdosU4pAAAAAO_EzhGlRqWLJqns6eULivmzGWWE"></div>
-                    </div>
-                    <div id="error"></div>
-                    <button class="enter btnRegister" id="submitButton">ĐĂNG KÝ</button>
+            <form:form modelAttribute="UserC" action="/account/register" method="post" id="formRegister">
+                <div class="form-group">
+                    <label class="form-label">Họ Tên *</label>
+                    <form:input path="fullName" class="form-control"/>
+                    <small class="text-danger" id="fullNameError"></small>
                 </div>
-            </form>
+                <div class="form-group">
+                    <label for="password" class="form-label">Tài khoản Email *</label>
+                    <form:input path="email" id="password" class="form-control"/>
+                    <small class="text-danger" id="emailError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Mật khẩu *</label>
+                    <form:input path="password" class="form-control"/>
+                    <small class="text-danger" id="passwordError"></small>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Nhập lại mật khẩu *</label>
+                    <input type="password" name="confirmPassword" required="required" class="form-control">
+                    <small class="text-danger" id="confirmPasswordError"></small>
+                </div>
+                <div id="recaptchaContainer" style="display: none;">
+                    <div class="g-recaptcha" data-sitekey="6LdosU4pAAAAAO_EzhGlRqWLJqns6eULivmzGWWE"></div>
+                </div>
+
+                <div id="error"></div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary" id="submitButton">ĐĂNG KÝ</button>
+                </div>
+            </form:form>
         </div>
     </div>
 </div>
 
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script>
-    window.onload = function () {
-        const form = document.getElementById("formRegister");
-        const error = document.getElementById("error");
-        const recaptchaContainer = document.getElementById("recaptchaContainer");
-        const submitButton = document.getElementById("submitButton");
-
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-            const response = grecaptcha.getResponse();
-            console.log(response);
-            if (response) {
-                form.submit();
-            } else {
-                error.innerHTML = "<span style='color: red;'>Please check reCAPTCHA</span>";
-                recaptchaContainer.style.display = "block"; // Hiển thị reCAPTCHA khi có lỗi
-            }
-        });
-
-        submitButton.addEventListener("click", function () {
-            recaptchaContainer.style.display = "block"; // Hiển thị reCAPTCHA khi nút submit được nhấn
-        });
-    }
-</script>
+<script src="/js/register.js"></script>
                  <!-- Start Footer Area -->
                  <!-- /End Footer Area -->
 

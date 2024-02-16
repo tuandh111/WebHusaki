@@ -3,7 +3,7 @@ package asm.osaki.testBcrypt;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class testBcrypt {
+public class Bcrypt {
     public static String hashPassword(String plainPassword) {
         String salt = BCrypt.gensalt();
         return BCrypt.hashpw(plainPassword, salt);
