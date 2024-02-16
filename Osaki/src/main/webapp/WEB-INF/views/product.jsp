@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <!-- https://cocoshop.vn/ -->
@@ -34,6 +35,10 @@
     <!-- Owl caroucel Js-->
     <script src="/owlCarousel/owl.carousel.min.js"></script>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
+
+    <!-- Bao gồm thư viện Swal -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 <style>
     .product {
@@ -120,7 +125,38 @@
                         ${product.name}
                     </h3>
                     <div class="productInfo__price">
-                        330.000 <span class="priceInfo__unit">đ</span>
+                        <c:set var="checkLike" value="false"/>
+                        <c:set var="checkLikePrice" value=""/>
+                        <c:forEach var="promotionalDetailsList" items="${promotionalDetailsList}">
+                            <c:if test="${promotionalDetailsList.productID.productID == product.productID}">
+                                <c:set var="checkLike" value="true"/>
+                                <c:set var="checkLikePrice"
+                                       value="${promotionalDetailsList.discountedPrice}"/>
+                            </c:if>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${checkLike }">
+                                                <span class="total-amount main__cart-price text-muted text-decoration-line-through me-2">
+                                                           Giá gốc: <fmt:formatNumber
+                                                        type="number"
+                                                        pattern="###,###,###"
+                                                        value="${product.price}"/> ₫
+                                                       </span><br>
+                                <span class="total-amount main__cart-price total-moneyPrice">
+                                                        Giảm giá còn: <fmt:formatNumber
+                                        type="number"
+                                        pattern="###,###,###"
+                                        value="${checkLikePrice}"/>
+                                                     </span>₫
+                            </c:when>
+                            <c:otherwise>
+                                <div class="main__cart-price total-moneyPrice"><fmt:formatNumber
+                                        type="number"
+                                        pattern="###,###,###"
+                                        value="${product.price}"/> đ
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="productInfo__description">
                         <span> Lorem Ipsum </span>${product.description}
@@ -128,12 +164,30 @@
 
                     <div class="productInfo__addToCart">
                         <div class="buttons_added">
-                            <input class="minus is-form" type="button" value="-" onclick="minusProduct()">
-                            <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number"
-                                   value="1">
-                            <input class="plus is-form" type="button" value="+" onclick="plusProduct()">
+                            <c:forEach var="cartList" items="${cartList}" varStatus="loop">
+                                <c:if test="${!cartList.checkPay}">
+                                    <c:if test="${cartList.product.productID == product.productID}">
+                                        <input class="minus is-form" type="button" value="-"
+                                               data-product-id="${product.productID}"
+                                               data-user-id="${userLogin.userID}"
+                                               onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${priceAndQty }`) ">
+                                        <input aria-label="quantity" class="input-qty" max="10" min="1"
+                                               name="" type="number" value="${cartList.quantity}">
+                                        <input class="plus is-form" type="button" value="+"
+                                               data-product-id="${cartList.product.productID}"
+                                               data-user-id="${userLogin.userID}"
+                                               onclick="plusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`) ">
+                                    </c:if>
+                                </c:if>
+                            </c:forEach>
                         </div>
-                        <div class=" btn btn--default orange ">Thêm vào giỏ</div>
+                        <div class=" btn btn--default orange "><a href="#" title="cart"
+                                                                  data-product-id="${product.productID}"
+                                                                  data-user-id="${userLogin.userID}" class="addToCart">Thêm
+                                                                                                                       vào
+                                                                                                                       giỏ</a>
+                        </div>
+
                     </div>
                     <div class="productIndfo__policy ">
                         <div class="policy bg-1 ">
@@ -170,10 +224,9 @@
                                                                               class="productIndfo__category-link ">${product.categoryID.categoryName}</a>
                         </p>
                         <p class="productIndfo__category-text"> Hãng : <a href="# "
-                                                                          class="productIndfo__category-link ">The Face
-                                                                                                               Shop</a>
+                                                                          class="productIndfo__category-link ">${product.brandID.brandName}</a>
                         </p>
-                        <p class="productIndfo__category-text"> Số lượng đã bán : 322</p>
+                        <p class="productIndfo__category-text"> Số lượng đã bán : 3</p>
                         <p class="productIndfo__category-text"> Số lượng trong kho : ${product.quantityInStock}</p>
 
                     </div>
@@ -274,44 +327,99 @@
 
                         </div>
                         <ul class="rate__list">
-                            <li class="rate__item">
-                                <div class="rate__info">
-                                    <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9PFgn_rHIm9i3eIlVr5RwzwY2w8EystHF213wj=s32-c-mo"
-                                         alt="">
-                                    <h3 class="rate__user">Giang Tuấn Phương</h3>
-                                    <div class="rate__star">
-                                        <div class="group-star">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </div>
+                            <c:forEach var="listComment" items="${comment}">
+                                <li class="rate__item">
+                                    <div class="rate__info">
+                                        <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9PFgn_rHIm9i3eIlVr5RwzwY2w8EystHF213wj=s32-c-mo"
+                                             alt="">
+                                        <h3 class="rate__user">${listComment.user.fullName}</h3>
+                                        <c:if test="${listComment.star == 1}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 1.5}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 2}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 2.5}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 3}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 3.5}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 4}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 4.5}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${listComment.star == 5}">
+                                            <div class="rate__star">
+                                                <div class="group-star">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </c:if>
                                     </div>
-                                </div>
-                                <div class="rate__comment">Sản phẩm chất lượng rất tốt thật tuyệt vời</div>
-                            </li>
-                            <li class="rate__item">
-                                <div class="rate__info">
-                                    <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9PFgn_rHIm9i3eIlVr5RwzwY2w8EystHF213wj=s32-c-mo"
-                                         alt="">
-                                    <h3 class="rate__user">Giang Tuấn Phương</h3>
-                                    <div class="rate__star">
-
-                                    </div>
-                                </div>
-                                <div class="rate__comment">Sản phẩm chất lượng rất tốt</div>
-                            </li>
-                            <li class="rate__item">
-                                <div class="rate__info">
-                                    <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9PFgn_rHIm9i3eIlVr5RwzwY2w8EystHF213wj=s32-c-mo"
-                                         alt="">
-                                    <h3 class="rate__user">Giang Tuấn Phương</h3>
-                                    <div class="rate__star">
-
-                                    </div>
-                                </div>
-                                <div class="rate__comment">Sản phẩm chất lượng rất tốt</div>
-                            </li>
+                                    <div class="rate__comment">${listComment.content}</div>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -506,7 +614,8 @@
     <!-- Your Plugin chat code -->
     <div id="fb-customer-chat" class="fb-customerchat">
     </div>
-
+    <script src="/js/cartCript.js"></script>
+    <script src="/js/checkout.js"></script>
     <script>
         var chatbox = document.getElementById('fb-customer-chat');
         chatbox.setAttribute("page_id", "105913298384666");
@@ -632,6 +741,59 @@
             const f = ~~r, //Tương tự Math.floor(r)
                 id = 'star' + f + (r % f ? 'half' : '')
             id && (document.getElementById(id).checked = !0)
+        }
+    </script>
+    <script>
+        function minusProduct(index, cartId, productId, quantityInStock, price) {
+            var inputQty = document.querySelectorAll('.input-qty')[index];
+            var currentValue = parseInt(inputQty.value);
+            var minValue = parseInt(inputQty.getAttribute('min'));
+            if (currentValue > minValue) {
+                inputQty.value = currentValue - 1;
+                calculateTotal(index)
+            }
+            changeQuantityProduct(cartId, productId, currentValue - 1, quantityInStock, price)
+        }
+
+        function plusProduct(index, cartId, productId, quantityInStock, price) {
+            var inputQty = document.querySelectorAll('.input-qty')[index];
+            var currentValue = parseInt(inputQty.value);
+            var maxValue = parseInt(inputQty.getAttribute('max'));
+            if (currentValue < maxValue) {
+                inputQty.value = currentValue + 1;
+                calculateTotal(index)
+            }
+            changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
+        }
+
+        function calculateTotal(index) {
+            var inputQty = document.querySelectorAll('.input-qty')[index];
+            var quantity = parseInt(inputQty.value);
+            var pricePerProduct = parseFloat(document.querySelectorAll('.total-moneyPrice')[index].innerText.replace(/[,.đ]/g, ''));
+            var total = quantity * pricePerProduct;
+            var formattedTotal = formatMoney(total);
+            document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
+        }
+
+        function calculateTotal1(index, cartId, productId, quantityInStock, price) {
+            var checkbox = document.querySelectorAll('input[name="a"]')[index];
+            // Kiểm tra xem checkbox được chọn hay không
+            if (checkbox.checked) {
+                // Lấy thông tin số lượng và giá của sản phẩm
+                var inputQty = document.querySelectorAll('.input-qty')[index];
+                var quantity = parseInt(inputQty.value);
+                var pricePerProduct = parseFloat(document.querySelectorAll('.total-moneyPrice')[index].innerText.replace(/[,.đ]/g, ''));
+                // Tính tổng tiền
+                var total = quantity * pricePerProduct;
+                var formattedTotal = formatMoney(total);
+                // Cập nhật tổng tiền
+                document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
+                changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
+            }
+        }
+
+        function formatMoney(amount) {
+            return amount.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
         }
     </script>
 </body>

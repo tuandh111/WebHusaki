@@ -161,7 +161,7 @@ $(document).ready(function () {
                         });
 
                         updateCartInfo(productID, quantity, response, true, cartID);
-                    }else if (message =='failQuantity'){
+                    } else if (message == 'failQuantity') {
                         Swal.fire({
                             icon: 'error',
                             title: 'Them sản pham that bai',
@@ -272,6 +272,7 @@ $(document).ready(function () {
                     $('.total-money').text("Tổng tiền: " + formattedPrice)
                     if (cartCount < 1) {
                         $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/">Tiếp tục mua sắm</a></h2>')
+
                     } else {
                         $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/"></a></h2>')
                     }
@@ -315,6 +316,7 @@ $(document).ready(function () {
                                         let totalPrice = jsonRemove.totalPrice;
                                         if (cartCount < 1) {
                                             $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/">Tiếp tục mua sắm</a></h2>')
+                                            $('.total-money').html("Tổng tiền: 0 đ")
                                         } else {
                                             $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/"></a></h2>')
                                         }

@@ -1,4 +1,4 @@
-package asm.osaki.controller;
+package asm.osaki.controller.admin;
 
 
 import org.springframework.stereotype.Controller;
