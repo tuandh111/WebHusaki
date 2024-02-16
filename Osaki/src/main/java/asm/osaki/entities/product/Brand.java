@@ -12,9 +12,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "brand")
 @Data
-@Table
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +38,7 @@ public class Brand {
     @Column
     private  String brandOrigin;
 
-    @OneToMany(mappedBy = "brandID")
+    @OneToMany(mappedBy = "brandID", fetch = FetchType.LAZY)
     private List<Product> products;
+
 }

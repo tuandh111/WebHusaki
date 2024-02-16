@@ -4,21 +4,22 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "cosmetic_form")
 @Data
-@Table
 public class CosmeticForm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryID;
 
     @Column
+    @Nationalized
     private String cosmeticFormName;
 
     @Temporal(TemporalType.DATE)
@@ -32,7 +33,7 @@ public class CosmeticForm {
     @Column
     private Boolean isDelete;
 
-    @OneToMany(mappedBy = "cosmeticFormID")
+    @OneToMany(mappedBy = "cosmeticFormID", fetch = FetchType.LAZY)
     private List<Product> products;
 
 

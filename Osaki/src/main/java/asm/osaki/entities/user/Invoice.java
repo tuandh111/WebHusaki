@@ -11,9 +11,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "invoice")
 @Data
-@Table
 public class Invoice {
     @Id
     private String invoiceID;
@@ -33,6 +32,7 @@ public class Invoice {
     private String note;
 
     @Column
+    @Nationalized
     private String status;
 
     @Column
@@ -40,9 +40,9 @@ public class Invoice {
 
     @ManyToOne
     @JoinColumn(name = "invoices")
-    private UserCustom userID;
+    private UserCustom user;
 
-    @OneToMany(mappedBy = "invoiceID")
+    @OneToMany(mappedBy = "invoiceID", fetch = FetchType.LAZY)
     private List<InvoiceDetail> invoiceDetails;
 
 

@@ -9,9 +9,8 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name="net_weight")
 @Data
-@Table
 public class NetWeight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +30,5 @@ public class NetWeight {
     @ManyToOne
     @JoinColumn(name = "netWeights")
     private Product productID;
+
 }

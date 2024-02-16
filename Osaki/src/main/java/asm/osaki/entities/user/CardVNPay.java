@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "card_vd_pay")
 @Data
-@Table
 public class CardVNPay {
     @Id
     private String id;
@@ -31,16 +31,18 @@ public class CardVNPay {
     private double amount;
 
     @Column
+    @Nationalized
     private String productCard;
 
     @Column
+    @Nationalized
     private String backCode;
 
     @ManyToOne
     @JoinColumn(name = "cardVNPays")
-    private UserCustom userID;
+    private UserCustom user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "invoiceID")
     private Invoice invoiceID;
 

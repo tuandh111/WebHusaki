@@ -1,0 +1,158 @@
+$(document).ready(function () {
+    $('#addAddress').click(function (e) {
+        e.preventDefault();
+
+        var city = $('#city').val();
+        var district = $('#district').val();
+        var ward = $('#ward').val();
+
+        var phone = $('#phone').val();
+        var address = $('#addressSpecific').val()
+        var cityName = findCityName(city);
+        var districtName = findDistrictName(district)
+        var wardName = findWardName(ward)
+
+        console.log("phone: " + phone + " city: " + cityName + " district: " + districtName + " ward: " + wardName);
+        let isLoggedIn = $(this).data('user-id') !== '';
+        if (!isLoggedIn) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi...',
+                text: 'Bạn cần đăng nhập để sử dụng chức năng này !',
+                confirmButtonColor: '#dc3545',
+                confirmButtonText: 'Đăng nhập'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/login';
+                }
+            });
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/address",
+                data: {
+                    phone: phone,
+                    city: cityName,
+                    district: districtName,
+                    ward: wardName,
+                    address: address
+                },
+                success: function (response) {
+                    // Handle the success response here
+                    console.log(response);
+                    if (response === "success") {
+                        Swal.fire({
+                            title: 'Thanh cong', text: "Them dia chi thanh cong", showConfirmButton: true, timer: 3500
+                        }).then(function () {
+                            // Redirect to the home page
+                            window.location.href = '/'; // Change '/home' to the actual URL of your home page
+                        });
+                        // Redirect or perform actions for successful login
+                        console.log("Login successful");
+                    } else if (response === "errorPhone1") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "So dien thoai da ton tai",
+                            showConfirmButton: true,
+                            timer: 3500
+                        });
+                    } else if (response === "errorAddress") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "Dia chi chua nhap",
+                            showConfirmButton: true,
+                            timer: 3500
+                        });
+                    } else if (response === "errorPhone") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "So dien thoai chua nhap",
+                            showConfirmButton: true,
+                            timer: 3500
+                        });
+                    } else if (response === "errorCity") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "Tỉnh thành chua nhap",
+                            showConfirmButton: true,
+                            timer: 3500
+                        });
+                    } else if (response === "errorDistrict") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "Quận huyện chua nhap",
+                            showConfirmButton: true,
+                            timer: 3500
+                        });
+                    } else if (response === "errorWard") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "Phường xã chua nhap",
+                            showConfirmButton: true,
+                            timer: 3500
+                        });
+                    } else {
+                        // Handle unsuccessful login
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: "Them dia chi khong thanh cong",
+                            showConfirmButton: true,
+                            timer: 3500
+                        }).then(function () {
+                            // Redirect to the home page
+                            window.location.href = '/'; // Change '/home' to the actual URL of your home page
+                        });
+                        console.log("Login failed");
+                    }
+                },
+                error: function (error) {
+                    // Handle the error response here
+                    Swal.fire({
+                        icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
+                    }).then(function () {
+                        // Redirect to the home page
+                        window.location.href = '/'; // Change '/home' to the actual URL of your home page
+                    });
+                }
+            });
+        }
+    })
+
+    function findCityName(cityId) {
+        var cityOptions = document.getElementById("city").options;
+        for (var i = 0; i < cityOptions.length; i++) {
+            if (cityOptions[i].value === cityId) {
+                return cityOptions[i].text;
+            }
+        }
+        return ""; // Trong trường hợp không tìm thấy
+    }
+
+    function findDistrictName(districtId) {
+        var districtOptions = document.getElementById("district").options;
+        for (var i = 0; i < districtOptions.length; i++) {
+            if (districtOptions[i].value === districtId) {
+                return districtOptions[i].text;
+            }
+        }
+        return ""; // Trong trường hợp không tìm thấy
+
+    }
+
+    function findWardName(districtId) {
+        var districtOptions = document.getElementById("ward").options;
+        for (var i = 0; i < districtOptions.length; i++) {
+            if (districtOptions[i].value === districtId) {
+                return districtOptions[i].text;
+            }
+        }
+        return "";
+    }
+})

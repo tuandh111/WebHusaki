@@ -1,6 +1,8 @@
 package asm.osaki.entities.user;
 
 
+import asm.osaki.entities.product.Cart;
+import asm.osaki.entities.product.FlashSale;
 import asm.osaki.entities.product.Product;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -19,9 +21,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "user_custom")
 @Data
-@Table
 public class UserCustom {
 
     @Id
@@ -45,7 +46,7 @@ public class UserCustom {
     private String fullName;
 
     @Column
-    private String imgage;
+    private String image;
 
     @Column
     @NotBlank(message = "Vui lòng nhập mật khẩu")
@@ -69,28 +70,50 @@ public class UserCustom {
 
     @ManyToOne
     @JoinColumn(name = "role")
-    private Role roleID;
+    private Role roleName;
 
-    @OneToMany(mappedBy = "userID")
-    private List<Address> addresses;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Address> userInfor;
 
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Voucher> vouchers;
 
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<CardVNPay> cardVNPays;
 
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Invoice> invoices;
 
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<WishList> wishLists;
 
-    @OneToMany(mappedBy = "userID")
-    private List<Product> user_custom_id;
+    @OneToMany(mappedBy = "userID", fetch = FetchType.LAZY)
+    private List<Product> userProduct;
 
+    @OneToMany(mappedBy = "user")
+    private List<FlashSale> userFlashSale;
+
+    @OneToMany(mappedBy = "user")
+    private List<Cart> userCart;
+
+    @Override
+    public String toString() {
+        return "UserCustom{" +
+                       "userID=" + userID +
+                       ", email='" + email + '\'' +
+                       ", googleID='" + googleID + '\'' +
+                       ", facebookID='" + facebookID + '\'' +
+                       ", fullName='" + fullName + '\'' +
+                       ", image='" + image + '\'' +
+                       ", password='" + password + '\'' +
+                       ", verifyCode='" + verifyCode + '\'' +
+                       ", createAt=" + createAt +
+                       ", deleteAt=" + deleteAt +
+                       ", isDelete=" + isDelete +
+                       '}';
+    }
 
 }

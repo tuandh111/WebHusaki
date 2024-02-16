@@ -14,9 +14,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "comment")
 @Data
-@Table
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,19 +36,19 @@ public class Comment {
     @Column
     private Boolean isDelete;
 
-    private int star=0;
+    private int star;
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "userCustom_id")
-    private UserCustom userID;
+    private UserCustom user;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "commentID")
+    @OneToMany(mappedBy = "commentID", fetch = FetchType.LAZY)
     private List<ImageComment> images;
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product  productID;
+
 }

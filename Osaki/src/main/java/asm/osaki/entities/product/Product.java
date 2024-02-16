@@ -5,6 +5,8 @@ import asm.osaki.entities.user.Comment;
 import asm.osaki.entities.user.InvoiceDetail;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.entities.user.WishList;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
@@ -21,12 +23,12 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "product")
 @Data
-@Table
 public class Product {
     @Id
-    private String productID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int productID;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createAt")
@@ -45,30 +47,34 @@ public class Product {
     private double price;
 
     @Column
+    @Nationalized
     private String name;
 
     @Column
     @NotNull(message = "Vui lòng nhập số lượng trong kho")
-    @Min(value = 1, message = "Số lượng phải lớn 0")
+    @Min(value = 0, message = "Số lượng phải lớn 0")
     @Digits(integer = 32, fraction = 0, message = "Số lượng phải là số nguyên")
     private long quantityInStock;
 
+    @Column(columnDefinition = "nvarchar(MAX)")
     @Nationalized
     private String uses;
 
     @Nationalized
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String preserve;
+
     @Nationalized
-
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String skinType;
-
+    @Column(columnDefinition = "nvarchar(MAX)")
     @Nationalized
     private String certification;
 
     @Temporal(TemporalType.DATE)
     private Date DateOfManufacture;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(MAX)")
     @Nationalized
     private String expiry;
 
@@ -78,16 +84,16 @@ public class Product {
     private String manufacturer;
 
     @Nationalized
-    @Column
+    @Column(columnDefinition = "nvarchar(MAX)")
     private String ingredient;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(MAX)")
     @Nationalized
     private String description;
 
     @ManyToOne
-    @JsonManagedReference
-    @JoinColumn(name = "user_custom_id")
+    @JsonBackReference
+    @JoinColumn(name = "userProduct")
     private UserCustom userID;
 
     @ManyToOne
@@ -106,19 +112,36 @@ public class Product {
     @JoinColumn(name = "brand_id")
     private Brand brandID;
 
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", fetch = FetchType.LAZY)
     @JsonManagedReference
     private List<ImageProduct> productImages;
 
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", fetch = FetchType.LAZY)
     private List<NetWeight> netWeights;
 
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", fetch = FetchType.EAGER)
     private List<WishList> wishLists;
 
-    @OneToMany(mappedBy = "productID")
+    @OneToMany(mappedBy = "productID", fetch = FetchType.LAZY)
     private List<InvoiceDetail> invoiceDetails;
+
+    @OneToMany(mappedBy = "productID", fetch = FetchType.LAZY)
+    @JsonManagedReference
+    private List<PromotionalDetails> productPromotionalDetails;
+
+    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    private List<Cart> productCart;
+    @Override
+    public String toString() {
+        return "Product{" + "productID=" + productID + ", createAt=" + createAt + ", deleteAt=" + deleteAt + ", isDelete=" + isDelete + ", price=" + price + ", name='" + name + '\'' + ", quantityInStock=" + quantityInStock + ", uses='" + uses + '\'' + ", preserve='" + preserve + '\'' + ", skinType='" + skinType + '\'' + ", certification='" + certification + '\'' + ", DateOfManufacture=" + DateOfManufacture + ", expiry='" + expiry + '\'' + ", manufacturer='" + manufacturer + '\'' + ", ingredient='" + ingredient + '\'' + ", description='" + description + '\'' + '}';
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Product{" + "productID=" + productID + ", createAt=" + createAt + ", deleteAt=" + deleteAt + ", isDelete=" + isDelete + ", price=" + price + ", name='" + name + '\'' + ", quantityInStock=" + quantityInStock + ", uses='" + uses + '\'' + ", preserve='" + preserve + '\'' + ", skinType='" + skinType + '\'' + ", certification='" + certification + '\'' + ", DateOfManufacture=" + DateOfManufacture + ", expiry='" + expiry + '\'' + ", manufacturer='" + manufacturer + '\'' + ", ingredient='" + ingredient + '\'' + ", description='" + description + '\'' + ", wishLists=" + wishLists + '}';
+//    }
 }

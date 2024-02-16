@@ -4,21 +4,24 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Nationalized;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "category")
 @Data
-@Table
+
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryID;
 
     @Column
+    @Nationalized
     private String categoryName;
 
     @Temporal(TemporalType.DATE)
@@ -31,6 +34,19 @@ public class Category {
 
     private Boolean isDelete;
 
-    @OneToMany(mappedBy = "categoryID")
+    @OneToMany(mappedBy = "categoryID", fetch = FetchType.LAZY)
     List<Product> products;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Category other = (Category) obj;
+        return Objects.equals(categoryID, other.categoryID);
+    }
+
+
 }

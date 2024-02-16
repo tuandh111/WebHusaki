@@ -10,9 +10,9 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "image_product")
 @Data
-@Table
+
 public class ImageProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +35,5 @@ public class ImageProduct {
     @ManyToOne
     @JoinColumn(name = "productImages")
     private Product productID;
+
 }

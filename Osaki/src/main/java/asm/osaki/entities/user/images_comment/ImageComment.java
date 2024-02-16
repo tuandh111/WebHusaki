@@ -10,9 +10,8 @@ import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "image_comment_entity")
 @Data
-@Table
 public class ImageComment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
