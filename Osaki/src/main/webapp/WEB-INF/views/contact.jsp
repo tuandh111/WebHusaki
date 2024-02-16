@@ -65,20 +65,20 @@
                     </div>
                     <ul class="contact__info">
                         <li class="contact__text">
-                            <i class="fas fa-map-marked-alt"></i> 319 C16 Lý Thường Kiệt, Phường 15, Quận 11, Tp.HCM
+                            <i class="fas fa-map-marked-alt"></i> Ap khanh hoi, Thi tran nga 6, Huyen Chau Thanh, Tinh Hau Giang
                         </li>
                         <li>
-                            <a href="tel:076 922 0162" class="contact__link">
-                                <i class="fas fa-phone"></i> 076 922 0162
+                            <a href="tel:0383 658 814" class="contact__link">
+                                <i class="fas fa-phone"></i> 0383 658 814
                             </a>
                             <a href="tel:076 922 0162" class="contact__link">
-                                &#8212; 076 922 0162
+                                &#8212; 0383 658 814
                             </a>
                         </li>
 
                         <li>
                             <a href="#" class="contact__link">
-                                <i class="fas fa-envelope"></i> phuonggiang150@gmail.com
+                                <i class="fas fa-envelope"></i> tuandhpc05076@fpt.edu.vn
                             </a>
                         </li>
                     </ul>
