@@ -14,7 +14,10 @@ public class ComponentController {
     public String productController() {
         return "product";
     }
-
+    @GetMapping("access-denied")
+    public String notFound() {
+        return "notFound";
+    }
 
     @GetMapping("contact")
     public String contactController() {
