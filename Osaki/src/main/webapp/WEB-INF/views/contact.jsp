@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="/owlCarousel/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="/owlCarousel/assets/owl.theme.default.min.css">
     <!-- Layout -->
-    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
     <!-- index -->
     <link rel="stylesheet" type="text/css" href="/css/contact.css">
     <!-- Jquery -->

@@ -78,10 +78,10 @@
             </div>
         </li>
         <li class="header__nav-item">
-            <a href="news" class="header__nav-link">Tin Tức</a>
+            <a href="/news" class="header__nav-link">Tin Tức</a>
         </li>
         <li class="header__nav-item">
-            <a href="contact" class="header__nav-link">Liên Hệ</a>
+            <a href="/contact" class="header__nav-link">Liên Hệ</a>
         </li>
 
         </body>

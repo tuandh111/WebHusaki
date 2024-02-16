@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
-<!-- https://cocoshop.vn/ -->
-<!-- http://mauweb.monamedia.net/vanihome/ -->
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,21 +19,18 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- Reset css & grid sytem -->
-    <link rel="stylesheet" href="/css/library.css">
+    <link rel="stylesheet" href="./css/library.css">
     <!-- Owl Slider css -->
-    <link rel="stylesheet" href="/owlCarousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="/owlCarousel/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="./owlCarousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="./owlCarousel/assets/owl.theme.default.min.css">
     <!-- Layout -->
-    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="./css/common.css">
     <!-- index -->
-    <link rel="stylesheet" type="text/css" href="/css/contact.css">
-    <!-- Jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Owl caroucel Js-->
-    <script src="/owlCarousel/owl.carousel.min.js"></script>
-    <link rel="stylesheet" href="/product/css/new.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="./css/new.css">
 
+    <!-- Owl caroucel Js-->
+    <script src="./owlCarousel/owl.carousel.min.js"></script>
+</head>
 <body>
 <div class="header scrolling" id="myHeader">
     <jsp:include page="./component/_grid.jsp"/>
@@ -114,8 +109,7 @@
 
     <!-- Script common -->
     <script src="/js/commonscript.js"></script>
-
+</div>
 
 </body>
-
 </html>
