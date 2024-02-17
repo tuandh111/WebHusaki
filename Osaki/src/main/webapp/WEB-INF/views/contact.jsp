@@ -65,7 +65,8 @@
                     </div>
                     <ul class="contact__info">
                         <li class="contact__text">
-                            <i class="fas fa-map-marked-alt"></i> Ap khanh hoi, Thi tran nga 6, Huyen Chau Thanh, Tinh Hau Giang
+                            <i class="fas fa-map-marked-alt"></i> Ap khanh hoi, Thi tran nga 6, Huyen Chau Thanh, Tinh
+                                                                  Hau Giang
                         </li>
                         <li>
                             <a href="tel:0383 658 814" class="contact__link">
@@ -87,16 +88,10 @@
                     <div class="about-us__heading">Liên hệ với chúng tôi</div>
                     <div class="form__group">
                         <div>
-                            <input type="text" value="Họ và tên">
+                            <input type="text" value="${userLogin.fullName}">
                         </div>
                         <div>
-                            <input type="text" value="Email">
-                        </div>
-                        <div>
-                            <input type="text" value="Địa chỉ">
-                        </div>
-                        <div>
-                            <input type="text" value="Số điện thoại">
+                            <input type="email" value="${userLogin.email}">
                         </div>
                     </div>
                     <textarea name="" id="" cols="30" rows="5" placeholder="Lời nhắn"></textarea>

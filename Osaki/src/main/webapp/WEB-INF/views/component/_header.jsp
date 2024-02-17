@@ -37,7 +37,7 @@
                             <a href="#my-Account" class="sub-nav__link">Tài khoản</a>
                         </li>
                         <li class="sub-nav__item">
-                            <a href="/login" class="sub-nav__link">Đăng xuất</a>
+                            <a href="/login" class="sub-nav__link" onclick="clearReturnUrl()">Đăng xuất</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
@@ -87,3 +87,9 @@
         </body>
     </ul>
 </div>
+<script>
+    function clearReturnUrl() {
+        // Xóa mục 'returnUrl' khỏi localStorage
+        localStorage.removeItem('returnUrl');
+    }
+</script>

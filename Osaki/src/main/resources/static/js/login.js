@@ -25,7 +25,12 @@ $(document).ready(function () {
                         title: 'Thanh cong', text: "Dang nhap thanh cong", showConfirmButton: true, timer: 3500
                     }).then(function () {
                         // Redirect to the home page
-                        window.location.href = '/'; // Change '/home' to the actual URL of your home page
+                        var returnUrl = localStorage.getItem('returnUrl');
+                        if (returnUrl) {
+                            window.location.href = returnUrl;
+                        } else {
+                            window.location.href = '/'; // Change '/home' to the actual URL of your home page
+                        } // Change '/home' to the actual URL of your home page
                     });
                     // Redirect or perform actions for successful login
                     console.log("Login successful");

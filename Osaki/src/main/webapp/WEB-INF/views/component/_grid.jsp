@@ -94,7 +94,8 @@
                                             <img src="images/product/product1.jpg" alt="">
                                         </a>
                                         <div class="order-main">
-                                            <a href="product" class="order-main-name">${cartList.product.name}</a>
+                                            <a href="/product/${cartList.product.productID}"
+                                               class="order-main-name">${cartList.product.name}</a>
                                             <div class="order-main-price">
                                                 <span id="quantity_${cartList.cartId}">${cartList.quantity}</span>
                                                 <span onclick="increaseQuantity(${loop.index})">X</span>

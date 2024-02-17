@@ -18,6 +18,7 @@ import asm.osaki.service.SessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,15 +64,16 @@ public class ProductDetailController {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
             List<Address> addressList = addressRepository.findByUser(userCustom);
-            List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
-            model.addAttribute("promotionalDetailsList", promotionalDetailsList);
+
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
             model.addAttribute("addressList", addressList);
             model.addAttribute("voucherList", voucherList);
         }
+        List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
+        model.addAttribute("promotionalDetailsList", promotionalDetailsList);
         model.addAttribute("product", product);
-        model.addAttribute("comment", commentRepository.findByProductID(product));
+        model.addAttribute("comment", commentRepository.findByProductID(product, Sort.by(Sort.Direction.DESC, "createAt")));
         System.out.println("run susscessfully product" + product);
         return "product";
     }
@@ -79,23 +81,23 @@ public class ProductDetailController {
     @PostMapping("add_comment")
     public ResponseEntity<?> addComment() {
         UserCustom userCustom = sessionService.get("userLogin");
-        String productID = paramService.getString("productID","");
+        String productID = paramService.getString("productID", "");
         String star = paramService.getString("star", "");
-        String content = paramService.getString("content","");
-        System.out.println("productID: "+ productID+ " star: "+ star+" content: "+content);
-        Comment comment= new Comment();
+        String content = paramService.getString("content", "");
+        System.out.println("productID: " + productID + " star: " + star + " content: " + content);
+        Comment comment = new Comment();
         comment.setContent(content);
         comment.setStar(Integer.parseInt(star));
         comment.setUser(userCustom);
         comment.setIsDelete(false);
         comment.setProductID(productRepository.findByProductID(Integer.parseInt(productID)));
         comment.setImages(null);
-        Map<String , Object> json = new HashMap<>();
+        Map<String, Object> json = new HashMap<>();
         try {
             commentRepository.save(comment);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            json.put("message","fail");
+            json.put("message", "fail");
             String jsonResponse = null;
             try {
                 jsonResponse = new ObjectMapper().writeValueAsString(json);
@@ -104,11 +106,11 @@ public class ProductDetailController {
             }
             return ResponseEntity.ok(jsonResponse);
         }
-        json.put("message","success");
-        json.put("productID",productID);
-        json.put("content",content);
-        json.put("star",star);
-        json.put("fullName",userCustom.getFullName());
+        json.put("message", "success");
+        json.put("productID", productID);
+        json.put("content", content);
+        json.put("star", star);
+        json.put("fullName", userCustom.getFullName());
         String jsonResponse = null;
         try {
             jsonResponse = new ObjectMapper().writeValueAsString(json);
