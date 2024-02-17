@@ -154,7 +154,7 @@
                                 pattern="###,###,###"
                                 value="${totalPrice}"/> ₫
                         </div>
-                        <a href="cart" class="btn btn--default cart-btn">Xem giỏ hàng</a>
+                        <a href="http://localhost:8080/cart" class="btn btn--default cart-btn">Xem giỏ hàng</a>
                         <div class="btn btn--default cart-btn orange" id="vnpay1" data-user-id="${userLogin.userID}">
                             Thanh
                             toán

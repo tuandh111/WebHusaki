@@ -136,7 +136,8 @@
                         </c:forEach>
                         <c:choose>
                             <c:when test="${checkLike }">
-                                                <span class="total-amount main__cart-price text-muted text-decoration-line-through me-2">
+                                                <span class="total-amount main__cart-price text-muted text-decoration-line-through me-2"
+                                                      style="text-decoration: line-through;">
                                                            Giá gốc: <fmt:formatNumber
                                                         type="number"
                                                         pattern="###,###,###"
@@ -164,22 +165,16 @@
 
                     <div class="productInfo__addToCart">
                         <div class="buttons_added">
-                            <c:forEach var="cartList" items="${cartList}" varStatus="loop">
-                                <c:if test="${!cartList.checkPay}">
-                                    <c:if test="${cartList.product.productID == product.productID}">
-                                        <input class="minus is-form" type="button" value="-"
-                                               data-product-id="${product.productID}"
-                                               data-user-id="${userLogin.userID}"
-                                               onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${priceAndQty }`) ">
-                                        <input aria-label="quantity" class="input-qty" max="10" min="1"
-                                               name="" type="number" value="${cartList.quantity}">
-                                        <input class="plus is-form" type="button" value="+"
-                                               data-product-id="${cartList.product.productID}"
-                                               data-user-id="${userLogin.userID}"
-                                               onclick="plusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`) ">
-                                    </c:if>
-                                </c:if>
-                            </c:forEach>
+                            <input class="minus is-form" type="button" value="-"
+                                   data-product-id="${product.productID}"
+                                   data-user-id="${userLogin.userID}"
+                                   onclick="minusProduct(0) ">
+                            <input aria-label="quantity" class="input-qty" max="10" min="1"
+                                   name="" type="number" value="1">
+                            <input class="plus is-form" type="button" value="+"
+                                   data-product-id="${product.productID}"
+                                   data-user-id="${userLogin.userID}"
+                                   onclick="plusProduct(0) ">
                         </div>
                         <div class=" btn btn--default orange "><a href="#" title="cart"
                                                                   data-product-id="${product.productID}"
@@ -291,38 +286,39 @@
                                     <input type="radio" id="star5" name="rating" value="5"/>
                                     <label class="full" for="star5" title="Awesome - 5 stars"></label>
 
-                                    <input type="radio" id="star4half" name="rating" value="4 and a half"/>
+                                    <input type="radio" id="star4half" name="rating" value="4.5"/>
                                     <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
 
                                     <input type="radio" id="star4" name="rating" value="4"/>
                                     <label class="full" for="star4" title="Pretty good - 4 stars"></label>
 
-                                    <input type="radio" id="star3half" name="rating" value="3 and a half"/>
+                                    <input type="radio" id="star3half" name="rating" value="3.5"/>
                                     <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
 
                                     <input type="radio" id="star3" name="rating" value="3"/>
                                     <label class="full" for="star3" title="Meh - 3 stars"></label>
 
-                                    <input type="radio" id="star2half" name="rating" value="2 and a half"/>
+                                    <input type="radio" id="star2half" name="rating" value="2.5"/>
                                     <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
 
                                     <input type="radio" id="star2" name="rating" value="2"/>
                                     <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
 
-                                    <input type="radio" id="star1half" name="rating" value="1 and a half"/>
+                                    <input type="radio" id="star1half" name="rating" value="1.5"/>
                                     <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
 
                                     <input type="radio" id="star1" name="rating" value="1"/>
                                     <label class="full" for="star1" title="Sucks big time - 1 star"></label>
 
-                                    <input type="radio" id="starhalf" name="rating" value="half"/>
+                                    <input type="radio" id="starhalf" name="rating" value="0.5"/>
                                     <label class="half" for="starhalf"
                                            title="Sucks big time - 0.5 stars"></label>
                                 </div>
-                                <textarea class="ratecomment" name=" " id=" " cols="30 " rows="1"
+                                <textarea class="ratecomment" name=" " id="ratecommentId" cols="30 " rows="1"
                                           placeholder="Vui lòng viết đánh giá của bạn "></textarea>
 
-                                <input type="submit" class="btn btn--default" value="Đánh giá">
+                                <input class="btn btn--default" id="comment" data-product-id="${product.productID}"
+                                       data-user-id="${userLogin.userID}" value="Đánh giá">
                             </form>
 
                         </div>
@@ -744,7 +740,7 @@
         }
     </script>
     <script>
-        function minusProduct(index, cartId, productId, quantityInStock, price) {
+        function minusProduct(index) {
             var inputQty = document.querySelectorAll('.input-qty')[index];
             var currentValue = parseInt(inputQty.value);
             var minValue = parseInt(inputQty.getAttribute('min'));
@@ -752,10 +748,9 @@
                 inputQty.value = currentValue - 1;
                 calculateTotal(index)
             }
-            changeQuantityProduct(cartId, productId, currentValue - 1, quantityInStock, price)
         }
 
-        function plusProduct(index, cartId, productId, quantityInStock, price) {
+        function plusProduct(index) {
             var inputQty = document.querySelectorAll('.input-qty')[index];
             var currentValue = parseInt(inputQty.value);
             var maxValue = parseInt(inputQty.getAttribute('max'));
@@ -763,7 +758,6 @@
                 inputQty.value = currentValue + 1;
                 calculateTotal(index)
             }
-            changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
         }
 
         function calculateTotal(index) {
@@ -796,6 +790,7 @@
             return amount.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
         }
     </script>
+    <script src="/js/comment.js"></script>
 </body>
 
 </html>

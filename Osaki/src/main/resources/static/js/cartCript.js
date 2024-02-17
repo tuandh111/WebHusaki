@@ -119,8 +119,8 @@ $(document).ready(function () {
                 }
             });
         } else {
-            //let quantity = $(".input-qty").val() == 'undefined' ? 1 : $(".input-qty").val();
-            let quantity = 1;
+            let quantity = $(".input-qty").val() === undefined ? 1 : $(".input-qty").val();
+            //let quantity = 1;
             console.log(quantity)
             $.ajax({
                 type: 'POST',
