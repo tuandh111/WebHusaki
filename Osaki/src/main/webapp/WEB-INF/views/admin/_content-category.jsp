@@ -22,9 +22,9 @@
 	<div class="col-8">
 	   <div class="row justify-content-end">
 	       <div class="col-8 mb-3">
-	           <form action="" method="get">
+	           <form action="/admin/category-search" method="get">
 	            <div class="d-flex flex-row justify-content-end">
-	                <input class="form-control me-2" name="search" style="max-width: 60%;">
+	                <input class="form-control me-2" name="categoryName" style="max-width: 60%;">
 	                <button class="btn btn-outline-primary" style="max-width: 40%;">Search Categories</button>
 	            </div>
              </form>
@@ -46,24 +46,38 @@
                    <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Category Name</th>
-                            <th>Active</th>
-                            <th>Count</th>
+                            <th>Tên danh mục</th>
+                            <th>Trạng thái</th>
+                            <th>Số lượng sản phẩm</th>
                             <th></th> 
                         </tr>
                    </thead>
                    <tbody>   
-                        <!-- Vòng lặp c:forEach -->                
-                        <tr>
-                            <td>1</td>
-                            <td>Sữa rửa mặt</td>
-                            <td>Đang hoạt động</td>
-                            <td>5</td>
-                            <td>
-                                <a href="#">Edit</a> |
-                                <a href="#" class="text-danger">Delete</a>
-                            </td>
-                        </tr>                  
+                        <!-- Vòng lặp c:forEach -->  
+                        <c:forEach var="item" items="${categories}">
+                            <tr>
+	                            <td>${item.categoryID}</td>
+	                            <td>${item.categoryName}</td>
+	                            <td>${item.isDelete?'Ngưng hoạt động':'Đang hoạt động'}</td>
+	                            <td>5</td>
+	                            <td>
+	                                <a href="#">Edit</a> |
+	                                <a href="#" class="text-danger">Delete</a>
+	                            </td>
+                            </tr>
+                        </c:forEach> 
+                        <!--              
+	                        <tr>
+	                            <td>1</td>
+	                            <td>Sữa rửa mặt</td>
+	                            <td>Đang hoạt động</td>
+	                            <td>5</td>
+	                            <td>
+	                                <a href="#">Edit</a> |
+	                                <a href="#" class="text-danger">Delete</a>
+	                            </td>
+	                        </tr> 
+                         -->                 
                    </tbody>
                </table>
 	       </div>
