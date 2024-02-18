@@ -13,6 +13,6 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
     @Query("select  p from  invoiceDetail p where p.invoiceID = ?1")
     List<InvoiceDetail> findByInvoiceID(Integer id);
 
-    @Query("SELECT COUNT(id) FROM invoiceDetail id WHERE id.productID.productID = :productID")
-    List<Integer> countSoldProductsByProductID(@Param("productID") int productID);
+    @Query("SELECT id1_0.quantity FROM invoiceDetail id1_0  WHERE id1_0.productID.productID = :productID")
+    List<Object[]> countSoldProductsByProductID(@Param("productID") int productID);
 }

@@ -73,10 +73,11 @@ public class ProductDetailController {
             model.addAttribute("voucherList", voucherList);
         }
         List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
-        List<Integer> integerList = invoiceDetailRepository.countSoldProductsByProductID(product.getProductID());
+        List<Object[]> integerList = invoiceDetailRepository.countSoldProductsByProductID(product.getProductID());
         int price=0;
-        for (Integer integer: integerList){
-            price+=integer;
+        for (Object[] integer: integerList){
+            int productPrice = ((Number) integer[0]).intValue(); // Ép kiểu Object sang Number và sau đó lấy giá trị int
+            price += productPrice;
         }
         model.addAttribute("count",price);
         model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
