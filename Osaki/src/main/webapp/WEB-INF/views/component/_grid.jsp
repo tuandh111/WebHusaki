@@ -90,9 +90,9 @@
                     <c:forEach var="productList" items="${listProduct}">
                         <!-- Your menu items go here -->
                         <div class="product1">
-                            <img src="images/product/product1.jpg" alt="Không có">
+                            <img src="./images/product/product1.jpg" alt="Không có">
                             <div class="p-details">
-                                <h2><a href="product/${productList.productID}">${productList.name}</a></h2>
+                                <h2><a href="/product/${productList.productID}">${productList.name}</a></h2>
                                 <h3><fmt:formatNumber type="number" pattern="###,###,###"
                                                       value="${productList.price}"/> đ</h3>
                             </div>
@@ -100,7 +100,6 @@
                     </c:forEach>
                 </div>
             </div>
-
         </div>
         <div class="header__account">
             <c:choose>

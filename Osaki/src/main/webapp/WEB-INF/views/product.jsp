@@ -221,7 +221,7 @@
                         <p class="productIndfo__category-text"> Hãng : <a href="# "
                                                                           class="productIndfo__category-link ">${product.brandID.brandName}</a>
                         </p>
-                        <p class="productIndfo__category-text"> Số lượng đã bán : 3</p>
+                        <p class="productIndfo__category-text"> Số lượng đã bán : ${count}</p>
                         <p class="productIndfo__category-text"> Số lượng trong kho : ${product.quantityInStock}</p>
 
                     </div>
@@ -285,34 +285,15 @@
                                 <div id="rating">
                                     <input type="radio" id="star5" name="rating" value="5"/>
                                     <label class="full" for="star5" title="Awesome - 5 stars"></label>
-
-                                    <input type="radio" id="star4half" name="rating" value="4.5"/>
-                                    <label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
-
                                     <input type="radio" id="star4" name="rating" value="4"/>
                                     <label class="full" for="star4" title="Pretty good - 4 stars"></label>
-
-                                    <input type="radio" id="star3half" name="rating" value="3.5"/>
-                                    <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-
                                     <input type="radio" id="star3" name="rating" value="3"/>
                                     <label class="full" for="star3" title="Meh - 3 stars"></label>
-
-                                    <input type="radio" id="star2half" name="rating" value="2.5"/>
-                                    <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-
                                     <input type="radio" id="star2" name="rating" value="2"/>
                                     <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-
-                                    <input type="radio" id="star1half" name="rating" value="1.5"/>
-                                    <label class="half" for="star1half" title="Meh - 1.5 stars"></label>
-
                                     <input type="radio" id="star1" name="rating" value="1"/>
                                     <label class="full" for="star1" title="Sucks big time - 1 star"></label>
 
-                                    <input type="radio" id="starhalf" name="rating" value="0.5"/>
-                                    <label class="half" for="starhalf"
-                                           title="Sucks big time - 0.5 stars"></label>
                                 </div>
                                 <textarea class="ratecomment" name=" " id="ratecommentId" cols="30 " rows="1"
                                           placeholder="Vui lòng viết đánh giá của bạn "></textarea>
@@ -425,170 +406,79 @@
                     <h3 class="category__title ">Hoàng Tuấn Cometics</h3>
                     <h3 class="category__heading ">Sản Phẩm Tương tự</h3>
                     <div class="owl-carousel hight owl-theme ">
-                        <a href="/ " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product1.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product1.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product2.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product3.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product4.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product5.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product6.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product4.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product6.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product1.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
-                        <a href="# " class="product ">
-                            <div class="product__avt " style="background-image: url(/images/product/product4.jpg) ">
-                            </div>
-                            <div class="product__info ">
-                                <h3 class="product__name ">Framed-Sleeve Tops Group</h3>
-                                <div class="product__price ">
-                                    <div class="price__old ">340.000 <span class="price__unit ">đ</span></div>
-                                    <div class="price__new ">320.000 <span class="price__unit ">đ</span></div>
-                                </div>
-                            </div>
-                            <div class="product__sale ">
-                                <span class="product__sale-percent ">22%</span>
-                                <span class="product__sale-text ">Giảm</span>
-                            </div>
-                        </a>
+
+                        <c:forEach items="${listCategories }" var="c" varStatus="i">
+                            <c:forEach var="p" items="${listProduct}">
+                                <c:if test="${!c.isDelete }">
+                                    <c:if test="${c.categoryID == product.categoryID.categoryID}">
+                                        <a href="/product/${p.productID} " class="product ">
+                                            <div class="product__avt "
+                                                 style="background-image: url(/images/product/product1.jpg) ">
+                                            </div>
+                                            <div class="product__info ">
+                                                <h3 class="product__name ">${p.name}</h3>
+                                                <div class="product__price ">
+                                                    <c:set var="checkListPromotionalDetail" value="false"/>
+                                                    <c:forEach var="pdProduct"
+                                                               items="${promotionalDetailsList1}">
+                                                        <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                            <c:set var="checkListPromotionalDetail" value="true"/>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <c:choose>
+                                                        <c:when test="${checkListPromotionalDetail}">
+                                                            <c:forEach var="pdProduct"
+                                                                       items="${promotionalDetailsList1}">
+                                                                <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                                    <div class="price__old ">${p.price} <span
+                                                                            class="price__unit ">đ</span></div>
+                                                                    <c:choose>
+                                                                        <c:when test="${p.quantityInStock>0}">
+                                                                            <div class="price__new"
+                                                                                 style="margin-left: 30px">
+                                                                                <fmt:formatNumber type="number"
+                                                                                                  pattern="###,###,###"
+                                                                                                  value="${pdProduct.discountedPrice}"/>
+                                                                                <span class="price__unit">đ</span>
+                                                                            </div>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <div class="price__unit">Tạm hết hàng</div>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div class="price__new ">${p.price}<span
+                                                                    class="price__unit ">đ</span>
+                                                            </div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+
+
+                                                </div>
+                                            </div>
+
+                                            <c:forEach var="pdProduct" items="${promotionalDetailsList1}">
+                                                <c:if
+                                                        test="${pdProduct.productID.productID == p.productID}">
+                                                    <div class="product__sale">
+                                                <span class="product__sale-percent">
+                                                -<fmt:formatNumber type="number" pattern="###,###,###"
+                                                                   value="${(p.price - pdProduct.discountedPrice) / p.price *100}"/>%
+                                                </span>
+                                                        <span class="product__sale-text"
+                                                              style="font-size: 8px">Giảm</span>
+                                                    </div>
+                                                </c:if>
+                                            </c:forEach>
+                                        </a>
+                                    </c:if>
+                                </c:if>
+                            </c:forEach>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

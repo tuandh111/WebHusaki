@@ -60,8 +60,7 @@
                                                     </c:choose>
                                                 </c:if>
                                             </c:forEach>
-                                            <c:forEach var="pdProduct"
-                                                       items="${promotionalDetailsList1}">
+                                            <c:forEach var="pdProduct" items="${promotionalDetailsList1}">
                                                 <c:if
                                                         test="${pdProduct.productID.productID == p[0].productID}">
                                                     <div class="product__sale">

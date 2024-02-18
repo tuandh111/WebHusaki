@@ -2,6 +2,7 @@ package asm.osaki.service;
 
 import asm.osaki.repositories.product_repositories.BrandRepository;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
+import asm.osaki.repositories.product_repositories.ProductRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class GlobalInterceptor implements HandlerInterceptor {
     SessionService sessionService;
     @Autowired
     BrandRepository brandRepository;
-
+    @Autowired
+    ProductRepository productRepository;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -31,6 +33,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView mv) throws Exception {
         req.setAttribute("listCategories", categoryRepository.findAll());
         req.setAttribute("listBrands",brandRepository.findAll());
+        req.setAttribute("listProduct", productRepository.findAll());
         System.out.println("run susseccfully postHandle");
     }
 }

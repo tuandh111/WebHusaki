@@ -12,6 +12,7 @@ import asm.osaki.repositories.product_repositories.ProductRepository;
 import asm.osaki.repositories.product_repositories.PromotionalDetailsRepository;
 import asm.osaki.repositories.user_repositories.AddressRepository;
 import asm.osaki.repositories.user_repositories.CommentRepository;
+import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.VoucherRepository;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
@@ -54,7 +55,8 @@ public class ProductDetailController {
     AddressRepository addressRepository;
     @Autowired
     VoucherRepository voucherRepository;
-
+    @Autowired
+    InvoiceDetailRepository invoiceDetailRepository;
     @GetMapping("product/{id}")
     public String Product(@ModelAttribute("UserC") UserCustom userCustom1, @PathVariable("id") Integer productId, Model model) {
         Product product = productRepository.findByProductID(productId);
@@ -71,10 +73,16 @@ public class ProductDetailController {
             model.addAttribute("voucherList", voucherList);
         }
         List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
-        model.addAttribute("promotionalDetailsList", promotionalDetailsList);
+        List<Integer> integerList = invoiceDetailRepository.countSoldProductsByProductID(product.getProductID());
+        int price=0;
+        for (Integer integer: integerList){
+            price+=integer;
+        }
+        model.addAttribute("count",price);
+        model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
         model.addAttribute("product", product);
-        model.addAttribute("comment", commentRepository.findByProductID(product, Sort.by(Sort.Direction.DESC, "createAt")));
-        System.out.println("run susscessfully product" + product);
+        model.addAttribute("comment", commentRepository.findByProductID(product, Sort.by(Sort.Direction.ASC, "createAt")));
+        System.out.println("run successfully product" + product);
         return "product";
     }
 
