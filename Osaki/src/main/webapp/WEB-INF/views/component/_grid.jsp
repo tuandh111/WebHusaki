@@ -108,7 +108,7 @@
                     <a href="/register" class="header__account-register">Đăng Kí</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="#my-Register" class="header__account-register">Tài khoản</a>
+                    <a href="/profile" class="header__account-register">Tài khoản</a>
                     <a href="/logout" class="header__account-register">Đăng xuat</a>
                 </c:otherwise>
             </c:choose>
@@ -118,7 +118,7 @@
 
         <!-- Cart -->
         <div class="header__cart">
-            <a href="#">
+            <a href="/profile">
                 <i class="bi bi-heart-fill" style="width: 100px"></i>
             </a>
 

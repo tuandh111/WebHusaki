@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 
@@ -48,5 +49,22 @@ public class ComponentController {
     @GetMapping("pays")
     public String payController(@ModelAttribute("UserC") UserCustom userCustom) {
         return "pay";
+    }
+
+    public String profileController(@ModelAttribute("UserC") UserCustom userCustom) {
+        return "profile";
+    }
+    @GetMapping("profile")
+    public String getHome(@RequestParam(name = "content", required = false) String content,Model model) {
+        if (content != null && !content.isEmpty()) {
+            model.addAttribute("content", content);
+            System.out.println(content);
+        } else {
+            model.addAttribute("content", "_dashboard3.jsp");
+        }
+        UserCustom userCustom1 = sessionService.get("userLogin");
+        model.addAttribute("address",addressRepository.findByUser(userCustom1));
+        model.addAttribute("userLogin",userCustom1);
+        return "/profile";
     }
 }
