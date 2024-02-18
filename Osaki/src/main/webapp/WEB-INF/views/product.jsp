@@ -127,7 +127,7 @@
                     <div class="productInfo__price">
                         <c:set var="checkLike" value="false"/>
                         <c:set var="checkLikePrice" value=""/>
-                        <c:forEach var="promotionalDetailsList" items="${promotionalDetailsList}">
+                        <c:forEach var="promotionalDetailsList" items="${promotionalDetailsList1}">
                             <c:if test="${promotionalDetailsList.productID.productID == product.productID}">
                                 <c:set var="checkLike" value="true"/>
                                 <c:set var="checkLikePrice"
