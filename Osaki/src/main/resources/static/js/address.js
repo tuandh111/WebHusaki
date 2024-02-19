@@ -23,6 +23,8 @@ $(document).ready(function () {
                 confirmButtonText: 'Đăng nhập'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    localStorage.removeItem('returnUrl');
+                    localStorage.setItem('returnUrl', window.location.href);
                     window.location.href = '/login';
                 }
             });
@@ -48,10 +50,10 @@ $(document).ready(function () {
                         Swal.fire({
                             title: 'Thanh cong', text: "Them dia chi thanh cong", showConfirmButton: true, timer: 3500
                         })
-                        var tableHTML =' <tr >\n' +
-                            '                    <td>'+count+'</td>\n' +
-                            '                    <td>'+phoneID+'</td>\n' +
-                            '                    <td>'+address+'</td>\n' +
+                        var tableHTML = ' <tr >\n' +
+                            '                    <td>' + count + '</td>\n' +
+                            '                    <td>' + phoneID + '</td>\n' +
+                            '                    <td>' + address + '</td>\n' +
                             '                    <td>+ -</td>\n' +
                             '                </tr>'
                         $('#tbAddress').append(tableHTML);

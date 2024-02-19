@@ -16,6 +16,7 @@ $(document).ready(function () {
                 confirmButtonText: 'Đăng nhập'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    localStorage.removeItem('returnUrl');
                     localStorage.setItem('returnUrl', window.location.href);
                     window.location.href = '/login';
                 }

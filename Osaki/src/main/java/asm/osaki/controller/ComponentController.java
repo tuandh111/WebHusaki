@@ -28,13 +28,6 @@ public class ComponentController {
         return "notFound";
     }
 
-    @GetMapping("/contact")
-    public String contactController(@ModelAttribute("UserC") UserCustom userCustom, Model model) {
-        UserCustom userCustom1 = sessionService.get("userLogin");
-        model.addAttribute("address",addressRepository.findByUser(userCustom1));
-        model.addAttribute("userLogin",userCustom1);
-        return "contact";
-    }
 
     @GetMapping("list/product")
     public String listProductController(@ModelAttribute("UserC") UserCustom userCustom) {

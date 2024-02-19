@@ -41,6 +41,7 @@ $(document).ready(function () {
                             if (cartCount < 1) {
                                 $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/">Tiếp tục mua sắm</a></h2>')
                                 $('.total-money').html("Tổng tiền: 0 đ")
+                                $('#out').html("<h1><a href='/'>Tiếp tục mua sắm</a></h1>");
                                 console.log("ok")
                             } else {
                                 $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/"></a></h2>')
@@ -91,7 +92,7 @@ $(document).ready(function () {
                 confirmButtonText: 'Đăng nhập'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    
+
                     localStorage.setItem('returnUrl', window.location.href);
                     window.location.href = '/login';
                 }
@@ -117,6 +118,7 @@ $(document).ready(function () {
                 confirmButtonText: 'Đăng nhập'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    localStorage.removeItem('returnUrl');
                     localStorage.setItem('returnUrl', window.location.href);
                     window.location.href = '/login';
                 }

@@ -56,7 +56,7 @@
                     <c:if test="${!category.isDelete}">
                         <ul class="sub-nav">
                             <li class="sub-nav__item">
-                                <a href="list/product" class="sub-nav__link heading">${category.categoryName}</a>
+                                <a href="/product/search-category/${category.categoryID}" class="sub-nav__link heading">${category.categoryName}</a>
                             </li>
                         </ul>
                     </c:if>
@@ -70,7 +70,7 @@
                     <c:if test="${!brand.isDelete}">
                         <ul class="sub-nav">
                             <li class="sub-nav__item">
-                                <a href="list/product" class="sub-nav__link heading">${brand.brandName}</a>
+                                <a href="/product/search-brand/${brand.brandID}" class="sub-nav__link heading">${brand.brandName}</a>
                             </li>
                         </ul>
                     </c:if>

@@ -33,6 +33,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Owl caroucel Js-->
     <script src="/owlCarousel/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
@@ -53,9 +55,9 @@
         </div>
         <div class="row">
             <div class="col l-6 m-12 s-12">
-                <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3738.382986183426!2d106.33761211423521!3d20.449457212678926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zbmfhu41jIMOhbmggY29zbWV0aWNz!5e0!3m2!1svi!2s!4v1621128017258!5m2!1svi!2s"
-                        width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245.58876575623975!2d105.75811332762875!3d9.982101591977752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08906415c355f%3A0x416815a99ebd841e!2zVHLGsOG7nW5nIENhbyDEkeG6s25nIEZQVCBQb2x5dGVjaG5pYw!5e0!3m2!1svi!2s!4v1708336160466!5m2!1svi!2s"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="col l-6 m-12 s-12">
                 <div class="contact__wrap">
@@ -88,14 +90,15 @@
                     <div class="about-us__heading">Liên hệ với chúng tôi</div>
                     <div class="form__group">
                         <div>
-                            <input type="text" value="${userLogin.fullName}">
+                            <input type="text" id="fullname" value="${userLogin.fullName}">
                         </div>
                         <div>
-                            <input type="email" value="${userLogin.email}">
+                            <input type="email" id="email" value="${userLogin.email}">
                         </div>
                     </div>
-                    <textarea name="" id="" cols="30" rows="5" placeholder="Lời nhắn"></textarea>
-                    <button type="submit" class="btn btn--default">Gửi</button>
+                    <textarea name="" id="message" cols="30" rows="5" placeholder="Lời nhắn"></textarea>
+                    <button class="btn btn--default" id="sendMessage"
+                            data-user-id="${userLogin.userID}">Gửi</button>
                 </div>
             </div>
         </div>
@@ -115,7 +118,7 @@
 
 <!-- Script common -->
 <script src="/js/commonscript.js"></script>
-
+<script src="/js/contact.js"></script>
 
 </body>
 
