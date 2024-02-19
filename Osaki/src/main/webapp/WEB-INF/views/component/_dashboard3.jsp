@@ -21,9 +21,9 @@
                 <th>Trang thai</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="tbAddress">
             <c:forEach var="address" items="${address}" varStatus="i">
-                <tr>
+                <tr >
                     <td>${i.index+1}</td>
                     <td>${address.phoneID}</td>
                     <td>${address.address}</td>

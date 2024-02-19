@@ -57,9 +57,9 @@
         <c:when test="${userLogin !=null}">
             <div class="grid wide">
                 <h3 class="main__notify">
-                    <select name="address" required class="form-control">
+                    <select name="address" id="address" required class="form-control">
                         <c:forEach var="address" items="${addressList}">
-                            <option id="address"
+                            <option
                                     value="${address.phoneID}">${address.phoneID},${address.address} </option>
                         </c:forEach>
                     </select>
@@ -242,6 +242,7 @@
         // Xóa mục 'returnUrl' khỏi localStorage
         localStorage.setItem('returnUrl', window.location.href);
     }
+
     function minusProduct(index, cartId, productId, quantityInStock, price) {
         var inputQty = document.querySelectorAll('.input-qty')[index];
         var currentValue = parseInt(inputQty.value);

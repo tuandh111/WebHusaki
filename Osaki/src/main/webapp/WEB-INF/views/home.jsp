@@ -98,7 +98,6 @@
     <jsp:include page="./component/_outstanding.jsp"/>
 </div>
 
-<jsp:include page="./component/_address.jsp"/>
 <div class="main__policy">
     <div class="row">
         <div class="col l-3 m-6">
