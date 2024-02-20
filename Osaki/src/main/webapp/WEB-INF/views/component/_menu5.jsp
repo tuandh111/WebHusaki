@@ -11,26 +11,25 @@
             </a>
         </li>
         <li>
-            <a href="/admin/product-manager">
+            <a href="/profile?content=_dashboard3">
                 <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
                 <span class="title">Tài khoản</span>
             </a>
-
         </li>
         <li>
-            <a href="/admin/product-manager">
+            <a href="/profile?content=_cart">
                 <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
                 <span class="title">Đơn hàng</span>
             </a>
         </li>
         <li>
-            <a href="/admin/product-manager">
+            <a href="/profile?content=_cartCancel">
                 <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
                 <span class="title">Đã hủy</span>
             </a>
         </li>
         <li>
-            <a href="/admin/product-manager">
+            <a href="/profile?content=_likeProduct">
                 <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
                 <span class="title">Yêu thích</span>
             </a>

@@ -50,8 +50,9 @@ public class ComponentController {
     @GetMapping("profile")
     public String getHome(@RequestParam(name = "content", required = false) String content,Model model) {
         if (content != null && !content.isEmpty()) {
+            content+=".jsp";
             model.addAttribute("content", content);
-            System.out.println(content);
+            System.out.println("content is: "+content);
         } else {
             model.addAttribute("content", "_dashboard3.jsp");
         }
