@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <!-- https://cocoshop.vn/ -->
@@ -24,6 +25,25 @@
     <link rel="stylesheet" href="/css/library.css">
     <!-- Layout -->
     <link rel="stylesheet" href="/css/common.css">
+    <link href="/css/home.css" rel="stylesheet"/>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Owl caroucel Js-->
+    <script src="/owlCarousel/owl.carousel.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bao gồm thư viện Swal -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+    <%--     bootstrap --%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Latest compiled JavaScript -->
+    <%--     icon --%>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <!-- index -->
     <link rel="stylesheet" type="text/css" href="/css/product.css">
     <link rel="stylesheet" type="text/css" href="/css/productSale.css">
@@ -32,7 +52,74 @@
 
 
 </head>
+<style>
+    .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 
+    /* Hide the browser's default checkbox */
+    .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    /* On mouse-over, add a grey background color */
+    .container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
 <body>
 <div class="header scrolling" id="myHeader">
     <jsp:include page="./component/_grid.jsp"/>
@@ -42,22 +129,12 @@
 <div class="main">
     <div class="grid wide">
         <div class="main__taskbar">
-            <div class="main__breadcrumb">
-                <div class="breadcrumb__item">
-                    <a href="#" class="breadcrumb__link">Trang chủ</a>
-                </div>
-                <div class="breadcrumb__item">
-                    <a href="#" class="breadcrumb__link">Cửa hàng</a>
-                </div>
-                <div class="breadcrumb__item">
-                    <a href="#" class="breadcrumb__link">Hãng DHC</a>
-                </div>
-            </div>
             <div class="main__sort">
                 <h3 class="sort__title">
                     Hiển thị kết quả theo
                 </h3>
-                <select class="sort__select"> name="" id="">
+
+                <select class="sort__select" name="" id="">
                     <option value="1">Thứ tự mặc định</option>
                     <option value="2">Mức độ phổ biến</option>
                     <option value="3">Điểm đánh giá</option>
@@ -70,301 +147,172 @@
         <div class="productList">
             <div class="row">
                 <div class="col-lg-3">
-                    <label>
-                        <input type="checkbox" id="checkbox1" name="checkbox1" value="value1">
-                        Option 1
-                    </label>
-
+                    <h1>Danh muc</h1>
+                    <c:forEach items="${listCategories }" var="c" varStatus="i">
+                        <label class="container" data-category="${c.categoryID}">${c.categoryName}
+                            <input type="checkbox" data-category="${c.categoryID}" class="category-checkbox"
+                                   value="${c.categoryName}">
+                            <span class="checkmark"></span>
+                        </label>
+                    </c:forEach>
                     <!-- Checkbox 2 -->
-                    <label>
-                        <input type="checkbox" id="checkbox2" name="checkbox2" value="value2">
-                        Option 2
-                    </label>
-
-                    <!-- Checkbox 3 -->
-                    <label>
-                        <input type="checkbox" id="checkbox3" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox4" name="checkbox1" value="value1">
-                        Option 1
-                    </label>
-
-                    <!-- Checkbox 2 -->
-                    <label>
-                        <input type="checkbox" id="checkbox5" name="checkbox2" value="value2">
-                        Option 2
-                    </label>
-
-                    <!-- Checkbox 3 -->
-                    <label>
-                        <input type="checkbox" id="checkbox6" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox7" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox8" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox9" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox10" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox11" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox12" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
                 </div>
                 <div class="col-lg-9">
-                    <div class="listProduct">
-                        <div class="row">
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
-                            <div class="col l-2 m-4 s-6">
-                                <div class="product">
-                                    <div class="product__avt"
-                                         style="background-image: url(/images/product/product1.jpg)">
-                                    </div>
-                                    <div class="product__info">
-                                        <h3 class="product__name">Framed-Sleeve Tops Group</h3>
-                                        <div class="product__price">
-                                            <div class="price__old">340.000 <span class="price__unit">đ</span></div>
-                                            <div class="price__new">320.000 <span class="price__unit">đ</span></div>
-                                        </div>
-                                    </div>
-                                    <div class="product__sale">
-                                        <span class="product__sale-percent">22%</span>
-                                        <span class="product__sale-text">Giảm</span>
-                                    </div>
-                                    <a href="#" class="viewDetail">Xem chi tiết</a>
-                                    <a href="#" class="addToCart">Thêm vào giỏ</a>
-                                </div>
-                            </div>
+                    <div id="product-list"></div>
+                    <div class="row" id="removeProduct">
+                        <c:forEach var="p" items="${productPage.content}">
+                            <c:if test="${!p.isDelete}">
+                                <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                    <div class="product">
+                                        <div class="product__avt"
+                                             style="background-image: url(/images/product/product1.jpg);"></div>
+                                        <div class="product__info">
+                                            <h3 class="product__name">${p.name}</h3>
+                                            <div class="product__price">
+                                                <c:set var="checkListPromotionalDetail" value="false"/>
+                                                <c:forEach var="pdProduct" items="${listPromotionalDetail}">
+                                                    <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                        <c:set var="checkListPromotionalDetail"
+                                                               value="true"/>
+                                                    </c:if>
+                                                </c:forEach>
+                                                <c:choose>
+                                                    <c:when test="${checkListPromotionalDetail}">
+                                                        <c:forEach var="pdProduct"
+                                                                   items="${listPromotionalDetail}">
+                                                            <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                                <div class="product__price">
+                                                                    <div class="price__old">
+                                                                        <fmt:formatNumber
+                                                                                type="number"
+                                                                                pattern="###,###,###"
+                                                                                value="${p.price}"/> <span
+                                                                            class="price__unit"> đ</span>
+                                                                    </div>
+                                                                    <c:choose>
+                                                                        <c:when test="${p.quantityInStock>0}">
+                                                                            <div class="price__new"
+                                                                                 style="margin-left: 30px">
+                                                                                <fmt:formatNumber
+                                                                                        type="number"
+                                                                                        pattern="###,###,###"
+                                                                                        value="${pdProduct.discountedPrice}"/>
+                                                                                <span class="price__unit">đ</span>
+                                                                            </div>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <span class="price__unit">Tạm het hang</span>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </div>
+                                                                <div class="product__sale">
+                                                                                <span class="product__sale-percent">
+                                                                                        -<fmt:formatNumber type="number"
+                                                                                                           pattern="###,###,###"
+                                                                                                           value="${(p.price - pdProduct.discountedPrice)/p.price *100}"/>%
+                                                                        </span>
+                                                                    <span class="product__sale-text"
+                                                                          style="font-size: 8px">Giảm</span>
+                                                                </div>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:choose>
+                                                            <c:when test="${p.quantityInStock>0}">
+                                                                <div class="price__new"><fmt:formatNumber
+                                                                        type="number"
+                                                                        pattern="###,###,###"
+                                                                        value="${p.price}"/>
+                                                                    <span class="price__unit">đ</span></div>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span class="price__unit">Tạm het hang</span>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                        </div>
+                                                <c:forEach var="pdProduct" items="${listPromotionalDetail}">
+                                                    <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                        <div class="product__sale">
+                                                                        <span
+                                                                                class="product__sale-percent">
+                                                                                        -<fmt:formatNumber type="number"
+                                                                                                           pattern="###,###,###"
+                                                                                                           value="${(p.price - pdProduct.discountedPrice)/p.price *100}"/>%
+                                                                        </span>
+                                                            <span class="product__sale-text"
+                                                                  style="font-size: 8px">Giảm</span>
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                        <a href="/product/${p.productID}" class="viewDetail">Xem chi
+                                                                                             tiết</a>
+                                        <a href="#" title="cart" data-product-id="${p.productID}"
+                                           data-user-id="${userLogin.userID}" class="addToCart">Thêm vào
+                                                                                                giỏ</a>
+                                        <c:set var="checkLike" value="false"/>
+                                        <c:forEach items="${likeList }" var="lp" varStatus="i">
+                                            <c:if test="${lp.productID.productID == p.productID }">
+                                                <c:set var="checkLike" value="true"/>
+                                            </c:if>
+                                        </c:forEach>
+                                        <c:choose>
+                                            <c:when test="${checkLike }">
+                                                <a title="Wishlist" href="#"
+                                                   class="siteLikeProduct m-md-3"
+                                                   data-product-id="${p.productID}"
+                                                   data-user-id="${userLogin.userID}">
+                                                    <i class="bi-heart-fill"></i>
+                                                    <span class="title-like">Xóa yêu thích</span>
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a title="Wishlist" href="#"
+                                                   class="siteLikeProduct m-md-3"
+                                                   data-product-id="${p.productID}"
+                                                   data-user-id="${userLogin.userID}">
+                                                    <i class="bi-heart"></i>
+                                                    <span class="title-like">Thêm vào yêu thích</span>
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:forEach items="${listCategories }" var="c" varStatus="i">
+                                            <c:if test="${c.categoryID == p.categoryID.categoryID}">
+                                                <span class="category">${c.categoryName}</span>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </c:forEach>
                     </div>
+
                     <div class="pagination">
                         <ul class="pagination__list">
                             <li class="pagination__item">
-                                <a href="listFilm.html" class="pagination__link">
-                                    <i class="fas fa-chevron-left"></i>
-                                </a>
+                                <c:if test="${productPage.number != 0}">
+                                    <a href="?page=${productPage.number - 1}&size=${productPage.size}"
+                                       class="pagination__link">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                </c:if>
                             </li>
-                            <li class="pagination__item active">
-                                <a href="listFilm.html" class="pagination__link">1</a>
-                            </li>
+                            <c:forEach begin="0" end="${productPage.totalPages - 1}" var="i">
+                                <li class="pagination__item ${productPage.number == i ? 'active' : ''}">
+                                    <a href="?page=${i}&size=${productPage.size}" class="pagination__link">${i + 1}</a>
+                                </li>
+                            </c:forEach>
                             <li class="pagination__item">
-                                <a href="listFilm.html" class="pagination__link">2</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a href="listFilm.html" class="pagination__link">3</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a href="listFilm.html" class="pagination__link">4</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a href="listFilm.html" class="pagination__link">5</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a href="listFilm.html" class="pagination__link">...</a>
-                            </li>
-                            <li class="pagination__item active">
-                                <a href="listFilm.html" class="pagination__link">14</a>
-                            </li>
-                            <li class="pagination__item">
-                                <a href="listFilm.html" class="pagination__link">
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
+                                <c:if test="${!productPage.last}">
+                                    <a href="?page=${productPage.number + 1}&size=${productPage.size}"
+                                       class="pagination__link">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </c:if>
                             </li>
                         </ul>
                     </div>
@@ -381,11 +329,18 @@
     <i class="fas fa-chevron-up"></i>
 </div>
 <!-- Modal Form -->
-<div class="ModalForm">
-    <jsp:include page="./component/_modal.jsp"/>
-</div>
+<script src="/js/listProduct.js"></script>
+<script src="../js/isotope.pkgd.js"></script>
 <!-- Script common -->
 <script src="/js/commonscript.js"></script>
+<script src="../../js/register.js"></script>
+<script src="/js/homeScript.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/commonscript.js"></script>
+<script src="/js/likeProduct.js"></script>
+<script src="/js/cartCript.js"></script>
+<script src="/js/checkout.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

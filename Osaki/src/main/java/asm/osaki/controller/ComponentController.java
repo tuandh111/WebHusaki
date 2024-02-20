@@ -29,11 +29,6 @@ public class ComponentController {
     }
 
 
-    @GetMapping("list/product")
-    public String listProductController(@ModelAttribute("UserC") UserCustom userCustom) {
-        return "listProduct";
-    }
-
     @GetMapping("/news")
     public String newsController(@ModelAttribute("UserC") UserCustom userCustom) {
         return "news";
