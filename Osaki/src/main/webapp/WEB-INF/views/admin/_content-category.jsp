@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <div class="row mb-4 p-5">
 	<h2>Categories</h2>
 </div>
@@ -9,7 +9,7 @@
 <div class="row p-5">
 	<div class="col-4">
 		<h5>Add New Category</h5>
-		<form action="">
+		<!--<form action="">
 		  <label>Name</label>
 		  <input class="form-control" name="categoryName">
 		  <br>
@@ -17,14 +17,21 @@
 		  <label>Active ?</label>
 		  <br>
 		  <button class="btn btn-outline-primary mt-4">Add New Category</button>
-		</form>
+		</form>-->
+		<form:form action="/admin/category-manager" modelAttribute="category">
+		  <form:label path="categoryName">Category Name</form:label>
+		  <form:input path="categoryName"/>
+		  <br>
+		  <form:input path="isDelete"/>
+		  <form:label path="isDelete">Active ?</form:label>
+		</form:form>
 	</div>
 	<div class="col-8">
 	   <div class="row justify-content-end">
 	       <div class="col-8 mb-3">
 	           <form action="/admin/category-search" method="get">
 	            <div class="d-flex flex-row justify-content-end">
-	                <input class="form-control me-2" name="categoryName" style="max-width: 60%;">
+	                <input class="form-control me-2" name="categoryNameSearch" style="max-width: 60%;">
 	                <button class="btn btn-outline-primary" style="max-width: 40%;">Search Categories</button>
 	            </div>
              </form>
@@ -56,10 +63,10 @@
                         <!-- Vòng lặp c:forEach -->  
                         <c:forEach var="item" items="${categories}">
                             <tr>
-	                            <td>${item.categoryID}</td>
-	                            <td>${item.categoryName}</td>
+	                            <td>${item.id}</td>
+	                            <td>${item.name}</td>
 	                            <td>${item.isDelete?'Ngưng hoạt động':'Đang hoạt động'}</td>
-	                            <td>5</td>
+	                            <td>${item.count}</td>
 	                            <td>
 	                                <a href="#">Edit</a> |
 	                                <a href="#" class="text-danger">Delete</a>

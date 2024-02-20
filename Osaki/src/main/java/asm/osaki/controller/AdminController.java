@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import asm.osaki.entities.product.Category;
+import asm.osaki.model.product.CategoryAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("admin")
@@ -29,9 +32,14 @@ public class AdminController {
 			System.out.println(content);
 			System.out.println(categoryName);
 			if (content.equals("_content-category.jsp")) {
-				model.addAttribute("categories", categoryRepository.findAll());
+				//model.addAttribute("categories", categoryRepository.findAll());
+				model.addAttribute("categories", CategoryAndCount.convert(categoryRepository.findAllAndCount()));
 				if(categoryName!=null) {
-					model.addAttribute("categories", categoryRepository.findByCategoryNameContainingIgnoreCase(categoryName));
+//					model.addAttribute("categories", 
+//							categoryRepository.findByCategoryNameContainingIgnoreCase(categoryName));
+					model.addAttribute("categories", 
+							CategoryAndCount.convert(categoryRepository.findByCategoryAndCountName(categoryName)));
+			
 				}
 			}
 		} else {
@@ -51,15 +59,17 @@ public class AdminController {
 		return "redirect:/admin?content=_content-category.jsp";
 	}
 	
+	@PostMapping("category-manager")
+	public String addCategoryManager() {
+		
+		return "redirect:/admin?content=_content-category.jsp";
+	}
+	
 	@GetMapping("category-search")
-	public String categorySearch(Model model,@RequestParam("categoryName") Optional<String> categoryName) {
+	public String categorySearch(Model model,@RequestParam("categoryNameSearch") Optional<String> categoryName) {
 		return "redirect:/admin?content=_content-category.jsp&categoryName="+categoryName.get();
 	}
 	
-//	@GetMapping("search")
-//	public void searchCategory(Model model, @RequestParam("categoryName") Optional<String> categoryName) {
-//		model.addAttribute("categories", categoryRepository.findByCategoryNameContainingIgnoreCase(categoryName.get()));
-//	}
 	
 	
 	@GetMapping("product-manager")
