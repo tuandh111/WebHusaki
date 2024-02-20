@@ -98,7 +98,47 @@
     <jsp:include page="./component/_outstanding.jsp"/>
 </div>
 
-<jsp:include page="./component/_address.jsp"/>
+<div class="main__policy">
+    <div class="row">
+        <div class="col l-3 m-6">
+            <div class="policy bg-1">
+                <img src="./images/policy/policy1.png" class="policy__img"></img>
+                <div class="policy__info">
+                    <h3 class="policy__title">GIAO HÀNG MIỄN PHÍ</h3>
+                    <p class="policy__description">Cho đơn hàng từ 300K</p>
+                </div>
+            </div>
+        </div>
+        <div class="col l-3 m-6">
+            <div class="policy bg-2">
+                <img src="./images/policy/policy2.png" class="policy__img"></img>
+                <div class="policy__info">
+                    <h3 class="policy__title">ĐỔI TRẢ HÀNG</h3>
+                    <p class="policy__description">Trong 3 ngày đầu tiên</p>
+                </div>
+            </div>
+        </div>
+        <div class="col l-3 m-6">
+            <div class="policy bg-1">
+                <img src="./images/policy/policy3.png" class="policy__img"></img>
+                <div class="policy__info">
+                    <h3 class="policy__title">HÀNG CHÍNH HÃNG</h3>
+                    <p class="policy__description">Cam kết chất lượng</p>
+                </div>
+            </div>
+        </div>
+        <div class="col l-3 m-6">
+            <div class="policy bg-2">
+                <img src="./images/policy/policy4.png" class="policy__img"></img>
+                <div class="policy__info">
+                    <h3 class="policy__title">TƯ VẤN 24/24</h3>
+                    <p class="policy__description">Giải đáp mọi thắc mắc</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 <!--footer -->
 <div class="footer">
     <jsp:include page="./component/_footer.jsp"/>

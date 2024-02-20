@@ -57,9 +57,9 @@
         <c:when test="${userLogin !=null}">
             <div class="grid wide">
                 <h3 class="main__notify">
-                    <select name="address" required class="form-control">
+                    <select name="address" id="address" required class="form-control">
                         <c:forEach var="address" items="${addressList}">
-                            <option id="address"
+                            <option
                                     value="${address.phoneID}">${address.phoneID},${address.address} </option>
                         </c:forEach>
                     </select>
@@ -87,7 +87,8 @@
                                             <div class="col l-4 m-4 s-8">
                                                 <div class="main__cart-product">
                                                     <img src="/images/product/product2.jpg" alt="">
-                                                    <div class="name">${cartList.product.name}
+                                                    <div class="name"><a
+                                                            href="/product/${cartList.product.productID}">${cartList.product.name}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -222,7 +223,7 @@
         </c:when>
         <c:otherwise>
             <div class="grid wide mt-3" style="height: 100vh">
-                <h1 class="main__notify-text"><a href="login">Vui long dang nhap</a></h1>
+                <h1 class="main__notify-text"><a href="login" onclick="ReturnUrl()">Vui long dang nhap</a></h1>
             </div>
         </c:otherwise>
     </c:choose>
@@ -237,6 +238,11 @@
 <!-- Script common -->
 <script src="/js/commonscript.js"></script>
 <script>
+    function ReturnUrl() {
+        // Xóa mục 'returnUrl' khỏi localStorage
+        localStorage.setItem('returnUrl', window.location.href);
+    }
+
     function minusProduct(index, cartId, productId, quantityInStock, price) {
         var inputQty = document.querySelectorAll('.input-qty')[index];
         var currentValue = parseInt(inputQty.value);

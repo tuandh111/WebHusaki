@@ -12,40 +12,27 @@
 <div class="grid wide">
     <div class="row">
         <div class="col l-3 m-6 s-12">
-            <h3 class="footer__title">Menu</h3>
+            <h3 class="footer__title">Danh muc</h3>
             <ul class="footer__list">
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Trang điểm</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Chăm sóc da</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Chăm sóc tóc</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Nước hoa</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Chăm sóc toàn thân </a>
-                </li>
+                <c:forEach var="c" items="${listCategories}" varStatus="i">
+                    <c:if test="${i.index<5}">
+                        <li class="footer__item">
+                            <a href="/product/search-category/${c.categoryID}" class="footer__link">${c.categoryName}</a>
+                        </li>
+                    </c:if>
+                </c:forEach>
             </ul>
         </div>
         <div class="col l-3 m-6 s-12">
-            <h3 class="footer__title">Hỗ trợ khách hàng</h3>
+            <h3 class="footer__title">Thương hiệu</h3>
             <ul class="footer__list">
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Hướng dẫn mua hàng</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Giải đáp thắc mắc</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Chính sách mua hàng</a>
-                </li>
-                <li class="footer__item">
-                    <a href="#" class="footer__link">Chính sách đổi trả</a>
-                </li>
+                <c:forEach var="listBrands" items="${listBrands}" varStatus="i">
+                    <c:if test="${i.index<5}">
+                        <li class="footer__item">
+                            <a href="/product/search-brand/${listBrands.brandID}" class="footer__link">${listBrands.brandName}</a>
+                        </li>
+                    </c:if>
+                </c:forEach>
             </ul>
         </div>
         <div class="col l-3 m-6 s-12">

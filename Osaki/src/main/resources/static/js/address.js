@@ -23,6 +23,8 @@ $(document).ready(function () {
                 confirmButtonText: 'Đăng nhập'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    localStorage.removeItem('returnUrl');
+                    localStorage.setItem('returnUrl', window.location.href);
                     window.location.href = '/login';
                 }
             });
@@ -40,13 +42,21 @@ $(document).ready(function () {
                 success: function (response) {
                     // Handle the success response here
                     console.log(response);
-                    if (response === "success") {
+                    var jsonReponse = JSON.parse(response);
+                    if (jsonReponse.message === "success") {
+                        var phoneID = jsonReponse.phoneID;
+                        var address = jsonReponse.address;
+                        var count = jsonReponse.count;
                         Swal.fire({
                             title: 'Thanh cong', text: "Them dia chi thanh cong", showConfirmButton: true, timer: 3500
-                        }).then(function () {
-                            // Redirect to the home page
-                            window.location.href = '/'; // Change '/home' to the actual URL of your home page
-                        });
+                        })
+                        var tableHTML = ' <tr >\n' +
+                            '                    <td>' + count + '</td>\n' +
+                            '                    <td>' + phoneID + '</td>\n' +
+                            '                    <td>' + address + '</td>\n' +
+                            '                    <td>+ -</td>\n' +
+                            '                </tr>'
+                        $('#tbAddress').append(tableHTML);
                         // Redirect or perform actions for successful login
                         console.log("Login successful");
                     } else if (response === "errorPhone1") {

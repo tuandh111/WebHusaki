@@ -3,6 +3,7 @@ package asm.osaki.repositories.user_repositories;
 import asm.osaki.entities.user.InvoiceDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,4 +12,7 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
     List<Object[]> countProductsOrderByCountDesc();
     @Query("select  p from  invoiceDetail p where p.invoiceID = ?1")
     List<InvoiceDetail> findByInvoiceID(Integer id);
+
+    @Query("SELECT id1_0.quantity FROM invoiceDetail id1_0  WHERE id1_0.productID.productID = :productID")
+    List<Object[]> countSoldProductsByProductID(@Param("productID") int productID);
 }

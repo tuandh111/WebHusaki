@@ -77,9 +77,7 @@
 }
 
 .listProduct .row .col {
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-bottom: 20px;
+
 }
 
 .submenuProduct {
@@ -411,14 +409,14 @@
     font-size: 2.4rem !important;
 }
 
-#rating>input {
+#rating > input {
     display: none;
 }
 
 
 /*ẩn input radio - vì chúng ta đã có label là GUI*/
 
-#rating>label:before {
+#rating > label:before {
     margin: 5px;
     font-size: 1.25em;
     font-family: FontAwesome;
@@ -429,7 +427,7 @@
 
 /*1 ngôi sao*/
 
-#rating>.half:before {
+#rating > .half:before {
     content: "\f089";
     position: absolute;
 }
@@ -437,24 +435,24 @@
 
 /*0.5 ngôi sao*/
 
-#rating>label {
+#rating > label {
     color: #ddd;
     float: right;
 }
 
-#rating>input:checked~label,
-#rating:not(:checked)>label:hover,
-#rating:not(:checked)>label:hover~label {
+#rating > input:checked ~ label,
+#rating:not(:checked) > label:hover,
+#rating:not(:checked) > label:hover ~ label {
     color: #FFD700;
 }
 
 
 /* Hover vào các sao phía trước ngôi sao đã chọn*/
 
-#rating>input:checked+label:hover,
-#rating>input:checked~label:hover,
-#rating>label:hover~input:checked~label,
-#rating>input:checked~label:hover~label {
+#rating > input:checked + label:hover,
+#rating > input:checked ~ label:hover,
+#rating > label:hover ~ input:checked ~ label,
+#rating > input:checked ~ label:hover ~ label {
     color: #FFED85;
 }
 
@@ -466,29 +464,34 @@
 
 /* ===Reponsive */
 
-@media(max-width:1223px) {
+@media (max-width: 1223px) {
     .ratecomment {
         max-width: 700px;
     }
 }
 
-@media(max-width:1023px) {
+@media (max-width: 1023px) {
     .main__taskbar {
         flex-direction: column;
         align-items: center;
     }
+
     .main__sort {
         margin-top: 12px;
     }
+
     .productCategory {
         display: none;
     }
+
     .productInfo .row {
         flex-direction: column-reverse;
     }
+
     .productDes__ratting-wrap {
         display: block;
     }
+
     .ratecomment {
         flex: 0;
     }
@@ -499,17 +502,21 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+
     .breadcrumb__link {
         font-size: 1.8rem;
         text-transform: none;
     }
+
     .breadcrumb__item::after {
         top: 0;
         font-size: 1.8rem;
     }
+
     .pagination__item {
         margin-right: 4px;
     }
+
     .pagination__link {
         color: var(--black-cl-1);
         padding: 8px 12px;
@@ -518,21 +525,26 @@
         font-size: 1.6rem;
         font-weight: 300;
     }
+
     .listProduct .row {
         margin-left: 0;
         margin-right: 0;
     }
+
     .main__sort {
         display: block;
     }
+
     .sort__title {
         text-align: center;
         margin-right: 0;
         margin-bottom: 12px;
     }
+
     .productIndfo__policy {
         flex-wrap: wrap;
     }
+
     .policy {
         width: 50%;
         flex: none;

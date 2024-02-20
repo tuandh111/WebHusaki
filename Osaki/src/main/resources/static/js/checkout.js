@@ -2,7 +2,10 @@ $(document).ready(function () {
     $('#pay').click(function (e) {
         e.preventDefault();
         let isLoggedIn = $(this).data('user-id') !== '';
-        let phoneID = $('#address').val();
+       // let phoneID = $('#address').val();
+        var selectedOption = $("#address").find('option:selected');
+        var phoneID = selectedOption.val();
+        console.log("SDT: "+ phoneID);
         if (!isLoggedIn) {
             Swal.fire({
                 icon: 'error',
@@ -51,6 +54,18 @@ $(document).ready(function () {
                                 $('#out').html("");
                                 $('.total-money').html("");
 
+                            }else if (response =='errorProduct'){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Bạn cần mua sam de co the thanh toan!',
+                                    confirmButtonColor: '#dc3545',
+                                    confirmButtonText: 'Tiep tuc mua sam'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/';
+                                    }
+                                });
                             }
                         },
                         error: function (xhr, status, error) {

@@ -16,6 +16,8 @@ import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import asm.osaki.testBcrypt.Bcrypt;
 import asm.osaki.user.UserGoogleDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restfb.types.User;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -283,9 +285,21 @@ public class AccountController {
         address1.setAddress(address +", "+ward+", "+district+", "+cityName);
         address1.setUser(userCustom);
         address1.setIsDelete(false);
+        Map<String , Object> jsonResponseMap = new HashMap<>();
         try {
             addressRepository.save(address1);
-            return ResponseEntity.ok("success");
+            jsonResponseMap.put("count",addressRepository.findByUser(userCustom).size());
+            jsonResponseMap.put("phoneID",address1.getPhoneID());
+            jsonResponseMap.put("address",address1.getAddress());
+            jsonResponseMap.put("message","success");
+            String jsonResponse = null;
+            try {
+                jsonResponse = new ObjectMapper().writeValueAsString(jsonResponseMap);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("json: " + jsonResponse);
+            return ResponseEntity.ok(jsonResponse);
         }catch (Exception e){
             return ResponseEntity.ok("fail");
         }

@@ -10,6 +10,58 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<style>
+
+    .product1 {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding-bottom: 15px;
+    }
+
+    .product1 img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .product1 .p-details {
+        padding-left: 15px;
+    }
+
+    .product1 .p-details h2 {
+        font-size: 20px;
+        color: #1d1d1d;
+    }
+
+    .product1 .p-details h3 {
+        font-size: 18px;
+        white-space: nowrap;
+    }
+
+    .product-list {
+        padding: 20px 0;
+    }
+
+    .menu {
+        margin-top: 240px;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid rgba(82, 74, 235);
+        border-radius: 4px;
+        width: 540px;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+        z-index: 999;
+    }
+
+
+    .menu.active {
+        display: block;
+    }
+</style>
 <div class="grid wide">
     <div class="header__top">
         <div class="navbar-icon">
@@ -22,7 +74,7 @@
         <%--         </a> --%>
         <div class="header__search">
             <div class="header__search-wrap">
-                <form method="get" action="/product/search">
+                <form action="/product/search">
                     <%--                     <label for="categoryId">Chọn danh mục:</label> --%>
                     <%--                     <select id="categoryId" name="categoryId"> --%>
                     <%--                         <option value="-1">Tất cả danh mục</option> --%>
@@ -30,10 +82,23 @@
                     <%--                         <option value="2">Danh mục 2</option> --%>
                     <%--                         <!-- Thêm các tùy chọn danh mục khác nếu cần --> --%>
                     <%--                     </select> --%>
-                    <input type="text" class="header__search-input" placeholder="Tìm kiếm" name="search"/>
+                    <input type="text" class="header__search-input" id="search-item" placeholder="Tìm kiếm"
+                           name="search" onkeyup="search1()" onfocus="showMenu()" onblur="hideMenu(event)"/>
                     <button style="margin-left:240px">Tìm kiếm</button>
                 </form>
-
+                <div class="menu" id="menu">
+                    <c:forEach var="productList" items="${listProduct}">
+                        <!-- Your menu items go here -->
+                        <div class="product1">
+                            <img src="/images/product/product1.jpg" alt="Không có">
+                            <div class="p-details">
+                                <h2><a href="/product/${productList.productID}">${productList.name}</a></h2>
+                                <h3><fmt:formatNumber type="number" pattern="###,###,###"
+                                                      value="${productList.price}"/> đ</h3>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
         <div class="header__account">
@@ -43,7 +108,7 @@
                     <a href="/register" class="header__account-register">Đăng Kí</a>
                 </c:when>
                 <c:otherwise>
-                    <a href="#my-Register" class="header__account-register">Tài khoản</a>
+                    <a href="/profile" class="header__account-register">Tài khoản</a>
                     <a href="/logout" class="header__account-register">Đăng xuat</a>
                 </c:otherwise>
             </c:choose>
@@ -53,7 +118,7 @@
 
         <!-- Cart -->
         <div class="header__cart">
-            <a href="#">
+            <a href="/profile">
                 <i class="bi bi-heart-fill" style="width: 100px"></i>
             </a>
 
@@ -94,7 +159,8 @@
                                             <img src="images/product/product1.jpg" alt="">
                                         </a>
                                         <div class="order-main">
-                                            <a href="product" class="order-main-name">${cartList.product.name}</a>
+                                            <a href="/product/${cartList.product.productID}"
+                                               class="order-main-name">${cartList.product.name}</a>
                                             <div class="order-main-price">
                                                 <span id="quantity_${cartList.cartId}">${cartList.quantity}</span>
                                                 <span onclick="increaseQuantity(${loop.index})">X</span>
@@ -154,7 +220,7 @@
                                 pattern="###,###,###"
                                 value="${totalPrice}"/> ₫
                         </div>
-                        <a href="cart" class="btn btn--default cart-btn">Xem giỏ hàng</a>
+                        <a href="http://localhost:8080/cart" class="btn btn--default cart-btn">Xem giỏ hàng</a>
                         <div class="btn btn--default cart-btn orange" id="vnpay1" data-user-id="${userLogin.userID}">
                             Thanh
                             toán
@@ -187,5 +253,36 @@
         }
     }
 
+    const search1 = () => {
+        console.log("chaạy qua ok")
+        const searchbox = document.getElementById('search-item').value.toUpperCase();
+        const product = document.querySelectorAll(".product1");
+        const pname = document.getElementsByTagName("h2");
+        for (var i = 0; i < pname.length; i++) {
+            let match = product[i].getElementsByTagName('h2')[0];
+            if (match) {
+                let textvalue = match.textContent || match.innerHTML;
+                if (textvalue.toUpperCase().indexOf(searchbox) > -1) {
+                    product[i].style.display = "";
+                } else {
+                    product[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    const showMenu = () => {
+        const menu = document.getElementById('menu');
+        menu.classList.add('active');
+    }
+
+    const hideMenu = (event) => {
+        // Kiểm tra xem sự kiện được kích hoạt có phải là một hành động click trên liên kết hay không
+        const target = event.relatedTarget || event.explicitOriginalTarget || document.activeElement;
+        if (target.tagName.toLowerCase() !== 'a') {
+            const menu = document.getElementById('menu');
+            menu.classList.remove('active');
+        }
+    }
 
 </script>

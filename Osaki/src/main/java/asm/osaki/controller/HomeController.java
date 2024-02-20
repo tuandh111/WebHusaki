@@ -59,12 +59,12 @@ public class HomeController {
 			List<Cart> cartList = cartRepository.findAllByUser(userCustom);
 			double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
 			System.out.println("tota");
-			List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
-			model.addAttribute("promotionalDetailsList", promotionalDetailsList);
+		
 			model.addAttribute("totalPrice", totalPrice);
 			model.addAttribute("cartList", cartList);
 		}
-
+		List<PromotionalDetails> promotionalDetailsList1 = promotionalDetailsRepository.findAll();
+		model.addAttribute("promotionalDetailsList1", promotionalDetailsList1);
 		model.addAttribute("userLogin", userCustom);
 		model.addAttribute("listProduct", productRepository.findAll());
 

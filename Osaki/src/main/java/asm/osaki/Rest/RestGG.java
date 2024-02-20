@@ -1,6 +1,7 @@
 package asm.osaki.Rest;
 
 import asm.osaki.constants.Constants;
+import asm.osaki.entities.user.Role;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.user.UserGoogleDto;
 import com.google.gson.Gson;
@@ -29,11 +30,15 @@ public class RestGG {
         String response = Request.Get(link).execute().returnContent().asString();
 //        "id":"110852639757255091139", "name":"tuan dang", "given_name":"tuan", "family_name":"dang", "picture":
 //        "https://lh3.googleusercontent.com/a/ACg8ocJ2qd6NhibuayhIRWm2DjN517P9YFyptQAQsEr3SRU9=s96-c", "locale":"vi"
+        Role role = new Role();
+        role.setId(1);
+        role.setRoleName("user");
         UserGoogleDto userGoogleDto = new Gson().fromJson(response, UserGoogleDto.class);
         userCustom.setGoogleID(userGoogleDto.getId());
         userCustom.setFullName(userGoogleDto.getName());
         userCustom.setImage(userGoogleDto.getPicture());
         userCustom.setPassword("Tuan123456789");
+        userCustom.setRoleName(role);
         return userCustom;
     }
 }
