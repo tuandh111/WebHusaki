@@ -68,5 +68,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Thêm</button>
+            <button type="submit" class="btn btn-primary">Sửa</button>
+            <button type="submit" class="btn btn-primary">Xóa</button>
         </form>
     </div>
