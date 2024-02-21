@@ -39,9 +39,9 @@ public class ListProductController {
     CategoryRepository categoryRepository;
     @Autowired
     BrandRepository brandRepository;
+
     @GetMapping("list/product")
-    public String listProductController(@ModelAttribute("UserC") UserCustom userCustom, Model model, @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "30") int size) {
+    public String listProductController(@ModelAttribute("UserC") UserCustom userCustom, Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "30") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage = productRepository.findAll(pageable);
@@ -58,6 +58,7 @@ public class ListProductController {
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
         }
+
         List<PromotionalDetails> promotionalDetailsList1 = promotionalDetailsRepository.findAll();
         model.addAttribute("promotionalDetailsList1", promotionalDetailsList1);
         model.addAttribute("userLogin", userCustom1);
