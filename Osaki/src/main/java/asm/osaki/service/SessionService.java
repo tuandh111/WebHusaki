@@ -42,7 +42,15 @@ public class SessionService {
     public <T> T get(String name) {
         return (T) session.getAttribute(name);
     }
-
+    
+    public <T> T get(String name, T defaultValue) {
+	    Object value = session.getAttribute(name);
+	    if (value != null) {
+	        return (T) value;
+	    } else {
+	        return defaultValue;
+	    }
+	}
     /**
      * Thay đổi hoặc tạo mới attribute trong session
      *

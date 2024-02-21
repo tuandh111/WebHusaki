@@ -1,4 +1,4 @@
-package asm.osaki.model.product;
+package asm.osaki.model.admin;
 
 import java.util.ArrayList;
 import java.util.List;
