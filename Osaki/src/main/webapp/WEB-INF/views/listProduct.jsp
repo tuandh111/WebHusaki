@@ -22,10 +22,10 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- Reset css & grid sytem -->
-    <link rel="stylesheet" href="/css/library.css">
+    <link rel="stylesheet" type="text/css" href="/css/library.css">
     <!-- Layout -->
-    <link rel="stylesheet" href="/css/common.css">
-    <link href="/css/home.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <link href="/css/home.css" type="text/css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/autonumeric@4"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -54,6 +54,10 @@
 
 </head>
 <style>
+    a {
+        text-decoration: none;
+    }
+
     .container {
         display: block;
         position: relative;
@@ -292,32 +296,35 @@
                             </c:if>
                         </c:forEach>
                     </div>
-
-                    <div class="pagination">
-                        <ul class="pagination__list">
-                            <li class="pagination__item">
-                                <c:if test="${productPage.number != 0}">
-                                    <a href="?page=${productPage.number - 1}&size=${productPage.size}"
-                                       class="pagination__link">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </a>
-                                </c:if>
-                            </li>
-                            <c:forEach begin="0" end="${productPage.totalPages - 1}" var="i">
-                                <li class="pagination__item ${productPage.number == i ? 'active' : ''}">
-                                    <a href="?page=${i}&size=${productPage.size}" class="pagination__link">${i + 1}</a>
+                    <c:if test="${countBrand>0}">
+                        <div class="pagination">
+                            <ul class="pagination__list">
+                                <li class="pagination__item">
+                                    <c:if test="${productPage.number != 0}">
+                                        <a href="?page=${productPage.number - 1}&size=${productPage.size}"
+                                           class="pagination__link">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </c:if>
                                 </li>
-                            </c:forEach>
-                            <li class="pagination__item">
-                                <c:if test="${!productPage.last}">
-                                    <a href="?page=${productPage.number + 1}&size=${productPage.size}"
-                                       class="pagination__link">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </c:if>
-                            </li>
-                        </ul>
-                    </div>
+                                <c:forEach begin="0" end="${productPage.totalPages - 1}" var="i">
+                                    <li class="pagination__item ${productPage.number == i ? 'active' : ''}">
+                                        <a href="?page=${i}&size=${productPage.size}"
+                                           class="pagination__link">${i + 1}</a>
+                                    </li>
+                                </c:forEach>
+                                <li class="pagination__item">
+                                    <c:if test="${!productPage.last}">
+                                        <a href="?page=${productPage.number + 1}&size=${productPage.size}"
+                                           class="pagination__link">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </c:if>
+                                </li>
+                            </ul>
+                        </div>
+                    </c:if>
+
                 </div>
             </div>
 

@@ -41,7 +41,7 @@ public class ListProductController {
     BrandRepository brandRepository;
     @GetMapping("list/product")
     public String listProductController(@ModelAttribute("UserC") UserCustom userCustom, Model model, @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size) {
+            @RequestParam(name = "size", defaultValue = "30") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage = productRepository.findAll(pageable);
