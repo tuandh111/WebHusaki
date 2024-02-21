@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c"%>
-<c:set var="action" value="${param.action}" />
-<h3>Form ${action} sản phẩm</h3>
-
 <div class="container mt-5">
         <h1>Thêm sản phẩm</h1>
         <form>
@@ -59,11 +54,6 @@
                     <div class="mb-3">
                         <label for="description" class="form-label">Mô tả</label>
                         <textarea class="form-control" id="description" placeholder="Mô tả" rows="4"></textarea>
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label for="ingredient" class="form-label">Hình ảnh</label>
-                        <input type="file" class="form-control" id="ingredient" placeholder="Hình ảnh">
                     </div>
                 </div>
             </div>

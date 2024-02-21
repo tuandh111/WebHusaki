@@ -70,67 +70,43 @@
         <div class="productList">
             <div class="row">
                 <div class="col-lg-3">
-                    <label>
-                        <input type="checkbox" id="checkbox1" name="checkbox1" value="value1">
-                        Option 1
-                    </label>
-
-                    <!-- Checkbox 2 -->
-                    <label>
-                        <input type="checkbox" id="checkbox2" name="checkbox2" value="value2">
-                        Option 2
-                    </label>
-
-                    <!-- Checkbox 3 -->
-                    <label>
-                        <input type="checkbox" id="checkbox3" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox4" name="checkbox1" value="value1">
-                        Option 1
-                    </label>
-
-                    <!-- Checkbox 2 -->
-                    <label>
-                        <input type="checkbox" id="checkbox5" name="checkbox2" value="value2">
-                        Option 2
-                    </label>
-
-                    <!-- Checkbox 3 -->
-                    <label>
-                        <input type="checkbox" id="checkbox6" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox7" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox8" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox9" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox10" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox11" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                    <label>
-                        <input type="checkbox" id="checkbox12" name="checkbox3" value="value3">
-                        Option 3
-                    </label>
-                </div>
+            <h4>Danh mục tìm kiếm sản phẩm</h4>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <input type="checkbox" name="filter.p.vendor" value="3CE" id="Filter-Brand-1">
+                    <label for="Filter-Brand-1" class="form-check-label">3CE <span class="badge bg-secondary">69</span></label>
+                </li>
+                <!-- Thêm các mục danh mục tìm kiếm sản phẩm khác tương tự ở đây -->
+                <li class="list-group-item">
+                    <input type="checkbox" name="filter.p.vendor" value="WONJIN" id="Filter-Brand-30">
+                    <label for="Filter-Brand-30" class="form-check-label">WONJIN <span class="badge bg-secondary">3</span></label>
+                </li>
+                <li class="list-group-item">
+                    <input type="checkbox" name="filter.p.vendor" value="WONJIN" id="Filter-Brand-30">
+                    <label for="Filter-Brand-30" class="form-check-label">WONJIN <span class="badge bg-secondary">3</span></label>
+                </li>
+                <li class="list-group-item">
+                    <input type="checkbox" name="filter.p.vendor" value="WONJIN" id="Filter-Brand-30">
+                    <label for="Filter-Brand-30" class="form-check-label">WONJIN <span class="badge bg-secondary">3</span></label>
+                </li>
+                <li class="list-group-item">
+                    <input type="checkbox" name="filter.p.vendor" value="WONJIN" id="Filter-Brand-30">
+                    <label for="Filter-Brand-30" class="form-check-label">WONJIN <span class="badge bg-secondary">3</span></label>
+                </li>
+                <li class="list-group-item">
+                    <input type="checkbox" name="filter.p.vendor" value="WONJIN" id="Filter-Brand-30">
+                    <label for="Filter-Brand-30" class="form-check-label">WONJIN <span class="badge bg-secondary">3</span></label>
+                </li>
+                <li class="list-group-item">
+                    <input type="checkbox" name="filter.p.vendor" value="WONJIN" id="Filter-Brand-30">
+                    <label for="Filter-Brand-30" class="form-check-label">WONJIN <span class="badge bg-secondary">3</span></label>
+                </li>
+            </ul>
+        </div>
                 <div class="col-lg-9">
                     <div class="listProduct">
                         <div class="row">
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -150,7 +126,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -170,7 +146,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -190,7 +166,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -210,7 +186,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -230,7 +206,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -250,7 +226,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -270,7 +246,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -290,7 +266,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">
@@ -310,7 +286,7 @@
                                     <a href="#" class="addToCart">Thêm vào giỏ</a>
                                 </div>
                             </div>
-                            <div class="col l-2 m-4 s-6">
+                            <div class="col-2 m-4 s-6">
                                 <div class="product">
                                     <div class="product__avt"
                                          style="background-image: url(/images/product/product1.jpg)">

@@ -80,6 +80,12 @@
 
 }
 
+/* Product update */
+
+.product{
+    width: 170px;
+}
+
 .submenuProduct {
     position: absolute;
     flex-wrap: wrap;
