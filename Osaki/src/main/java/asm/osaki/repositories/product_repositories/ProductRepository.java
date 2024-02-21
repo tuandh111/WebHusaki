@@ -29,4 +29,13 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             Pageable pageable);
 
     Page<Product> findByCategoryID(Category categoryProduct, Pageable pageable);
+
+    @Query("SELECT p FROM product p ORDER BY p.price ASC")
+    Page<Product> findProductsByPriceRangeOrderByPriceAsc(Pageable pageable);
+    @Query("SELECT p FROM product p ORDER BY p.price DESC")
+    Page<Product> findProductsByPriceRangeOrderByPriceDesc( Pageable pageable);
+
+    @Query("SELECT p FROM product p WHERE p.price >= :minPrice AND p.price <= :maxPrice")
+    Page<Product> findProductsByPriceRange(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice,Pageable pageable);
+
 }

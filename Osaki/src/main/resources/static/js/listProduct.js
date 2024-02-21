@@ -7,17 +7,32 @@ $(document).ready(function () {
         $('.category-checkbox:checked').each(function () {
             selectedCategories.push($(this).val());
         });
+        $.ajax({
+            type: 'GET',
+            url: '/product/search-all-category',
+            success: function (response) {
 
-        // Hiển thị hoặc ẩn sản phẩm tùy thuộc vào category được chọn
-        $('.product').each(function () {
-            var productCategory = $(this).find('.category').text();
-            if (selectedCategories.includes(productCategory)) {
-                $(this).parent('.col-lg-3').show(); // Hiển thị sản phẩm
-            } else {
-                $(this).parent('.col-lg-3').hide(); // Ẩn sản phẩm
+                $('.product').each(function () {
+                    var productCategory = $(this).find('.category').text();
+                    if (selectedCategories.includes(productCategory)) {
+                        $(this).parent('.col-lg-3').show(); // Hiển thị sản phẩm
+                    } else {
+                        $(this).parent('.col-lg-3').hide(); // Ẩn sản phẩm
+                    }
+                });
+                updatePagination();
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Xoa san pham thất bại',
+                    text: "Có lỗi xảy ra, vui lòng thử lại !",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
             }
         });
-        updatePagination();
+        // Hiển thị hoặc ẩn sản phẩm tùy thuộc vào category được chọn
     });
 
     function updatePagination() {

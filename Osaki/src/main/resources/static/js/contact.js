@@ -33,9 +33,16 @@ $(document).ready(function () {
                     message: message
                 },
                 success: function (response) {
-                    Swal.fire({
-                        title: 'Thanh cong', text: "Gui email thanh cong", showConfirmButton: true, timer: 3500
-                    })
+                    if (response == 'success'){
+                        Swal.fire({
+                            title: 'Thanh cong', text: "Gui email thanh cong", showConfirmButton: true, timer: 3500
+                        })
+
+                    }else{
+                        Swal.fire({
+                            icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500})
+                    }
+
                 },
                 error: function (error) {
                     // Handle the error response here
@@ -43,7 +50,7 @@ $(document).ready(function () {
                         icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
                     }).then(function () {
                         // Redirect to the home page
-                        window.location.href = '/'; // Change '/home' to the actual URL of your home page
+                     // Change '/home' to the actual URL of your home page
                     });
                 }
             });

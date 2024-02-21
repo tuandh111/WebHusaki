@@ -26,6 +26,7 @@
     <!-- Layout -->
     <link rel="stylesheet" href="/css/common.css">
     <link href="/css/home.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Owl caroucel Js-->
@@ -134,19 +135,20 @@
                     Hiển thị kết quả theo
                 </h3>
 
-                <select class="sort__select" name="" id="">
-                    <option value="1">Thứ tự mặc định</option>
-                    <option value="2">Mức độ phổ biến</option>
-                    <option value="3">Điểm đánh giá</option>
-                    <option value="4">Mới cập nhật</option>
-                    <option value="5">Giá : Cao đến thấp</option>
-                    <option value="6">Giá Thấp đến cao</option>
-                </select>
+                <h3><a class="btn btn-primary m-md-2" href="/list/product">Moi nhat</a></h3>
+                <h3><a href="/product/filterByPrice?sort=asc" class="btn btn-primary m-md-2">Giá thấp đến cao</a></h3>
+                <h3><a href="/product/filterByPrice?sort=desc" class="btn btn-primary m-md-2">Giá cao đến thấp</a></h3>
+
             </div>
         </div>
         <div class="productList">
             <div class="row">
                 <div class="col-lg-3">
+                    <form action="/product/filterByPrice">
+                        <input type="text" class="form-control autonumeric" name="minPrice" placeholder="Từ" required>
+                        <input type="text" class="form-control autonumeric" name="maxPrice" placeholder="Đến" required>
+                        <button class="btn btn-primary mt-2">Ap dụng</button>
+                    </form>
                     <h1>Danh muc</h1>
                     <c:forEach items="${listCategories }" var="c" varStatus="i">
                         <label class="container" data-category="${c.categoryID}">${c.categoryName}
@@ -328,6 +330,15 @@
 <div class="up-top" id="upTop" onclick="goToTop()">
     <i class="fas fa-chevron-up"></i>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var autoNumericInputs = document.getElementsByClassName('autonumeric');
+        for (var i = 0; i < autoNumericInputs.length; i++) {
+            new AutoNumeric(autoNumericInputs[i]);
+        }
+    });
+
+</script>
 <!-- Modal Form -->
 <script src="/js/listProduct.js"></script>
 <script src="../js/isotope.pkgd.js"></script>
