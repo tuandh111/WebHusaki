@@ -41,7 +41,7 @@
     <div class="login-container">
         <div class="login-contain row">
             <div class="authen-modal login">
-                <h3 class="authen-modal__title">Đăng Nhập</h3>
+                <div class="d-flex justify-content-center mt-2"> <h3 class="authen-modal__title  " >Đăng nhập</h3></div>
                 <form action="login" method="post" id="loginForm">
                     <div class="form-group">
                         <label class="form-label">Địa chỉ email *</label>
