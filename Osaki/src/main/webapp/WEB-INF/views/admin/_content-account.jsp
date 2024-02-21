@@ -1,73 +1,78 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="row mb-4 p-5">
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<div class="row mb-4 p-3">
     <h2>User Manager</h2>
 </div>
 
 <div class="row p-5">
-    <div class="col-4">
-        <h5>Add Or Edit New User</h5>
-        <form action="">
-          <label>Name</label>
-          <input class="form-control" name="fullName">
-          <br>
-          <input type="file" class="form-control" name="partFile">
-          <br>
-          <input type="checkbox" checked="checked" name="isDelete"> 
-          <label>Active ?</label>
-          <br>
-          <button class="btn btn-outline-primary mt-4">Add/Edit User</button>
-        </form>
-    </div>
-    <div class="col-8">
+    <div class="col-12">
        <div class="row justify-content-end">
            <div class="col-8 mb-3">
-               <form action="" method="get">
+               <form action="/admin/user-search" method="get">
                 <div class="d-flex flex-row justify-content-end">
-                    <input class="form-control me-2" name="search" style="max-width: 60%;">
-                    <button class="btn btn-outline-primary" style="max-width: 40%;">Search User</button>
+                    <input class="form-control me-2" name="kwSearch" value="${keywords}" style="max-width: 40%;">
+                    <button class="btn btn-outline-primary" style="max-width: 40%;">Tìm kiếm</button>
                 </div>
              </form>
            </div>
            <div class="col-8 d-flex justify-content-end">
-                 <!-- <jsp:include page="__navigation-button.jsp" /> -->                
-                <input class="form-control me-2" value="135 items ${totalElement}" style="max-width: 20%;background-color: #b7a888;" disabled="disabled">
-                <button class="btn btn-outline-secondary me-2">First</button>
-                <button class="btn btn-outline-secondary me-2">Prev</button>
-                <input class="form-control" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 10%;background-color: #b7a888;">
-                <input class="form-control me-2" value="of 5 ${totalPage}" style="max-width: 10%; background-color: #b7a888;" disabled="disabled">
-                <button class="btn btn-outline-secondary me-2">Next</button>
-                <button class="btn btn-outline-secondary me-2">Last</button>            
-           </div>            
+                 <!-- <jsp:include page="__navigation-button.jsp" /> -->
+                <input class="form-control me-2" value="${totalElements} items" style="max-width: 20%;background-color: #b7a888;" disabled="disabled">               
+                <c:if test="${not booleanFirst}">
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=0">First</a>
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=${prevPage}">Prev</a>
+                </c:if>                
+                <input class="form-control" name="currentPage" value="${currentPage}" style="max-width: 9%;background-color: #b7a888;">
+                <input class="form-control me-2" value="of ${totalPages}" style="max-width: 11%; background-color: #b7a888;" disabled="disabled">
+                <c:if test="${not booleanLast}">
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=${nextPage}">Next</a>
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=${totalPages}">Last</a>
+                </c:if>                      
+           </div>           
        </div>
        <div class="row">
            <div class="table-responsive">
                <table class="table table-hover">
                    <thead>
                         <tr>
-                            <th>Image</th>
-                            <th>Fullname</th>
-                            <th>Active</th>
-                            <th>Address</th>
-                            <th>Count Invoice</th>
+                            <th>Ảnh đại diện</th>
+                            <th>Họ và tên</th>
+                            <th>Email</th>
+                            <th>Số lượng hóa đơn</th>
+                            <th>Số lượt thích</th>
+                            <th>Kích hoạt tài khoản</th>
                             <th></th> 
                         </tr>
                    </thead>
                    <tbody>   
-                        <!-- Vòng lặp c:forEach -->                
-                        <tr>
-                            <td>
-                                <img src="/images/author-item.jpg" class="img-thumbnail" alt="Ảnh đại diện" style="width: 50px;height: 50px">
-                            </td>
-                            <td>Nguyễn Văn A</td>
-                            <td>Đang hoạt động</td>
-                            <td>Cái Răng, Cần Thơ</td>
-                            <td>5</td>
-                            <td>
-                                <a href="#">Edit</a> |
-                                <a href="#" class="text-danger">Delete</a>
-                            </td>
-                        </tr>                  
+                        <c:forEach var="item" items="${users}">
+                            <tr>
+                                <td>
+                                 <img src="/images/${item.image}" class="img-thumbnail" alt="Ảnh đại diện" style="width: 50px;height: 50px">
+                                </td>
+                                <td>${item.name}</td>
+                                <td>${item.email}</td>
+                                <td>${item.countInvoice}</td>
+                                <td>${item.countWishLists}</td>
+                                <td>
+                                    <form action="/admin/edit-user/${item.userID}">
+                                        <input type="checkbox" name="isDelete" 
+                                        id="userIsDelete" ${item.isDelete?'':'checked'}
+                                        onclick="this.form.submit()"/>
+                                        <label>${item.isDelete?'Chưa kích hoạt':'Kích hoạt'}</label>
+                                    </form>
+                                          
+                                </td>
+                                
+                                <td>                               
+                                    <a href="#">Xem hóa đơn</a>                                
+                                    |
+                                    <a href="#">Xem sản phẩm thích</a>
+                                </td>
+                            </tr>
+                        </c:forEach>                
                    </tbody>
                </table>
            </div>
