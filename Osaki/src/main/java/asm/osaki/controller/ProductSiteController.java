@@ -50,7 +50,7 @@ public class ProductSiteController {
     BrandRepository brandRepository;
 
     @GetMapping("/search")
-    public String searchProduct(@ModelAttribute("UserC") UserCustom userCustom, @RequestParam(value = "search", required = true) String search, Model model,@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "30") int size) {
+    public String searchProduct(@ModelAttribute("UserC") UserCustom userCustom, @RequestParam(value = "search", required = true) String search, Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "30") int size) {
         System.out.println("search: " + search);
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productList1 = productRepository.searchProductByName(search, pageable);

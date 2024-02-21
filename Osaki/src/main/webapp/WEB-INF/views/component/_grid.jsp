@@ -118,10 +118,17 @@
 
         <!-- Cart -->
         <div class="header__cart">
-            <a href="/profile">
-                <i class="bi bi-heart-fill" style="width: 100px"></i>
-            </a>
+            <c:choose>
+                <c:when test="${userLogin==null}">
 
+
+                </c:when>
+                <c:otherwise>
+                    <a href="/profile?content=_likeProduct">
+                        <i class="bi bi-heart-fill" style="width: 100px"></i>
+                    </a>
+                </c:otherwise>
+            </c:choose>
         </div>
 
         <div class="header__cart have" href="#">
@@ -167,7 +174,7 @@
                                                 <c:set var="checkLike" value="false"/>
                                                 <c:set var="checkLikePrice" value=""/>
                                                 <c:forEach var="promotionalDetailsList"
-                                                           items="${promotionalDetailsList}">
+                                                           items="${promotionalDetailsList1}">
                                                     <c:if test="${promotionalDetailsList.productID.productID == cartList.product.productID}">
                                                         <c:set var="checkLike" value="true"/>
                                                         <c:set var="checkLikePrice"

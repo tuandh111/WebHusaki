@@ -20,4 +20,6 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
 
     @Query("SELECT id.productID, p.name, COUNT(id.productID) FROM invoiceDetail id JOIN id.productID p GROUP BY id.productID, p.name ORDER BY COUNT(id.productID) DESC")
     Page<Object[]> countProductsOrderByCountDesc(Pageable pageable);
+
+
 }

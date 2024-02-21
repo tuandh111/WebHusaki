@@ -6,46 +6,114 @@
 <%@ taglib prefix="comment" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Oder -->
 <div class="details">
-    <div class="recentOrders">
-        <div class="cardHeader d-flex flex-row justify-content-between">
-            <h2>Cart cancel</h2>
-
-        </div>
-        <table class="table table-hover table-custom">
-            <thead>
-            <tr>
-                <th>STT</th>
-                <th>SDT</th>
-                <th>Dia chi</th>
-                <th>Trang thai</th>
-            </tr>
-            </thead>
-            <tbody id="tbAddress">
-
-            </tbody>
-        </table>
-    </div>
-    <div class="recentCustomer">
-        <div class="cardHeader">
-            <h2>Tài khoản</h2>
-        </div>
-
-        <table class="table table-hover table-custom">
-            <tr>
-                <td width="60px">
-                    <div class="img-thumbnail imgBox">
-                        <img src="/images/author-item.jpg">
+    <div class="recentOrders" style="width: 900px">
+        <div class="row">
+            <div class="col l-8 m-12 s-12">
+                <div class="main__cart">
+                    <div class="row title">
+                        <div class="col l-1 m-1 s-0">Chọn</div>
+                        <div class="col l-4 m-4 s-8">Sản phẩm</div>
+                        <div class="col l-2 m-2 s-0">Giá</div>
+                        <div class="col l-2 m-2 s-0">Số lượng</div>
+                        <div class="col l-2 m-2 s-4">Tổng</div>
+                        <div class="col l-1 m-1 s-0">Xóa</div>
                     </div>
-                </td>
-                <td>
-                    <h4>
-                        Trung nguyễn
-                        <br>
-                        <span>An Giang</span>
-                    </h4>
-                </td>
-            </tr>
-        </table>
+                    <div class="row item">
+                        <div class="col l-1 m-1 s-0">
+                            <input type="checkbox" name="a">
+                        </div>
+                        <div class="col l-4 m-4 s-8">
+                            <div class="main__cart-product">
+                                <img src="./assets/img/product/product2.jpg" alt="">
+                                <div class="name">Azrouel dress variable Azrouel dress variable</div>
+                            </div>
+                        </div>
+                        <div class="col l-2 m-2 s-0">
+                            <div class="main__cart-price">476.000 đ</div>
+                        </div>
+                        <div class="col l-2 m-2 s-0">
+                            <div class="buttons_added">
+                                <input class="minus is-form" type="button" value="-" onclick="minusProduct()">
+                                <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number"
+                                       value="1">
+                                <input class="plus is-form" type="button" value="+" onclick="plusProduct()">
+                            </div>
+                        </div>
+                        <div class="col l-2 m-2 s-4">
+                            <div class="main__cart-price">476.000 đ</div>
+                        </div>
+                        <div class="col l-1 m-1 s-0">
+                                <span class="main__cart-icon">
+                                <i class="far fa-times-circle "></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col l-1 m-1 s-0">
+                            <input type="checkbox" name="a">
+                        </div>
+                        <div class="col l-4 m-4 s-8">
+                            <div class="main__cart-product">
+                                <img src="./assets/img/product/product2.jpg" alt="">
+                                <div class="name">Azrouel dress variable Azrouel dress variable</div>
+                            </div>
+                        </div>
+                        <div class="col l-2 m-2 s-0">
+                            <div class="main__cart-price">476.000 đ</div>
+                        </div>
+                        <div class="col l-2 m-2 s-0">
+                            <div class="buttons_added">
+                                <input class="minus is-form" type="button" value="-" onclick="minusProduct()">
+                                <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number"
+                                       value="1">
+                                <input class="plus is-form" type="button" value="+" onclick="plusProduct()">
+                            </div>
+                        </div>
+                        <div class="col l-2 m-2 s-4">
+                            <div class="main__cart-price">476.000 đ</div>
+                        </div>
+                        <div class="col l-1 m-1 s-0">
+                                <span class="main__cart-icon">
+                                <i class="far fa-times-circle "></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col l-1 m-1 s-0">
+                            <input type="checkbox" name="a">
+                        </div>
+                        <div class="col l-4 m-4 s-8">
+                            <div class="main__cart-product">
+                                <img src="./assets/img/product/product2.jpg" alt="">
+                                <div class="name">Azrouel dress variable Azrouel dress variable</div>
+                            </div>
+                        </div>
+                        <div class="col l-2 m-2 s-0">
+                            <div class="main__cart-price">476.000 đ</div>
+                        </div>
+                        <div class="col l-2 m-2 s-0">
+                            <div class="buttons_added">
+                                <input class="minus is-form" type="button" value="-" onclick="minusProduct()">
+                                <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number"
+                                       value="1">
+                                <input class="plus is-form" type="button" value="+" onclick="plusProduct()">
+                            </div>
+                        </div>
+                        <div class="col l-2 m-2 s-4">
+                            <div class="main__cart-price">476.000 đ</div>
+                        </div>
+                        <div class="col l-1 m-1 s-0">
+                                <span class="main__cart-icon">
+                                <i class="far fa-times-circle "></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="btn btn--default">
+                        Cập nhật giỏ hàng
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

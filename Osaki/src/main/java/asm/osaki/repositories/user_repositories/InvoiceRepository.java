@@ -11,4 +11,6 @@ import java.util.List;
 public interface InvoiceRepository extends JpaRepository<Invoice,String> {
     @Query("select  p from  invoice p where p.invoiceID = :invoiceID")
     Invoice findByInvoiceID(@Param("invoiceID") String id);
+    @Query("select  p from  invoice p where p.user.userID = :userID")
+    List<Invoice> findByUserID(@Param("userID") Integer id);
 }
