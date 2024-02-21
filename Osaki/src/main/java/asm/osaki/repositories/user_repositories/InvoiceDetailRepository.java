@@ -1,6 +1,8 @@
 package asm.osaki.repositories.user_repositories;
 
 import asm.osaki.entities.user.InvoiceDetail;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +17,9 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
 
     @Query("SELECT id1_0.quantity FROM invoiceDetail id1_0  WHERE id1_0.productID.productID = :productID")
     List<Object[]> countSoldProductsByProductID(@Param("productID") int productID);
+
+    @Query("SELECT id.productID, p.name, COUNT(id.productID) FROM invoiceDetail id JOIN id.productID p GROUP BY id.productID, p.name ORDER BY COUNT(id.productID) DESC")
+    Page<Object[]> countProductsOrderByCountDesc(Pageable pageable);
+
+
 }

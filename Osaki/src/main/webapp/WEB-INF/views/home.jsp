@@ -214,6 +214,7 @@
 <%-- </script> --%>
 <!-- Script common -->
 <script src="../../js/register.js"></script>
+<script src="/js/contact.js"></script>
 <script src="/js/homeScript.js"></script>
 <script src="/js/login.js"></script>
 <script src="/js/commonscript.js"></script>

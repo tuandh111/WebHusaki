@@ -1,48 +1,32 @@
 package asm.osaki.controller;
 
-import asm.osaki.entities.product.Cart;
-import asm.osaki.entities.product.FlashSale;
-import asm.osaki.entities.product.Product;
-import asm.osaki.entities.product.PromotionalDetails;
-import asm.osaki.entities.user.Address;
-import asm.osaki.entities.user.Contact;
+import asm.osaki.entities.product.*;
 import asm.osaki.entities.user.UserCustom;
-import asm.osaki.entities.user.Voucher;
 import asm.osaki.model.PromotionalDetailModel;
 import asm.osaki.repositories.product_repositories.*;
-import asm.osaki.repositories.user_repositories.*;
-import asm.osaki.service.ParamService;
+import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
+import asm.osaki.repositories.user_repositories.WishListRepository;
 import asm.osaki.service.SessionService;
-import com.restfb.types.User;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
 @Controller
-public class ConTactController {
-    @Autowired
-    SessionService sessionService;
-    @Autowired
-    AddressRepository addressRepository;
-    @Autowired
-    ContactRepository contactRepository;
-    @Autowired
-    UserCustomRepository userCustomRepository;
-    @Autowired
-    ParamService paramService;
+public class ListProductController {
     @Autowired
     ProductRepository productRepository;
     @Autowired
-    HttpServletRequest request;
-    @Autowired
     InvoiceDetailRepository invoiceDetailRepository;
+    @Autowired
+    SessionService sessionService;
     @Autowired
     FlashSaleRepository flashSaleRepository;
     @Autowired
@@ -55,28 +39,17 @@ public class ConTactController {
     CategoryRepository categoryRepository;
     @Autowired
     BrandRepository brandRepository;
-    @Autowired
-    VoucherRepository voucherRepository;
-    @GetMapping("/contact")
-    public String contactController( Model model) {
+
+    @GetMapping("list/product")
+    public String listProductController(@ModelAttribute("UserC") UserCustom userCustom, Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "30") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> productPage = productRepository.findAll(pageable);
+        model.addAttribute("productPage", productPage);
         UserCustom userCustom1 = sessionService.get("userLogin");
-        model.addAttribute("address", addressRepository.findByUser(userCustom1));
-        model.addAttribute("userLogin", userCustom1);
-        if (userCustom1 != null) {
-            List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom1.getUserID());
-            List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
-            double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
-            List<Address> addressList = addressRepository.findByUser(userCustom1);
-            List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
-            model.addAttribute("promotionalDetailsList", promotionalDetailsList);
-            model.addAttribute("totalPrice", totalPrice);
-            model.addAttribute("cartList", cartList);
-            model.addAttribute("addressList", addressList);
-            model.addAttribute("voucherList", voucherList);
-        }
-        //product
         List<Product> productList = productRepository.findAll();
         //cart
+
         if (userCustom1 != null) {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
@@ -85,12 +58,11 @@ public class ConTactController {
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
         }
+
         List<PromotionalDetails> promotionalDetailsList1 = promotionalDetailsRepository.findAll();
         model.addAttribute("promotionalDetailsList1", promotionalDetailsList1);
         model.addAttribute("userLogin", userCustom1);
         model.addAttribute("listProduct", productRepository.findAll());
-
-        //bestSellers
         List<Object[]> bestSellers = invoiceDetailRepository.countProductsOrderByCountDesc();
         model.addAttribute("bestSellers", bestSellers);
         //in ra danh sach bestsellers
@@ -147,33 +119,7 @@ public class ConTactController {
             Date now = new Date();
             model.addAttribute("now", now.getMonth());
         }
-        return "contact";
+        return "listProduct";
     }
 
-    @PostMapping("post-contact")
-    public ResponseEntity<?> postContact() {
-        String email = paramService.getString("email", "");
-        String username = paramService.getString("fullName", "");
-        String message = paramService.getString("message", "");
-        Contact contact = new Contact();
-        UserCustom userCustom = userCustomRepository.findByEmail(email);
-        if (username.equalsIgnoreCase("") || message.equalsIgnoreCase("")) {
-            contact.setMessage("Tôi muốn nhận khuyen mãi mới nhất");
-        } else {
-            contact.setMessage(message);
-        }
-        contact.setUserName(userCustom.getEmail());
-
-        contact.setEmail(email);
-        try {
-            contactRepository.save(contact);
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            return ResponseEntity.ok("fail");
-
-        }
-        System.out.println("postEmail: " + email);
-        return ResponseEntity.ok("success");
-    }
 }

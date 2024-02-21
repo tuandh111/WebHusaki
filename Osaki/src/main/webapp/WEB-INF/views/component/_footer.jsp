@@ -77,9 +77,9 @@
                 </li>
                 <li class="footer__item">
                     <div class="send-email">
-                        <input class="send-email__input" type="email" placeholder="Nhập Email...">
+                        <input class="send-email__input" type="email" id="email" placeholder="Nhập Email...">
                         <a href="#" class="send-email__link">
-                            <i class="fas fa-paper-plane"></i>
+                            <i class="fas fa-paper-plane" id="sendMessage" data-user-id="${userLogin.userID}"></i>
                         </a>
                     </div>
                 </li>
@@ -88,5 +88,5 @@
     </div>
 </div>
 <div class="copyright">
-    <span class="footer__text"> &copy Bản quyền thuộc về <a class="footer__link" href="#">Dang Hoang Tuan</a></span>
+    <span class="footer__text"> & Bản quyền thuộc về <a class="footer__link" href="#">Dang Hoang Tuan</a></span>
 </div>

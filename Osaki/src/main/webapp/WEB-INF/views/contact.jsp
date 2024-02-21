@@ -98,7 +98,8 @@
                     </div>
                     <textarea name="" id="message" cols="30" rows="5" placeholder="Lời nhắn"></textarea>
                     <button class="btn btn--default" id="sendMessage"
-                            data-user-id="${userLogin.userID}">Gửi</button>
+                            data-user-id="${userLogin.userID}">Gửi
+                    </button>
                 </div>
             </div>
         </div>
@@ -111,15 +112,13 @@
     <i class="fas fa-chevron-up"></i>
 </div>
 <!-- Modal Form -->
-<div class="ModalForm">
-    <jsp:include page="./component/_modal.jsp"/>
-</div>
 <!-- Sccipt for owl caroucel -->
 
 <!-- Script common -->
 <script src="/js/commonscript.js"></script>
 <script src="/js/contact.js"></script>
-
+<script src="/js/cartCript.js"></script>
+<script src="/js/checkout.js"></script>
 </body>
 
 </html>
