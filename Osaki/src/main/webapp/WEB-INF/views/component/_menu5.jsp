@@ -4,7 +4,7 @@
     <ul>
         <li>
             <a href="/admin/account-manager">
-                <div class="img-thumbnail imgBox mt-2">
+                <div class="img-thumbnail imgBox mt-1">
                     <img src="/images/author-item.jpg" style="width: 100px">
                 </div>
                 <h5 class="title">Xin chào: ${userLogin.fullName}</h5>
@@ -26,6 +26,12 @@
             <a href="/profile?content=_cartCancel">
                 <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
                 <span class="title">Đã hủy</span>
+            </a>
+        </li>
+        <li>
+            <a href="/profile?content=_successcart">
+                <span class="icon"><ion-icon name="cart-outline"></ion-icon></span>
+                <span class="title">Đơn hàng thành công</span>
             </a>
         </li>
         <li>

@@ -8,7 +8,7 @@
 <!-- Oder -->
 <div class="details">
     <div class="recentOrders" style="width: 900px">
-        <h1>Đơn hàng</h1>
+        <h1>Đơn hàng thành cong</h1>
         <div class="row">
             <div class="col l-8 m-12 s-12">
                 <div class="main__cart">
@@ -16,10 +16,9 @@
                         <div class="col l-4 m-4 s-8">Ma don hang</div>
                         <div class="col l-2 m-2 s-0">Tong tien</div>
                         <div class="col l-2 m-2 s-0">Trang thái</div>
-                        <div class="col l-1 m-1 s-0"></div>
                     </div>
                     <c:forEach var="invoiceList" items="${invoiceList}">
-                        <c:if test="${invoiceList.status == 'Đa hủy đơn hàng'}">
+                        <c:if test="${invoiceList.status == 'Thành công'}">
                             <div class="row item ${invoiceList.invoiceID}">
                                 <div class="col l-4 m-4 s-8">
                                     <div class="main__cart-product">
@@ -36,15 +35,6 @@
                                         <div class="name">${invoiceList.status} </div>
                                     </div>
                                 </div>
-
-                                <div class="col l-1 m-1 s-0">
-                                    <div class="RestoreCart${invoiceList.invoiceID}">
-                                        <h2 class="main__cart-icon RestoreCart"
-                                            data-invoice-id="${invoiceList.invoiceID}">
-                                            Khoi phuc don hang
-                                        </h2>
-                                    </div>
-                                </div>
                             </div>
                         </c:if>
                     </c:forEach>
@@ -54,5 +44,4 @@
     </div>
 </div>
 <script src="/js/cancelCart.js"></script>
-
 <!-- Chart -->

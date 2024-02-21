@@ -148,6 +148,7 @@
         <div class="productList">
             <div class="row">
                 <div class="col-lg-3">
+                    <h2>Loc gia:</h2>
                     <form action="/product/filterByPrice">
                         <input type="text" class="form-control autonumeric" name="minPrice" placeholder="Từ" required>
                         <input type="text" class="form-control autonumeric" name="maxPrice" placeholder="Đến" required>
