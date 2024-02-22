@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="comment" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Oder -->
-<div class="details">
+ 
     <div class="recentOrders">
         <div class="cardHeader d-flex flex-row justify-content-between">
             <h2>Địa chỉ của tôi</h2>
@@ -33,6 +33,6 @@
             </tbody>
         </table>
     </div>
-</div>
+ 
 <script src="/js/removeAddress.js"></script>
 <!-- Chart -->

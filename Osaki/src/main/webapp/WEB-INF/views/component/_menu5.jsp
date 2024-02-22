@@ -5,7 +5,7 @@
         <li>
             <a href="/admin/account-manager">
                 <div class="img-thumbnail imgBox mt-1">
-                    <img src="/images/author-item.jpg" style="width: 100px">
+                    <img src="/images/${userLogin.image}" style="width: 100px">
                 </div>
                 <h5 class="title">Xin chào: ${userLogin.fullName}</h5>
             </a>

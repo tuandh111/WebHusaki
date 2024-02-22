@@ -115,51 +115,55 @@ public class ComponentController {
             model.addAttribute("content", "_dashboard3.jsp");
         }
         UserCustom userCustom1 = sessionService.get("userLogin");
-     
+        
+        model.addAttribute("address",addressRepository.findByUser(userCustom1));
+        
         model.addAttribute("userLogin", userCustom1);
         return "profile";
     }
     
-    @GetMapping("edit-info-account")
-    public String editInfoAccount(Model model,
-    		@RequestParam("idInput") Integer idInput,
-    		@RequestParam("file") MultipartFile fileInput,
-    		@RequestParam("fullName") String nameInput  
-    		) {
+    
+    
      
+    @PostMapping("edit-info-account")
+       public String editInfoAccount(Model model,
+       		@RequestParam("idInput") Integer idInput,
+       		@RequestParam("file") MultipartFile fileInput,
+       		@RequestParam("fullName") String nameInput 
+       		 
+       		) {
+        
 
-    	
-    	System.out.println("idInputxxxxx"+idInput);
-    	UserCustom userCustom=userCustomRepository.findByUserID(idInput);
-     
-    	 
-    	  
-    	  
-    	  
-    	 String nameAnh = userCustom.getImage();
-    	
-    	if( !fileInput.isEmpty()) {
-    		paramService.save(fileInput, "/images");
-    		String iamgeA = fileInput.getOriginalFilename();
-    		userCustom.setImage(iamgeA);
-    	}
-    	 
-     
-    	userCustom.setFullName(nameInput);
-    	 
-    	userCustomRepository.save(userCustom);
-//    	 UserCustom userCustom = sessionService.get("userLogin");
-//    	 if(userCustom!=null) {
-//    		 model.addAttribute("idInput",userCustom.getUserID());
-//    		 model.addAttribute("email",userCustom.getEmail());
-//    		 model.addAttribute("fullName",userCustom.getFullName());
-//    		 System.out.println("Userxxxxx:"+userCustom.getUserID());
-//    	 }
-    	
-    	return "redirect:/profile";
-    }
-    
-    
+            
+       	System.out.println("idInputxxxxx"+idInput);
+       	UserCustom userCustom=userCustomRepository.findByUserID(idInput);
+       	//model.addAttribute("address", addressRepository.findByUser(userCustom));
+       	 
+       	 
+       	 
+       	  
+       	 String nameAnh = userCustom.getImage();
+       	
+       	if( !fileInput.isEmpty()) {
+       		paramService.save(fileInput, "/images");
+       	 
+       		String iamgeA = fileInput.getOriginalFilename();
+       		userCustom.setImage(iamgeA);
+       	}
+        
+       	userCustom.setFullName(nameInput);
+       	 
+       	userCustomRepository.save(userCustom);
+//       	 UserCustom userCustom = sessionService.get("userLogin");
+//       	 if(userCustom!=null) {
+//       		 model.addAttribute("idInput",userCustom.getUserID());
+//       		 model.addAttribute("email",userCustom.getEmail());
+//       		 model.addAttribute("fullName",userCustom.getFullName());
+//       		 System.out.println("Userxxxxx:"+userCustom.getUserID());
+//       	 }
+       	
+       	return "redirect:/profile";
+       }
     
     
     
