@@ -2,10 +2,10 @@ $(document).ready(function () {
     $('#pay').click(function (e) {
         e.preventDefault();
         let isLoggedIn = $(this).data('user-id') !== '';
-       // let phoneID = $('#address').val();
+        // let phoneID = $('#address').val();
         var selectedOption = $("#address").find('option:selected');
         var phoneID = selectedOption.val();
-        console.log("SDT: "+ phoneID);
+        console.log("SDT: " + phoneID);
         if (!isLoggedIn) {
             Swal.fire({
                 icon: 'error',
@@ -41,6 +41,7 @@ $(document).ready(function () {
                                     title: 'Something wrong !',
                                     showConfirmButton: true
                                 });
+
                             } else if (response == 'success') {
                                 Swal.fire({
                                     icon: 'success',
@@ -54,7 +55,7 @@ $(document).ready(function () {
                                 $('#out').html("");
                                 $('.total-money').html("");
 
-                            }else if (response =='errorProduct'){
+                            } else if (response == 'errorProduct') {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops...',
@@ -66,6 +67,18 @@ $(document).ready(function () {
                                         window.location.href = '/';
                                     }
                                 });
+                            } else if (response == 'failAddress') {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Ban can them dia chi !',
+                                    confirmButtonColor: '#dc3545',
+                                    confirmButtonText: 'Them dia chi'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/profile';
+                                    }
+                                });
+
                             }
                         },
                         error: function (xhr, status, error) {
@@ -127,7 +140,7 @@ $(document).ready(function () {
                                     title: 'Something wrong !',
                                     showConfirmButton: true
                                 });
-                            }else {
+                            } else {
                                 window.location.href = response;
                             }
                         },

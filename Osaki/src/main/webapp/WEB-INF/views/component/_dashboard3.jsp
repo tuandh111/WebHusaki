@@ -5,7 +5,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="comment" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Oder -->
-<div class="details">
+ 
+    <style>
+	.removeAddress:hover{
+		background-color: rgb(246, 245, 245);
+		color: black;
+		 
+		font-size: 110%;
+		font-weight: bold;
+	}
+</style>
     <div class="recentOrders">
         <div class="cardHeader d-flex flex-row justify-content-between">
             <h2>Địa chỉ của tôi</h2>
@@ -18,43 +27,21 @@
                 <th>STT</th>
                 <th>SDT</th>
                 <th>Dia chi</th>
-                <th>Trang thai</th>
+                <th class="d-flex justify-content-center">Trang thai</th>
             </tr>
             </thead>
             <tbody id="tbAddress">
             <c:forEach var="address" items="${address}" varStatus="i">
-                <tr >
+                <tr class="${address.phoneID}">
                     <td>${i.index+1}</td>
                     <td>${address.phoneID}</td>
                     <td>${address.address}</td>
-                    <td>+ -</td>
+                    <td class="removeAddress d-flex justify-content-center"  data-address-id="${address.phoneID}">Xóa</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-    <div class="recentCustomer">
-        <div class="cardHeader">
-            <h2>Tài khoản</h2>
-        </div>
-
-        <table class="table table-hover table-custom">
-            <tr>
-                <td width="60px">
-                    <div class="img-thumbnail imgBox">
-                        <img src="/images/author-item.jpg">
-                    </div>
-                </td>
-                <td>
-                    <h4>
-                        Trung nguyễn
-                        <br>
-                        <span>An Giang</span>
-                    </h4>
-                </td>
-            </tr>
-        </table>
-    </div>
-</div>
-
+ 
+<script src="/js/removeAddress.js"></script>
 <!-- Chart -->

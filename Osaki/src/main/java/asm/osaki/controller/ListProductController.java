@@ -2,11 +2,13 @@ package asm.osaki.controller;
 
 import asm.osaki.entities.product.*;
 import asm.osaki.entities.user.UserCustom;
+import asm.osaki.entities.user.WishList;
 import asm.osaki.model.PromotionalDetailModel;
 import asm.osaki.repositories.product_repositories.*;
 import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.WishListRepository;
 import asm.osaki.service.SessionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +44,14 @@ public class ListProductController {
 
     @GetMapping("list/product")
     public String listProductController(@ModelAttribute("UserC") UserCustom userCustom, Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "30") int size) {
+        String minPrice = sessionService.get("minPrice");
+        String maxPrice = sessionService.get("maxPrice");
+
+        // Đưa giá trị minPrice và maxPrice vào model để sử dụng trong view
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
+        sessionService.remove("minPrice");
+        sessionService.remove("maxPrice");
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage = productRepository.findAll(pageable);
@@ -120,6 +130,18 @@ public class ListProductController {
             model.addAttribute("now", now.getMonth());
         }
         return "listProduct";
+    }
+
+    @ModelAttribute("likeList")
+    public List<WishList> getCategories(HttpSession session) {
+        UserCustom userCustom = (UserCustom) session.getAttribute("userLogin");
+
+        System.out.println("userCustom1: " + userCustom);
+        if (userCustom != null) {
+            List<WishList> listLike = wishListRepository.findByUser(userCustom);
+            return listLike;
+        }
+        return null;
     }
 
 }

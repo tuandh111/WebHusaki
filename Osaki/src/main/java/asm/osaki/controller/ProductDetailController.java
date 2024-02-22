@@ -3,21 +3,16 @@ package asm.osaki.controller;
 import asm.osaki.entities.product.Cart;
 import asm.osaki.entities.product.Product;
 import asm.osaki.entities.product.PromotionalDetails;
-import asm.osaki.entities.user.Address;
-import asm.osaki.entities.user.Comment;
-import asm.osaki.entities.user.UserCustom;
-import asm.osaki.entities.user.Voucher;
+import asm.osaki.entities.user.*;
 import asm.osaki.repositories.product_repositories.CartRepository;
 import asm.osaki.repositories.product_repositories.ProductRepository;
 import asm.osaki.repositories.product_repositories.PromotionalDetailsRepository;
-import asm.osaki.repositories.user_repositories.AddressRepository;
-import asm.osaki.repositories.user_repositories.CommentRepository;
-import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
-import asm.osaki.repositories.user_repositories.VoucherRepository;
+import asm.osaki.repositories.user_repositories.*;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +52,9 @@ public class ProductDetailController {
     VoucherRepository voucherRepository;
     @Autowired
     InvoiceDetailRepository invoiceDetailRepository;
+
+    @Autowired
+    WishListRepository wishListRepository;
     @GetMapping("product/{id}")
     public String Product(@ModelAttribute("UserC") UserCustom userCustom1, @PathVariable("id") Integer productId, Model model) {
         Product product = productRepository.findByProductID(productId);
@@ -127,5 +125,16 @@ public class ProductDetailController {
             throw new RuntimeException(e);
         }
         return ResponseEntity.ok(jsonResponse);
+    }
+    @ModelAttribute("likeList")
+    public List<WishList> getCategories(HttpSession session) {
+        UserCustom userCustom = (UserCustom) session.getAttribute("userLogin");
+
+        System.out.println("userCustom1: " + userCustom);
+        if (userCustom != null) {
+            List<WishList> listLike = wishListRepository.findByUser(userCustom);
+            return listLike;
+        }
+        return null;
     }
 }

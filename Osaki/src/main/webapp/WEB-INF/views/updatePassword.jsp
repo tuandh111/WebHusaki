@@ -359,45 +359,31 @@
         <div class="col-lg-12 d-flex align-items-center">
             <div class="container my-1 d-flex justify-content-center   formRegister">
 
-                <form:form modelAttribute="UserC" action="/account/register" method="post" id="formRegister"
-                           class="form-register">
-                    <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đăng ký</h3></div>
+                <form action="/account/register" method="post" id="formRegister" class="form-register">
                     <div class="form-group">
-                        <label class="form-label ">Họ Tên *</label>
-                        <form:input path="fullName" class="form-control"/>
-                        <small class="text-danger" id="fullNameError"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label pt-4">Tài khoản Email *</label>
-                        <form:input path="email" id="password" type="email" class="form-control"/>
-                        <small class="text-danger" id="emailError"></small>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="form-label pt-4">Mật khẩu *</label>
-                        <form:input path="password" type="password" class="form-control"/>
+                        <label class="form-label pt-4">Mật khẩu *</label>
+                        <input type="password" name="password" required="required" id="forgot_password"
+                               class="form-control">
                         <small class="text-danger" id="passwordError"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="form-label pt-4">Nhập lại mật khẩu *</label>
-                        <input type="password" name="confirmPassword" required="required" class="form-control">
+                        <label class="form-label pt-4">Nhập lại mật khẩu *</label>
+                        <input type="password" name="confirmPassword" required="required" id="forgot_confirm_password"
+                               class="form-control">
                         <small class="text-danger" id="confirmPasswordError"></small>
                     </div>
-                    <div id="recaptchaContainer" style="display: none;">
-                        <div class="g-recaptcha" data-sitekey="6LdosU4pAAAAAO_EzhGlRqWLJqns6eULivmzGWWE"></div>
-                    </div>
-
                     <div id="error"></div>
                     <div class="d-flex justify-content-center mt-4 mb-3">
-                        <button class="btn btn-primary form-control" id="submitButton">ĐĂNG KÝ</button>
+                        <button class="btn btn-primary form-control" id="submitUpdatePassword">Cap nhat mat khau
+                        </button>
                     </div>
-                </form:form>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script src="/js/register.js"></script>
+<script src="/js/updatePassword.js"></script>
 <!-- Start Footer Area -->
 <!-- /End Footer Area -->
 

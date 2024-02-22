@@ -1,5 +1,6 @@
 package asm.osaki.controller;
 
+
 import asm.osaki.entities.user.Invoice;
 import asm.osaki.entities.user.InvoiceDetail;
 import asm.osaki.entities.user.UserCustom;
@@ -7,17 +8,26 @@ import asm.osaki.entities.user.WishList;
 import asm.osaki.repositories.user_repositories.AddressRepository;
 import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.InvoiceRepository;
+import asm.osaki.repositories.user_repositories.UserCustomRepository;
 import asm.osaki.repositories.user_repositories.WishListRepository;
+import asm.osaki.entities.product.Cart;
+import asm.osaki.entities.product.PromotionalDetails;
+import asm.osaki.entities.user.*;
+import asm.osaki.repositories.product_repositories.CartRepository;
+import asm.osaki.repositories.product_repositories.ProductRepository;
+import asm.osaki.repositories.product_repositories.PromotionalDetailsRepository;
+import asm.osaki.repositories.user_repositories.*;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
-import com.restfb.types.User;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -36,6 +46,22 @@ public class ComponentController {
     InvoiceDetailRepository invoiceDetailRepository;
     @Autowired
     ParamService paramService;
+    @Autowired
+    UserCustomRepository userCustomRepository;
+
+
+    @Autowired
+    CartRepository cartRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    PromotionalDetailsRepository promotionalDetailsRepository;
+
+    @Autowired
+    VoucherRepository voucherRepository;
+
 
     @GetMapping("/product")
     public String productController(@ModelAttribute("UserC") UserCustom userCustom) {
@@ -49,7 +75,22 @@ public class ComponentController {
 
 
     @GetMapping("/news")
-    public String newsController(@ModelAttribute("UserC") UserCustom userCustom) {
+    public String newsController(@ModelAttribute("UserC") UserCustom userCustom1, Model model) {
+        UserCustom userCustom = sessionService.get("userLogin");
+
+        if (userCustom != null) {
+            List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom.getUserID());
+            List<Cart> cartList = cartRepository.findAllByUser(userCustom);
+            double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
+            List<Address> addressList = addressRepository.findByUser(userCustom);
+            List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
+            model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
+            model.addAttribute("promotionalDetailsList", promotionalDetailsList);
+            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("cartList", cartList);
+            model.addAttribute("addressList", addressList);
+            model.addAttribute("voucherList", voucherList);
+        }
         return "news";
     }
 
@@ -110,10 +151,67 @@ public class ComponentController {
             model.addAttribute("content", "_dashboard3.jsp");
         }
         UserCustom userCustom1 = sessionService.get("userLogin");
+
         model.addAttribute("address", addressRepository.findByUser(userCustom1));
+
         model.addAttribute("userLogin", userCustom1);
+        UserCustom userCustom = sessionService.get("userLogin");
+
+        if (userCustom != null) {
+            List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom.getUserID());
+            List<Cart> cartList = cartRepository.findAllByUser(userCustom);
+            double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
+            List<Address> addressList = addressRepository.findByUser(userCustom);
+            List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
+            model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
+            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("cartList", cartList);
+            model.addAttribute("addressList", addressList);
+            model.addAttribute("voucherList", voucherList);
+        }
         return "profile";
     }
+
+
+    @PostMapping("edit-info-account")
+    public String editInfoAccount(Model model, @RequestParam("idInput") Integer idInput, @RequestParam("file") MultipartFile fileInput, @RequestParam("fullName") String nameInput
+
+    ) {
+
+
+        System.out.println("idInputxxxxx" + idInput);
+        UserCustom userCustom = userCustomRepository.findByUserID(idInput);
+        //model.addAttribute("address", addressRepository.findByUser(userCustom));
+
+
+        String nameAnh = userCustom.getImage();
+
+        if (!fileInput.isEmpty()) {
+            String originalFilename = fileInput.getOriginalFilename();
+            // String savePath = "/images/" + originalFilename;
+            File NameFile = paramService.save(fileInput, "/images/");
+            if (NameFile != null) {
+                String imageName = NameFile.getName();
+                userCustom.setImage(imageName);
+            }
+            //	String iamgeA = fileInput.getOriginalFilename();
+
+        }
+
+        userCustom.setFullName(nameInput);
+
+        userCustomRepository.save(userCustom);
+//       	 UserCustom userCustom = sessionService.get("userLogin");
+//       	 if(userCustom!=null) {
+//       		 model.addAttribute("idInput",userCustom.getUserID());
+//       		 model.addAttribute("email",userCustom.getEmail());
+//       		 model.addAttribute("fullName",userCustom.getFullName());
+//       		 System.out.println("Userxxxxx:"+userCustom.getUserID());
+//       	 }
+
+        return "redirect:/profile";
+    }
+
 
     @DeleteMapping("delete-to-likeProduct")
     public ResponseEntity<?> deleteLikeProduct() {

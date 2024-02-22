@@ -68,6 +68,66 @@ public class AccountController {
         return "register";
     }
 
+    @GetMapping("forgot-password")
+    public String r(@ModelAttribute("UserC") UserCustom userCustom) {
+        return "forgotPassword";
+    }
+
+    @PostMapping("post-forgot-password")
+    public ResponseEntity<?> forgotPassword() {
+        Map<String, Object> response = new HashMap<>();
+        String verify = Config.getRandomString(6);
+        String forgotEmail = paramService.getString("email", "");
+        UserCustom userCustom = userCustomRepository.findByEmail(forgotEmail);
+        System.out.println("run email successfully email: " + forgotEmail);
+        if (userCustom != null) {
+            try {
+                mailerService.sendVerify(new MailInfo(forgotEmail, "Chao mung ban den voi Hasagi", "Day la ma xac nhan cua ban: " + verify));
+                response.put("message", "success");
+                response.put("email", userCustom.getEmail());
+                response.put("userID", userCustom.getUserID());
+                response.put("verifyCode", verify);
+                System.out.println("run email successfully");
+            } catch (MessagingException e) {
+                response.put("message", "fail");
+            }
+        } else {
+            response.put("message", "errorEmail");
+        }
+
+        String jsonResponse = null;
+        try {
+            jsonResponse = new ObjectMapper().writeValueAsString(response);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok(jsonResponse);
+    }
+
+    @GetMapping("/update-password/{id}")
+    public String updatePassword(@PathVariable("id") String userID) {
+        return "updatePassword";
+    }
+
+    @PostMapping("post-update-password/{id}")
+    public ResponseEntity<?> postUpdatePassword(@PathVariable("id") String userID) {
+
+        String password = paramService.getString("password", "");
+        String confirmPassword = paramService.getString("confirmPassword", "");
+        if (!password.equalsIgnoreCase(confirmPassword)) {
+            return ResponseEntity.ok("errorPassword");
+        }
+        System.out.println("id: " + userID + "password :" + password + " " + confirmPassword);
+        UserCustom userCustom = userCustomRepository.findByUserID(Integer.parseInt(userID));
+        userCustom.setPassword(Bcrypt.hashPassword(password));
+        try {
+            userCustomRepository.save(userCustom);
+        } catch (Exception e) {
+            return ResponseEntity.ok("fail");
+        }
+        return ResponseEntity.ok("success");
+    }
+
     //Đăng kí
     @PostMapping("/account/register")
     public ResponseEntity<?> register(@Valid @ModelAttribute("UserC") UserCustom userCustom, BindingResult rs) {
@@ -117,7 +177,9 @@ public class AccountController {
     //Xác nhận mật khẩu
     @PostMapping("/verify-code")
     public String verifyCode(@ModelAttribute("UserC") UserCustom userCustom) {
+        Role role = roleRepository.getById(1);
         userCustom.setIsDelete(false);
+        userCustom.setRoleName(role);
         userCustomRepository.save(userCustom);
         return "redirect:/login";
     }
@@ -136,10 +198,10 @@ public class AccountController {
     @GetMapping("login")
     public String login(@ModelAttribute("UserC") UserCustom userCustom, Model model) {
 
-        model.addAttribute("LGemail",cookieService.getValue("LGemail"));
-        model.addAttribute("LGPassword",cookieService.getValue("LGPassword"));
-        System.out.println("check: "+cookieService.getValue("check"));
-        model.addAttribute("check",cookieService.getValue("check"));
+        model.addAttribute("LGemail", cookieService.getValue("LGemail"));
+        model.addAttribute("LGPassword", cookieService.getValue("LGPassword"));
+        System.out.println("check: " + cookieService.getValue("check"));
+        model.addAttribute("check", cookieService.getValue("check"));
         return "login";
     }
 
@@ -149,11 +211,12 @@ public class AccountController {
         return "login";
     }
 
-    @PostMapping("login")
+    @PostMapping("post-login")
     public ResponseEntity<?> getLogin(Model model) {
         String LGEmail = paramService.getString("LGemail", null);
         String LGPassword = paramService.getString("LGPassword", null);
-        Boolean check = Boolean.valueOf(paramService.getString("chkRemember", null));
+        boolean check = Boolean.valueOf(paramService.getString("chkRemember", null));
+        System.out.println("emailPostLogin: " + LGEmail);
         Map<String, Object> response = new HashMap<>();
         if (LGEmail.equalsIgnoreCase("") || LGPassword.equalsIgnoreCase("")) {
             if (LGEmail.equalsIgnoreCase("")) {
@@ -181,6 +244,7 @@ public class AccountController {
                         cookieService.remove("check");
                     }
                     System.out.println("login successfully");
+                    response.put("role", userCustom.getRoleName().getRoleName());
                     response.put("message", "success");
                 } else {
                     response.put("message", "fail");
@@ -241,57 +305,57 @@ public class AccountController {
     @PostMapping("address")
     public ResponseEntity<?> saveAddress() {
         UserCustom userCustom = sessionService.get("userLogin");
-        List<Address>  addressList = addressRepository.findAll();
-        System.out.println("addressList"+ addressList.size());
+        List<Address> addressList = addressRepository.findAll();
+        System.out.println("addressList" + addressList.size());
         String phone = paramService.getString("phone", "");
-        if(phone.equalsIgnoreCase("")){
+        if (phone.equalsIgnoreCase("")) {
             return ResponseEntity.ok("errorPhone");
         }
         System.out.println("phone: " + phone);
-        boolean checkPhone= false;
-        if(addressList!=null){
-            for(Address a : addressList){
-                if(phone.equalsIgnoreCase(a.getPhoneID())){
-                    checkPhone=true;
+        boolean checkPhone = false;
+        if (addressList != null) {
+            for (Address a : addressList) {
+                if (phone.equalsIgnoreCase(a.getPhoneID())) {
+                    checkPhone = true;
                 }
             }
         }
-        if(checkPhone){
+        if (checkPhone) {
             return ResponseEntity.ok("errorPhone1");
         }
         String address = paramService.getString("address", "");
         String cityName = paramService.getString("city", "");
-        if(cityName.equalsIgnoreCase("Chọn tỉnh thành")){
+        if (cityName.equalsIgnoreCase("Chọn tỉnh thành")) {
             return ResponseEntity.ok("errorCity");
         }
         System.out.println("cityName: " + cityName);
         String district = paramService.getString("district", "");
-        if(district.equalsIgnoreCase("Chọn quận huyện")){
+        if (district.equalsIgnoreCase("Chọn quận huyện")) {
             return ResponseEntity.ok("errorDistrict");
         }
         System.out.println("district: " + district);
         String ward = paramService.getString("ward", "");
-        if(ward.equalsIgnoreCase("Chọn phường xã")){
+        if (ward.equalsIgnoreCase("Chọn phường xã")) {
             return ResponseEntity.ok("errorWard");
         }
         System.out.println("ward: " + ward);
-        if(address.equalsIgnoreCase("")){
+        if (address.equalsIgnoreCase("")) {
             return ResponseEntity.ok("errorAddress");
         }
         System.out.println("address: " + address);
         //kiem tra sdt
-        Address address1= new Address();
+        Address address1 = new Address();
         address1.setPhoneID(phone);
-        address1.setAddress(address +", "+ward+", "+district+", "+cityName);
+        address1.setAddress(address + ", " + ward + ", " + district + ", " + cityName);
         address1.setUser(userCustom);
         address1.setIsDelete(false);
-        Map<String , Object> jsonResponseMap = new HashMap<>();
+        Map<String, Object> jsonResponseMap = new HashMap<>();
         try {
             addressRepository.save(address1);
-            jsonResponseMap.put("count",addressRepository.findByUser(userCustom).size());
-            jsonResponseMap.put("phoneID",address1.getPhoneID());
-            jsonResponseMap.put("address",address1.getAddress());
-            jsonResponseMap.put("message","success");
+            jsonResponseMap.put("count", addressRepository.findByUser(userCustom).size());
+            jsonResponseMap.put("phoneID", address1.getPhoneID());
+            jsonResponseMap.put("address", address1.getAddress());
+            jsonResponseMap.put("message", "success");
             String jsonResponse = null;
             try {
                 jsonResponse = new ObjectMapper().writeValueAsString(jsonResponseMap);
@@ -300,10 +364,19 @@ public class AccountController {
             }
             System.out.println("json: " + jsonResponse);
             return ResponseEntity.ok(jsonResponse);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.ok("fail");
         }
+    }
 
-
+    @DeleteMapping("/delete-to-address")
+    public ResponseEntity<?> deleteAddress() {
+        String phoneID = paramService.getString("phoneID", "");
+        try {
+            addressRepository.deleteById(phoneID);
+            return ResponseEntity.ok("success");
+        } catch (Exception e) {
+            return ResponseEntity.ok("fail");
+        }
     }
 }

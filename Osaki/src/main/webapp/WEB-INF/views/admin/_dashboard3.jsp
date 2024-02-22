@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c"%>
 <div class="topbar">
     <div class="toggle">
         <ion-icon name="menu-outline"></ion-icon>
@@ -11,13 +12,13 @@
         </label>
     </div>
     <div class="user">
-        <img alt="" src="/images/author-item.jpg">
+        <img title="${userAdminLogin.fullName}" src="/images/${userAdminLogin.image}">
     </div>
 </div>
 <div class="cardBox">
     <div class="cardP">
         <div class="cardP-body">
-            <div class="numbers">1,504</div>
+            <div class="numbers">${totalInv}</div>
             <div class="cardName">Lượt mua</div>
         </div> 
         <div class="iconBox">
@@ -45,7 +46,7 @@
     </div>
     <div class="cardP">
         <div class="cardP-body">
-            <div class="numbers">$8549</div>
+            <div class="numbers">${totalRevenue}</div>
             <div class="cardName">Doanh thu</div>
         </div> 
         <div class="iconBox">
@@ -59,27 +60,28 @@
     <div class="recentOrders">
         <div class="cardHeader d-flex flex-row justify-content-between">
             <h2>Đơn hàng gần đây</h2>
-            <a href="#" class="btn btn-custom">Xem tất cả</a>
+            <!-- <a href="#" class="btn btn-custom">Xem tất cả</a> -->
         </div>
         <table class="table table-hover table-custom">
             <thead>
                 <tr>
                     <th>Sản phẩm</th>
                     <th>Giá</th>
-                    <th>Hình thức thanh toán</th>
-                    <th>Trạng thái</th>
+                    <th>Số lượng</th>
+                    <th>Số hóa đơn</th>
+                    <th>Ngày hóa đơn</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Sữa rửa mặt Dabo</td>
-                    <td>110.000 vnđ</td>
-                    <td>Tiền mặt</td>
-                    <td>
-                        <span class="status delivered">Trạng thái đơn hàng</span>
-                    </td>
-                </tr>
-                
+                <c:forEach var="item" items="${recentProduct}">
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.price}</td>
+                        <td>${item.quantity}</td>
+                        <td>${item.invoiceID}</td>
+                        <td>${item.createAt}</td>
+                    </tr>
+                </c:forEach>               
             </tbody>
         </table>
     </div>

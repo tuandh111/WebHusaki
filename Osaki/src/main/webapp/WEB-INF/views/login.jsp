@@ -41,7 +41,7 @@
     <div class="login-container">
         <div class="login-contain row">
             <div class="authen-modal login">
-                <div class="d-flex justify-content-center mt-2"> <h3 class="authen-modal__title  " >Đăng nhập</h3></div>
+                <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đăng nhập</h3></div>
                 <form action="login" method="post" id="loginForm">
                     <div class="form-group">
                         <label class="form-label">Địa chỉ email *</label>
@@ -50,10 +50,12 @@
                     </div>
                     <div class="form-group">
                         <label for="LGPassword" class="form-label">Mật khẩu *</label>
-                        <input name="LGPassword" type="password" class="form-control" id="LGPassword" value="${LGPassword}">
+                        <input name="LGPassword" type="password" class="form-control" id="LGPassword"
+                               value="${LGPassword}">
                         <span class="form-message" id="passLGError"></span>
                     </div>
-                    <input type="checkbox" name="chkRemember" class="authen-checkbox" value="true" id="chkRemember" ${check? 'checked' : ''}>
+                    <input type="checkbox" name="chkRemember" class="authen-checkbox" value="true"
+                           id="chkRemember" ${check? 'checked' : ''}>
                     <label class="form-label">Ghi nhớ mật khẩu</label>
                     <div class="d-flex justify-content-center">
                         <button class="btn btn-primary  ">ĐĂNG NHẬP</button>
@@ -70,7 +72,8 @@
                         </div>
                     </div>
                 </form>
-                <a class="authen__link">Quên mật khẩu ?</a>
+                <a class="authen__link" href="/forgot-password">Quên mật khẩu ?</a>
+                <a class="authen__link" href="/register">Chua co tai khoản</a>
             </div>
         </div>
     </div>
