@@ -1,6 +1,7 @@
 package asm.osaki.controller;
 
  
+import asm.osaki.entities.user.Address;
 import asm.osaki.entities.user.Invoice;
 import asm.osaki.entities.user.InvoiceDetail;
 import asm.osaki.entities.user.UserCustom;
@@ -70,6 +71,7 @@ public class ComponentController {
 
     @GetMapping("profile")
     public String getHome(@RequestParam(name = "content", required = false) String content, Model model) {
+  
         if (content != null && !content.isEmpty()) {
             content += ".jsp";
             model.addAttribute("content", content);
@@ -130,21 +132,13 @@ public class ComponentController {
        public String editInfoAccount(Model model,
        		@RequestParam("idInput") Integer idInput,
        		@RequestParam("file") MultipartFile fileInput,
-       		@RequestParam("fullName") String nameInput 
-       		 
-       		) {
-        
-
-            
+       		@RequestParam("fullName") String nameInput ,
+       		HttpSession session
+       		) {          
        	System.out.println("idInputxxxxx"+idInput);
        	UserCustom userCustom=userCustomRepository.findByUserID(idInput);
-       	//model.addAttribute("address", addressRepository.findByUser(userCustom));
-       	 
-       	 
-       	 
-       	  
-       	 String nameAnh = userCustom.getImage();
-       	
+       	//model.addAttribute("address", addressRepository.findByUser(userCustom));    	  
+       	 String nameAnh = userCustom.getImage();	
        	if( !fileInput.isEmpty()) {
        	 String originalFilename = fileInput.getOriginalFilename();
         // String savePath = "/images/" + originalFilename;
@@ -153,13 +147,15 @@ public class ComponentController {
        			String imageName = NameFile.getName();
        			userCustom.setImage(imageName);
        		}
-       	//	String iamgeA = fileInput.getOriginalFilename();
-       		
+       	//	String iamgeA = fileInput.getOriginalFilename();  		
        	}
         
        	userCustom.setFullName(nameInput);
        	 
        	userCustomRepository.save(userCustom);
+       	 
+       	session.setAttribute("userLogin", userCustom);
+       	
 //       	 UserCustom userCustom = sessionService.get("userLogin");
 //       	 if(userCustom!=null) {
 //       		 model.addAttribute("idInput",userCustom.getUserID());
