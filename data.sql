@@ -1,4 +1,4 @@
-﻿create database hasagi
+﻿
 go
 use hasagi
 go
