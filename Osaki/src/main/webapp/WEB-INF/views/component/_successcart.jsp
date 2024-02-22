@@ -28,12 +28,20 @@
                                 </div>
                                 <div class="col l-2 m-2 s-0">
                                     <div class="main__cart-product">
-                                        <div class="name">${invoiceList.totalAmount} </div>
+                                        <div class="name">
+                                            <fmt:formatNumber
+                                                    type="number"
+                                                    pattern="###,###,###"
+                                                    value=" ${invoiceList.totalAmount} "/>
+                                            ₫
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col l-2 m-2 s-0">
                                     <div class="main__cart-product">
-                                        <div class="name">${invoiceList.createAt} </div>
+                                        <div class="name">
+                                            <fmt:formatDate pattern="dd/MM/yyyy" value="${invoiceList.createAt}"/>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col l-2 m-2 s-0">

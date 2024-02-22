@@ -70,7 +70,7 @@ public class checkOutController {
         if (!address.isPresent()) return ResponseEntity.ok("fail");
         double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
         System.out.println("totalPrice: " + totalPrice);
-        String invoiceID = Config.getRandomString(8);
+        String invoiceID = Config.getRandomString(12);
         Invoice invoice = new Invoice();
         invoice.setCreateAt(new Date());
         invoice.setInvoiceID(invoiceID);
@@ -86,7 +86,7 @@ public class checkOutController {
         }
         Invoice invoice1 = invoiceRepository.findByInvoiceID(invoiceID);
         List<Cart> cartItems = cartRepository.findAllByUser(userCustom);
-        if(cartItems.size() ==0 )   return ResponseEntity.ok("errorProduct");
+        if (cartItems.size() == 0) return ResponseEntity.ok("errorProduct");
         for (Cart cart : cartItems) {
             InvoiceDetail invoiceDetail = new InvoiceDetail();
             Cart cart1 = cart;
