@@ -27,34 +27,12 @@
                     <td>${i.index+1}</td>
                     <td>${address.phoneID}</td>
                     <td>${address.address}</td>
-                    <td>+ -</td>
+                    <td class="removeAddress">X</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-    <div class="recentCustomer">
-        <div class="cardHeader">
-            <h2>Tài khoản</h2>
-        </div>
-
-        <table class="table table-hover table-custom">
-            <tr>
-                <td width="60px">
-                    <div class="img-thumbnail imgBox">
-                        <img src="/images/author-item.jpg">
-                    </div>
-                </td>
-                <td>
-                    <h4>
-                        Trung nguyễn
-                        <br>
-                        <span>An Giang</span>
-                    </h4>
-                </td>
-            </tr>
-        </table>
-    </div>
 </div>
-
+<script src="/js/removeAddress.js"></script>
 <!-- Chart -->

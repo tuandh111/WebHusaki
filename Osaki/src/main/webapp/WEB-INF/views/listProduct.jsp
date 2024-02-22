@@ -124,6 +124,9 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
+    .header__top{
+        background-color: black;
+    }
 </style>
 <body>
 <div class="header scrolling" id="myHeader">

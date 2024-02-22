@@ -15,6 +15,7 @@
                     <div class="row title">
                         <div class="col l-4 m-4 s-8">Ma don hang</div>
                         <div class="col l-2 m-2 s-0">Tong tien</div>
+                        <div class="col l-2 m-2 s-0">Ngay dat</div>
                         <div class="col l-2 m-2 s-0">Trang thái</div>
                         <div class="col l-1 m-1 s-0"></div>
                     </div>
@@ -33,7 +34,12 @@
                                 </div>
                                 <div class="col l-2 m-2 s-0">
                                     <div class="main__cart-product">
-                                    <div class="name">${invoiceList.status} </div>
+                                        <div class="name">${invoiceList.createAt} </div>
+                                    </div>
+                                </div>
+                                <div class="col l-2 m-2 s-0">
+                                    <div class="main__cart-product">
+                                        <div class="name">${invoiceList.status} </div>
                                     </div>
                                 </div>
                                 <div class="col l-1 m-1 s-0">

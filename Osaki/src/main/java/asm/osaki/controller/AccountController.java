@@ -68,6 +68,64 @@ public class AccountController {
         return "register";
     }
 
+    @GetMapping("forgot-password")
+    public String r(@ModelAttribute("UserC") UserCustom userCustom) {
+        return "forgotPassword";
+    }
+    @PostMapping("post-forgot-password")
+    public ResponseEntity<?> forgotPassword(){
+        Map<String, Object> response = new HashMap<>();
+        String verify = Config.getRandomString(6);
+        String forgotEmail = paramService.getString("email","");
+        UserCustom userCustom = userCustomRepository.findByEmail(forgotEmail);
+        System.out.println("run email successfully email: "+ forgotEmail);
+        if(userCustom !=null){
+            try {
+                mailerService.sendVerify(new MailInfo(forgotEmail, "Chao mung ban den voi Hasagi", "Day la ma xac nhan cua ban: " + verify));
+                response.put("message", "success");
+                response.put("email",userCustom.getEmail());
+                response.put("userID",userCustom.getUserID());
+                response.put("verifyCode", verify);
+                System.out.println("run email successfully");
+            } catch (MessagingException e) {
+                response.put("message", "fail");
+            }
+        }else{
+            response.put("message", "errorEmail");
+        }
+
+        String jsonResponse = null;
+        try {
+            jsonResponse = new ObjectMapper().writeValueAsString(response);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok(jsonResponse);
+    }
+    @GetMapping("/update-password/{id}")
+    public String updatePassword (@PathVariable("id") String userID){
+        String password = paramService.getString("password","");
+        String confirmPassword = paramService.getString("confirmPassword","");
+        return "updatePassword";
+    }
+    @PostMapping("post-update-password/{id}")
+    public ResponseEntity<?> postUpdatePassword(@PathVariable("id") String userID ){
+
+        String password = paramService.getString("password","");
+        String confirmPassword = paramService.getString("confirmPassword","");
+        if(!password.equalsIgnoreCase(confirmPassword)){
+            return  ResponseEntity.ok("errorPassword");
+        }
+        System.out.println("id: "+ userID+"password :"+ password+" "+ confirmPassword);
+        UserCustom userCustom = userCustomRepository.findByUserID(Integer.parseInt(userID));
+        userCustom.setPassword(Bcrypt.hashPassword(password));
+        try {
+            userCustomRepository.save(userCustom);
+        }catch (Exception e){
+            return  ResponseEntity.ok("fail");
+        }
+        return  ResponseEntity.ok("success");
+    }
     //Đăng kí
     @PostMapping("/account/register")
     public ResponseEntity<?> register(@Valid @ModelAttribute("UserC") UserCustom userCustom, BindingResult rs) {

@@ -50,7 +50,7 @@
             <a href="/list/product" class="header__nav-link">San pham</a>
         </li>
         <li class="header__nav-item">
-            <a href="product" class="header__nav-link">Danh mục</a>
+            <a href="/list/product" class="header__nav-link">Danh mục</a>
             <div class="sub-nav-wrap grid wide">
                 <c:forEach var="category" items="${listCategories}" varStatus="i">
                     <c:if test="${!category.isDelete}">
@@ -65,7 +65,7 @@
             </div>
         </li>
         <li class="header__nav-item">
-            <a href="product" class="header__nav-link">Thương hiệu</a>
+            <a href="/list/product" class="header__nav-link">Thương hiệu</a>
             <div class="sub-nav-wrap grid wide">
                 <c:forEach var="brand" items="${listBrands}" varStatus="i">
                     <c:if test="${!brand.isDelete}">

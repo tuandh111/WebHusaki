@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login Form</title>
+    <title>Forgot password</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -40,41 +40,20 @@
 <div class="login-background">
     <div class="login-container">
         <div class="login-contain row">
-            <div class="authen-modal login">
-                <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đăng nhập</h3></div>
-                <form action="login" method="post" id="loginForm">
-                    <div class="form-group">
-                        <label class="form-label">Địa chỉ email *</label>
-                        <input name="LGemail" type="email" class="form-control" id="LGemail" value="${LGemail}">
-                        <span class="form-message" id="emailLGError"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="LGPassword" class="form-label">Mật khẩu *</label>
-                        <input name="LGPassword" type="password" class="form-control" id="LGPassword"
-                               value="${LGPassword}">
-                        <span class="form-message" id="passLGError"></span>
-                    </div>
-                    <input type="checkbox" name="chkRemember" class="authen-checkbox" value="true"
-                           id="chkRemember" ${check? 'checked' : ''}>
-                    <label class="form-label">Ghi nhớ mật khẩu</label>
-                    <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary  ">ĐĂNG NHẬP</button>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-12 social-login d-flex justify-content-center">
-                            <a class="btn btn-primary mx-3"
-                               href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:8080/loginGG&response_type=code
-		   &client_id=696627188228-lppdd724j8bftrq7pi0pj6eefjqh8erl.apps.googleusercontent.com&approval_prompt=force"><i
-                                    class="bi bi-google google"></i>Login google</a>
-                            <a class="btn btn-primary"
-                               href="https://www.facebook.com/dialog/oauth?client_id=894672849328719&redirect_uri=http://localhost:8080/loginFB">
-                                <i class="bi bi-facebook facebook"></i>Login facebook</a>
-                        </div>
-                    </div>
-                </form>
-                <a class="authen__link" href="/forgot-password">Quên mật khẩu ?</a>
+            <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Forgot password</h3>
             </div>
+            <form action="login" method="post" id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Địa chỉ email *</label>
+                    <input name="LGemail" type="email" class="form-control" id="ForgotEmail">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-primary mt-3 " id="submitForgotPassword">Xac nhận</button>
+                </div>
+            </form>
+            <a class="authen__link" href="/login">Quay lại </a>
         </div>
+
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
