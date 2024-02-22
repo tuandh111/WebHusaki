@@ -355,83 +355,84 @@
 </head>
 <body class="js">
 <div class="container-fluid">
-	<div class="row register-background">
-	    <div class="col-lg-12 d-flex align-items-center">
-	        <div class="container my-1 d-flex justify-content-center   formRegister">
-	       
-	            <form:form modelAttribute="UserC" action="/account/register" method="post" id="formRegister" class="form-register">
-	             <div class="d-flex justify-content-center mt-2"> <h3 class="authen-modal__title  " >Đăng ký</h3></div>
-	                <div class="form-group">
-	                    <label class="form-label ">Họ Tên *</label>
-	                    <form:input path="fullName" class="form-control"/>
-	                    <small class="text-danger" id="fullNameError"></small>
-	                </div>
-	                <div class="form-group">
-	                    <label for="password" class="form-label pt-4">Tài khoản Email *</label>
-	                    <form:input path="email" id="password" class="form-control"/>
-	                    <small class="text-danger" id="emailError"></small>
-	                </div>
-	                <div class="form-group">
-	                    <label for="password" class="form-label pt-4">Mật khẩu *</label>
-	                    <form:input path="password" class="form-control"/>
-	                    <small class="text-danger" id="passwordError"></small>
-	                </div>
-	                <div class="form-group">
-	                    <label for="password" class="form-label pt-4">Nhập lại mật khẩu *</label>
-	                    <input type="password" name="confirmPassword" required="required" class="form-control">
-	                    <small class="text-danger" id="confirmPasswordError"></small>
-	                </div>
-	                <div id="recaptchaContainer" style="display: none;">
-	                    <div class="g-recaptcha" data-sitekey="6LdosU4pAAAAAO_EzhGlRqWLJqns6eULivmzGWWE"></div>
-	                </div>
-	
-	                <div id="error"></div>
-	                <div class="d-flex justify-content-center mt-4 mb-3">
-	                    <button class="btn btn-primary form-control" id="submitButton">ĐĂNG KÝ</button>
-	                </div>
-	            </form:form>
-	        </div>
-	    </div>
-	</div>
+    <div class="row register-background">
+        <div class="col-lg-12 d-flex align-items-center">
+            <div class="container my-1 d-flex justify-content-center   formRegister">
+
+                <form:form modelAttribute="UserC" action="/account/register" method="post" id="formRegister"
+                           class="form-register">
+                    <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đăng ký</h3></div>
+                    <div class="form-group">
+                        <label class="form-label ">Họ Tên *</label>
+                        <form:input path="fullName" class="form-control"/>
+                        <small class="text-danger" id="fullNameError"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label pt-4">Tài khoản Email *</label>
+                        <form:input path="email" id="password" type="email" class="form-control"/>
+                        <small class="text-danger" id="emailError"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label pt-4">Mật khẩu *</label>
+                        <form:input path="password" type="password" class="form-control"/>
+                        <small class="text-danger" id="passwordError"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label pt-4">Nhập lại mật khẩu *</label>
+                        <input type="password" name="confirmPassword" required="required" class="form-control">
+                        <small class="text-danger" id="confirmPasswordError"></small>
+                    </div>
+                    <div id="recaptchaContainer" style="display: none;">
+                        <div class="g-recaptcha" data-sitekey="6LdosU4pAAAAAO_EzhGlRqWLJqns6eULivmzGWWE"></div>
+                    </div>
+
+                    <div id="error"></div>
+                    <div class="d-flex justify-content-center mt-4 mb-3">
+                        <button class="btn btn-primary form-control" id="submitButton">ĐĂNG KÝ</button>
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="/js/register.js"></script>
-                 <!-- Start Footer Area -->
-                 <!-- /End Footer Area -->
+<!-- Start Footer Area -->
+<!-- /End Footer Area -->
 
-                 <!-- Jquery -->
+<!-- Jquery -->
 
 <script src="../../js/jquery-migrate-3.0.0.js"></script>
 <script src="../../js/jquery-ui.min.js"></script>
-                 <!-- Popper JS -->
+<!-- Popper JS -->
 <script src="../../js/popper.min.js"></script>
-                 <!-- Bootstrap JS -->
+<!-- Bootstrap JS -->
 <script src="../../js/bootstrap.min.js"></script>
-                 <!-- Color JS -->
-                 <!--
-                 <script src="../../js/colors.js"></script> -->
-                 <!-- Slicknav JS -->
+<!-- Color JS -->
+<!--
+<script src="../../js/colors.js"></script> -->
+<!-- Slicknav JS -->
 <script src="../../js/slicknav.min.js"></script>
-                 <!-- Owl Carousel JS -->
+<!-- Owl Carousel JS -->
 <script src="../../js/owl-carousel.js"></script>
-                 <!-- Magnific Popup JS -->
+<!-- Magnific Popup JS -->
 <script src="../../js/magnific-popup.js"></script>
-                 <!-- Waypoints JS -->
+<!-- Waypoints JS -->
 <script src="../../js/waypoints.min.js"></script>
-                 <!-- Countdown JS -->
+<!-- Countdown JS -->
 <script src="../../js/finalcountdown.min.js"></script>
-                 <!-- Nice Select JS -->
+<!-- Nice Select JS -->
 <script src="../../js/nicesellect.js"></script>
-                 <!-- Flex Slider JS -->
+<!-- Flex Slider JS -->
 <script src="../../js/flex-slider.js"></script>
-                 <!-- ScrollUp JS -->
+<!-- ScrollUp JS -->
 <script src="../../js/scrollup.js"></script>
-                 <!-- Onepage Nav JS -->
+<!-- Onepage Nav JS -->
 <script src="../../js/onepage-nav.min.js"></script>
-                 <!-- Easing JS -->
+<!-- Easing JS -->
 <script src="../../js/easing.js"></script>
-                 <!-- Active JS -->
+<!-- Active JS -->
 <script src="../../js/active.js"></script>
 <script src="../../js/hover-nav.js"></script>
 

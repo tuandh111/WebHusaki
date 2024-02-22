@@ -226,7 +226,7 @@ $(document).ready(function () {
                 if (!check) {
                     // html
                     var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
-                    productHtml += '<a href="product" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
+                    productHtml += '<a href="product/'+productId+'" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {
                         productHtml += '<del><span class="text-muted text-decoration-line-through me-2">' + formatCurrency(originalPrice) + ' </span></del>';

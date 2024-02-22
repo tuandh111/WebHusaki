@@ -65,6 +65,9 @@ public class checkOutController {
     public ResponseEntity<?> addCheckout() {
         UserCustom userCustom = sessionService.get("userLogin");
         String phoneID = paramService.getString("phoneID", "");
+        if(phoneID.equalsIgnoreCase("")){
+            return ResponseEntity.ok("failAddress");
+        }
         System.out.println("PhoneID: " + phoneID);
         Optional<Address> address = addressRepository.findById(phoneID);
         if (!address.isPresent()) return ResponseEntity.ok("fail");

@@ -13,10 +13,12 @@ $(document).ready(function () {
 
         $.ajax({
             type: "POST",
-            url: "/login",
-            processData: false,
-            contentType: false,
-            data: formData,
+            url: "/post-login",
+            data: {
+                LGemail:LGEmail,
+                LGPassword:LGPassword,
+                chkRemember:chkRemember
+            },
             success: function (response) {
                 // Handle the success response here
                 console.log(response);
