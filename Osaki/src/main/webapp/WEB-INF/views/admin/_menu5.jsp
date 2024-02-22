@@ -67,7 +67,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/admin/logout">
                 <span class="icon"><ion-icon name="log-in-outline"></ion-icon></span>
                 <span class="title">Đăng xuất</span>
             </a>

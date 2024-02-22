@@ -1,13 +1,19 @@
 package asm.osaki.controller.admin;
 
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,13 +23,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import asm.osaki.entities.product.Category;
+import asm.osaki.entities.user.Invoice;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
+import asm.osaki.model.admin.ProductLatest;
 import asm.osaki.model.admin.UserAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
+import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
+import asm.osaki.repositories.user_repositories.InvoiceRepository;
 import asm.osaki.repositories.user_repositories.UserCustomRepository;
 import asm.osaki.service.SessionService;
 import jakarta.validation.Valid;
@@ -36,7 +46,12 @@ public class AdminController {
 	@Autowired
 	private UserCustomRepository userCustomRepository;
 	@Autowired
+	private InvoiceRepository invoiceRepository;
+	@Autowired
+	private InvoiceDetailRepository invoiceDetailRepository;
+	@Autowired
 	private SessionService sessionService;
+	
 	@GetMapping
 	public String getHome(@RequestParam(name = "content", required = false) String content,
 			@RequestParam(name = "categoryName", required = false) String categoryName, Model model,
@@ -83,6 +98,15 @@ public class AdminController {
 		} else {
 			model.addAttribute("content", "_dashboard3.jsp");
 		}
+		
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());
+		model.addAttribute("totalRevenue", currencyFormat.format(invoiceRepository.getRevenue()));
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 3);
+		model.addAttribute("recentProduct", ProductLatest.convert(invoiceDetailRepository.findTop3ProductLatest(pageable)));
+				
+		model.addAttribute("userAdminLogin", sessionService.get("userLogin"));
 		return "admin/admin";
 	}
 
@@ -95,8 +119,7 @@ public class AdminController {
 		 category.setDeleteAt(null);
 		 category.setProducts(null);
 		 category.setIsDelete(!category.getIsDelete());
-		 categoryRepository.save(category);
-		// System.out.println("post cate "+ category.getIsDelete());
+		 categoryRepository.save(category);		
 		return "redirect:/admin?content=_content-category.jsp";
 	}
 	
@@ -146,13 +169,61 @@ public class AdminController {
 		userCustomRepository.save(user);			
 		return "redirect:/admin?content=_content-account.jsp";
 	}
+		
 	
-
+	@GetMapping("list-invoice-by-user")
+    public ResponseEntity<?> getListInvoiceByUser(@RequestParam(name = "userId") String userId,Model model) {
+     
+        Map<String, Object> jsonUserId = new HashMap<>();
+        jsonUserId.put("userId", userId);
+             
+        int id = -1;
+		try {
+			id = Integer.valueOf(userId);
+		} catch (NumberFormatException e) {			
+			e.printStackTrace();
+		}
+       
+        List<Invoice> invoices = invoiceRepository.findByUserID(id);     
+     
+        StringBuilder htmlBuilder = new StringBuilder();
+        htmlBuilder.append("<table class=\"table table-hover table-secondary\">");
+        htmlBuilder.append("<thead>");
+        htmlBuilder.append("<tr>");
+        htmlBuilder.append("<th>").append("Số hóa đơn").append("</th>");
+        htmlBuilder.append("<th>").append("Tổng tiền").append("</th>");
+        htmlBuilder.append("<th>").append("Trạng Thái").append("</th>");
+        htmlBuilder.append("<th>").append("Khách hàng").append("</th>");
+        htmlBuilder.append("</tr>");
+        htmlBuilder.append("</thead>");
+        for (Invoice invoice : invoices) {
+        	htmlBuilder.append("<tbody>");
+            htmlBuilder.append("<tr>");
+            htmlBuilder.append("<td>").append(invoice.getInvoiceID()).append("</td>");
+            htmlBuilder.append("<td>").append(invoice.getTotalAmount()).append("</td>");
+            htmlBuilder.append("<td>").append(invoice.getStatus()=="true"?"Đã thanh toán":"Chưa thanh toán").append("</td>");
+            htmlBuilder.append("<td>").append(invoice.getUser().getFullName()).append("</td>");
+            htmlBuilder.append("</tr>");
+            htmlBuilder.append("</tbody>");
+        }
+        htmlBuilder.append("</table>");
+        
+        
+        return ResponseEntity.ok(htmlBuilder.toString());      
+    }
+	
 
 	@GetMapping("add-or-edit-product")
 	public String addOrEditProduct(@RequestParam(name = "action") String action, Model model) {
 		model.addAttribute("action", action);
 		return "redirect:/admin?content=__form-control-product.jsp&action=" + action;
 	}
+	
+	
+	@GetMapping("logout")
+    public String logout(@ModelAttribute("UserC") UserCustom userCustom) {
+        sessionService.remove("userLogin");
+        return "/login";
+    }
 	
 }
