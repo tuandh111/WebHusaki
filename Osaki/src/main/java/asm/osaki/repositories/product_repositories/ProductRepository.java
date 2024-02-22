@@ -37,5 +37,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query("SELECT p FROM product p WHERE p.price >= :minPrice AND p.price <= :maxPrice")
     Page<Product> findProductsByPriceRange(@Param("minPrice") double minPrice, @Param("maxPrice") double maxPrice, Pageable pageable);
-
+    
+    @Query("select p, size(p.invoiceDetails), size(p.wishLists) from product p where p.name like %?1%")
+    Page<Object[]> findAllByNameLikePro(String keywords, Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package asm.osaki.controller.admin;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -17,14 +18,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import asm.osaki.entities.product.Category;
+import asm.osaki.entities.product.Product;
+import asm.osaki.entities.product.image_product.ImageProduct;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
+import asm.osaki.model.admin.ProductAdd;
 import asm.osaki.model.admin.UserAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
+import asm.osaki.repositories.product_repositories.ImageRepository;
+import asm.osaki.repositories.product_repositories.ProductRepository;
 import asm.osaki.repositories.user_repositories.UserCustomRepository;
+import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import jakarta.validation.Valid;
 
@@ -33,6 +42,12 @@ import jakarta.validation.Valid;
 public class AdminController {
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private ImageRepository imageRepository;
+	@Autowired
+	private ParamService paramService;
+	@Autowired
+	private ProductRepository productRepository;
 	@Autowired
 	private UserCustomRepository userCustomRepository;
 	@Autowired
@@ -64,6 +79,10 @@ public class AdminController {
 				page = userCustomRepository.findAllByNameLike(keywordSearch, pageable);
 				List<UserAndCount> convertedResults = UserAndCount.convert(page.getContent());
 				model.addAttribute("users", convertedResults);
+			}else if(content.equals("_content-product.jsp")) {
+				page =productRepository.findAllByNameLikePro(keywordSearch, pageable);
+				List<ProductAdd> convertedResults = ProductAdd.convert(page.getContent());
+				model.addAttribute("item", convertedResults);	
 			}
 			
 			
@@ -83,6 +102,11 @@ public class AdminController {
 		} else {
 			model.addAttribute("content", "_dashboard3.jsp");
 		}
+//		List<Product> item = productRepository.findAll();
+//		model.addAttribute("item",item);
+		
+		List<Category> catelist = categoryRepository.findAll();
+		model.addAttribute("cateList",catelist);
 		return "admin/admin";
 	}
 
@@ -111,7 +135,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("edit-category")
-	public String editCategoryManager(@RequestParam("categoryID") Integer categoryID,
+	public String editCategoryManager( Model model, @PathVariable("id") 
+			@RequestParam("categoryID") Integer categoryID,
 			@RequestParam("categoryName") String categoryName,
 			@RequestParam("isDelete") Optional<Boolean> isDelete) {
 		Optional<Category> categoryOpt = categoryRepository.findById(categoryID);
@@ -122,6 +147,8 @@ public class AdminController {
 		}else {
 			category.setIsDelete(true);
 		}
+		
+		
 		categoryRepository.save(category);
 		return "redirect:/admin?content=_content-category.jsp";
 	}
@@ -152,7 +179,62 @@ public class AdminController {
 	@GetMapping("add-or-edit-product")
 	public String addOrEditProduct(@RequestParam(name = "action") String action, Model model) {
 		model.addAttribute("action", action);
+		List<Category> categories = categoryRepository.findAll(); // Lấy danh sách danh mục từ cơ sở dữ liệu
+	    model.addAttribute("categories", categories);
 		return "redirect:/admin?content=__form-control-product.jsp&action=" + action;
 	}
+	
+	@PostMapping("add-product")
+	public String addProduct(
+			@RequestParam(name= "productName") String nameProduct,
+			@RequestParam(name= "price") Double priceProduct,
+			@RequestParam(name= "quantity") Long quantityProduct,
+			@RequestParam(name= "uses") String usesProduct,
+			@RequestParam(name= "preserve") String preserveProduct,
+			@RequestParam(name= "skinType") String skinTypeProduct,
+			@RequestParam(name= "certification") String certificationProduct,
+			@RequestParam(name= "dateOfManufacture") String dateOfManufactureProduct,
+			@RequestParam(name= "expiry") String expiryProduct,
+			@RequestParam(name= "categoryID") String categoryProduct,
+			@RequestParam(name= "manufacturer") String manufacturerProduct,
+			@RequestParam(name= "description") String descriptionProduct,
+			@RequestPart(name= "image") MultipartFile fileImage						
+			) {
+		Product product= new Product();	
+		product.setName(nameProduct);
+		product.setPrice(priceProduct);
+		product.setQuantityInStock(quantityProduct);
+		product.setUses(usesProduct);
+		product.setPreserve(preserveProduct);
+		product.setSkinType(skinTypeProduct);
+		product.setCertification(certificationProduct);
+		product.setDateOfManufacture(paramService.getDate(dateOfManufactureProduct, "dd/MM/yyyy"));
+		product.setExpiry(expiryProduct);
+		product.setManufacturer(manufacturerProduct);
+		product.setDescription(descriptionProduct);
+		Category cate = categoryRepository.findById(Integer.parseInt(categoryProduct)).get();
+		product.setCategoryID(cate);
+		
+		String upLoadDir = System.getProperty("user.dir")+ "/uploadProduct/";
+		System.out.println(upLoadDir);
+		paramService.save(fileImage, upLoadDir);
+		
+		String ImageSP = fileImage.getOriginalFilename();
+		
+		ImageProduct imageProduct = new ImageProduct();
+		
+		imageProduct.setImageName(ImageSP);
+		imageProduct.setProductID(product);
+		
+		
+		
+		productRepository.save(product);
+		imageRepository.save(imageProduct);
+		
+		
+		return "redirect:/admin?content=_content-product.jsp";
+	}
+	
+		
 	
 }

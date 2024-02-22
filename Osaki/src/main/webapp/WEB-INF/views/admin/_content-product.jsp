@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <div class="row mb-3 p-5">
       <div class="d-flex flex-row">
         <h4 class="me-2">Product</h4>
@@ -16,16 +18,26 @@
 		</select>
 		<button class="btn btn-outline-primary">Filer</button>
     </div>
-    <div class="control-product d-flex flex-row mb-3">
-         <!-- <jsp:include page="__navigation-button.jsp" /> -->
-         <input class="form-control me-2" value="135 items ${totalElement}" style="max-width: 10%;background-color: #b7a888;" disabled="disabled">
-         <button class="btn btn-outline-secondary me-2">First</button>
-         <button class="btn btn-outline-secondary me-2">Prev</button>
-         <input class="form-control" name="currentPage" value="${currentPage}" placeholder="1" style="max-width: 5%;background-color: #b7a888;">
-         <input class="form-control me-2" value="of ${totalPage}" style="max-width: 5%; background-color: #b7a888;" disabled="disabled">
-         <button class="btn btn-outline-secondary me-2">Next</button>
-         <button class="btn btn-outline-secondary me-2">Last</button>    
-    </div>
+
+    
+    
+    <div class="col-8 d-flex justify-content-end">
+                 <!-- <jsp:include page="__navigation-button.jsp" /> -->
+                <input class="form-control me-2" value="${totalElements} sản phẩm" style="max-width: 15%;background-color: #b7a888;" disabled="disabled">               
+                <c:if test="${not booleanFirst}">
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-product.jsp&p=0">Đầu</a>
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-product.jsp&p=${prevPage}">Trước</a>
+                </c:if>                
+                <input class="form-control" name="currentPage" value="${currentPage}" style="max-width: 8%;background-color: #b7a888;" disabled="disabled">
+                <input class="form-control me-2" value="of ${totalPages}" style="max-width: 12%; background-color: #b7a888;" disabled="disabled">
+                <c:if test="${not booleanLast}">
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-product.jsp&p=${nextPage}">Tiếp</a>
+                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-product.jsp&p=${totalPages}">Cuối</a>
+                </c:if>                      
+           </div>
+    
+    
+    
     <div class="table-responsive">
                <table class="table table-hover">
                    <thead>
@@ -41,9 +53,11 @@
                         </tr>
                    </thead>
                    <tbody>   
-                        <!-- Vòng lặp c:forEach -->                
+                        <!-- Vòng lặp c:forEach -->  
+                                      
+                                      <c:forEach var="item" items="${item}">
                         <tr>
-                            <td>12213457</td>
+                            <td> alshda</td>
                             <td>
                                 <div class="d-flex">
                                     <img src="/images/product-item1.jpg" class="img-thumbnail me-3" alt="Ảnh đại diện" style="width: 50px;height: 50px">
@@ -65,13 +79,10 @@
                             </td>
                             <td>Sữa rửa mặt Vichy</td>
                             <td>
-                                <input name="price" value="${item.price}"
-                                        onblur="this.form.submit()" style="width:50px;">
+                                ${item.price}
                             </td>
                             <td>
-                                <input name="qty" value="${item.qty}"
-                                        onblur="this.form.submit()" style="width:50px;">
-                            </td>
+                               ${item.quantity}
                             <td>Đang hoạt động</td>
                             <td>Sữa rửa mặt</td>
                             <td>
@@ -79,7 +90,7 @@
                                 |
                                 <a href="#" class="btn btn-outline-danger">Delete</a>
                             </td>
-                        </tr>                  
+                        </tr>      </c:forEach>            
                    </tbody>
                </table>
            </div>
