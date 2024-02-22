@@ -43,6 +43,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Latest compiled JavaScript -->
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        var loader = function () {
+            setTimeout(function () {
+                $('#loader').css({'opacity': 0, 'visibility': 'hidden'});
+            }, 1000); // Đặt thời gian tại đây, ví dụ: 3000ms (3 giây)
+        };
+        $(function () {
+            loader();
+        });
+    </script>
     <%--     icon --%>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -77,11 +88,108 @@
             font-size: 20px;
         }
 
+        * {
+            /* reset lại margin và padding cho các tag */
+            margin: 0;
+            padding: 0;
+        }
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 99999;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .circle {
+            height: 40px;
+            margin: 300px auto;
+            position: relative;
+            text-align: center;
+            width: 40px;
+            -webkit-animation: circle_dot 3.0s infinite linear;
+            /* Đặt thời gian tại đây, ví dụ: 3.0s */
+            animation: circle_dot 3.0s infinite linear;
+            /* Đặt thời gian tại đây, ví dụ: 3.0s */
+        }
+
+        .circle1,
+        .circle2 {
+            height: 60%;
+            display: inline-block;
+            background-color: #ef5f38;
+            border-radius: 100%;
+            position: absolute;
+            top: 0;
+            width: 60%;
+            -webkit-animation: circle_bounce 3.0s infinite ease-in-out;
+            /* Đặt thời gian tại đây, ví dụ: 3.0s */
+            animation: circle_bounce 3.0s infinite ease-in-out;
+            /* Đặt thời gian tại đây, ví dụ: 3.0s */
+        }
+
+        .circle2 {
+            bottom: 0;
+            top: auto;
+            -webkit-animation-delay: -1.5s;
+            /* Một nửa thời gian của thời gian chuyển động */
+            animation-delay: -1.5s;
+            /* Một nửa thời gian của thời gian chuyển động */
+        }
+
+        @-webkit-keyframes circle_dot {
+            100% {
+                -webkit-transform: rotate(360deg)
+            }
+        }
+
+        @keyframes circle_dot {
+            100% {
+                transform: rotate(360deg);
+                -webkit-transform: rotate(360deg)
+            }
+        }
+
+        @-webkit-keyframes circle_bounce {
+
+            0%,
+            100% {
+                -webkit-transform: scale(0.0)
+            }
+
+            50% {
+                -webkit-transform: scale(1.0)
+            }
+        }
+
+        @keyframes circle_bounce {
+
+            0%,
+            100% {
+                -webkit-transform: scale(0.0);
+                transform: scale(0.0);
+            }
+
+            50% {
+                -webkit-transform: scale(1.0);
+                transform: scale(1.0);
+            }
+        }
 
     </style>
 </head>
 
 <body>
+<div id="loader">
+    <div class="circle">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+    </div>
+</div>
 <%-- header --%>
 <div class="header scrolling" id="myHeader">
     <jsp:include page="./component/_grid.jsp"/>
