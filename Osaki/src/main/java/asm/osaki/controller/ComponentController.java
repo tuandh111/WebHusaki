@@ -19,7 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
- 
+
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -145,10 +146,15 @@ public class ComponentController {
        	 String nameAnh = userCustom.getImage();
        	
        	if( !fileInput.isEmpty()) {
-       		paramService.save(fileInput, "/images");
-       	 
-       		String iamgeA = fileInput.getOriginalFilename();
-       		userCustom.setImage(iamgeA);
+       	 String originalFilename = fileInput.getOriginalFilename();
+        // String savePath = "/images/" + originalFilename;
+       		File NameFile = paramService.save(fileInput, "/images/");
+       		if(NameFile != null) {
+       			String imageName = NameFile.getName();
+       			userCustom.setImage(imageName);
+       		}
+       	//	String iamgeA = fileInput.getOriginalFilename();
+       		
        	}
         
        	userCustom.setFullName(nameInput);
