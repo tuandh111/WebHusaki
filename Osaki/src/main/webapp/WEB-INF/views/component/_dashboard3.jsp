@@ -23,11 +23,11 @@
             </thead>
             <tbody id="tbAddress">
             <c:forEach var="address" items="${address}" varStatus="i">
-                <tr >
+                <tr class="${address.phoneID}">
                     <td>${i.index+1}</td>
                     <td>${address.phoneID}</td>
                     <td>${address.address}</td>
-                    <td class="removeAddress">X</td>
+                    <td class="removeAddress" data-address-id="${address.phoneID}">X</td>
                 </tr>
             </c:forEach>
             </tbody>

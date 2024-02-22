@@ -361,7 +361,15 @@ public class AccountController {
         }catch (Exception e){
             return ResponseEntity.ok("fail");
         }
-
-
+    }
+    @DeleteMapping("/delete-to-address")
+    public ResponseEntity<?> deleteAddress(){
+        String phoneID = paramService.getString("phoneID","");
+        try {
+            addressRepository.deleteById(phoneID);
+            return  ResponseEntity.ok("success");
+        }catch (Exception e){
+            return  ResponseEntity.ok("fail");
+        }
     }
 }
