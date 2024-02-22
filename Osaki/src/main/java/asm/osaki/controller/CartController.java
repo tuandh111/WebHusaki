@@ -50,21 +50,22 @@ public class CartController {
     AddressRepository addressRepository;
     @Autowired
     VoucherRepository voucherRepository;
+
     @GetMapping("cart")
     public String cardController(Model model) {
         UserCustom userCustom = sessionService.get("userLogin");
 
         if (userCustom != null) {
-            List<Voucher> voucherList =voucherRepository.findByAllUserID(userCustom.getUserID());
+            List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom.getUserID());
             List<Cart> cartList = cartRepository.findAllByUser(userCustom);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
             List<Address> addressList = addressRepository.findByUser(userCustom);
             List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
-            model.addAttribute("promotionalDetailsList", promotionalDetailsList);
+            model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
             model.addAttribute("addressList", addressList);
-           model.addAttribute("voucherList", voucherList);
+            model.addAttribute("voucherList", voucherList);
         }
         return "cart";
     }
@@ -149,12 +150,10 @@ public class CartController {
         String quantity = paramService.getString("quantity", "");
         System.out.println("userCustom " + userCustom + " productID " + productID + "quantity " + quantity);
         Product product = productRepository.findByProductID(Integer.parseInt(productID));
-        System.out.println(
-                "quantityinstock :"+product.getQuantityInStock()
-        );
-        if(product.getQuantityInStock()<1){
-            Map<String , Object> json = new HashMap<>();
-            json.put("message","failQuantity");
+        System.out.println("quantityinstock :" + product.getQuantityInStock());
+        if (product.getQuantityInStock() < 1) {
+            Map<String, Object> json = new HashMap<>();
+            json.put("message", "failQuantity");
             String jsonResponse = null;
             try {
                 jsonResponse = new ObjectMapper().writeValueAsString(json);
@@ -170,9 +169,9 @@ public class CartController {
                 // Nếu sản phẩm đã tồn tại, chỉ cập nhật số lượng
                 existingCart.setQuantity(existingCart.getQuantity() + Integer.parseInt(quantity));
                 cartRepository.save(existingCart);
-                Map<String , Object> json = new HashMap<>();
-                json.put("message","successUpdate");
-                json.put("cartID",existingCart.getCartId());
+                Map<String, Object> json = new HashMap<>();
+                json.put("message", "successUpdate");
+                json.put("cartID", existingCart.getCartId());
                 String jsonResponse = null;
                 try {
                     jsonResponse = new ObjectMapper().writeValueAsString(json);
@@ -189,9 +188,9 @@ public class CartController {
                 newCart.setQuantity(Integer.parseInt(quantity));
                 newCart.setCheckPay(false);
                 cartRepository.save(newCart);
-                Map<String , Object> json = new HashMap<>();
-                json.put("message","success");
-                json.put("cartID",newCart.getCartId());
+                Map<String, Object> json = new HashMap<>();
+                json.put("message", "success");
+                json.put("cartID", newCart.getCartId());
                 String jsonResponse = null;
                 try {
                     jsonResponse = new ObjectMapper().writeValueAsString(json);
@@ -202,8 +201,8 @@ public class CartController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Map<String , Object> json = new HashMap<>();
-            json.put("message","fail");
+            Map<String, Object> json = new HashMap<>();
+            json.put("message", "fail");
             String jsonResponse = null;
             try {
                 jsonResponse = new ObjectMapper().writeValueAsString(json);

@@ -1,13 +1,12 @@
 package asm.osaki.controller;
 
-import asm.osaki.entities.user.Invoice;
-import asm.osaki.entities.user.InvoiceDetail;
-import asm.osaki.entities.user.UserCustom;
-import asm.osaki.entities.user.WishList;
-import asm.osaki.repositories.user_repositories.AddressRepository;
-import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
-import asm.osaki.repositories.user_repositories.InvoiceRepository;
-import asm.osaki.repositories.user_repositories.WishListRepository;
+import asm.osaki.entities.product.Cart;
+import asm.osaki.entities.product.PromotionalDetails;
+import asm.osaki.entities.user.*;
+import asm.osaki.repositories.product_repositories.CartRepository;
+import asm.osaki.repositories.product_repositories.ProductRepository;
+import asm.osaki.repositories.product_repositories.PromotionalDetailsRepository;
+import asm.osaki.repositories.user_repositories.*;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import com.restfb.types.User;
@@ -36,6 +35,19 @@ public class ComponentController {
     InvoiceDetailRepository invoiceDetailRepository;
     @Autowired
     ParamService paramService;
+
+    @Autowired
+    CartRepository cartRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    PromotionalDetailsRepository promotionalDetailsRepository;
+
+    @Autowired
+    VoucherRepository voucherRepository;
+
 
     @GetMapping("/product")
     public String productController(@ModelAttribute("UserC") UserCustom userCustom) {
@@ -112,6 +124,20 @@ public class ComponentController {
         UserCustom userCustom1 = sessionService.get("userLogin");
         model.addAttribute("address", addressRepository.findByUser(userCustom1));
         model.addAttribute("userLogin", userCustom1);
+        UserCustom userCustom = sessionService.get("userLogin");
+
+        if (userCustom != null) {
+            List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom.getUserID());
+            List<Cart> cartList = cartRepository.findAllByUser(userCustom);
+            double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
+            List<Address> addressList = addressRepository.findByUser(userCustom);
+            List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
+            model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
+            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("cartList", cartList);
+            model.addAttribute("addressList", addressList);
+            model.addAttribute("voucherList", voucherList);
+        }
         return "profile";
     }
 
