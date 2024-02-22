@@ -61,6 +61,5 @@
        )
        
     </script>
-    <script src="/js/user-admin.js"></script>
 </body>
 </html>
