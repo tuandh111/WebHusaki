@@ -1,5 +1,6 @@
 package asm.osaki.controller;
 
+ 
 import asm.osaki.entities.user.Invoice;
 import asm.osaki.entities.user.InvoiceDetail;
 import asm.osaki.entities.user.UserCustom;
@@ -7,17 +8,18 @@ import asm.osaki.entities.user.WishList;
 import asm.osaki.repositories.user_repositories.AddressRepository;
 import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.InvoiceRepository;
+import asm.osaki.repositories.user_repositories.UserCustomRepository;
 import asm.osaki.repositories.user_repositories.WishListRepository;
 import asm.osaki.service.ParamService;
-import asm.osaki.service.SessionService;
-import com.restfb.types.User;
+import asm.osaki.service.SessionService; 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
+ 
 import java.util.List;
 
 @Controller
@@ -36,6 +38,9 @@ public class ComponentController {
     InvoiceDetailRepository invoiceDetailRepository;
     @Autowired
     ParamService paramService;
+    @Autowired
+    UserCustomRepository userCustomRepository;
+    
 
     @GetMapping("/product")
     public String productController(@ModelAttribute("UserC") UserCustom userCustom) {
@@ -110,10 +115,54 @@ public class ComponentController {
             model.addAttribute("content", "_dashboard3.jsp");
         }
         UserCustom userCustom1 = sessionService.get("userLogin");
-        model.addAttribute("address", addressRepository.findByUser(userCustom1));
+     
         model.addAttribute("userLogin", userCustom1);
         return "profile";
     }
+    
+    @GetMapping("edit-info-account")
+    public String editInfoAccount(Model model,
+    		@RequestParam("idInput") Integer idInput,
+    		@RequestParam("file") MultipartFile fileInput,
+    		@RequestParam("fullName") String nameInput  
+    		) {
+     
+
+    	
+    	System.out.println("idInputxxxxx"+idInput);
+    	UserCustom userCustom=userCustomRepository.findByUserID(idInput);
+     
+    	 
+    	  
+    	  
+    	  
+    	 String nameAnh = userCustom.getImage();
+    	
+    	if( !fileInput.isEmpty()) {
+    		paramService.save(fileInput, "/images");
+    		String iamgeA = fileInput.getOriginalFilename();
+    		userCustom.setImage(iamgeA);
+    	}
+    	 
+     
+    	userCustom.setFullName(nameInput);
+    	 
+    	userCustomRepository.save(userCustom);
+//    	 UserCustom userCustom = sessionService.get("userLogin");
+//    	 if(userCustom!=null) {
+//    		 model.addAttribute("idInput",userCustom.getUserID());
+//    		 model.addAttribute("email",userCustom.getEmail());
+//    		 model.addAttribute("fullName",userCustom.getFullName());
+//    		 System.out.println("Userxxxxx:"+userCustom.getUserID());
+//    	 }
+    	
+    	return "redirect:/profile";
+    }
+    
+    
+    
+    
+    
 
     @DeleteMapping("delete-to-likeProduct")
     public ResponseEntity<?> deleteLikeProduct() {
