@@ -13,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,20 +23,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import asm.osaki.entities.product.Category;
 import asm.osaki.entities.user.Invoice;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
+import asm.osaki.model.admin.ProductLatest;
 import asm.osaki.model.admin.UserAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
+import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.InvoiceRepository;
 import asm.osaki.repositories.user_repositories.UserCustomRepository;
-import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import jakarta.validation.Valid;
 
@@ -52,9 +48,10 @@ public class AdminController {
 	@Autowired
 	private InvoiceRepository invoiceRepository;
 	@Autowired
-	private SessionService sessionService;
+	private InvoiceDetailRepository invoiceDetailRepository;
 	@Autowired
-	private ParamService paramService;
+	private SessionService sessionService;
+	
 	@GetMapping
 	public String getHome(@RequestParam(name = "content", required = false) String content,
 			@RequestParam(name = "categoryName", required = false) String categoryName, Model model,
@@ -101,10 +98,15 @@ public class AdminController {
 		} else {
 			model.addAttribute("content", "_dashboard3.jsp");
 		}
-		//System.out.println("totalInv"+ invoiceRepository.getTotalInvoice());
+		
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());
 		model.addAttribute("totalRevenue", currencyFormat.format(invoiceRepository.getRevenue()));
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 3);
+		model.addAttribute("recentProduct", ProductLatest.convert(invoiceDetailRepository.findTop3ProductLatest(pageable)));
+				
+		model.addAttribute("userAdminLogin", sessionService.get("userLogin"));
 		return "admin/admin";
 	}
 
@@ -117,8 +119,7 @@ public class AdminController {
 		 category.setDeleteAt(null);
 		 category.setProducts(null);
 		 category.setIsDelete(!category.getIsDelete());
-		 categoryRepository.save(category);
-		// System.out.println("post cate "+ category.getIsDelete());
+		 categoryRepository.save(category);		
 		return "redirect:/admin?content=_content-category.jsp";
 	}
 	
@@ -208,9 +209,7 @@ public class AdminController {
         htmlBuilder.append("</table>");
         
         
-        return ResponseEntity.ok(htmlBuilder.toString());
-        
-       // return ResponseEntity.ok().body(invoices);
+        return ResponseEntity.ok(htmlBuilder.toString());      
     }
 	
 

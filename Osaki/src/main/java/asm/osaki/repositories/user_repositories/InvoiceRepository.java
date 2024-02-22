@@ -18,4 +18,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice,String> {
     Integer getTotalInvoice();
     @Query("select sum(i.totalAmount) from  invoice i")
     Double getRevenue();
+//    @Query(value = "select top 5 * from invoice order by create_at desc", nativeQuery = true)
+//    List<Invoice> findTop5ByOrderByCreateAtDesc();
 }
