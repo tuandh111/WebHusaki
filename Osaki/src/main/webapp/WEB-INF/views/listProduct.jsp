@@ -124,13 +124,15 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-    .header__top{
-        background-color: black;
+
+    .header__top {
+        background-color: #523e02;
     }
 </style>
 <body>
 <div class="header scrolling" id="myHeader">
     <jsp:include page="./component/_grid.jsp"/>
+    <div class="mb-3"></div>
     <%--menu --%>
     <jsp:include page="./component/_header.jsp"/>
 </div>

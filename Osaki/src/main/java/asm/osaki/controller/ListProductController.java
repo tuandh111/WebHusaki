@@ -2,11 +2,13 @@ package asm.osaki.controller;
 
 import asm.osaki.entities.product.*;
 import asm.osaki.entities.user.UserCustom;
+import asm.osaki.entities.user.WishList;
 import asm.osaki.model.PromotionalDetailModel;
 import asm.osaki.repositories.product_repositories.*;
 import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.WishListRepository;
 import asm.osaki.service.SessionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -120,6 +122,18 @@ public class ListProductController {
             model.addAttribute("now", now.getMonth());
         }
         return "listProduct";
+    }
+
+    @ModelAttribute("likeList")
+    public List<WishList> getCategories(HttpSession session) {
+        UserCustom userCustom = (UserCustom) session.getAttribute("userLogin");
+
+        System.out.println("userCustom1: " + userCustom);
+        if (userCustom != null) {
+            List<WishList> listLike = wishListRepository.findByUser(userCustom);
+            return listLike;
+        }
+        return null;
     }
 
 }

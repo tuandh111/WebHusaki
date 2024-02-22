@@ -54,6 +54,10 @@
         text-decoration: line-through;
     }
 
+    a {
+        text-decoration: none;
+    }
+
     {
         margin: 0
 

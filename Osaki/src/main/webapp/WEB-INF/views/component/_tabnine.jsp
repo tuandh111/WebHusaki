@@ -18,7 +18,7 @@
         <h3 class="category__heading">SẢN PHẨM FLASH SALE</h3>
         <c:if test="${!checkDay}">
             <h2 id="countdown"></h2>
-            <a href="/product/flash-sale" class="h3 view-all-collection ml-auto bg-dark text-white ">Xem tất cả</a>
+<%--             <a href="/product/flash-sale" class="h3 view-all-collection ml-auto bg-dark text-white ">Xem tất cả</a> --%>
         </c:if>
         <c:if test="${checkDay}">
             <div class="styleCountdown d-flex align-items-center mt-0">
