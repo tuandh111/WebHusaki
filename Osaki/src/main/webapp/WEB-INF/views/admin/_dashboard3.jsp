@@ -17,7 +17,7 @@
 <div class="cardBox">
     <div class="cardP">
         <div class="cardP-body">
-            <div class="numbers">1,504</div>
+            <div class="numbers">${totalInv}</div>
             <div class="cardName">Lượt mua</div>
         </div> 
         <div class="iconBox">
@@ -45,7 +45,7 @@
     </div>
     <div class="cardP">
         <div class="cardP-body">
-            <div class="numbers">$8549</div>
+            <div class="numbers">${totalRevenue}</div>
             <div class="cardName">Doanh thu</div>
         </div> 
         <div class="iconBox">

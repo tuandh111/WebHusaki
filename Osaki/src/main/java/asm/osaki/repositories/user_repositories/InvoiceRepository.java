@@ -13,4 +13,9 @@ public interface InvoiceRepository extends JpaRepository<Invoice,String> {
     Invoice findByInvoiceID(@Param("invoiceID") String id);
     @Query("select  p from  invoice p where p.user.userID = :userID")
     List<Invoice> findByUserID(@Param("userID") Integer id);
+    
+    @Query("select count(i) from  invoice i")
+    Integer getTotalInvoice();
+    @Query("select sum(i.totalAmount) from  invoice i")
+    Double getRevenue();
 }

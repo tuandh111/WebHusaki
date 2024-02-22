@@ -1,8 +1,10 @@
 package asm.osaki.controller.admin;
 
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -97,6 +101,10 @@ public class AdminController {
 		} else {
 			model.addAttribute("content", "_dashboard3.jsp");
 		}
+		//System.out.println("totalInv"+ invoiceRepository.getTotalInvoice());
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());
+		model.addAttribute("totalRevenue", currencyFormat.format(invoiceRepository.getRevenue()));
 		return "admin/admin";
 	}
 
@@ -211,5 +219,12 @@ public class AdminController {
 		model.addAttribute("action", action);
 		return "redirect:/admin?content=__form-control-product.jsp&action=" + action;
 	}
+	
+	
+	@GetMapping("logout")
+    public String logout(@ModelAttribute("UserC") UserCustom userCustom) {
+        sessionService.remove("userLogin");
+        return "/login";
+    }
 	
 }
