@@ -62,6 +62,7 @@ public class CartController {
             List<Address> addressList = addressRepository.findByUser(userCustom);
             List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
             model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
+            model.addAttribute("promotionalDetailsList", promotionalDetailsList);
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
             model.addAttribute("addressList", addressList);

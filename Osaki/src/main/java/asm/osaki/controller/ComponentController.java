@@ -61,7 +61,22 @@ public class ComponentController {
 
 
     @GetMapping("/news")
-    public String newsController(@ModelAttribute("UserC") UserCustom userCustom) {
+    public String newsController(@ModelAttribute("UserC") UserCustom userCustom1, Model model) {
+        UserCustom userCustom = sessionService.get("userLogin");
+
+        if (userCustom != null) {
+            List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom.getUserID());
+            List<Cart> cartList = cartRepository.findAllByUser(userCustom);
+            double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
+            List<Address> addressList = addressRepository.findByUser(userCustom);
+            List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
+            model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
+            model.addAttribute("promotionalDetailsList", promotionalDetailsList);
+            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("cartList", cartList);
+            model.addAttribute("addressList", addressList);
+            model.addAttribute("voucherList", voucherList);
+        }
         return "news";
     }
 
