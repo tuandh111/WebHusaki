@@ -1,13 +1,17 @@
 package asm.osaki.controller.admin;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,12 +23,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import asm.osaki.entities.product.Category;
+import asm.osaki.entities.user.Invoice;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
 import asm.osaki.model.admin.UserAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
+import asm.osaki.repositories.user_repositories.InvoiceRepository;
 import asm.osaki.repositories.user_repositories.UserCustomRepository;
+import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import jakarta.validation.Valid;
 
@@ -36,7 +46,11 @@ public class AdminController {
 	@Autowired
 	private UserCustomRepository userCustomRepository;
 	@Autowired
+	private InvoiceRepository invoiceRepository;
+	@Autowired
 	private SessionService sessionService;
+	@Autowired
+	private ParamService paramService;
 	@GetMapping
 	public String getHome(@RequestParam(name = "content", required = false) String content,
 			@RequestParam(name = "categoryName", required = false) String categoryName, Model model,
@@ -146,8 +160,51 @@ public class AdminController {
 		userCustomRepository.save(user);			
 		return "redirect:/admin?content=_content-account.jsp";
 	}
+		
 	
-
+	@GetMapping("list-invoice-by-user")
+    public ResponseEntity<?> getListInvoiceByUser(@RequestParam(name = "userId") String userId,Model model) {
+     
+        Map<String, Object> jsonUserId = new HashMap<>();
+        jsonUserId.put("userId", userId);
+             
+        int id = -1;
+		try {
+			id = Integer.valueOf(userId);
+		} catch (NumberFormatException e) {			
+			e.printStackTrace();
+		}
+       
+        List<Invoice> invoices = invoiceRepository.findByUserID(id);     
+     
+        StringBuilder htmlBuilder = new StringBuilder();
+        htmlBuilder.append("<table class=\"table table-hover table-secondary\">");
+        htmlBuilder.append("<thead>");
+        htmlBuilder.append("<tr>");
+        htmlBuilder.append("<th>").append("Số hóa đơn").append("</th>");
+        htmlBuilder.append("<th>").append("Tổng tiền").append("</th>");
+        htmlBuilder.append("<th>").append("Trạng Thái").append("</th>");
+        htmlBuilder.append("<th>").append("Khách hàng").append("</th>");
+        htmlBuilder.append("</tr>");
+        htmlBuilder.append("</thead>");
+        for (Invoice invoice : invoices) {
+        	htmlBuilder.append("<tbody>");
+            htmlBuilder.append("<tr>");
+            htmlBuilder.append("<td>").append(invoice.getInvoiceID()).append("</td>");
+            htmlBuilder.append("<td>").append(invoice.getTotalAmount()).append("</td>");
+            htmlBuilder.append("<td>").append(invoice.getStatus()=="true"?"Đã thanh toán":"Chưa thanh toán").append("</td>");
+            htmlBuilder.append("<td>").append(invoice.getUser().getFullName()).append("</td>");
+            htmlBuilder.append("</tr>");
+            htmlBuilder.append("</tbody>");
+        }
+        htmlBuilder.append("</table>");
+        
+        
+        return ResponseEntity.ok(htmlBuilder.toString());
+        
+       // return ResponseEntity.ok().body(invoices);
+    }
+	
 
 	@GetMapping("add-or-edit-product")
 	public String addOrEditProduct(@RequestParam(name = "action") String action, Model model) {
