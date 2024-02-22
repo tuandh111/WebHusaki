@@ -5,7 +5,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="comment" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- Oder -->
-<div class="details">
+ 
+    <style>
+	.removeAddress:hover{
+		background-color: rgb(246, 245, 245);
+		color: black;
+		 
+		font-size: 110%;
+		font-weight: bold;
+	}
+</style>
     <div class="recentOrders">
         <div class="cardHeader d-flex flex-row justify-content-between">
             <h2>Địa chỉ của tôi</h2>
@@ -18,7 +27,7 @@
                 <th>STT</th>
                 <th>SDT</th>
                 <th>Dia chi</th>
-                <th>Trang thai</th>
+                <th class="d-flex justify-content-center">Trang thai</th>
             </tr>
             </thead>
             <tbody id="tbAddress">
@@ -27,12 +36,12 @@
                     <td>${i.index+1}</td>
                     <td>${address.phoneID}</td>
                     <td>${address.address}</td>
-                    <td class="removeAddress" data-address-id="${address.phoneID}">X</td>
+                    <td class="removeAddress d-flex justify-content-center"  data-address-id="${address.phoneID}">Xóa</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
-</div>
+ 
 <script src="/js/removeAddress.js"></script>
 <!-- Chart -->

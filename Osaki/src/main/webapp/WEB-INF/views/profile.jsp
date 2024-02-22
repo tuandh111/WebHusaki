@@ -710,10 +710,13 @@
     <%--menu --%>
     <jsp:include page="./component/_header.jsp"/>
 </div>
-<div class="main1">
+<div class="main1" >
     <jsp:include page="./component/_menu5.jsp"/>
-    <div class="main">
+    <div class="main" >
+    	<div class="details">
         <jsp:include page="./component/${content}"/>
+        <jsp:include page="./component/_rightCustomer.jsp"/>
+        </div>
     </div>
 </div>
 
