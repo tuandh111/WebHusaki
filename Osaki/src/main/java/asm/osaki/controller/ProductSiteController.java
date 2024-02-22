@@ -403,6 +403,8 @@ public class ProductSiteController {
             Date now = new Date();
             model.addAttribute("now", now.getMonth());
         }
+        sessionService.set("minPrice", minPrice.orElse(null));
+        sessionService.set("maxPrice", maxPrice.orElse(null));
         return "listProduct";
     }
 

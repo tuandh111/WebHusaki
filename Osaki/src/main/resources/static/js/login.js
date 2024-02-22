@@ -24,13 +24,17 @@ $(document).ready(function () {
                     Swal.fire({
                         title: 'Thanh cong', text: "Dang nhap thanh cong", showConfirmButton: true, timer: 3500
                     }).then(function () {
-                        // Redirect to the home page
-                        var returnUrl = localStorage.getItem('returnUrl');
-                        if (returnUrl) {
-                            window.location.href = returnUrl;
+                        if (response.role === "admin") {
+                            window.location.href = '/admin';
                         } else {
-                            window.location.href = '/'; // Change '/home' to the actual URL of your home page
-                        } // Change '/home' to the actual URL of your home page
+                            // Redirect to the home page
+                            var returnUrl = localStorage.getItem('returnUrl');
+                            if (returnUrl) {
+                                window.location.href = returnUrl;
+                            } else {
+                                window.location.href = '/'; // Change '/home' to the actual URL of your home page
+                            }
+                        }// Change '/home' to the actual URL of your home page
                     });
                     // Redirect or perform actions for successful login
                     console.log("Login successful");
@@ -132,7 +136,7 @@ $(document).ready(function () {
                         console.log(verificationCode);
                         if (verificationCode === verifyCode1) {
                             console.log("thanh cong")
-                            window.location.href = '/update-password/'+userID;
+                            window.location.href = '/update-password/' + userID;
 
                         } else {
                             reject();
@@ -157,13 +161,11 @@ $(document).ready(function () {
                     showSuccessMessage('Xác thực tài khoản thành công', 'Bạn đã xác thực tài khoản thành công!');
                 }
             });
-        }
-        else if (response === 'fail') {
+        } else if (response === 'fail') {
             Swal.fire({
                 icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
             })
-        }
-        else if (message === 'errorEmail') {
+        } else if (message === 'errorEmail') {
             Swal.fire({
                 icon: 'error', title: 'Lỗi', text: "Email khong ton tai", showConfirmButton: true, timer: 3500
             })

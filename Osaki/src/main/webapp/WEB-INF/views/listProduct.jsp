@@ -264,8 +264,8 @@
                 <div class="col-lg-3">
                     <h2>Loc gia:</h2>
                     <form action="/product/filterByPrice">
-                        <input type="text" class="form-control autonumeric" name="minPrice" placeholder="Từ" required>
-                        <input type="text" class="form-control autonumeric" name="maxPrice" placeholder="Đến" required>
+                        <input type="text" class="form-control autonumeric" value="${minPrice}" name="minPrice" placeholder="Từ" required>
+                        <input type="text" class="form-control autonumeric" value="${maxPrice}" name="maxPrice" placeholder="Đến" required>
                         <button class="btn btn-primary mt-2">Ap dụng</button>
                     </form>
                     <h1>Danh muc</h1>

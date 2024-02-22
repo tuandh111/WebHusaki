@@ -239,6 +239,7 @@ public class AccountController {
                         cookieService.remove("check");
                     }
                     System.out.println("login successfully");
+                    response.put("role",userCustom.getRoleName().getRoleName());
                     response.put("message", "success");
                 } else {
                     response.put("message", "fail");
