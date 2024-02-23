@@ -19,7 +19,9 @@ public class CategoryAndCount {
 			CategoryAndCount categoryAndCount = new CategoryAndCount();
 			Category category = (Category) o[0];
 			categoryAndCount.setId(category.getCategoryID());
+			//categoryAndCount.setName(category.getCategoryName());
 			categoryAndCount.setName(category.getCategoryName());
+			System.out.println("categoryP: "+ category.getCategoryName());
 			categoryAndCount.setIsDelete(category.getIsDelete());
 			categoryAndCount.setCount((int) o[1]);
 			finalList.add(categoryAndCount);

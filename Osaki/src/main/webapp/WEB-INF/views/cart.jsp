@@ -75,6 +75,7 @@
                                 <div class="col l-2 m-2 s-4">Tổng</div>
                                 <div class="col l-1 m-1 s-0">Xóa</div>
                             </div>
+                            <h2 class="messageSuccessfully"></h2>
                             <h2 class="checkout_"></h2>
                             <div id="out">
                                 <c:set var="checkCart" value="false"/>
@@ -134,8 +135,10 @@
                                                            data-product-id="${cartList.product.productID}"
                                                            data-user-id="${userLogin.userID}"
                                                            onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${priceAndQty }`) ">
-                                                    <input aria-label="quantity" class="input-qty" max="10" min="1"
-                                                           name="" type="number" value="${cartList.quantity}">
+                                                    <input aria-label="quantity" class="input-qty" max="100" min="1"
+                                                           name="" type="number"
+                                                           onchange="onchangeProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`)"
+                                                           value="${cartList.quantity}">
                                                     <input class="plus is-form" type="button" value="+"
                                                            data-product-id="${cartList.product.productID}"
                                                            data-user-id="${userLogin.userID}"
@@ -254,24 +257,41 @@
         changeQuantityProduct(cartId, productId, currentValue - 1, quantityInStock, price)
     }
 
+    function onchangeProduct(index, cartId, productId, quantityInStock, price) {
+        var inputQty = document.querySelectorAll('.input-qty')[index];
+        var currentValue = parseInt(inputQty.value);
+        var minValue = parseInt(inputQty.getAttribute('min'));
+        if (currentValue > minValue) {
+            inputQty.value = currentValue;
+            calculateTotal(index, quantityInStock)
+        }
+        changeQuantityProduct(cartId, productId, currentValue, quantityInStock, price)
+    }
+
     function plusProduct(index, cartId, productId, quantityInStock, price) {
         var inputQty = document.querySelectorAll('.input-qty')[index];
         var currentValue = parseInt(inputQty.value);
         var maxValue = parseInt(inputQty.getAttribute('max'));
         if (currentValue < maxValue) {
-            inputQty.value = currentValue + 1;
-            calculateTotal(index)
+            if (currentValue < parseInt(quantityInStock)) {
+                inputQty.value = currentValue + 1;
+                calculateTotal(index, quantityInStock)
+            }
         }
         changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
     }
 
-    function calculateTotal(index) {
+    function calculateTotal(index, quantityInStock) {
         var inputQty = document.querySelectorAll('.input-qty')[index];
         var quantity = parseInt(inputQty.value);
         var pricePerProduct = parseFloat(document.querySelectorAll('.total-moneyPrice')[index].innerText.replace(/[,.đ]/g, ''));
         var total = quantity * pricePerProduct;
-        var formattedTotal = formatMoney(total);
-        document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
+        if (quantity <= 100) {
+            if (quantity <= parseInt(quantityInStock)) {
+                var formattedTotal = formatMoney(total);
+                document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
+            }
+        }
     }
 
     function calculateTotal1(index, cartId, productId, quantityInStock, price) {

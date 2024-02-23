@@ -49,6 +49,7 @@ $(document).ready(function () {
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
+                                $('.messageSuccessfully').html("<a href='/'>Tiếp tuc mua sắm</a>");
                                 $('.checkout_').html("<h2>Đặt hàng thành cong</h2>");
                                 $('.header__cart-amount').html("0");
                                 $('.order__list').html("<a href='/'>Tiếp tuc mua sắm</a>");

@@ -226,7 +226,7 @@ $(document).ready(function () {
                 if (!check) {
                     // html
                     var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
-                    productHtml += '<a href="/product/'+productId+'" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
+                    productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {
                         productHtml += '<del><span class="text-muted text-decoration-line-through me-2">' + formatCurrency(originalPrice) + ' </span></del>';
@@ -261,7 +261,7 @@ $(document).ready(function () {
                 } else if (check) {
                     document.querySelector("." + cartId + "").remove();
                     var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
-                    productHtml +=  '<a href="/product/'+productId+'" class="order-main-name">'  + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
+                    productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {
                         productHtml += '<del><span class="text-muted text-decoration-line-through me-2">' + formatCurrency(originalPrice) + ' </span></del>';
@@ -380,6 +380,15 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
         });
         $(".input-quantity").val(1);
         return;
+    } else if (parseInt(quantity) >= 101) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Opps....',
+            text: "Vui lòng nhập số lượng khong lon hon 100 !",
+            showConfirmButton: true,
+        });
+        $(".input-quantity").val(100);
+        return;
     } else if (parseInt(quantity) > parseInt(quantityInStock)) {
         Swal.fire({
             icon: 'error',
@@ -387,7 +396,7 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             text: "Số lượng vượt quá số lượng tồn kho !",
             showConfirmButton: true,
         });
-        $(".input-quantity").val(1);
+        $(".input-quantity").val(quantityInStock);
         return;
     } else {
         console.log(1)
