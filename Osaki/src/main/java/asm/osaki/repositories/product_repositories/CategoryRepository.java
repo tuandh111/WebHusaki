@@ -21,6 +21,6 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
 	@Query("select c, size(c.products) from category c where c.categoryName like %?1%")
 	List<Object[]> findByCategoryAndCountName(String name);
 	
-	@Query("select c, size(c.products) from category c where c.categoryName like %?1%")
+	@Query("select c, size(c.products) from category c where c.categoryName like %?1% order by c.categoryID desc")
 	Page<Object[]> findAllByNameLike(String keywords, Pageable pageable);
 }

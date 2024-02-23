@@ -317,7 +317,7 @@ public class AdminController {
 	@GetMapping("logout")
     public String logout(@ModelAttribute("UserC") UserCustom userCustom) {
         sessionService.remove("userLogin");
-        return "/login";
+        return "redirect:/login";
     }
 
 	
