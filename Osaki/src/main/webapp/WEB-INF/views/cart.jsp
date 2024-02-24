@@ -134,9 +134,10 @@
                                                     <input class="minus is-form" type="button" value="-"
                                                            data-product-id="${cartList.product.productID}"
                                                            data-user-id="${userLogin.userID}"
-                                                           onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${priceAndQty }`) ">
+                                                           onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`) ">
                                                     <input aria-label="quantity" class="input-qty" max="100" min="1"
                                                            name="" type="number"
+                                                           onblur="handleBlur(this,`${cartList.product.quantityInStock}`,`${loop.index}`)"
                                                            onchange="onchangeProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`)"
                                                            value="${cartList.quantity}">
                                                     <input class="plus is-form" type="button" value="+"
@@ -308,6 +309,19 @@
             // Cập nhật tổng tiền
             document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
             changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
+        }
+    }
+
+    function handleBlur(inputElement, quantityInStock, index) {
+        // Lấy giá trị của trường nhập liệu
+        var value = inputElement.value;
+
+        // Kiểm tra nếu giá trị là không hợp lệ (ví dụ: rỗng hoặc không phải là số)
+        if (isNaN(value) || value === "" || parseInt(value) > parseInt(quantityInStock)) {
+            // Nếu giá trị không hợp lệ, đặt lại nó thành 1
+            inputElement.value = quantityInStock;
+            calculateTotal(index, quantityInStock)
+
         }
     }
 

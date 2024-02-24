@@ -397,50 +397,49 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             showConfirmButton: true,
         });
         $(".input-quantity").val(quantityInStock);
-        return;
-    } else {
-        console.log(1)
-        $.ajax({
-            url: "/update-cart",
-            type: "POST",
-            data: {
-                cartId: cartId,
-                productId: productId,
-                quantity: quantity
-            },
-            success: function (resp) {
-                if (resp == 'fail') {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Opps....',
-                        text: "Có lỗi xảy ra khi thay đổi số lượng !",
-                        showConfirmButton: true,
-                    });
-                } else {
-                    var json = JSON.parse(resp);
-                    console.log("json cartCount: " + json.cartCount);
-                    console.log("json totalPrice: " + json.totalPrice);
-
-                    let cartCount = json.cartCount;
-                    let totalPrice = json.totalPrice;
-                    let totalAmount = parseFloat(quantity) * parseFloat(price);
-                    console.log(totalAmount)
-                    $('.calculateTotalPrice').html(formatCurrency(totalAmount))
-                    $('#quantity_' + cartId).html(quantity)
-                    $('.total-money').html('Tổng tiền: ' + formatCurrency(totalPrice) + " ₫");
-                    // if (totalPrice > 3000000) {
-                    //     $('.total-money').html('Tổng tiền: ' + formatCurrency(totalPrice) + " ₫");
-                    // } else {
-                    //     $('.total-money').html('Tổng tiền: ' + formatCurrency(totalPrice+ 50000) + " ₫");
-                    // }
-
-                }
-            },
-            error: function (error) {
-                alert("Something error ! " + error);
-            }
-        })
     }
+
+    $.ajax({
+        url: "/update-cart",
+        type: "POST",
+        data: {
+            cartId: cartId,
+            productId: productId,
+            quantity: quantity
+        },
+        success: function (resp) {
+            if (resp == 'fail') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Opps....',
+                    text: "Có lỗi xảy ra khi thay đổi số lượng !",
+                    showConfirmButton: true,
+                });
+            } else {
+                var json = JSON.parse(resp);
+                console.log("json cartCount: " + json.cartCount);
+                console.log("json totalPrice: " + json.totalPrice);
+
+                let cartCount = json.cartCount;
+                let totalPrice = json.totalPrice;
+                let totalAmount = parseFloat(quantity) * parseFloat(price);
+                console.log(totalAmount)
+                $('.calculateTotalPrice').html(formatCurrency(totalAmount))
+                $('#quantity_' + cartId).html(quantity)
+                $('.total-money').html('Tổng tiền: ' + formatCurrency(totalPrice) + " ₫");
+                // if (totalPrice > 3000000) {
+                //     $('.total-money').html('Tổng tiền: ' + formatCurrency(totalPrice) + " ₫");
+                // } else {
+                //     $('.total-money').html('Tổng tiền: ' + formatCurrency(totalPrice+ 50000) + " ₫");
+                // }
+
+            }
+        },
+        error: function (error) {
+            alert("Something error ! " + error);
+        }
+    })
+
 }
 
 function findVoucherName(cityId) {
