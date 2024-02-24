@@ -18,20 +18,22 @@
 						<img src="/images/${userLogin.image}">
 					
 					</div>
+					 
 				</td>
+			 
 				<!--  <p>Anh: ${userLogin.image}</p> -->
 				<td>
 					<h4>
 						${userLogin.fullName} <br> <span>${userLogin.email}</span>
 					</h4>
 				</td>
-				<td>
-    <a href="#" class="btn btn-primary info-AccountModal"
-        data-bs-toggle="modal" data-bs-target="#infoAccountModal"
-        data-info-account='{"userID":"${userLogin.userID}", "email":"${userLogin.email}","name":"${userLogin.fullName}"    }'>
-        Xem thông tin
-    </a>
-</td>
+				<td  >
+				    <a href="#" class="btn btn-primary info-AccountModal"
+				        data-bs-toggle="modal" data-bs-target="#infoAccountModal"
+				        data-info-account='{"userID":"${userLogin.userID}", "email":"${userLogin.email}","name":"${userLogin.fullName}"    }'>
+				        Xem thông tin
+				    </a>
+				</td>
 
 
 			</tr>
@@ -53,7 +55,7 @@
 				<!---->  <label>Email</label>
 					<br> <input name="email" id="emailInput" class="form-control"
 						disabled="disabled" /> <br> 
-						<label>Fullname </label> <br>
+						<label>Họ và tên </label> <br>
 					<input name="fullName" id="nameInput" class="form-control" /> <br>
 					 
 					 
@@ -67,8 +69,8 @@
 
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-bs-dismiss="modal">Close</button>
-					<button class="btn btn-primary">Save changes</button>
+						data-bs-dismiss="modal">Đóng</button>
+					<button class="btn btn-primary">Lưu thay đổi</button>
 				</div>
 			</form>
 		</div>
