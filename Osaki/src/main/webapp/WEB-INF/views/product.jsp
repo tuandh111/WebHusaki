@@ -112,13 +112,14 @@
                 <div class="col l-7 m-12s s-12 pl">
                     <div class="main__breadcrumb">
                         <div class="breadcrumb__item">
-                            <a href="#" class="breadcrumb__link">Trang chủ</a>
+                            <a href="/" class="breadcrumb__link">Trang chủ</a>
                         </div>
                         <div class="breadcrumb__item">
-                            <a href="#" class="breadcrumb__link">Cửa hàng</a>
+                            <a href="/list/product" class="breadcrumb__link">Sản phẩm</a>
                         </div>
                         <div class="breadcrumb__item">
-                            <a href="#" class="breadcrumb__link">Hãng DHC</a>
+                            <a href="/product/search-brand/${product.brandID.brandID}"
+                               class="breadcrumb__link">${product.brandID.brandName}</a>
                         </div>
                     </div>
                     <h3 class="productInfo__name">
@@ -159,10 +160,6 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="productInfo__description">
-                        <span> Lorem Ipsum </span>${product.description}
-                    </div>
-
                     <div class="productInfo__addToCart">
                         <div class="buttons_added">
                             <input class="minus is-form" type="button" value="-"
@@ -243,8 +240,9 @@
                         <div class="tab-pane active ">
                             <div class="productDes ">
                                 <div class="productDes__title ">${product.name} là gì?</div>
-                                <p class="productDes__text "><a href="# " class="productDes__link ">Lorem Ipsum
-                                </a> ${product.description}
+                                <p class="productDes__text "><a href="/product/${product.productID}"
+                                                                class="productDes__link ">${product.name}
+                                </a> là ${product.description}
                                 </p>
                                 </p>
                             </div>
@@ -350,17 +348,6 @@
                                                 </div>
                                             </div>
                                         </c:if>
-                                        <c:if test="${listComment.star == 4.5}">
-                                            <div class="rate__star">
-                                                <div class="group-star">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                </div>
-                                            </div>
-                                        </c:if>
                                         <c:if test="${listComment.star == 5}">
                                             <div class="rate__star">
                                                 <div class="group-star">
@@ -385,7 +372,6 @@
                     <h3 class="category__title ">Hoàng Tuấn Cometics</h3>
                     <h3 class="category__heading ">Sản Phẩm Tương tự</h3>
                     <div class="owl-carousel hight owl-theme ">
-
                         <c:forEach items="${listCategories }" var="c" varStatus="i">
                             <c:forEach var="p" items="${listProduct}">
                                 <c:if test="${!c.isDelete }">
@@ -409,20 +395,23 @@
                                                             <c:forEach var="pdProduct"
                                                                        items="${promotionalDetailsList1}">
                                                                 <c:if test="${pdProduct.productID.productID == p.productID}">
-                                                                    <div class="price__old ">${p.price} <span
-                                                                            class="price__unit ">đ</span></div>
+                                                                    <div class="price__old "><fmt:formatNumber
+                                                                            type="number" pattern="###,###,###"
+                                                                            value=" ${p.price}"/>đ
+                                                                    </div>
                                                                     <c:choose>
                                                                         <c:when test="${p.quantityInStock>0}">
                                                                             <div class="price__new"
                                                                                  style="margin-left: 30px">
                                                                                 <fmt:formatNumber type="number"
                                                                                                   pattern="###,###,###"
-                                                                                                  value="${pdProduct.discountedPrice}"/>
-                                                                                <span class="price__unit">đ</span>
+                                                                                                  value="${pdProduct.discountedPrice}"/>đ
                                                                             </div>
                                                                         </c:when>
                                                                         <c:otherwise>
-                                                                            <div class="price__unit">Tạm hết hàng</div>
+                                                                            <div class="price__unit "
+                                                                                 style="margin-left: 10px">Hết hàng
+                                                                            </div>
                                                                         </c:otherwise>
                                                                     </c:choose>
 
@@ -430,13 +419,12 @@
                                                             </c:forEach>
                                                         </c:when>
                                                         <c:otherwise>
-                                                            <div class="price__new ">${p.price}<span
-                                                                    class="price__unit ">đ</span>
+                                                            <div class="price__new ">
+                                                                <fmt:formatNumber type="number" pattern="###,###,###"
+                                                                                  value="${p.price}"/>đ
                                                             </div>
                                                         </c:otherwise>
                                                     </c:choose>
-
-
                                                 </div>
                                             </div>
 

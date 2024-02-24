@@ -516,4 +516,82 @@ public class ProductSiteController {
         return null;
     }
 
+    @GetMapping("filter-product-by-promotional")
+    public String filterProductByPromotional(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> producPromotionalDetailsPage = promotionalDetailsRepository.findAllByPromotional(pageable);
+        System.out.println("listProductPromotionalDetails: "+producPromotionalDetailsPage.get().count());
+        model.addAttribute("productPage", producPromotionalDetailsPage);
+        UserCustom userCustom1 = sessionService.get("userLogin");
+        List<Product> productList = productRepository.findAll();
+        if (userCustom1 != null) {
+            List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
+            double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
+            System.out.println("tota");
+
+            model.addAttribute("totalPrice", totalPrice);
+            model.addAttribute("cartList", cartList);
+        }
+        List<PromotionalDetails> promotionalDetailsList1 = promotionalDetailsRepository.findAll();
+        model.addAttribute("promotionalDetailsList1", promotionalDetailsList1);
+        model.addAttribute("userLogin", userCustom1);
+        model.addAttribute("listProduct", productRepository.findAll());
+        List<Object[]> bestSellers = invoiceDetailRepository.countProductsOrderByCountDesc();
+        model.addAttribute("bestSellers", bestSellers);
+        //in ra danh sach bestsellers
+        System.out.println("bestSellers: ");
+        for (Object[] result : bestSellers) {
+            System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
+        }
+        FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
+        if (flashSale != null) {
+            Date date = flashSaleRepository.findByIsStatus(false).getEndDay();
+            model.addAttribute("flashSale", flashSale);
+            Date now = new Date();
+            //check day
+            Boolean checkDay = date.before(now) || date.equals(now);
+            System.out.println("checkDay: " + checkDay);//false
+            List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findByFlashSale_Id(flashSale.getId());
+            List<PromotionalDetailModel> list = new ArrayList<>();
+            List<PromotionalDetailModel> listPercent = new ArrayList<>();
+            for (Product listProduct : productList) {
+                for (PromotionalDetails listPd : promotionalDetailsList) {
+                    if (listProduct.getProductID() == (listPd.getId())) {
+                        PromotionalDetailModel promotionalDetailModel = new PromotionalDetailModel();
+                        promotionalDetailModel.setId(listPd.getId());
+                        promotionalDetailModel.setStatus(listPd.isStatus());
+                        promotionalDetailModel.setDiscountedPrice(listPd.getDiscountedPrice());
+                        promotionalDetailModel.setProductID(listPd.getProductID());
+                        promotionalDetailModel.setFlashSale(listPd.getFlashSale());
+                        promotionalDetailModel.setDiscountedPrice((listProduct.getPrice() - listPd.getDiscountedPrice()) / listProduct.getPrice() * 100);
+                        list.add(promotionalDetailModel);
+                    }
+                }
+            }
+            Collections.sort(list, Comparator.comparingDouble(PromotionalDetailModel::getDiscountedPrice).reversed());
+            // In ra 3 sản phẩm có giảm giá cao nhất
+            System.out.println("3 sản phẩm giảm giá cao nhất:");
+            int count = 0;
+            for (PromotionalDetailModel promotionalDetail : list) {
+                if (count < 3) {
+                    listPercent.add(promotionalDetail);
+                    count++;
+                } else {
+                    break; // Dừng khi đã in ra 3 sản phẩm
+                }
+            }
+            System.out.println("PromotionalDetails is" + promotionalDetailsList.get(0).getId());
+            model.addAttribute("now", now.getMonth());
+            model.addAttribute("listPercent", listPercent);
+            model.addAttribute("checkDay", checkDay);
+            model.addAttribute("listPromotionalDetail", promotionalDetailsRepository.findByFlashSale_Id(flashSale.getId()));
+        } else {
+            model.addAttribute("checkDay", true);
+            Date now = new Date();
+            model.addAttribute("now", now.getMonth());
+        }
+        return "listProduct";
+    }
+
 }

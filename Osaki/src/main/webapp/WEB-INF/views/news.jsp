@@ -42,6 +42,10 @@
     <script src="./owlCarousel/owl.carousel.min.js"></script>
 </head>
 <style>
+    .swal2-popup {
+        font-size: 2rem;
+    }
+
     * {
         /* reset lại margin và padding cho các tag */
         margin: 0;

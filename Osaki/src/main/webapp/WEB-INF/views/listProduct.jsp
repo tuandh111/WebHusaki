@@ -64,6 +64,10 @@
 
 </head>
 <style>
+    .swal2-popup {
+        font-size: 2rem;
+    }
+
     a {
         text-decoration: none;
     }
@@ -231,6 +235,11 @@
         }
     }
 
+    .btn-primary.active {
+        background-color: green; /* Đổi màu nền của nút khi nó được kích hoạt */
+        color: white; /* Đổi màu chữ của nút khi nó được kích hoạt */
+    }
+
 </style>
 <body>
 <div id="loader">
@@ -253,10 +262,10 @@
                     Hiển thị kết quả theo
                 </h3>
 
-                <h3><a class="btn btn-primary m-md-2" href="/list/product">Moi nhat</a></h3>
+                <h3><a class="btn btn-primary m-md-2 " href="/list/product">Moi nhat</a></h3>
                 <h3><a href="/product/filterByPrice?sort=asc" class="btn btn-primary m-md-2">Giá thấp đến cao</a></h3>
                 <h3><a href="/product/filterByPrice?sort=desc" class="btn btn-primary m-md-2">Giá cao đến thấp</a></h3>
-
+                <h3><a href="/product/filter-product-by-promotional" class="btn btn-primary m-md-2">Khuyến mãi</a></h3>
             </div>
         </div>
         <div class="productList">
@@ -264,8 +273,10 @@
                 <div class="col-lg-3">
                     <h2>Loc gia:</h2>
                     <form action="/product/filterByPrice">
-                        <input type="text" class="form-control autonumeric" value="${minPrice}" name="minPrice" placeholder="Từ" required>
-                        <input type="text" class="form-control autonumeric" value="${maxPrice}" name="maxPrice" placeholder="Đến" required>
+                        <input type="text" class="form-control autonumeric" value="${minPrice}" name="minPrice"
+                               placeholder="Từ" required>
+                        <input type="text" class="form-control autonumeric" value="${maxPrice}" name="maxPrice"
+                               placeholder="Đến" required>
                         <button class="btn btn-primary mt-2">Ap dụng</button>
                     </form>
                     <h1>Danh muc</h1>
@@ -439,10 +450,8 @@
                             </ul>
                         </div>
                     </c:if>
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -460,6 +469,32 @@
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        var buttons = document.querySelectorAll('.btn-primary');
+
+        buttons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                buttons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+
+                this.classList.add('active');
+
+                // Lưu trạng thái của nút vào localStorage
+                localStorage.setItem('activeButton', this.getAttribute('href'));
+            });
+        });
+
+        // Kiểm tra nếu có trạng thái được lưu trước đó và áp dụng nó khi tải trang
+        var activeButton = localStorage.getItem('activeButton');
+        if (activeButton) {
+            buttons.forEach(function(button) {
+                if (button.getAttribute('href') === activeButton) {
+                    button.classList.add('active');
+                }
+            });
+        }
+    });
 </script>
 <!-- Modal Form -->
 <script src="/js/listProduct.js"></script>

@@ -123,6 +123,10 @@
             position: relative;
         }
 
+        .swal2-popup {
+            font-size: 2rem;
+        }
+
         .loadingspinner div {
             display: inline-block;
             background: darkorange;

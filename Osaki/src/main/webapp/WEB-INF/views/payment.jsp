@@ -45,6 +45,10 @@
     .text-decoration-line-through {
         text-decoration: line-through;
     }
+    .swal2-popup {
+        font-size: 2rem;
+    }
+
 </style>
 <body>
 <div class="header scrolling" id="myHeader">

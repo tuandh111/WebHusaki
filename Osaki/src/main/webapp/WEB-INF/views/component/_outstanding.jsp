@@ -19,9 +19,8 @@
 
             <c:forEach var="p" items="${bestSellers}" varStatus="i">
                 <c:if test="${!p[0].isDelete}">
-
                     <div class="col-lg-2 col-md-4 col-sm-6">
-                        <div class="product">
+                        <div class="product mb-3">
                             <div class="product__avt"
                                  style="background-image: url(images/product/product1.jpg);"></div>
                             <div class="product__info">

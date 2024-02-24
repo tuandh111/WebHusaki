@@ -61,6 +61,10 @@
     <%--     bootstrap --%>
 </head>
 <style>
+    .swal2-popup {
+        font-size: 2rem;
+    }
+
     .text-decoration-line-through {
         text-decoration: line-through;
     }

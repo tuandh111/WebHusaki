@@ -34,7 +34,12 @@
     <!-- Owl caroucel Js-->
     <script src="/owlCarousel/owl.carousel.min.js"></script>
 </head>
+<style>
+    .swal2-popup {
+        font-size: 2rem;
+    }
 
+</style>
 <body>
 <div class="header scrolling" id="myHeader">
     <jsp:include page="./component/_grid.jsp"/>
