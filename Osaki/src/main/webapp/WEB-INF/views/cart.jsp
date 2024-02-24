@@ -137,7 +137,7 @@
                                                            onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`) ">
                                                     <input aria-label="quantity" class="input-qty" max="100" min="1"
                                                            name="" type="number"
-                                                           onblur="handleBlur(this,`${cartList.product.quantityInStock}`,`${loop.index}`)"
+                                                           onblur="handleBlur(this,`${cartList.product.quantityInStock}`,${loop.index})"
                                                            onchange="onchangeProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`)"
                                                            value="${cartList.quantity}">
                                                     <input class="plus is-form" type="button" value="+"
@@ -253,7 +253,7 @@
         var minValue = parseInt(inputQty.getAttribute('min'));
         if (currentValue > minValue) {
             inputQty.value = currentValue - 1;
-            calculateTotal(index)
+            calculateTotal(index, quantityInStock)
         }
         changeQuantityProduct(cartId, productId, currentValue - 1, quantityInStock, price)
     }

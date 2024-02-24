@@ -387,8 +387,12 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             text: "Vui lòng nhập số lượng khong lon hon 100 !",
             showConfirmButton: true,
         });
-        $(".input-quantity").val(100);
-        return;
+        if (parseInt(quantity)>parseInt(quantityInStock)){
+            quantity = quantityInStock;
+            $(".input-quantity").val(quantityInStock);
+        }else {
+            $(".input-quantity").val(100);
+        }
     } else if (parseInt(quantity) > parseInt(quantityInStock)) {
         Swal.fire({
             icon: 'error',
@@ -396,7 +400,9 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             text: "Số lượng vượt quá số lượng tồn kho !",
             showConfirmButton: true,
         });
+        console.log("SL:"+ quantityInStock)
         $(".input-quantity").val(quantityInStock);
+        quantity = quantityInStock;
     }
 
     $.ajax({

@@ -160,7 +160,7 @@
                         </c:choose>
                     </div>
                     <div class="productInfo__description">
-                        <span> Lorem Ipsum </span>${product.description}
+
                     </div>
 
                     <div class="productInfo__addToCart">
