@@ -62,7 +62,12 @@
     list.forEach(
         (item) => item.addEventListener('mouseover', activeLink)
     )
-
+    
+    var dataRevenueByCategory = ${dataRevenueByCategory};
+    console.log(dataRevenueByCategory);
+    var dataInventory = ${dataInventory};
+    console.log(dataInventory);
+    
 </script>
 </body>
 </html>

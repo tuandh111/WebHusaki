@@ -28,11 +28,16 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import asm.osaki.entities.product.Category;
 import asm.osaki.entities.product.Product;
 import asm.osaki.entities.product.image_product.ImageProduct;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
+import asm.osaki.model.admin.DataRevenueByCategory;
+import asm.osaki.model.admin.InventoryTransactions;
 import asm.osaki.model.admin.ProductAdd;
 import asm.osaki.model.admin.UserAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
@@ -74,7 +79,8 @@ public class AdminController {
     private InvoiceDetailRepository invoiceDetailRepository;
     @Autowired
     private SessionService sessionService;
-
+    @Autowired
+    private ObjectMapper objectMapper;
     @GetMapping
     public String getHome(@RequestParam(name = "content", required = false) String content, @RequestParam(name = "categoryName", required = false) String categoryName, Model model, @Valid @ModelAttribute("category") Category category, BindingResult result, @RequestParam("kwSearch") Optional<String> kw, @RequestParam("p") Optional<Integer> p) {
 
@@ -124,8 +130,6 @@ public class AdminController {
             model.addAttribute("content", "_dashboard3.jsp");
         }
 
-//		List<Product> item = productRepository.findAll();
-//		model.addAttribute("item",item);
 
         List<Category> catelist = categoryRepository.findAll();
         model.addAttribute("cateList", catelist);
@@ -139,112 +143,42 @@ public class AdminController {
         model.addAttribute("recentProduct", ProductLatest.convert(invoiceDetailRepository.findTop3ProductLatest(pageable)));
 
         model.addAttribute("userAdminLogin", sessionService.get("userLogin"));
-
+        
+        // Biểu đồ line thống kê doanh thu theo danh mục
+        List<DataRevenueByCategory> datas = DataRevenueByCategory.convert(categoryRepository.dataRevenueByCategory());
+        Map<String, Double> dataRevenueByCategory = new HashMap<>();
+        for (DataRevenueByCategory data : datas) {
+        	dataRevenueByCategory.put(data.getCategoryName(), data.getTotalAmount());
+		}
+        
+        try {
+			String dataRevenueByCategoryJson = objectMapper.writeValueAsString(dataRevenueByCategory);
+			model.addAttribute("dataRevenueByCategory", dataRevenueByCategoryJson);
+        } catch (JsonProcessingException e) {			
+			e.printStackTrace();
+		}
+        
+        //Biểu đồ thống kê số lượng tồn kho theo sản phẩm
+       // System.out.println("InventoryTransactions "+InventoryTransactions.convert(productRepository.fetchInventoryTransactions()).toString());
+       List<InventoryTransactions> inventories = InventoryTransactions.convert(productRepository.inventoryTransactions());
+       Map<String, Double> dataInventories = new HashMap<>();
+       for (InventoryTransactions data : inventories) {
+    	   dataInventories.put(data.getName(), data.getQuantityInstock());
+       }
+       try {
+			String dataInventoriesJson = objectMapper.writeValueAsString(dataInventories);
+			model.addAttribute("dataInventory", dataInventoriesJson);
+       } catch (JsonProcessingException e) {			
+			e.printStackTrace();
+		}
+        
         return "admin/admin";
     }
 
     //Category
-    @GetMapping("add-category")
-    public String addCategoryManager(@Valid @ModelAttribute("category") Category category, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/admin?content=_content-category.jsp";
-        }
-        category.setDeleteAt(null);
-        category.setProducts(null);
-        category.setIsDelete(!category.getIsDelete());
-        categoryRepository.save(category);
-        return "redirect:/admin?content=_content-category.jsp";
-    }
-
-    @GetMapping("delete-category/{id}")
-    public String deleteCategoryManager(@PathVariable("id") Integer id) {
-        Optional<Category> categoryOpt = categoryRepository.findById(id);
-        Category category = categoryOpt.get();
-        category.setIsDelete(true);
-        category.setDeleteAt(new Date());
-        categoryRepository.save(category);
-        return "redirect:/admin?content=_content-category.jsp";
-    }
-
-    @PostMapping("edit-category")
-    public String editCategoryManager(Model model, @PathVariable("id") @RequestParam("categoryID") Integer categoryID, @RequestParam("categoryName") String categoryName, @RequestParam("isDelete") Optional<Boolean> isDelete) {
-        Optional<Category> categoryOpt = categoryRepository.findById(categoryID);
-        Category category = categoryOpt.get();
-        category.setCategoryName(categoryName);
-        if (isDelete.isPresent()) {
-            category.setIsDelete(!isDelete.get());
-        } else {
-            category.setIsDelete(true);
-        }
-
-
-        categoryRepository.save(category);
-        return "redirect:/admin?content=_content-category.jsp";
-    }
-
-    @GetMapping("category-search")
-    public String categorySearch(Model model, @RequestParam("kwSearch") Optional<String> categoryNameSearch) {
-        return "redirect:/admin?content=_content-category.jsp&kwSearch=" + categoryNameSearch.get();
-    }
 
     // user
 
-    @GetMapping("user-search")
-    public String userSearch(Model model, @RequestParam("kwSearch") Optional<String> userNameSearch) {
-        return "redirect:/admin?content=_content-account.jsp&kwSearch=" + userNameSearch.get();
-    }
-
-    @GetMapping("edit-user/{id}")
-    public String editUser(@PathVariable("id") Integer id, @RequestParam("isDelete") Optional<Boolean> isDelete) {
-        UserCustom user = userCustomRepository.findByUserID(id);
-        Boolean delete = isDelete.orElse(false);
-        user.setDeleteAt(new Date());
-        user.setIsDelete(!delete);
-        userCustomRepository.save(user);
-        return "redirect:/admin?content=_content-account.jsp";
-    }
-
-
-    @GetMapping("list-invoice-by-user")
-    public ResponseEntity<?> getListInvoiceByUser(@RequestParam(name = "userId") String userId, Model model) {
-
-        Map<String, Object> jsonUserId = new HashMap<>();
-        jsonUserId.put("userId", userId);
-
-        int id = -1;
-        try {
-            id = Integer.valueOf(userId);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        List<Invoice> invoices = invoiceRepository.findByUserID(id);
-
-        StringBuilder htmlBuilder = new StringBuilder();
-        htmlBuilder.append("<table class=\"table table-hover table-secondary\">");
-        htmlBuilder.append("<thead>");
-        htmlBuilder.append("<tr>");
-        htmlBuilder.append("<th>").append("Số hóa đơn").append("</th>");
-        htmlBuilder.append("<th>").append("Tổng tiền").append("</th>");
-        htmlBuilder.append("<th>").append("Trạng Thái").append("</th>");
-        htmlBuilder.append("<th>").append("Khách hàng").append("</th>");
-        htmlBuilder.append("</tr>");
-        htmlBuilder.append("</thead>");
-        for (Invoice invoice : invoices) {
-            htmlBuilder.append("<tbody>");
-            htmlBuilder.append("<tr>");
-            htmlBuilder.append("<td>").append(invoice.getInvoiceID()).append("</td>");
-            htmlBuilder.append("<td>").append(invoice.getTotalAmount()).append("</td>");
-            htmlBuilder.append("<td>").append(invoice.getStatus() == "true" ? "Đã thanh toán" : "Chưa thanh toán").append("</td>");
-            htmlBuilder.append("<td>").append(invoice.getUser().getFullName()).append("</td>");
-            htmlBuilder.append("</tr>");
-            htmlBuilder.append("</tbody>");
-        }
-        htmlBuilder.append("</table>");
-
-
-        return ResponseEntity.ok(htmlBuilder.toString());
-    }
 
 
     @GetMapping("add-or-edit-product")
