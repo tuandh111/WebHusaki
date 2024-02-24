@@ -8,8 +8,8 @@
 
 <!-- Oder -->
 <div class="details">
-    <div class="recentOrders" style="width: 900px">
-        <h1>Danh muc yeu thich</h1>
+    <div class="recentOrders" style="width: 1000px">
+        <h1>Sản phẩm yêu thích</h1>
         <div class="row">
             <div class="col l-8 m-12 s-12">
                 <div class="main__cart">

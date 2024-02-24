@@ -9,7 +9,7 @@ $(document).ready(function () {
         var id = parts[parts.length - 1];
         console.log("password: " + password + " confirmPassword: " + confirmPassword + "id: " + id);
         Swal.fire({
-            text: "Bạn có muốn cap nhat mat khau nay khong?",
+            text: "Bạn có muốn cập nhật mật khẩu này không?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -37,7 +37,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Thanh cong',
-                                text: "Nhap lai mat khau khong chinh xac !",
+                                text: "Nhập lại mật khẩu không chính xác !",
                                 showConfirmButton: false,
                                 timer: 3500
                             });
@@ -45,7 +45,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Thanh cong',
-                                text: "Cap nhat mat khau thanh công !",
+                                text: "Cập nhật mật khẩu thành công !",
                                 showConfirmButton: false,
                                 timer: 3500
                             });
@@ -55,7 +55,7 @@ $(document).ready(function () {
                     error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Xoa san pham thất bại',
+                            title: 'Cập nhật mật khẩu thất bại',
                             text: "Có lỗi xảy ra, vui lòng thử lại !",
                             showConfirmButton: false,
                             timer: 2000

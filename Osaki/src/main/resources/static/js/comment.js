@@ -11,7 +11,7 @@ $(document).ready(function () {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Bạn cần đăng nhập để thuc hien chuc nang nay!',
+                text: 'Bạn cần đăng nhập để thực hiển chức năng này!',
                 confirmButtonColor: '#dc3545',
                 confirmButtonText: 'Đăng nhập'
             }).then((result) => {
@@ -132,8 +132,8 @@ $(document).ready(function () {
                     } else if (messageResponse === "fail") {
                         Swal.fire({
                             icon: "error",
-                            title: 'Khong thanh cong',
-                            text: "Binh luan khong thanh cong",
+                            title: 'Thất bại',
+                            text: "Bình luận không thành công",
                             showConfirmButton: true,
                             timer: 3500
                         })
@@ -143,7 +143,7 @@ $(document).ready(function () {
                 error: function (error) {
                     // Handle the error response here
                     Swal.fire({
-                        icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
+                        icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500
                     }).then(function () {
                         // Redirect to the home page
                         // Change '/home' to the actual URL of your home page

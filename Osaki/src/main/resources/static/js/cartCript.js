@@ -56,7 +56,7 @@ $(document).ready(function () {
                             document.querySelector("#" + cartId + "").remove();
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Xoa san phẩm thành công !',
+                                title: 'Xóa sản phẩm thành công !',
                                 showConfirmButton: false,
                                 timer: 2000
                             });
@@ -66,7 +66,7 @@ $(document).ready(function () {
                     error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Xoa san pham thất bại',
+                            title: 'Xóa sản phẩm thất bại',
                             text: "Có lỗi xảy ra, vui lòng thử lại !",
                             showConfirmButton: false,
                             timer: 2000
@@ -160,7 +160,7 @@ $(document).ready(function () {
                         var cartID = json.cartID
                         Swal.fire({
                             icon: 'success',
-                            title: 'Thêm so luong vào giỏ hàng thành công !',
+                            title: 'Thêm số lượng vào giỏ hàng thành công !',
                             showConfirmButton: false,
                             timer: 2000
                         });
@@ -169,8 +169,8 @@ $(document).ready(function () {
                     } else if (message == 'failQuantity') {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Them sản pham that bai',
-                            text: "Sản phẩm này là het hang!",
+                            title: 'Thêm sản phẩm thất bại',
+                            text: "Sản phẩm này là hết hàng!",
                             showConfirmButton: false,
                             timer: 2000
                         });
@@ -331,7 +331,7 @@ $(document).ready(function () {
                                         document.querySelector("." + cartId + "").remove();
                                         Swal.fire({
                                             icon: 'success',
-                                            title: 'Xoa san phẩm thành công !',
+                                            title: 'Xóa sản phẩm thành công !',
                                             showConfirmButton: false,
                                             timer: 2000
                                         });
@@ -341,7 +341,7 @@ $(document).ready(function () {
                                 error: function (xhr, status, error) {
                                     Swal.fire({
                                         icon: 'error',
-                                        title: 'Xoa san pham thất bại',
+                                        title: 'Xóa sản phẩm thất bại',
                                         text: "Có lỗi xảy ra, vui lòng thử lại !",
                                         showConfirmButton: false,
                                         timer: 2000
@@ -384,7 +384,7 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
         Swal.fire({
             icon: 'error',
             title: 'Opps....',
-            text: "Vui lòng nhập số lượng khong lon hon 100 !",
+            text: "Vui lòng nhập số lượng không lớn hơn 100 !",
             showConfirmButton: true,
         });
         $(".input-quantity").val(100);

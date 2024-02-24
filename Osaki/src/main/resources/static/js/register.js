@@ -111,7 +111,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Lỗi',
-                                text: "Xac nhan tai khoan khong thanh cong",
+                                text: "Xác nhận tài khoản không thành công",
                                 showConfirmButton: true,
                                 timer: 1500
                             }).then(function () {

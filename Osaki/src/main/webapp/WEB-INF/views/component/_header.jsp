@@ -14,7 +14,8 @@
         <li class="header__nav-item nav__search">
             <div class="nav__search-wrap">
                 <input type="text" class="header__search-input" placeholder="Tìm kiếm" name="search"/>
-                <button style="margin-left:240px">Tìm kiếm</button>
+              
+                <i class="bi bi-search"  style="margin-left:240px"></i>
             </div>
             <div class="nav__search-btn">
                 <i class="fas fa-search"></i>
@@ -47,7 +48,7 @@
             <a href="/" class="header__nav-link">Trang chủ</a>
         </li>
         <li class="header__nav-item">
-            <a href="/list/product" class="header__nav-link">San pham</a>
+            <a href="/list/product" class="header__nav-link">Sản phẩm</a>
         </li>
         <li class="header__nav-item">
             <a href="/list/product" class="header__nav-link">Danh mục</a>

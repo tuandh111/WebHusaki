@@ -25,7 +25,7 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Xoa san pham thất bại',
+                    title: 'Xóa sản phẩm thất bại',
                     text: "Có lỗi xảy ra, vui lòng thử lại !",
                     showConfirmButton: false,
                     timer: 2000

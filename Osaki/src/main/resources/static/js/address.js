@@ -48,7 +48,7 @@ $(document).ready(function () {
                         var address = jsonReponse.address;
                         var count = jsonReponse.count;
                         Swal.fire({
-                            title: 'Thanh cong', text: "Them dia chi thanh cong", showConfirmButton: true, timer: 3500
+                            title: 'Thanh cong', text: "Thêm địa chỉ thành công", showConfirmButton: true, timer: 3500
                         })
                         var tableHTML = ' <tr class="' + phoneID + '">\n' +
                             '                    <td>' + count + '</td>\n' +
@@ -63,7 +63,7 @@ $(document).ready(function () {
                             let addressID = $(this).data('address-id');
                             console.log("likeProduct: " + addressID)
                             Swal.fire({
-                                text: "Bạn có muốn xóa dia chi đã chọn nay?",
+                                text: "Bạn có muốn xóa địa chỉ đã chọn này?",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
@@ -90,8 +90,8 @@ $(document).ready(function () {
 
                                                 Swal.fire({
                                                     icon: 'success',
-                                                    title: 'Thanh cong',
-                                                    text: "Xoa dia chi thanh công !",
+                                                    title: 'Thành công',
+                                                    text: "Xóa địa chỉ thành công !",
                                                     showConfirmButton: false,
                                                     timer: 3500
                                                 });
@@ -101,7 +101,7 @@ $(document).ready(function () {
                                         error: function (xhr, status, error) {
                                             Swal.fire({
                                                 icon: 'error',
-                                                title: 'Xoa san pham thất bại',
+                                                title: 'Xóa sản phẩm thất bại',
                                                 text: "Có lỗi xảy ra, vui lòng thử lại !",
                                                 showConfirmButton: false,
                                                 timer: 2000
@@ -115,7 +115,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "So dien thoai da ton tai",
+                            text: "Số điện thoại đã tồn tại",
                             showConfirmButton: true,
                             timer: 3500
                         });
@@ -123,7 +123,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "Dia chi chua nhap",
+                            text: "Địa chỉ chưa nhập",
                             showConfirmButton: true,
                             timer: 3500
                         });
@@ -131,7 +131,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "So dien thoai chua nhap",
+                            text: "Số điện thoại chưa nhập",
                             showConfirmButton: true,
                             timer: 3500
                         });
@@ -139,7 +139,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "Tỉnh thành chua nhap",
+                            text: "Tỉnh thành chưa nhập",
                             showConfirmButton: true,
                             timer: 3500
                         });
@@ -147,7 +147,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "Quận huyện chua nhap",
+                            text: "Quận huyện chưa nhập",
                             showConfirmButton: true,
                             timer: 3500
                         });
@@ -155,7 +155,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: "Phường xã chua nhap",
+                            text: "Phường xã chưa nhập",
                             showConfirmButton: true,
                             timer: 3500
                         });
@@ -164,7 +164,7 @@ $(document).ready(function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Lỗi',
-                            text: "Them dia chi khong thanh cong",
+                            text: "Thêm địa chỉ không thành công",
                             showConfirmButton: true,
                             timer: 3500
                         }).then(function () {
@@ -177,7 +177,7 @@ $(document).ready(function () {
                 error: function (error) {
                     // Handle the error response here
                     Swal.fire({
-                        icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
+                        icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500
                     }).then(function () {
                         // Redirect to the home page
                         window.location.href = '/'; // Change '/home' to the actual URL of your home page

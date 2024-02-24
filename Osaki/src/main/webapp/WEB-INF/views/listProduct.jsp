@@ -262,7 +262,7 @@
                     Hiển thị kết quả theo
                 </h3>
 
-                <h3><a class="btn btn-primary m-md-2 " href="/list/product">Moi nhat</a></h3>
+                <h3><a class="btn btn-primary m-md-2 " href="/list/product">Mới nhất</a></h3>
                 <h3><a href="/product/filterByPrice?sort=asc" class="btn btn-primary m-md-2">Giá thấp đến cao</a></h3>
                 <h3><a href="/product/filterByPrice?sort=desc" class="btn btn-primary m-md-2">Giá cao đến thấp</a></h3>
                 <h3><a href="/product/filter-product-by-promotional" class="btn btn-primary m-md-2">Khuyến mãi</a></h3>
@@ -271,15 +271,15 @@
         <div class="productList">
             <div class="row">
                 <div class="col-lg-3">
-                    <h2>Loc gia:</h2>
+                    <h2>Lọc giá:</h2>
                     <form action="/product/filterByPrice">
                         <input type="text" class="form-control autonumeric" value="${minPrice}" name="minPrice"
                                placeholder="Từ" required>
                         <input type="text" class="form-control autonumeric" value="${maxPrice}" name="maxPrice"
                                placeholder="Đến" required>
-                        <button class="btn btn-primary mt-2">Ap dụng</button>
+                        <button class="btn btn-primary mt-2">Áp dụng</button>
                     </form>
-                    <h1>Danh muc</h1>
+                    <h1>Danh mục</h1>
                     <c:forEach items="${listCategories }" var="c" varStatus="i">
                         <label class="container" data-category="${c.categoryID}">${c.categoryName}
                             <input type="checkbox" data-category="${c.categoryID}" class="category-checkbox"

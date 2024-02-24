@@ -60,9 +60,9 @@ $(document).ready(function () {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Oops...',
-                                    text: 'Bạn cần mua sam de co the thanh toan!',
+                                    text: 'Bạn cần mua sản phẩm để có thể thanh toán!',
                                     confirmButtonColor: '#dc3545',
-                                    confirmButtonText: 'Tiep tuc mua sam'
+                                    confirmButtonText: 'Tiếp tục mua sắm'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         window.location.href = '/';
@@ -71,9 +71,9 @@ $(document).ready(function () {
                             } else if (response == 'failAddress') {
                                 Swal.fire({
                                     icon: 'warning',
-                                    title: 'Ban can them dia chi !',
+                                    title: 'Bạn cần thêm địa chỉ !',
                                     confirmButtonColor: '#dc3545',
-                                    confirmButtonText: 'Them dia chi'
+                                    confirmButtonText: 'Thêm địa chỉ'
                                 }).then((result) => {
                                     if (result.isConfirmed) {
                                         window.location.href = '/profile';
@@ -85,7 +85,7 @@ $(document).ready(function () {
                         error: function (xhr, status, error) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Thanh toan thất bại',
+                                title: 'Thanh toán thất bại',
                                 text: "Có lỗi xảy ra, vui lòng thử lại !",
                                 showConfirmButton: false,
                                 timer: 1500
@@ -120,7 +120,7 @@ $(document).ready(function () {
             });
         } else {
             Swal.fire({
-                title: 'Bạn có muốn thanh toan không?',
+                title: 'Bạn có muốn thanh toán không?',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Yes',
@@ -182,7 +182,7 @@ $(document).ready(function () {
             });
         } else {
             Swal.fire({
-                title: 'Bạn có muốn thanh toan không?',
+                title: 'Bạn có muốn thanh toán không?',
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Yes',
@@ -202,7 +202,7 @@ $(document).ready(function () {
                         error: function (xhr, status, error) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Thanh toan thất bại',
+                                title: 'Thanh toán thất bại',
                                 text: "Có lỗi xảy ra, vui lòng thử lại !",
                                 showConfirmButton: false,
                                 timer: 1500

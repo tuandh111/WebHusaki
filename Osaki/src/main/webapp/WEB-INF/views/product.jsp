@@ -41,6 +41,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 <style>
+       .swal2-popup {
+            font-size: 2rem;
+        }
+
     .product {
         height: auto;
         display: block;

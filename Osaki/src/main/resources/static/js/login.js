@@ -24,7 +24,7 @@ $(document).ready(function () {
                 console.log(response);
                 if (response.message === "success") {
                     Swal.fire({
-                        title: 'Thanh cong', text: "Dang nhap thanh cong", showConfirmButton: true, timer: 3500
+                        title: 'Thành công', text: "Đăng nhập thành công", showConfirmButton: true, timer: 3500
                     }).then(function () {
                         if (response.role === "admin") {
                             window.location.href = '/admin';
@@ -51,7 +51,7 @@ $(document).ready(function () {
                 } else {
                     // Handle unsuccessful login
                     Swal.fire({
-                        icon: 'error', title: 'Lỗi', text: "Dang khong thanh cong", showConfirmButton: true, timer: 3500
+                        icon: 'error', title: 'Lỗi', text: "Đăng nhập không thành công", showConfirmButton: true, timer: 3500
                     }).then(function () {
                         // Redirect to the home page
                         window.location.href = '/login'; // Change '/home' to the actual URL of your home page
@@ -62,7 +62,7 @@ $(document).ready(function () {
             error: function (error) {
                 // Handle the error response here
                 Swal.fire({
-                    icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
+                    icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500
                 }).then(function () {
                     // Redirect to the home page
                     window.location.href = '/login'; // Change '/home' to the actual URL of your home page
@@ -107,7 +107,7 @@ $(document).ready(function () {
             error: function (error) {
                 // Handle the error response here
                 Swal.fire({
-                    icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
+                    icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500
                 }).then(function () {
                     // Redirect to the home page
                     window.location.href = '/login'; // Change '/home' to the actual URL of your home page
@@ -146,7 +146,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Lỗi',
-                                text: "Xac nhan tai khoan khong thanh cong",
+                                text: "Xác nhận tài khoản không thành công",
                                 showConfirmButton: true,
                                 timer: 1500
                             }).then(function () {
@@ -165,11 +165,11 @@ $(document).ready(function () {
             });
         } else if (response === 'fail') {
             Swal.fire({
-                icon: 'error', title: 'Lỗi', text: "Co loi xay ra", showConfirmButton: true, timer: 3500
+                icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500
             })
         } else if (message === 'errorEmail') {
             Swal.fire({
-                icon: 'error', title: 'Lỗi', text: "Email khong ton tai", showConfirmButton: true, timer: 3500
+                icon: 'error', title: 'Lỗi', text: "Email không tồn tại", showConfirmButton: true, timer: 3500
             })
 
         }

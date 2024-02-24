@@ -26,8 +26,8 @@
             <tr>
                 <th>STT</th>
                 <th>SDT</th>
-                <th>Dia chi</th>
-                <th class="d-flex justify-content-center">Trang thai</th>
+                <th>Địa chỉ</th>
+                <th class="d-flex justify-content-center">Trạng thái</th>
             </tr>
             </thead>
             <tbody id="tbAddress">

@@ -5,7 +5,7 @@ $(document).ready(function () {
         let addressID = $(this).data('address-id');
         console.log("likeProduct: " + addressID)
         Swal.fire({
-            text: "Bạn có muốn xóa dia chi đã chọn nay?",
+            text: "Bạn có muốn xóa địa chỉ đã chọn này?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -33,7 +33,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Thanh cong',
-                                text: "Xoa dia chi thanh công !",
+                                text: "Xóa địa chỉ thành công !",
                                 showConfirmButton: false,
                                 timer: 3500
                             });
@@ -43,7 +43,7 @@ $(document).ready(function () {
                     error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Xoa san pham thất bại',
+                            title: 'Xóa sản phẩm thất bại',
                             text: "Có lỗi xảy ra, vui lòng thử lại !",
                             showConfirmButton: false,
                             timer: 2000

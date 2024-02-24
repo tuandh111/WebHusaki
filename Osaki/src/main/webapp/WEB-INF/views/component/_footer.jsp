@@ -12,7 +12,7 @@
 <div class="grid wide">
     <div class="row">
         <div class="col l-3 m-6 s-12">
-            <h3 class="footer__title">Danh muc</h3>
+            <h3 class="footer__title" style="margin-left: 38px;">Danh mục</h3>
             <ul class="footer__list">
                 <c:forEach var="c" items="${listCategories}" varStatus="i">
                     <c:if test="${i.index<5}">
@@ -24,7 +24,7 @@
             </ul>
         </div>
         <div class="col l-3 m-6 s-12">
-            <h3 class="footer__title">Thương hiệu</h3>
+            <h3 class="footer__title"style="margin-left: 38px;">Thương hiệu</h3>
             <ul class="footer__list">
                 <c:forEach var="listBrands" items="${listBrands}" varStatus="i">
                     <c:if test="${i.index<5}">
@@ -36,7 +36,7 @@
             </ul>
         </div>
         <div class="col l-3 m-6 s-12">
-            <h3 class="footer__title">Liên hệ</h3>
+            <h3 class="footer__title" style="margin-left: 38px;">Liên hệ</h3>
             <ul class="footer__list">
                 <li class="footer__item">
                             <span class="footer__text">
@@ -70,7 +70,7 @@
             </ul>
         </div>
         <div class="col l-3 m-6 s-12">
-            <h3 class="footer__title">Đăng kí</h3>
+            <h3 class="footer__title"  style="margin-left: 38px;">Đăng kí</h3>
             <ul class="footer__list">
                 <li class="footer__item">
                     <span class="footer__text">Đăng ký để nhận được được thông tin ưu đãi mới nhất từ chúng tôi.</span>

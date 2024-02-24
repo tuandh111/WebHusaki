@@ -5,7 +5,7 @@ $(document).ready(function () {
         let likeProductID = $(this).data('product-id');
         console.log("likeProduct: "+ likeProductID)
         Swal.fire({
-            text: "Bạn có muốn xóa thich sản phẩm đã chọn nay?",
+            text: "Bạn có muốn xóa thích sản phẩm đã chọn nay?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -33,7 +33,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Thanh cong',
-                                text: "Xoa san pham thanh công !",
+                                text: "Xóa thích sản phẩm thành công !",
                                 showConfirmButton: false,
                                 timer: 3500
                             });
@@ -43,7 +43,7 @@ $(document).ready(function () {
                     error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Xoa san pham thất bại',
+                            title: 'Xóa thích sản phẩm thất bại',
                             text: "Có lỗi xảy ra, vui lòng thử lại !",
                             showConfirmButton: false,
                             timer: 2000

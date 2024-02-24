@@ -4,7 +4,7 @@ $(document).ready(function () {
         e.preventDefault();
         let invoiceID = $(this).data('invoice-id');
         Swal.fire({
-            text: "Bạn có muốn huy đơn hang đã chọn nay?",
+            text: "Bạn có muốn hủy đơn hàng đã chọn này?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -32,7 +32,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Thanh cong',
-                                text: "Cap nhat don hang thanh công !",
+                                text: "Cập nhật đơn hàng thành công !",
                                 showConfirmButton: false,
                                 timer: 3500
                             });
@@ -42,7 +42,7 @@ $(document).ready(function () {
                     error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Xoa san pham thất bại',
+                            title: 'Xóa sản phẩm thất bại',
                             text: "Có lỗi xảy ra, vui lòng thử lại !",
                             showConfirmButton: false,
                             timer: 2000
@@ -58,7 +58,7 @@ $(document).ready(function () {
         let invoiceID = $(this).data('invoice-id');
 
         Swal.fire({
-            text: "Bạn có muốn khoi phuc don hang đã chọn nay?",
+            text: "Bạn có muốn khôi phục đơn hàng đã chọn này?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -85,7 +85,7 @@ $(document).ready(function () {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Thanh cong',
-                                text: "Cap nhat don hang thanh công !",
+                                text: "Cập nhật đơn hàng thành công!",
                                 showConfirmButton: false,
                                 timer: 3500
                             });
@@ -95,7 +95,7 @@ $(document).ready(function () {
                     error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Xoa san pham thất bại',
+                            title: 'Xóa sản phẩm thất bại',
                             text: "Có lỗi xảy ra, vui lòng thử lại !",
                             showConfirmButton: false,
                             timer: 2000

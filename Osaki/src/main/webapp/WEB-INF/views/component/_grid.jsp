@@ -84,7 +84,7 @@
                     <%--                     </select> --%>
                     <input type="text" class="header__search-input" id="search-item" placeholder="Tìm kiếm"
                            name="search" onkeyup="search1()" onfocus="showMenu()" onblur="hideMenu(event)"/>
-                    <button style="margin-left:240px">Tìm kiếm</button>
+        
                 </form>
                 <div class="menu" id="menu">
                     <c:forEach var="productList" items="${listProduct}">
@@ -109,7 +109,7 @@
                 </c:when>
                 <c:otherwise>
                     <a href="/profile" class="header__account-register">Tài khoản</a>
-                    <a href="/logout" class="header__account-register">Đăng xuat</a>
+                    <a href="/logout" class="header__account-register">Đăng xuất</a>
                 </c:otherwise>
             </c:choose>
 
