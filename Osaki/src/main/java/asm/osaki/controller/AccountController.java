@@ -15,10 +15,8 @@ import asm.osaki.service.MailerServiceImpl;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import asm.osaki.testBcrypt.Bcrypt;
-import asm.osaki.user.UserGoogleDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.restfb.types.User;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,15 +28,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class AccountController {
@@ -308,6 +303,7 @@ public class AccountController {
         List<Address> addressList = addressRepository.findAll();
         System.out.println("addressList" + addressList.size());
         String phone = paramService.getString("phone", "");
+        Map<String, Object> jsonResponseMap = new HashMap<>();
         if (phone.equalsIgnoreCase("")) {
             return ResponseEntity.ok("errorPhone");
         }
@@ -321,7 +317,7 @@ public class AccountController {
             }
         }
         if (checkPhone) {
-            return ResponseEntity.ok("errorPhone1");
+            jsonResponseMap.put("updateAddress", "true");
         }
         String address = paramService.getString("address", "");
         String cityName = paramService.getString("city", "");
@@ -349,12 +345,12 @@ public class AccountController {
         address1.setAddress(address + ", " + ward + ", " + district + ", " + cityName);
         address1.setUser(userCustom);
         address1.setIsDelete(false);
-        Map<String, Object> jsonResponseMap = new HashMap<>();
         try {
             addressRepository.save(address1);
             jsonResponseMap.put("count", addressRepository.findByUser(userCustom).size());
             jsonResponseMap.put("phoneID", address1.getPhoneID());
             jsonResponseMap.put("address", address1.getAddress());
+            jsonResponseMap.put("userID", userCustom.getUserID());
             jsonResponseMap.put("message", "success");
             String jsonResponse = null;
             try {
@@ -366,6 +362,35 @@ public class AccountController {
             return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
             return ResponseEntity.ok("fail");
+        }
+    }
+
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<?> getAddress(@PathVariable("id") String id) {
+        System.out.println("run successfully getAddress");
+        Address address = addressRepository.findByPhoneID(id);
+        System.out.println("phoneID1: " + address.getPhoneID());
+        Map<String, Object> jsonAddress = new HashMap<>();
+        jsonAddress.put("phoneID", address.getPhoneID());
+        String input = address.getAddress();
+        String[] parts = input.split(", ");
+        if (parts.length >= 4) { // Đảm bảo rằng có ít nhất đủ phần tử để lấy địa chỉ
+            jsonAddress.put("address", parts[0]);
+            jsonAddress.put("ward", parts[1]);
+            jsonAddress.put("district", parts[2]);
+            jsonAddress.put("cityName", parts[3]);
+        }
+        if (address != null) {
+            String jsonResponse = null;
+            try {
+                jsonResponse = new ObjectMapper().writeValueAsString(jsonAddress);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("json: " + jsonResponse);
+            return ResponseEntity.ok(jsonResponse);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 

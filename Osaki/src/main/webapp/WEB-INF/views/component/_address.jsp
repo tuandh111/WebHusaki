@@ -14,18 +14,18 @@
 <div class="container mt-3">
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
             style="font-size: 16px">
-        Them dia chi
+        Thêm địa chỉ
     </button>
 </div>
 
 <!-- The Modal -->
 <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog ">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Them moi dia chi</h4>
+                <h4 class="modal-title" style="font-size: 16px">Thêm địa chỉ</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -34,28 +34,35 @@
                 <form id="formAddress">
                     <div class="row">
                         <div class="col-lg-12 mb-2">
-                            <input class="form-control" id="phone" placeholder="So dien thoai">
+                            <input class="form-control" id="phone" placeholder="Số điện thoại" style="font-size: 16px">
                         </div>
                         <div class="col-lg-4">
-                            <select class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
-                                <option value="" class="form-control" selected>Chọn tỉnh thành</option>
+                            <select class="form-select form-select-sm mb-3" style="font-size: 16px" id="city"
+                                    aria-label=".form-select-sm">
+                                <option value="" style="font-size: 16px" class="form-control" selected>Chọn tỉnh thành
+                                </option>
                             </select>
                         </div>
                         <div class="col-lg-4">
-                            <select class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
-                                <option value="" selected>Chọn quận huyện</option>
+                            <select class="form-select form-select-sm mb-3" style="font-size: 16px" id="district"
+                                    aria-label=".form-select-sm">
+                                <option value="" style="font-size: 16px" selected>Chọn quận huyện</option>
                             </select>
                         </div>
                         <div class="col-lg-4">
-                            <select class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
-                                <option value="" selected>Chọn phường xã</option>
+                            <select class="form-select form-select-sm" style="font-size: 16px" id="ward"
+                                    aria-label=".form-select-sm">
+                                <option value=""style="font-size: 16px" selected>Chọn phường xã</option>
                             </select>
                         </div>
                         <div class="col-lg-12 mb-2">
-                            <textarea id="addressSpecific" class="form-control" placeholder="Dia chi cu the"></textarea>
+                            <textarea id="addressSpecific" style="font-size: 16px" class="form-control"
+                                      placeholder="Địa chỉ cụ thể"></textarea>
                         </div>
                     </div>
-                    <button class="btn btn-primary" id="addAddress" data-user-id="${userLogin.userID}">Add</button>
+                    <button class="btn btn-primary" style="font-size: 16px" id="addAddress"
+                            data-user-id="${userLogin.userID}">Add
+                    </button>
                 </form>
             </div>
 

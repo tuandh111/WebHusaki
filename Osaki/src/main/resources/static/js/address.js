@@ -47,70 +47,132 @@ $(document).ready(function () {
                         var phoneID = jsonReponse.phoneID;
                         var address = jsonReponse.address;
                         var count = jsonReponse.count;
-                        Swal.fire({
-                            title: 'Thanh cong', text: "Thêm địa chỉ thành công", showConfirmButton: true, timer: 3500
-                        })
-                        var tableHTML = ' <tr class="' + phoneID + '">\n' +
-                            '                    <td>' + count + '</td>\n' +
-                            '                    <td>' + phoneID + '</td>\n' +
-                            '                    <td>' + address + '</td>\n' +
-                            '                    <td class="removeAddress" data-address-id="' + phoneID + '">X</td>\n' +
-                            '                </tr>'
-                        $('#tbAddress').append(tableHTML);
-                        // Redirect or perform actions for successful login
-                        $('.removeAddress').click(function (e) {
-                            e.preventDefault();
-                            let addressID = $(this).data('address-id');
-                            console.log("likeProduct: " + addressID)
+                        var userID = jsonReponse.userID;
+                        if (jsonReponse.updateAddress === 'true') {
                             Swal.fire({
-                                text: "Bạn có muốn xóa địa chỉ đã chọn này?",
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                cancelButtonText: 'Trở lại',
-                                confirmButtonText: 'Có'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $.ajax({
-                                        type: 'DELETE',
-                                        url: '/delete-to-address',
-                                        data: {
-                                            phoneID: addressID,
-
-                                        },
-                                        success: function (response) {
-                                            if (response == 'fail') {
-                                                Swal.fire({
-                                                    icon: 'warning',
-                                                    title: 'Something wrong !',
-                                                    showConfirmButton: true
-                                                });
-                                            } else {
-
-                                                Swal.fire({
-                                                    icon: 'success',
-                                                    title: 'Thành công',
-                                                    text: "Xóa địa chỉ thành công !",
-                                                    showConfirmButton: false,
-                                                    timer: 3500
-                                                });
-                                                $('.' + addressID).remove();
-                                            }
-                                        },
-                                        error: function (xhr, status, error) {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Xóa sản phẩm thất bại',
-                                                text: "Có lỗi xảy ra, vui lòng thử lại !",
-                                                showConfirmButton: false,
-                                                timer: 2000
-                                            });
-                                        }
-                                    });
-                                }
+                                title: 'Thành công',
+                                text: "Cập nhật địa chỉ thành công",
+                                showConfirmButton: true,
+                                timer: 3500
                             })
-                        })
+                            var tableHTML =
+                                '                    \n' +
+                                '                    <td>' + phoneID + '</td>\n' +
+                                '                    <td>' + address + '</td>\n' +
+                                '                   <td><a class="updateAddress " href="#" data-address-id="' + phoneID + '"\n' +
+                                '                       data-user-id="' + userID + '"\n' +
+                                '                >Cập nhật</a>\n' +
+                                '                </td>\n' +
+                                '                <td class="removeAddress " data-address-id="' + phoneID + '">Xóa</td>'
+
+                            $('.'+phoneID).html(tableHTML);
+                        } else {
+                            Swal.fire({
+                                title: 'Thanh cong',
+                                text: "Thêm địa chỉ thành công",
+                                showConfirmButton: true,
+                                timer: 3500
+                            })
+                            var tableHTML = ' <tr class="' + phoneID + '">\n' +
+                                '                    \n' +
+                                '                    <td>' + phoneID + '</td>\n' +
+                                '                    <td>' + address + '</td>\n' +
+                                '                   <td><a class="updateAddress " href="#" data-address-id="' + phoneID + '"\n' +
+                                '                       data-user-id="' + userID + '"\n' +
+                                '                >Cập nhật</a>\n' +
+                                '                </td>\n' +
+                                '                <td class="removeAddress " data-address-id="' + phoneID + '">Xóa</td>' +
+                                '                </tr>'
+                            $('#tbAddress').append(tableHTML);
+                            // Redirect or perform actions for successful login
+                            $('.removeAddress').click(function (e) {
+                                e.preventDefault();
+                                let addressID = $(this).data('address-id');
+                                console.log("likeProduct: " + addressID)
+                                Swal.fire({
+                                    text: "Bạn có muốn xóa địa chỉ đã chọn này?",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    cancelButtonText: 'Trở lại',
+                                    confirmButtonText: 'Có'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $.ajax({
+                                            type: 'DELETE',
+                                            url: '/delete-to-address',
+                                            data: {
+                                                phoneID: addressID,
+
+                                            },
+                                            success: function (response) {
+                                                if (response == 'fail') {
+                                                    Swal.fire({
+                                                        icon: 'warning',
+                                                        title: 'Something wrong !',
+                                                        showConfirmButton: true
+                                                    });
+                                                } else {
+
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        title: 'Thành công',
+                                                        text: "Xóa địa chỉ thành công !",
+                                                        showConfirmButton: false,
+                                                        timer: 3500
+                                                    });
+                                                    $('.' + addressID).remove();
+                                                }
+                                            },
+                                            error: function (xhr, status, error) {
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Xóa sản phẩm thất bại',
+                                                    text: "Có lỗi xảy ra, vui lòng thử lại !",
+                                                    showConfirmButton: false,
+                                                    timer: 2000
+                                                });
+                                            }
+                                        });
+                                    }
+                                })
+                            })
+                            $('.updateAddress').click(function () {
+                                var addressId = $(this).data('address-id');
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/profile/' + addressId,
+                                    success: function (response) {
+                                        console.log("ok")
+                                        var json = JSON.parse(response);
+                                        var phoneID = json.phoneID
+                                        var address = json.address
+                                        var ward = json.ward;
+                                        var district = json.district;
+                                        var cityName = json.cityName;
+                                        $('#myModal').modal('show');
+                                        $('#city').find('option').filter(function () {
+                                            return $(this).text() === cityName;
+                                        }).prop('selected', true);
+
+                                        $('#district').find('option').filter(function () {
+                                            return $(this).text() === district;
+                                        }).prop('selected', true);
+
+                                        $('#ward').find('option').filter(function () {
+                                            return $(this).text() === ward;
+                                        }).prop('selected', true);
+                                        $('#phone').val(phoneID);
+                                        $('#addressSpecific').val(address);
+                                        // Mở modal
+                                    },
+                                    error: function (error) {
+                                        console.log(error);
+                                    }
+                                });
+                            });
+                        }
                     } else if (response === "errorPhone1") {
                         Swal.fire({
                             icon: 'error',
@@ -186,6 +248,41 @@ $(document).ready(function () {
             });
         }
     })
+
+    $('.updateAddress').click(function () {
+        var addressId = $(this).data('address-id');
+        $.ajax({
+            type: 'GET',
+            url: '/profile/' + addressId,
+            success: function (response) {
+                console.log("ok")
+                var json = JSON.parse(response);
+                var phoneID = json.phoneID
+                var address = json.address
+                var ward = json.ward;
+                var district = json.district;
+                var cityName = json.cityName;
+                $('#myModal').modal('show');
+                $('#city').find('option').filter(function () {
+                    return $(this).text() === cityName;
+                }).prop('selected', true);
+
+                $('#district').find('option').filter(function () {
+                    return $(this).text() === district;
+                }).prop('selected', true);
+
+                $('#ward').find('option').filter(function () {
+                    return $(this).text() === ward;
+                }).prop('selected', true);
+                $('#phone').val(phoneID);
+                $('#addressSpecific').val(address);
+                // Mở modal
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
 
     function findCityName(cityId) {
         var cityOptions = document.getElementById("city").options;

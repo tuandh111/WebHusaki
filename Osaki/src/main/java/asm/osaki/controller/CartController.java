@@ -168,11 +168,15 @@ public class CartController {
 
             if (existingCart != null) {
                 // Nếu sản phẩm đã tồn tại, chỉ cập nhật số lượng
-                existingCart.setQuantity(existingCart.getQuantity() + Integer.parseInt(quantity));
-                cartRepository.save(existingCart);
                 Map<String, Object> json = new HashMap<>();
-                json.put("message", "successUpdate");
-                json.put("cartID", existingCart.getCartId());
+                if (existingCart.getQuantity() + Integer.parseInt(quantity) <= product.getQuantityInStock()) {
+                    existingCart.setQuantity(existingCart.getQuantity() + Integer.parseInt(quantity));
+                    cartRepository.save(existingCart);
+                    json.put("message", "successUpdate");
+                    json.put("cartID", existingCart.getCartId());
+                } else {
+                    json.put("message", "errorQuantityInStock");
+                }
                 String jsonResponse = null;
                 try {
                     jsonResponse = new ObjectMapper().writeValueAsString(json);

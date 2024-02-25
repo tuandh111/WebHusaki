@@ -24,7 +24,6 @@
     <table class="table table-hover table-custom" style="font-size: 16px">
         <thead>
         <tr>
-            <th>STT</th>
             <th>SDT</th>
             <th>Địa chỉ</th>
             <th>Trạng thái</th>
@@ -33,9 +32,12 @@
         <tbody id="tbAddress">
         <c:forEach var="address" items="${address}" varStatus="i">
             <tr class="${address.phoneID}">
-                <td>${i.index+1}</td>
                 <td>${address.phoneID}</td>
                 <td>${address.address}</td>
+                <td><a class="updateAddress " href="#" data-address-id="${address.phoneID}"
+                       data-user-id="${userLogin.userID}"
+                >Cập nhật</a>
+                </td>
                 <td class="removeAddress " data-address-id="${address.phoneID}">Xóa</td>
             </tr>
         </c:forEach>

@@ -175,6 +175,15 @@ $(document).ready(function () {
                             timer: 2000
                         });
                     }
+                    else if (message == 'errorQuantityInStock') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm sản phẩm thất bại',
+                            text: "Số lượng thêm vào lớn hơn hàng tồn kho!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                    }
                 },
                 error: function (xhr, status, error) {
                     Swal.fire({

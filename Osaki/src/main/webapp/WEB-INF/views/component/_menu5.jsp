@@ -1,20 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="comment" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="navigation">
     <ul style="font-size: 16px">
         <li>
-            <a href="/admin/account-manager">
+            <a href="">
                 <div class="img-thumbnail imgBox mt-1">
                     <img src="/images/${userLogin.image}" style="width: 100px">
                 </div>
                 <h5 class="title">Xin chào: ${userLogin.fullName}</h5>
             </a>
+
         </li>
         <li>
             <a href="/profile?content=_dashboard3">
                 <span class="icon"><i class="bi bi-person-circle"></i></span>
                 <span class="title">Tài khoản</span>
             </a>
+        </li>
+        <li>
+            <c:if test="${userLogin.roleName.roleName == 'admin'}">
+                <a href="/admin">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="title">Quản lý</span>
+                </a>
+            </c:if>
         </li>
         <li>
             <a href="/profile?content=_cart">

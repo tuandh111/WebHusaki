@@ -115,7 +115,7 @@
         margin-top: 150px;
         position: fixed;
         width: 300px;
-        height: 70%;
+        height: 90%;
         background: var(--blue);
         border-left: 10px solid var(--blue);
         transform: 0.5s;
@@ -714,12 +714,12 @@
     <%--menu --%>
     <jsp:include page="./component/_header.jsp"/>
 </div>
-<div class="main1" >
+<div class="main1">
     <jsp:include page="./component/_menu5.jsp"/>
-    <div class="main" >
-    	<div class="details">
-        <jsp:include page="./component/${content}"/>
-        <jsp:include page="./component/_rightCustomer.jsp"/>
+    <div class="main">
+        <div class="details">
+            <jsp:include page="./component/${content}"/>
+            <jsp:include page="./component/_rightCustomer.jsp"/>
         </div>
     </div>
 </div>
