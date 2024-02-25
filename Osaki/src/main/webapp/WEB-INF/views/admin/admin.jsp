@@ -14,6 +14,7 @@
             crossorigin="anonymous">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="shortcut icon" href="/imagesAdmin/hasagi-logo.jpg">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" type="text/css" href="/css/admin.css"/>
@@ -36,8 +37,9 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type="text/javascript" src="/js/chart-admin.js"></script>
-<script src="/js/user-admin.js"></script>
+<script type="text/javascript" src="/js/admin-chart.js"></script>
+<script src="/js/admin-user.js"></script>
+<script src="/js/admin-category.js"></script>
 <script>
     //menu toggle
     let toggle = document.querySelector('.toggle');
@@ -67,7 +69,6 @@
     console.log(dataRevenueByCategory);
     var dataInventory = ${dataInventory};
     console.log(dataInventory);
-    
 </script>
 </body>
 </html>

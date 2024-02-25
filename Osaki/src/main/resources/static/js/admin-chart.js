@@ -1,7 +1,13 @@
 //add chart
 document.addEventListener("DOMContentLoaded", function() {
-    var labelsCtx = Object.keys(dataInventory);
-    var valuesCtx = Object.values(dataInventory);
+   var labelsCtx=null;
+   var valuesCtx=null;
+    if(dataInventory!=null){
+        labelsCtx = Object.keys(dataInventory);
+        valuesCtx = Object.values(dataInventory);
+    }
+   //var labelsCtx = Object.keys(dataInventory);
+   // var valuesCtx = Object.values(dataInventory);
 
     const ctx = document.getElementById('myChartLine');
     new Chart(ctx, {
@@ -19,9 +25,14 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     
-    
-    var labelsDoughnut = Object.keys(dataRevenueByCategory);
-    var valuesDoughnut = Object.values(dataRevenueByCategory);
+    var labelsDoughnut=null;
+    var valuesDoughnut=null;
+    if(dataRevenueByCategory!=null){
+        labelsDoughnut = Object.keys(dataRevenueByCategory);
+        valuesDoughnut = Object.values(dataRevenueByCategory);
+    }
+    //var labelsDoughnut = Object.keys(dataRevenueByCategory);
+   // var valuesDoughnut = Object.values(dataRevenueByCategory);
     const doughnut = document.getElementById('myChartDoughnut');
 
     new Chart(doughnut, {

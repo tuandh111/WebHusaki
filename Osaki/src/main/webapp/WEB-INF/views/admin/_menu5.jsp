@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<div class="navigation">
+<div class="navigation">           
     <ul>
-         <li>
-            <a href="#">                
-                <span class="title">Logo</span>
+        <li>
+             <a href="/home" class="admin-logo">
+                <img src="/imagesAdmin/hasagi-logo.jpg">               
             </a>
         </li>
         <li>

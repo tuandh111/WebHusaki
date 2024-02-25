@@ -12,7 +12,9 @@
         </label>
     </div>
     <div class="user">
-        <img title="${userAdminLogin.fullName}" src="/images/${userAdminLogin.image}">
+        <a href="/profile">
+            <img title="${userAdminLogin.fullName}" src="/images/${userAdminLogin.image}">
+        </a>       
     </div>
 </div>
 <div class="cardBox">
@@ -28,7 +30,7 @@
     
     <div class="cardP">
         <div class="cardP-body">
-            <div class="numbers">1,504</div>
+            <div class="numbers">${visitorCount}</div>
             <div class="cardName">Lượt xem</div>
         </div> 
         <div class="iconBox">
@@ -37,7 +39,7 @@
     </div>
     <div class="cardP">
         <div class="cardP-body">
-            <div class="numbers">854</div>
+            <div class="numbers">${totalComments}</div>
             <div class="cardName">Bình luận</div>
         </div> 
         <div class="iconBox">
