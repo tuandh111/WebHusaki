@@ -12,7 +12,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <div class="container mt-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"
+            style="font-size: 16px">
         Them dia chi
     </button>
 </div>

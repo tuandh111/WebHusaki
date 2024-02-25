@@ -1,5 +1,6 @@
 package asm.osaki.repositories.user_repositories;
 
+import asm.osaki.entities.product.Product;
 import asm.osaki.entities.user.InvoiceDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +27,8 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
             "INNER JOIN invoiceDetail id ON id.invoiceID.invoiceID = i.invoiceID " +
             "ORDER BY i.createAt DESC")
     List<Object[]> findTop3ProductLatest(Pageable pageable);
+
+    @Query("SELECT p FROM product p INNER JOIN invoiceDetail id ON p.productID = id.productID.productID" )
+    Page<Product> findByProductAndInvoiceDetail(Pageable pageable);
+
 }

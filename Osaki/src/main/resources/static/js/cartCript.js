@@ -226,7 +226,7 @@ $(document).ready(function () {
                 if (!check) {
                     // html
                     var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
-                    productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
+                    productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_' + cartID + '">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {
                         productHtml += '<del><span class="text-muted text-decoration-line-through me-2">' + formatCurrency(originalPrice) + ' </span></del>';
@@ -248,6 +248,7 @@ $(document).ready(function () {
                             style: 'currency',
                             currency: 'VND'
                         });
+                        console.log("ok2")
                         $('.total-money').text("Tổng tiền: " + formattedPrice)
                     }
                     $('.order__list').append(productHtml);
@@ -256,7 +257,6 @@ $(document).ready(function () {
                         '                    </div>')
 
                     var formattedPrice = totalPrice.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
-                    $('.total-money').text("Tổng tiền: " + formattedPrice)
                     $('#quantity_' + cartId).html(quantity)
                 } else if (check) {
                     document.querySelector("." + cartId + "").remove();
@@ -324,6 +324,11 @@ $(document).ready(function () {
                                             $('.total-money').html("Tổng tiền: 0 đ")
                                         } else {
                                             $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/"></a></h2>')
+                                            var formattedPrice = totalPrice.toLocaleString('vi-VN', {
+                                                style: 'currency',
+                                                currency: 'VND'
+                                            });
+                                            $('.total-money').text("Tổng tiền: " + formattedPrice)
                                         }
                                         $('.header__cart-amount').append('  <div class="header__cart-amount">\n' +
                                             '                            ' + cartCount + '\n' +
@@ -396,6 +401,7 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             text: "Số lượng vượt quá số lượng tồn kho !",
             showConfirmButton: true,
         });
+        quantity = quantityInStock
         $(".input-quantity").val(quantityInStock);
     }
 

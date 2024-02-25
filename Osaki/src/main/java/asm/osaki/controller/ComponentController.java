@@ -1,18 +1,20 @@
 package asm.osaki.controller;
 
- 
+
+import asm.osaki.entities.product.PromotionalDetails;
 import asm.osaki.entities.user.Address;
 import asm.osaki.entities.user.Invoice;
 import asm.osaki.entities.user.InvoiceDetail;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.entities.user.WishList;
+import asm.osaki.repositories.product_repositories.PromotionalDetailsRepository;
 import asm.osaki.repositories.user_repositories.AddressRepository;
 import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.InvoiceRepository;
 import asm.osaki.repositories.user_repositories.UserCustomRepository;
 import asm.osaki.repositories.user_repositories.WishListRepository;
 import asm.osaki.service.ParamService;
-import asm.osaki.service.SessionService; 
+import asm.osaki.service.SessionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +44,10 @@ public class ComponentController {
     ParamService paramService;
     @Autowired
     UserCustomRepository userCustomRepository;
-    
+
+    @Autowired
+    PromotionalDetailsRepository promotionalDetailsRepository;
+
 
     @GetMapping("/product")
     public String productController(@ModelAttribute("UserC") UserCustom userCustom) {
@@ -55,11 +60,6 @@ public class ComponentController {
     }
 
 
-    @GetMapping("/news")
-    public String newsController(@ModelAttribute("UserC") UserCustom userCustom) {
-        return "news";
-    }
-
     @GetMapping("pays")
     public String payController(@ModelAttribute("UserC") UserCustom userCustom) {
         return "pay";
@@ -71,12 +71,14 @@ public class ComponentController {
 
     @GetMapping("profile")
     public String getHome(@RequestParam(name = "content", required = false) String content, Model model) {
-  
+
         if (content != null && !content.isEmpty()) {
             content += ".jsp";
             model.addAttribute("content", content);
             if (content.equalsIgnoreCase("_likeProduct.jsp")) {
                 UserCustom userCustom = sessionService.get("userLogin");
+                List<PromotionalDetails> promotionalDetailsList1 = promotionalDetailsRepository.findAll();
+                model.addAttribute("promotionalDetailsList", promotionalDetailsList1);
                 if (userCustom != null) {
                     List<WishList> listLike = wishListRepository.findByUser(userCustom);
                     System.out.println("likeList: " + listLike.size());
@@ -118,44 +120,37 @@ public class ComponentController {
             model.addAttribute("content", "_dashboard3.jsp");
         }
         UserCustom userCustom1 = sessionService.get("userLogin");
-        
-        model.addAttribute("address",addressRepository.findByUser(userCustom1));
-        
+
+        model.addAttribute("address", addressRepository.findByUser(userCustom1));
+
         model.addAttribute("userLogin", userCustom1);
         return "profile";
     }
-    
-    
-    
-     
+
+
     @PostMapping("edit-info-account")
-       public String editInfoAccount(Model model,
-       		@RequestParam("idInput") Integer idInput,
-       		@RequestParam("file") MultipartFile fileInput,
-       		@RequestParam("fullName") String nameInput ,
-       		HttpSession session
-       		) {          
-       	System.out.println("idInputxxxxx"+idInput);
-       	UserCustom userCustom=userCustomRepository.findByUserID(idInput);
-       	//model.addAttribute("address", addressRepository.findByUser(userCustom));    	  
-       	 String nameAnh = userCustom.getImage();	
-       	if( !fileInput.isEmpty()) {
-       	 String originalFilename = fileInput.getOriginalFilename();
-        // String savePath = "/images/" + originalFilename;
-       		File NameFile = paramService.save(fileInput, "/images/");
-       		if(NameFile != null) {
-       			String imageName = NameFile.getName();
-       			userCustom.setImage(imageName);
-       		}
-       	//	String iamgeA = fileInput.getOriginalFilename();  		
-       	}
-        
-       	userCustom.setFullName(nameInput);
-       	 
-       	userCustomRepository.save(userCustom);
-       	 
-       	session.setAttribute("userLogin", userCustom);
-       	
+    public String editInfoAccount(Model model, @RequestParam("idInput") Integer idInput, @RequestParam("file") MultipartFile fileInput, @RequestParam("fullName") String nameInput, HttpSession session) {
+        System.out.println("idInputxxxxx" + idInput);
+        UserCustom userCustom = userCustomRepository.findByUserID(idInput);
+        //model.addAttribute("address", addressRepository.findByUser(userCustom));
+        String nameAnh = userCustom.getImage();
+        if (!fileInput.isEmpty()) {
+            String originalFilename = fileInput.getOriginalFilename();
+            // String savePath = "/images/" + originalFilename;
+            File NameFile = paramService.save(fileInput, "/images/");
+            if (NameFile != null) {
+                String imageName = NameFile.getName();
+                userCustom.setImage(imageName);
+            }
+            //	String iamgeA = fileInput.getOriginalFilename();
+        }
+
+        userCustom.setFullName(nameInput);
+
+        userCustomRepository.save(userCustom);
+
+        session.setAttribute("userLogin", userCustom);
+
 //       	 UserCustom userCustom = sessionService.get("userLogin");
 //       	 if(userCustom!=null) {
 //       		 model.addAttribute("idInput",userCustom.getUserID());
@@ -163,12 +158,10 @@ public class ComponentController {
 //       		 model.addAttribute("fullName",userCustom.getFullName());
 //       		 System.out.println("Userxxxxx:"+userCustom.getUserID());
 //       	 }
-       	
-       	return "redirect:/profile";
-       }
-    
-    
-    
+
+        return "redirect:/profile";
+    }
+
 
     @DeleteMapping("delete-to-likeProduct")
     public ResponseEntity<?> deleteLikeProduct() {

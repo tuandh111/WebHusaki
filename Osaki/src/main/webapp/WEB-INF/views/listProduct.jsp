@@ -266,6 +266,7 @@
                 <h3><a href="/product/filterByPrice?sort=asc" class="btn btn-primary m-md-2">Giá thấp đến cao</a></h3>
                 <h3><a href="/product/filterByPrice?sort=desc" class="btn btn-primary m-md-2">Giá cao đến thấp</a></h3>
                 <h3><a href="/product/filter-product-by-promotional" class="btn btn-primary m-md-2">Khuyến mãi</a></h3>
+                <h3><a href="/product/bestselling" class="btn btn-primary m-md-2">Bán chạy</a></h3>
             </div>
         </div>
         <div class="productList">

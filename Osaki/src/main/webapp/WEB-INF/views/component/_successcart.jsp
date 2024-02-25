@@ -10,7 +10,7 @@
     <div class="recentOrders" style="width: 1000px">
         <h1>Đơn hàng thành công</h1>
         <div class="row">
-            <div class="col l-8 m-12 s-12">
+            <div class="col l-8 m-12 s-12" style="font-size: 16px">
                 <div class="main__cart">
                     <div class="row title">
                         <div class="col l-4 m-4 s-8">Mã đơn hàng</div>

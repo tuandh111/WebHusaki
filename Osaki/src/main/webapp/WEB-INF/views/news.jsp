@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -156,56 +157,29 @@
         <div class="main__taskbar">
             <div class="main__breadcrumb">
                 <div class="breadcrumb__item">
-                    <a href="#" class="breadcrumb__link">Trang chủ</a>
+                    <a href="/" class="breadcrumb__link">Trang chủ</a>
                 </div>
                 <div class="breadcrumb__item">
-                    <a href="#" class="breadcrumb__link">Danh sách tin tức</a>
+                    <a href="/news" class="breadcrumb__link">Danh sách tin tức</a>
                 </div>
             </div>
         </div>
         <div class="list-new">
             <div href="#" class="new-item">
-                <a href="#" class="new-item__img">
-                    <img src="https://www.kosmebox.com/image/cache/data/BLOG/Nhung-item-makeup-nha-etude-house-gia-hat-de/Nhung-item-makeup-nha-etude-house-gia-hat-de-7-9-225x225.jpg"
-                         alt="">
-                </a>
-                <div class="new-item__body">
-                    <a href="#" class="new-item__title">
-                        Những Item makeup nhà Etude House giá hạt dẻ, chất miễn đùa
-                        Những Item makeup nhà Etude House giá hạt dẻ, chất miễn đùa
+                <c:forEach var="newsList" items="${newsList}">
+                    <a href="#" class="new-item__img">
+                        <img src="https://www.kosmebox.com/image/cache/data/BLOG/Nhung-item-makeup-nha-etude-house-gia-hat-de/Nhung-item-makeup-nha-etude-house-gia-hat-de-7-9-225x225.jpg"
+                             alt="">
                     </a>
-                    <p class="new-item__time"> Ngày đăng: 27/5/2020</p>
-                    <h4 class="new-item__description">Những Item makeup nhà Etude House giá hạt dẻ, chất miễn đùa
-                                                      Không phải là những item makeup mới. Thậm chí nếu không nói là lâu
-                                                      đời. Nhưng ở thời điểm
-                                                      hiện tại, chúng vẫn không lỗi thời. Rất lì lợm. Bao nhiêu dòng
-                                                      makeup mới ra
-                                                      vẫn không làm chúng ngao ngán. Và tất nhiên, nàng nào muốn Những
-                                                      Item makeup nhà Etude House
-                                                      giá hạt dẻ, chất miễn đùa Không phải là những item makeup mới.
-                                                      Thậm
-                                                      chí nếu không nói là lâu
-                                                      đời. Nhưng ở thời điểm hiện tại, chúng
-                                                      vẫn không lỗi thời. Rất lì lợm. Bao nhiêu dòng makeup mới ra vẫn
-                                                      không làm chúng ngao ngán.
-                                                      Và tất nhiên, nàng nào muốn Những Item makeup nhà Etude House giá
-                                                      hạt dẻ, chất miễn đùa
-                                                      Không phải là những item makeup mới. Thậm chí
-                                                      nếu không nói là lâu đời. Nhưng ở thời điểm hiện tại, chúng vẫn
-                                                      không lỗi thời. Rất lì lợm.
-                                                      Bao nhiêu dòng makeup mới ra vẫn không làm chúng ngao ngán. Và tất
-                                                      nhiên, nàng nào muốn
-                                                      Những Item makeup nhà Etude House giá hạt dẻ,
-                                                      chất miễn đùa Không phải là những item makeup mới. Thậm chí nếu
-                                                      không nói là lâu đời. Nhưng
-                                                      ở thời điểm hiện tại, chúng vẫn không lỗi thời. Rất lì lợm. Bao
-                                                      nhiêu dòng makeup mới ra vẫn
-                                                      không làm chúng ngao ngán. Và tất nhiên,
-                                                      nàng nào muốn đep chuẩn mực thì mời vào team.Không khác biệt nhiều
-                                                      so với các dòng makeup
-                                                      Hàn Quốc khác</h4>
-                    <a href="#" class="btn btn--default">Xem thêm</a>
-                </div>
+                    <div class="new-item__body">
+                        <a href="#" class="new-item__title">
+                                ${newsList.title}
+                        </a>
+                        <p class="new-item__time"> Ngày đăng: <fmt:formatDate pattern="dd/MM/yyyy"
+                                                                              value="${newsList.dateAt}"/></p>
+                        <h4 class="new-item__description">${newsList.message}</h4>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>

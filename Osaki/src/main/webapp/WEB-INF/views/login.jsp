@@ -79,7 +79,7 @@
                     </div>
                 </form>
                 <a class="authen__link" href="/forgot-password">Quên mật khẩu ?</a>
-                <a class="authen__link" href="/register">Chua co tai khoản</a>
+                <a class="authen__link" href="/register">Chưa có tài khoản</a>
             </div>
         </div>
     </div>

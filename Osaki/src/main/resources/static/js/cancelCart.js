@@ -77,7 +77,7 @@ $(document).ready(function () {
                         if (response == 'fail') {
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Something wrong !',
+                                title: 'Đã có lỗi xảy ra!',
                                 showConfirmButton: true
                             });
                         } else {
