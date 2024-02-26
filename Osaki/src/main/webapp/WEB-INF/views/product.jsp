@@ -41,9 +41,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 <style>
-       .swal2-popup {
-            font-size: 2rem;
-        }
+    .swal2-popup {
+        font-size: 2rem;
+    }
 
     .product {
         height: auto;
@@ -54,6 +54,20 @@
         will-change: transform;
         transition: all linear 0.3s;
         border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
     }
 </style>
 <body>
@@ -196,31 +210,33 @@
                         <div class="policy bg-2 ">
                             <img src="/images/policy/policy2.png " class="productIndfo__policy-img "></img>
                             <div class="productIndfo__policy-info ">
-                                <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
-                                <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                <h3 class="productIndfo__policy-title ">Đổi trả hàng</h3>
+                                <p class="productIndfo__policy-description ">Cho tất cả đơn hàng</p>
                             </div>
                         </div>
                         <div class="policy bg-1 ">
                             <img src="/images/policy/policy3.png " class="productIndfo__policy-img "></img>
                             <div class="productIndfo__policy-info ">
-                                <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
-                                <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                <h3 class="productIndfo__policy-title ">Cam kết chất lượng</h3>
+                                <p class="productIndfo__policy-description ">Trong 3 ngày đầu tiên</p>
                             </div>
                         </div>
                         <div class="policy bg-2 ">
                             <img src="/images/policy/policy4.png " class="productIndfo__policy-img "></img>
                             <div class="productIndfo__policy-info ">
-                                <h3 class="productIndfo__policy-title ">Giao hàng miễn phí</h3>
-                                <p class="productIndfo__policy-description ">Cho đơn hàng từ 300K</p>
+                                <h3 class="productIndfo__policy-title ">Tư vấn 24/24</h3>
+                                <p class="productIndfo__policy-description ">Cam kết chất lượng</p>
                             </div>
                         </div>
                     </div>
                     <div class="productIndfo__category ">
-                        <p class="productIndfo__category-text"> Danh mục : <a href="# "
-                                                                              class="productIndfo__category-link ">${product.categoryID.categoryName}</a>
+                        <p class="productIndfo__category-text"> Danh mục : <a
+                                href="/product/search-category/${product.categoryID.categoryID}"
+                                class="productIndfo__category-link ">${product.categoryID.categoryName}</a>
                         </p>
-                        <p class="productIndfo__category-text"> Hãng : <a href="# "
-                                                                          class="productIndfo__category-link ">${product.brandID.brandName}</a>
+                        <p class="productIndfo__category-text"> Thương hiệu : <a
+                                href="/product/search-brand/${product.brandID.brandID}"
+                                class="productIndfo__category-link ">${product.brandID.brandName}</a>
                         </p>
                         <p class="productIndfo__category-text"> Số lượng đã bán : ${count}</p>
                         <p class="productIndfo__category-text"> Số lượng trong kho : ${product.quantityInStock}</p>
@@ -232,6 +248,49 @@
         <div class="productDetail ">
             <div class="main__tabnine ">
                 <div class="grid wide ">
+
+                    <div class="tabs ">
+                        <div class="tab-item active ">
+                            Thông số sản phẩm
+                        </div>
+                        <div class="line "></div>
+                    </div>
+                    <!-- Tab content -->
+                    <div class="tab-content ">
+                        <table class="table table-striped" style="font-size: 20px;">
+                            <tbody>
+                            <tr>
+                                <td>Cách sử dụng</td>
+                                <td>${product.uses}</td>
+                            </tr>
+                            <tr>
+                                <td>Bảo quản</td>
+                                <td>${product.preserve}</td>
+                            </tr>
+                            <tr>
+                                <td>Loại da</td>
+                                <td>${product.skinType}</td>
+                            </tr>
+                            <tr>
+                                <td>Chứng nhận</td>
+                                <td>${product.certification}</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày hết hạn</td>
+                                <td>${product.expiry}</td>
+                            </tr>
+                            <tr>
+                                <td>Nhà sản xuất</td>
+                                <td>${product.manufacturer}</td>
+                            </tr>
+                            <tr>
+                                <td>Nguyên liệu</td>
+                                <td>${product.ingredient}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                     <!-- Tab items -->
                     <div class="tabs ">
                         <div class="tab-item active ">

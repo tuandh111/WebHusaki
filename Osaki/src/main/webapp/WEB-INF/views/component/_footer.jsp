@@ -88,5 +88,5 @@
     </div>
 </div>
 <div class="copyright">
-    <span class="footer__text"> & Bản quyền thuộc về <a class="footer__link" href="#">Dang Hoang Tuan</a></span>
+    <span class="footer__text"><a class="footer__link" href="#">Đặng Hoàng Tuấn</a></span>
 </div>

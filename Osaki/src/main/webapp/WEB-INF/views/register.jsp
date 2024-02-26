@@ -122,6 +122,7 @@
             margin-bottom: 30px;
             position: relative;
         }
+
         .swal2-popup {
             font-size: 2rem;
         }
@@ -366,23 +367,26 @@
                            class="form-register">
                     <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đăng ký</h3></div>
                     <div class="form-group">
-                        <label class="form-label ">Họ Tên *</label>
-                        <form:input path="fullName" class="form-control"/>
+                        <label class="form-label " style="font-size: 16px">Họ Tên *</label>
+                        <form:input path="fullName" class="form-control" style="font-size: 16px"/>
                         <small class="text-danger" id="fullNameError"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="form-label pt-4">Tài khoản Email *</label>
-                        <form:input path="email" id="password" type="email" class="form-control"/>
+                        <label for="password" class="form-label pt-4" style="font-size: 16px">Tài khoản Email *</label>
+                        <form:input path="email" id="password" type="email" class="form-control"
+                                    style="font-size: 16px"/>
                         <small class="text-danger" id="emailError"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="form-label pt-4">Mật khẩu *</label>
-                        <form:input path="password" type="password" class="form-control"/>
+                        <label for="password" class="form-label pt-4" style="font-size: 16px">Mật khẩu *</label>
+                        <form:input path="password" type="password" class="form-control" style="font-size: 16px"/>
                         <small class="text-danger" id="passwordError"></small>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="form-label pt-4">Nhập lại mật khẩu *</label>
-                        <input type="password" name="confirmPassword" required="required" class="form-control">
+                        <label for="password" class="form-label pt-4" style="font-size: 16px">Nhập lại mật khẩu
+                                                                                              *</label>
+                        <input type="password" name="confirmPassword" required="required" class="form-control"
+                               style="font-size: 16px">
                         <small class="text-danger" id="confirmPasswordError"></small>
                     </div>
                     <div id="recaptchaContainer" style="display: none;">
@@ -391,7 +395,8 @@
 
                     <div id="error"></div>
                     <div class="d-flex justify-content-center mt-4 mb-3">
-                        <button class="btn btn-primary form-control" id="submitButton">ĐĂNG KÝ</button>
+                        <button class="btn btn-primary form-control" id="submitButton" style="font-size: 16px">ĐĂNG KÝ
+                        </button>
                     </div>
                 </form:form>
             </div>

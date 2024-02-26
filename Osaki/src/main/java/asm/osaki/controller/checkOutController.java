@@ -103,8 +103,11 @@ public class checkOutController {
             try {
                 Product product = productRepository.findByProductID(cart.getProduct().getProductID());
                 product.setQuantityInStock(product.getQuantityInStock() - cart.getQuantity());
-                if (product.getQuantityInStock()-cart.getQuantity() < 0 || product.getQuantityInStock()==0) {
+                if ( product.getQuantityInStock()==0) {
                     return ResponseEntity.ok("failQuantity");
+                }
+                if(product.getQuantityInStock()-cart.getQuantity() < 0){
+                    return ResponseEntity.ok("NotEnoughProducts");
                 }
                 productRepository.save(product);
                 invoiceDetailRepository.save(invoiceDetail);

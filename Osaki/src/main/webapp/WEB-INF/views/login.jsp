@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login Form</title>
+    <title>Đăng nhập</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -41,6 +41,9 @@
         font-size: 2rem;
     }
 
+    a {
+        text-decoration: none;
+    }
 </style>
 <body>
 <div class="login-background">
@@ -50,21 +53,22 @@
                 <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đăng nhập</h3></div>
                 <form action="login" method="post" id="loginForm">
                     <div class="form-group">
-                        <label class="form-label">Địa chỉ email *</label>
-                        <input name="LGemail" type="email" class="form-control" id="LGemail" value="${LGemail}">
+                        <label class="form-label" style="font-size: 16px">Địa chỉ email *</label>
+                        <input name="LGemail" type="email" class="form-control" id="LGemail" value="${LGemail}"
+                               style="font-size: 16px">
                         <span class="form-message" id="emailLGError"></span>
                     </div>
                     <div class="form-group">
-                        <label for="LGPassword" class="form-label">Mật khẩu *</label>
+                        <label for="LGPassword" class="form-label" style="font-size: 16px">Mật khẩu *</label>
                         <input name="LGPassword" type="password" class="form-control" id="LGPassword"
-                               value="${LGPassword}">
+                               value="${LGPassword}" style="font-size: 16px">
                         <span class="form-message" id="passLGError"></span>
                     </div>
                     <input type="checkbox" name="chkRemember" class="authen-checkbox" value="true"
                            id="chkRemember" ${check? 'checked' : ''}>
-                    <label class="form-label">Ghi nhớ mật khẩu</label>
+                    <label class="form-label" style="font-size: 16px">Ghi nhớ mật khẩu</label>
                     <div class="d-flex justify-content-center">
-                        <button class="btn btn-primary  ">ĐĂNG NHẬP</button>
+                        <button class="btn btn-primary  " style="font-size: 16px">ĐĂNG NHẬP</button>
                     </div>
                     <div class="row mt-3">
                         <div class="col-12 social-login d-flex justify-content-center">

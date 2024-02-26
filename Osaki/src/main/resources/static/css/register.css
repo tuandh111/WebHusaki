@@ -107,17 +107,18 @@
 }
 
 .register-background {
-	height: 100vh;
-	background: linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(0, 128, 0) 100%);
-	 padding: 20px;
+    height: 100vh;
+    background: linear-gradient(135deg, rgb(0, 128, 128) 0%, rgb(0, 128, 0) 100%);
+    padding: 20px;
 
 
 }
+
 .form-register {
-	width:300px;
-   border: 1px solid;
-   border-bottom: 3px solid   ;
-   border-right: 3px solid  ;
-   padding: 10px;
-   background-color: white;
+    width: 330px;
+    border: 1px solid;
+    border-bottom: 3px solid;
+    border-right: 3px solid;
+    padding: 10px;
+    background-color: white;
 }

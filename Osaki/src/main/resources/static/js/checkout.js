@@ -42,16 +42,23 @@ $(document).ready(function () {
                                     showConfirmButton: true
                                 });
 
-                            }  else if (response == 'failQuantity') {
+                            } else if (response == 'failQuantity') {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Thanh toán thất bại !',
                                     text: 'Sản phẩm này đã hết hàng trong kho !',
                                     showConfirmButton: true
                                 });
-                  
-                            }
-                             else if (response == 'success') {
+
+                            } else if (response == 'NotEnoughProducts') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Thanh toán thất bại !',
+                                    text: 'Không đủ sản phẩm để bán !',
+                                    showConfirmButton: true
+                                });
+
+                            } else if (response == 'success') {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Đặt hàng thành công!',
@@ -157,8 +164,16 @@ $(document).ready(function () {
                                     text: 'Sản phẩm này đã hết hàng trong kho !',
                                     showConfirmButton: true
                                 });
-                  
-                            }else {
+
+                            } else if (response == 'NotEnoughProducts') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Thanh toán thất bại !',
+                                    text: 'Không đủ sản phẩm để bán !',
+                                    showConfirmButton: true
+                                });
+
+                            } else {
                                 window.location.href = response;
                             }
                         },

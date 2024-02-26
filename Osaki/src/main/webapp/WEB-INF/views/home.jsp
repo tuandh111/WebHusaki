@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách sản phẩm</title>
+    <title>Trang chủ</title>
     <!-- Font roboto -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -217,7 +217,7 @@
                 <img src="./images/policy/policy1.png" class="policy__img"></img>
                 <div class="policy__info">
                     <h3 class="policy__title">GIAO HÀNG MIỄN PHÍ</h3>
-                    <p class="policy__description">Cho đơn hàng từ 300K</p>
+                    <p class="policy__description">Cho tất cả các đơn hàng</p>
                 </div>
             </div>
         </div>

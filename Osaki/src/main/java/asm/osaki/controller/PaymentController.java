@@ -61,8 +61,10 @@ public class PaymentController {
 
         for (Cart cart : cartList){
             Product product = productRepository.findByProductID(cart.getProduct().getProductID());
-            if (product.getQuantityInStock()-cart.getQuantity() < 0 || product.getQuantityInStock()==0) {
+            if ( product.getQuantityInStock()==0) {
                 return ResponseEntity.ok("failQuantity");
+            }if(product.getQuantityInStock()-cart.getQuantity() < 0 ){
+                return ResponseEntity.ok("NotEnoughProducts");
             }
         }
 
