@@ -95,6 +95,10 @@
                                                     <div class="name"><a
                                                             href="/product/${cartList.product.productID}">${cartList.product.name}</a>
                                                     </div>
+                                                    <c:if test="${cartList.product.quantityInStock <=0}">
+                                                        <div class="name" style="color: red; margin-left: 5px"> Hết hàng
+                                                        </div>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                             <div class="col l-2 m-2 s-0">

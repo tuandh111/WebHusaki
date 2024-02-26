@@ -3,6 +3,7 @@ package asm.osaki.controller;
 import asm.osaki.constants.Config;
 import asm.osaki.entities.product.Cart;
 import asm.osaki.entities.product.FlashSale;
+import asm.osaki.entities.product.Product;
 import asm.osaki.entities.product.PromotionalDetails;
 import asm.osaki.entities.user.*;
 import asm.osaki.repositories.product_repositories.*;
@@ -56,6 +57,15 @@ public class PaymentController {
     public ResponseEntity<?> getPay() throws UnsupportedEncodingException {
         String phoneID = paramService.getString("phoneID","");
         UserCustom userCustom = sessionService.get("userLogin");
+        List<Cart> cartList = cartRepository.findAllByUser(userCustom);
+
+        for (Cart cart : cartList){
+            Product product = productRepository.findByProductID(cart.getProduct().getProductID());
+            if (product.getQuantityInStock()-cart.getQuantity() < 0 || product.getQuantityInStock()==0) {
+                return ResponseEntity.ok("failQuantity");
+            }
+        }
+
         long totalPrice = (long) sessionService.totalPriceCartByUserId(userCustom);
         System.out.println("tp" + totalPrice);
         String vnp_Version = "2.1.0";

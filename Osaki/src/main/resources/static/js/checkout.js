@@ -37,22 +37,31 @@ $(document).ready(function () {
                         success: function (response) {
                             if (response == 'fail') {
                                 Swal.fire({
-                                    icon: 'warning',
-                                    title: 'Something wrong !',
+                                    icon: 'error',
+                                    title: 'Có lỗi xảy ra vui lòng thử lại !',
                                     showConfirmButton: true
                                 });
 
-                            } else if (response == 'success') {
+                            }  else if (response == 'failQuantity') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Thanh toán thất bại !',
+                                    text: 'Sản phẩm này đã hết hàng trong kho !',
+                                    showConfirmButton: true
+                                });
+                  
+                            }
+                             else if (response == 'success') {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Đặt hàng thành công!',
                                     showConfirmButton: false,
-                                    timer: 1500
+                                    timer: 2500
                                 });
                                 $('.messageSuccessfully').html("<a href='/'>Tiếp tuc mua sắm</a>");
-                                $('.checkout_').html("<h2>Đặt hàng thành cong</h2>");
+                                $('.checkout_').html("<h2>Đặt hàng thành công</h2>");
                                 $('.header__cart-amount').html("0");
-                                $('.order__list').html("<a href='/'>Tiếp tuc mua sắm</a>");
+                                $('.order__list').html("<a href='/'>Tiếp tục mua sắm</a>");
                                 $('#out').html("");
                                 $('.total-money').html("");
 
@@ -141,7 +150,15 @@ $(document).ready(function () {
                                     title: 'Something wrong !',
                                     showConfirmButton: true
                                 });
-                            } else {
+                            } else if (response == 'failQuantity') {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Thanh toán thất bại !',
+                                    text: 'Sản phẩm này đã hết hàng trong kho !',
+                                    showConfirmButton: true
+                                });
+                  
+                            }else {
                                 window.location.href = response;
                             }
                         },

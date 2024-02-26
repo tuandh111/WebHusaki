@@ -65,7 +65,7 @@ public class checkOutController {
     public ResponseEntity<?> addCheckout() {
         UserCustom userCustom = sessionService.get("userLogin");
         String phoneID = paramService.getString("phoneID", "");
-        if(phoneID.equalsIgnoreCase("")){
+        if (phoneID.equalsIgnoreCase("")) {
             return ResponseEntity.ok("failAddress");
         }
         System.out.println("PhoneID: " + phoneID);
@@ -103,6 +103,9 @@ public class checkOutController {
             try {
                 Product product = productRepository.findByProductID(cart.getProduct().getProductID());
                 product.setQuantityInStock(product.getQuantityInStock() - cart.getQuantity());
+                if (product.getQuantityInStock()-cart.getQuantity() < 0 || product.getQuantityInStock()==0) {
+                    return ResponseEntity.ok("failQuantity");
+                }
                 productRepository.save(product);
                 invoiceDetailRepository.save(invoiceDetail);
                 cartRepository.save(cart1);

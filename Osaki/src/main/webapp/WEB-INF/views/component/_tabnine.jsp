@@ -57,7 +57,7 @@
                                                                         <span class="price__unit">đ</span></div>
                                                                 </c:when>
                                                                 <c:otherwise>
-                                                                    <span class="price__unit">Tạm het hang</span>
+                                                                    <span class="price__unit">Tạm hết hàng</span>
                                                                 </c:otherwise>
                                                             </c:choose>
                                                         </div>
@@ -178,7 +178,7 @@
                                                                                         </div>
                                                                                     </c:when>
                                                                                     <c:otherwise>
-                                                                                        <span class="price__unit">Tạm het hang</span>
+                                                                                        <span class="price__unit">Tạm hết hàng</span>
                                                                                     </c:otherwise>
                                                                                 </c:choose>
                                                                             </div>
@@ -204,7 +204,7 @@
                                                                                 <span class="price__unit">đ</span></div>
                                                                         </c:when>
                                                                         <c:otherwise>
-                                                                            <span class="price__unit">Tạm het hang</span>
+                                                                            <span class="price__unit">Tạm hết hàng</span>
                                                                         </c:otherwise>
                                                                     </c:choose>
                                                                 </c:otherwise>
@@ -303,7 +303,7 @@
                                                                     <span class="price__unit">đ</span></div>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <span class="price__unit">Tạm het hang</span>
+                                                                <span class="price__unit">Tạm hết hàng</span>
                                                             </c:otherwise>
                                                         </c:choose>
 

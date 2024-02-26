@@ -68,7 +68,7 @@ $(document).ready(function () {
                             $('.'+phoneID).html(tableHTML);
                         } else {
                             Swal.fire({
-                                title: 'Thanh cong',
+                                title: 'Thành công',
                                 text: "Thêm địa chỉ thành công",
                                 showConfirmButton: true,
                                 timer: 3500
