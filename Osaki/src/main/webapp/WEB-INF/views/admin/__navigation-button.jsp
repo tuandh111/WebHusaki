@@ -1,7 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c"%>
-
-
-           
+	pageEncoding="UTF-8"%>
+<input class="form-control me-2" value="${totalElements} mục"
+	style="max-width: 18%; background-color: #b7a888;" disabled="disabled">
+<c:if test="${not booleanFirst}">
+	<a class="btn btn-outline-secondary me-2"
+		href="/admin?content=_content-account.jsp&p=0">Đầu</a>
+	<a class="btn btn-outline-secondary me-2"
+		href="/admin?content=_content-account.jsp&p=${prevPage}">Trước</a>
+</c:if>
+<input class="form-control" name="currentPage" value="${currentPage}"
+	style="max-width: 8%; background-color: #b7a888;" disabled="disabled">
+<input class="form-control me-2" value="of ${totalPages}"
+	style="max-width: 12%; background-color: #b7a888;" disabled="disabled">
+<c:if test="${not booleanLast}">
+	<a class="btn btn-outline-secondary me-2"
+		href="/admin?content=_content-account.jsp&p=${nextPage}">Tiếp</a>
+	<a class="btn btn-outline-secondary me-2"
+		href="/admin?content=_content-account.jsp&p=${totalPages}">Cuối</a>
+</c:if>

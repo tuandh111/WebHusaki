@@ -5,24 +5,23 @@
 <%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
 
 <div class="row mb-4 p-3">
-    <h2>Quản lý tài khoản khách hàng</h2>
+    <h2>Quản lý đơn hàng</h2>
 </div>
 
 <div class="row p-5">
     <div class="col-12">
         <div class="row justify-content-end">
             <div class="col-8 mb-3">
-                <form action="/admin/user-search" method="get">
+                <form action="/admin/order-search" method="get">
                     <div class="d-flex flex-row justify-content-end">
-                        <input class="form-control me-2" placeholder="Tên khách hàng..." name="kwSearch"
+                        <input class="form-control me-2" placeholder="Tên sản phẩm..." name="kwSearch"
                                value="${keywords}" style="max-width: 40%;">
                         <button class="btn btn-outline-primary" style="max-width: 40%;">Tìm kiếm</button>
                     </div>
                 </form>
             </div>
             <div class="col-8 d-flex justify-content-end">
-                <!--  
-                <input class="form-control me-2" value="${totalElements} tài khoản"
+             <!--     <input class="form-control me-2" value="${totalElements} tài khoản"
                        style="max-width: 15%;background-color: #b7a888;" disabled="disabled">
                 <c:if test="${not booleanFirst}">
                     <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=0">Đầu</a>
@@ -45,41 +44,41 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>Ảnh đại diện</th>
-                        <th>Họ và tên</th>
-                        <th>Email</th>
-                        <th>Số lượng hóa đơn</th>
-                        <th>Số lượt thích</th>
-                        <th>Kích hoạt tài khoản</th>
+                        <th>Ảnh sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Khách hàng</th>
+                        <th>Địa chỉ</th>
+                        <th>Số điện thoại</th>
+                        <th>Mã đơn hàng</th>
+                        <th>Giá trị</th>
+                        <th>Trạng thái</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="item" items="${users}">
+                    <c:forEach var="item" items="${orders}">
                         <tr>
-                            <td><img src="/images/${item.image}" class="img-thumbnail" alt="Ảnh đại diện"
+                            <td><img src="/uploadProduct/${item.imageProduct}" class="img-thumbnail" title="Ảnh sản phẩm"
                                      style="width: 50px;height: 50px">
                             </td>
-                            <td>${item.name}</td>
-                            <td>${item.email}</td>
-                            <td>${item.countInvoice}</td>
-                            <td>${item.countWishLists}</td>
-                            <td>
-                                <form action="/admin/edit-user/${item.userID}">
-                                    <input type="checkbox" name="isDelete"
-                                           id="userIsDelete" ${item.isDelete?'':'checked'}
-                                           onclick="this.form.submit()"/>
-                                    <label>${item.isDelete?'Chưa kích hoạt':'Kích hoạt'}</label>
-                                </form>
-
+                            <td>${item.nameProduct}</td>
+                            <td>${item.nameCustomer}</td>
+                            <td style="max-width: 200px;">${item.addressCustomer}</td>
+                            <td>${item.phoneCustomer}</td>
+                            <td>${item.invoiceID}</td>
+                            <td>${item.totalAmount}</td>
+                            <td style="max-width: 130px;">                           
+                                <select class="form-select">								    
+								    <option value="Đặt hàng" <c:if test="${item.status eq 'Đặt hàng'}">selected</c:if>>Đặt hàng</option>
+								    <option value="Thành công" <c:if test="${item.status eq 'Thành công'}">selected</c:if>>Thành công</option>
+								    <option value="Đã hủy" <c:if test="${item.status eq 'Đã hủy'}">selected</c:if>>Đã hủy</option>								
+								</select>                            
                             </td>
+                            
 
                             <td>
-                                <!-- href="/admin/list-invoice-by-user/${item.userID}" -->
-                                <a href="#"
-                                   data-bs-toggle="modal"
-                                   data-bs-target="#listInvoiceByUserModal"
-                                   class="open-invoice-modal" data-user-id="${item.userID}">Xem hóa đơn</a>
+                                
+                                <a href="#" data-user-id="${item.invoiceID}">Chi tiết</a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -90,20 +89,3 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="listInvoiceByUserModal" tabindex="-1" aria-labelledby="listInvoiceByUserModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="listInvoiceByUserModalLabel">Danh sách hóa đơn</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>

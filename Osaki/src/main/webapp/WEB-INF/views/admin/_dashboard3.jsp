@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+
+
+<%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
+<!--  
 <div class="topbar">
     <div class="toggle">
         <ion-icon name="menu-outline"></ion-icon>
@@ -16,7 +20,7 @@
             <img title="${userAdminLogin.fullName}" src="/images/${userAdminLogin.image}">
         </a>       
     </div>
-</div>
+</div> -->
 <div class="cardBox">
     <div class="cardP">
         <div class="cardP-body">

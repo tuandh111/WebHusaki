@@ -11,8 +11,7 @@ import lombok.Data;
 public class InventoryTransactions {
 	private String name;
 	private double quantityInstock;
-//	private double quantitySolds;
-//	private double totalAmount;
+
 	
 	public static List<InventoryTransactions> convert(List<Object[]> list){
 		List<InventoryTransactions> finalList = new ArrayList<InventoryTransactions>();
@@ -21,8 +20,6 @@ public class InventoryTransactions {
 			Product product = (Product) o[0];			
 			inventoryTransactions.setName(product.getName());
 			inventoryTransactions.setQuantityInstock(product.getQuantityInStock());;
-//			inventoryTransactions.setQuantitySolds((double) o[1]);;
-//			inventoryTransactions.setTotalAmount((double) o[2]);
 			finalList.add(inventoryTransactions);
 		}
 		return finalList;

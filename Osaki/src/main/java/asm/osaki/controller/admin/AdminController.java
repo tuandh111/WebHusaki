@@ -36,12 +36,13 @@ import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
 import asm.osaki.model.admin.DataRevenueByCategory;
 import asm.osaki.model.admin.InventoryTransactions;
+import asm.osaki.model.admin.OrderInfo;
 import asm.osaki.model.admin.ProductAdd;
 import asm.osaki.model.admin.UserAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
 import asm.osaki.repositories.product_repositories.ImageRepository;
 import asm.osaki.repositories.product_repositories.ProductRepository;
-
+import asm.osaki.repositories.statistics_repositories.OrderRepository;
 import asm.osaki.model.admin.ProductLatest;
 
 import asm.osaki.repositories.user_repositories.CommentRepository;
@@ -75,6 +76,8 @@ public class AdminController {
 	@Autowired
 	private CommentRepository commentRepository;
 	@Autowired
+	private OrderRepository orderRepository;
+	@Autowired
 	private SessionService sessionService;
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -101,9 +104,9 @@ public class AdminController {
 
 			if (content.equals("_content-category.jsp")) {
 				page = categoryRepository.findAllByNameLike(keywordSearch, pageable);
-				System.out.println("categoryAndCount1: " + page.get().count());
+//				System.out.println("categoryAndCount1: " + page.get().count());
 				List<CategoryAndCount> convertedResults = CategoryAndCount.convert(page.getContent());
-				System.out.println("categoryAndCount: " + convertedResults.get(0).getName());
+//				System.out.println("categoryAndCount: " + convertedResults.get(0).getName());
 				model.addAttribute("categories", convertedResults);
 			} else if (content.equals("_content-account.jsp")) {
 				page = userCustomRepository.findAllByNameLike(keywordSearch, pageable);
@@ -113,6 +116,11 @@ public class AdminController {
 				page = productRepository.findAllByNameLikePro(keywordSearch, pageable);
 				List<ProductAdd> convertedResults = ProductAdd.convert(page.getContent());
 				model.addAttribute("item", convertedResults);
+			}else if(content.equals("_content-order.jsp")) {
+				page = orderRepository.findAllByNameLike(keywordSearch, pageable);
+				List<OrderInfo> convertedResults = OrderInfo.convert(page.getContent());
+				model.addAttribute("orders", convertedResults);				
+				System.out.println("orders "+ convertedResults.toString());
 			}
 
 			if (page != null) {

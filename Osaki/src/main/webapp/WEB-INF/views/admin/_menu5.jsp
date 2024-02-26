@@ -35,35 +35,16 @@
                 <span class="title">Danh mục</span>
             </a>
         </li>
-        
         <li>
-            <a href="/admin?content=_content-brand.jsp">
-                <span class="icon"><ion-icon name="bookmarks-outline"></ion-icon></span>
-                <span class="title">Thương hiệu</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
+            <a href="/admin?content=_content-order.jsp">
                 <span class="icon"><ion-icon name="grid-outline"></ion-icon></span>
                 <span class="title">Đơn hàng</span>
             </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="icon"><ion-icon name="thumbs-up-outline"></ion-icon></span>
-                <span class="title">Đánh giá</span>
-            </a>
-        </li>
+        </li>     
         <li>
             <a href="#">
                 <span class="icon"><ion-icon name="pie-chart-outline"></ion-icon></span>
                 <span class="title">Thống kê</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
-                <span class="title">Cài đặt</span>
             </a>
         </li>
         <li>
