@@ -34,7 +34,12 @@ public class OrderInfo {
 			UserCustom userCustom = (UserCustom) o[1];
 			Invoice invoice = (Invoice) o[2];
 			Address address = (Address) o[3];
-			orderInfo.setImageProduct(productImages.get(0).getImageName());
+			if(productImages.isEmpty()) {
+				orderInfo.setImageProduct(null);
+			}else {
+				orderInfo.setImageProduct(productImages.get(0).getImageName());
+			}
+			
 			orderInfo.setNameProduct(product.getName());
 			orderInfo.setNameCustomer(userCustom.getFullName());
 			orderInfo.setAddressCustomer(address.getAddress());

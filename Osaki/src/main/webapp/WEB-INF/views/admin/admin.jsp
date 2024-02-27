@@ -40,6 +40,7 @@
 <script type="text/javascript" src="/js/admin-chart.js"></script>
 <script src="/js/admin-user.js"></script>
 <script src="/js/admin-category.js"></script>
+<script src="/js/admin-order.js"></script>
 <script>
     //menu toggle
     let toggle = document.querySelector('.toggle');

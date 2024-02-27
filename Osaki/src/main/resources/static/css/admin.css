@@ -592,3 +592,9 @@ body {
 	text-align: right;
 }
 
+
+/* Thiết lập màu cho các option đã chọn */
+.order-select-form {
+	border: none;	
+}
+
