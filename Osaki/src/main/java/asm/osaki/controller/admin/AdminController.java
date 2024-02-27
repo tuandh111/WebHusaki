@@ -81,10 +81,9 @@ public class AdminController {
 	private SessionService sessionService;
 	@Autowired
 	private ObjectMapper objectMapper;
-	
+
 	@Autowired
-    private VisitorCounter visitorCounter;
-	
+	private VisitorCounter visitorCounter;
 
 	@GetMapping
 	public String getHome(@RequestParam(name = "content", required = false) String content,
@@ -104,9 +103,9 @@ public class AdminController {
 
 			if (content.equals("_content-category.jsp")) {
 				page = categoryRepository.findAllByNameLike(keywordSearch, pageable);
-//				System.out.println("categoryAndCount1: " + page.get().count());
+				// System.out.println("categoryAndCount1: " + page.get().count());
 				List<CategoryAndCount> convertedResults = CategoryAndCount.convert(page.getContent());
-//				System.out.println("categoryAndCount: " + convertedResults.get(0).getName());
+				// System.out.println("categoryAndCount: " + convertedResults.get(0).getName());
 				model.addAttribute("categories", convertedResults);
 			} else if (content.equals("_content-account.jsp")) {
 				page = userCustomRepository.findAllByNameLike(keywordSearch, pageable);
@@ -116,11 +115,11 @@ public class AdminController {
 				page = productRepository.findAllByNameLikePro(keywordSearch, pageable);
 				List<ProductAdd> convertedResults = ProductAdd.convert(page.getContent());
 				model.addAttribute("item", convertedResults);
-			}else if(content.equals("_content-order.jsp")) {
+			} else if (content.equals("_content-order.jsp")) {
 				page = orderRepository.findAllByNameLike(keywordSearch, pageable);
 				List<OrderInfo> convertedResults = OrderInfo.convert(page.getContent());
-				model.addAttribute("orders", convertedResults);				
-				System.out.println("orders "+ convertedResults.toString());
+				model.addAttribute("orders", convertedResults);
+				System.out.println("orders " + convertedResults.toString());
 			}
 
 			if (page != null) {
@@ -140,16 +139,13 @@ public class AdminController {
 			model.addAttribute("content", "_dashboard3.jsp");
 		}
 
-		List<Category> catelist = categoryRepository.findAll();
-		model.addAttribute("cateList", catelist);
-
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());
 		model.addAttribute("totalRevenue", currencyFormat.format(invoiceRepository.getRevenue()));
 		model.addAttribute("totalComments", commentRepository.getTotalComment());
-		
+
 		int visitorCount = visitorCounter.getCount();
-        model.addAttribute("visitorCount", visitorCount);
+		model.addAttribute("visitorCount", visitorCount);
 		// Lấy 3 sản phẩm từ hóa đơn gần nhất
 		Pageable pageable = PageRequest.of(p.orElse(0), 3);
 		model.addAttribute("recentProduct",
@@ -232,7 +228,7 @@ public class AdminController {
 
 		String upLoadDir = System.getProperty("user.dir") + "/uploadProduct/";
 		System.out.println(upLoadDir);
-		paramService.save2(fileImage, upLoadDir);
+		paramService.saveImgProduct(fileImage, upLoadDir);
 
 		String ImageSP = fileImage.getOriginalFilename();
 
