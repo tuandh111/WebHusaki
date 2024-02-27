@@ -109,7 +109,7 @@ public class checkOutController {
                 if(product.getQuantityInStock()-cart.getQuantity() < 0){
                     return ResponseEntity.ok("NotEnoughProducts");
                 }
-                productRepository.save(product);
+                //productRepository.save(product);
                 invoiceDetailRepository.save(invoiceDetail);
                 cartRepository.save(cart1);
             } catch (Exception e) {
