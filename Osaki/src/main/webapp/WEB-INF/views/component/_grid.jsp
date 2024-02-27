@@ -69,9 +69,9 @@
             <span></span>
             <span></span>
         </div>
-        <%--         <a href="home" class="header__logo"> --%>
-        <%--             <img src="/images/product/product1.jpg" alt=""> --%>
-        <%--         </a> --%>
+        <a href="home" class="header__logo">
+            <img src="/imagesAdmin/hasagi-logo.jpg" width="40px">
+        </a>
         <div class="header__search">
             <div class="header__search-wrap">
                 <form action="/product/search">
@@ -84,7 +84,7 @@
                     <%--                     </select> --%>
                     <input type="text" class="header__search-input" id="search-item" placeholder="Tìm kiếm"
                            name="search" onkeyup="search1()" onfocus="showMenu()" onblur="hideMenu(event)"/>
-        
+
                 </form>
                 <div class="menu" id="menu">
                     <c:forEach var="productList" items="${listProduct}">
