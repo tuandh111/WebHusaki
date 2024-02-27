@@ -10,9 +10,6 @@
 <div class="row p-5">
 
     <div class="col-4 custom-add-new-category">
-        <!--  <button class="btn btn-primary mb-3" data-bs-toggle="collapse" 
-        data-bs-target="#collapseWidthAddCategory" aria-expanded="false" 
-        aria-controls="collapseWidthAddCategory">Thêm danh mục</button> -->
         <div class="add-category">
             <form:form action="/admin/add-category" modelAttribute="category" id="add-category-form" method="post">
                 <form:label path="categoryName">Tên danh mục</form:label>
@@ -38,24 +35,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-8 d-flex justify-content-end">
-                <!--  
-                <input class="form-control me-2" value="${totalElements} danh mục"
-                       style="max-width: 25%;background-color: #b7a888;" disabled="disabled">
-                <c:if test="${not booleanFirst}">
-                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-category.jsp&p=0">Đầu</a>
-                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-category.jsp&p=${prevPage}">Trước</a>
-                </c:if>
-                <input class="form-control" name="currentPage" value="${currentPage}"
-                       style="max-width: 9%;background-color: #b7a888;" disabled="disabled">
-                <input class="form-control me-2" value="of ${totalPages}"
-                       style="max-width: 11%; background-color: #b7a888;" disabled="disabled">
-                <c:if test="${not booleanLast}">
-                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-category.jsp&p=${nextPage}">Tiếp</a><a
-                        class="btn btn-outline-secondary me-2"
-                        href="/admin?content=_content-category.jsp&p=${totalPages}">Cuối</a>
-                </c:if> -->
-                
+            <div class="col-8 d-flex justify-content-end">               
                 <%@ include file="/WEB-INF/views/admin/__navigation-button.jsp" %>
             </div>
         </div>

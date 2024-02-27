@@ -70,6 +70,7 @@
     console.log(dataRevenueByCategory);
     var dataInventory = ${dataInventory};
     console.log(dataInventory);
+    
 </script>
 </body>
 </html>

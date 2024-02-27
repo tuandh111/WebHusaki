@@ -15,6 +15,9 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
     List<Object[]> countProductsOrderByCountDesc();
     @Query("select  p from  invoiceDetail p where p.invoiceID = ?1")
     List<InvoiceDetail> findByInvoiceID(Integer id);
+    
+    @Query("SELECT id from invoiceDetail id where id.invoiceID.invoiceID = ?1")
+    List<InvoiceDetail> findByInvoiceIdFk (String id);
 
     @Query("SELECT id1_0.quantity FROM invoiceDetail id1_0  WHERE id1_0.productID.productID = :productID")
     List<Object[]> countSoldProductsByProductID(@Param("productID") int productID);

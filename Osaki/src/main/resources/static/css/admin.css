@@ -598,3 +598,10 @@ body {
 	border: none;	
 }
 
+.cancel-order {
+	text-align: end;	
+}
+
+.cancel-order a {
+    color: red;    
+}

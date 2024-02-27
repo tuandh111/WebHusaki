@@ -104,9 +104,7 @@ public class AdminController {
 
 			if (content.equals("_content-category.jsp")) {
 				page = categoryRepository.findAllByNameLike(keywordSearch, pageable);
-//				System.out.println("categoryAndCount1: " + page.get().count());
 				List<CategoryAndCount> convertedResults = CategoryAndCount.convert(page.getContent());
-//				System.out.println("categoryAndCount: " + convertedResults.get(0).getName());
 				model.addAttribute("categories", convertedResults);
 			} else if (content.equals("_content-account.jsp")) {
 				page = userCustomRepository.findAllByNameLike(keywordSearch, pageable);
@@ -121,6 +119,7 @@ public class AdminController {
 				List<OrderInfo> convertedResults = OrderInfo.convert(page.getContent());
 				model.addAttribute("orders", convertedResults);				
 				System.out.println("orders "+ convertedResults.toString());
+								
 			}
 
 			if (page != null) {

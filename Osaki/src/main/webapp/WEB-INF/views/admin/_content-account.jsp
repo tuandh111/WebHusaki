@@ -21,22 +21,7 @@
                 </form>
             </div>
             <div class="col-8 d-flex justify-content-end">
-                <!--  
-                <input class="form-control me-2" value="${totalElements} tài khoản"
-                       style="max-width: 15%;background-color: #b7a888;" disabled="disabled">
-                <c:if test="${not booleanFirst}">
-                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=0">Đầu</a>
-                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=${prevPage}">Trước</a>
-                </c:if>
-                <input class="form-control" name="currentPage" value="${currentPage}"
-                       style="max-width: 8%;background-color: #b7a888;" disabled="disabled">
-                <input class="form-control me-2" value="of ${totalPages}"
-                       style="max-width: 12%; background-color: #b7a888;" disabled="disabled">
-                <c:if test="${not booleanLast}">
-                    <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-account.jsp&p=${nextPage}">Tiếp</a>
-                    <a class="btn btn-outline-secondary me-2"
-                       href="/admin?content=_content-account.jsp&p=${totalPages}">Cuối</a>
-                </c:if> -->
+                
                 <%@ include file="/WEB-INF/views/admin/__navigation-button.jsp" %>
             </div>
         </div>

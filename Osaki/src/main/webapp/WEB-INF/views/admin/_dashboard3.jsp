@@ -4,23 +4,7 @@
 
 
 <%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
-<!--  
-<div class="topbar">
-    <div class="toggle">
-        <ion-icon name="menu-outline"></ion-icon>
-    </div>
-    <div class="search">
-        <label>
-            <input type="text" placeholder="Tìm kiếm...">
-            <ion-icon name="search-outline"></ion-icon>
-        </label>
-    </div>
-    <div class="user">
-        <a href="/profile">
-            <img title="${userAdminLogin.fullName}" src="/images/${userAdminLogin.image}">
-        </a>       
-    </div>
-</div> -->
+
 <div class="cardBox">
     <div class="cardP">
         <div class="cardP-body">
@@ -66,7 +50,7 @@
     <div class="recentOrders">
         <div class="cardHeader d-flex flex-row justify-content-between">
             <h2>Đơn hàng gần đây</h2>
-            <!-- <a href="#" class="btn btn-custom">Xem tất cả</a> -->
+            <a href="/admin?content=_content-order.jsp" class="btn btn-custom">Xem tất cả</a>
         </div>
         <table class="table table-hover table-custom">
             <thead>

@@ -13,11 +13,7 @@
                 <span class="title">Dashboard</span>
             </a>
         </li>
-        <li>
-           <!--   <a href="/admin/account-manager">
-                <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-                <span class="title">Tài khoản</span>
-            </a> -->
+        <li>          
             <a href="/admin?content=_content-account.jsp">
                 <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
                 <span class="title">Tài khoản</span>
