@@ -267,6 +267,17 @@
                 <h3><a href="/product/filterByPrice?sort=desc" class="btn btn-primary m-md-2">Giá cao đến thấp</a></h3>
                 <h3><a href="/product/filter-product-by-promotional" class="btn btn-primary m-md-2">Khuyến mãi</a></h3>
                 <h3><a href="/product/bestselling" class="btn btn-primary m-md-2">Bán chạy</a></h3>
+                <form action="/product/filterByPrice" style="white-space: nowrap;">
+                    <input type="number" class="" style="font-size: 16px; width: 220px "
+                           name="minPromotional" min="0"
+                           placeholder="Phần trăm khuyến mãi từ" required>
+                    <input type="number" class=" " style="font-size: 16px;width: 220px"
+                           name="maxPromotional" max="100"
+                           placeholder="Phần trăm khuyến mãi đến" required>
+                    <button class="btn btn-primary" id="btn-primary-promotional"
+                            style=" padding:6px; margin-bottom: 5px ">Áp dụng
+                    </button>
+                </form>
             </div>
         </div>
         <div class="productList">
@@ -274,12 +285,16 @@
                 <div class="col-lg-3">
                     <h2>Lọc giá:</h2>
                     <form action="/product/filterByPrice">
-                        <input type="text" class="form-control autonumeric" value="${minPrice}" name="minPrice"
+                        <input type="text" class="form-control autonumeric" style="font-size: 16px" value="${minPrice}"
+                               name="minPrice"
                                placeholder="Từ" required>
-                        <input type="text" class="form-control autonumeric" value="${maxPrice}" name="maxPrice"
+                        <input type="text" class="form-control autonumeric" style="font-size: 16px" value="${maxPrice}"
+                               name="maxPrice"
                                placeholder="Đến" required>
-                        <button class="btn btn-primary mt-2">Áp dụng</button>
+                        <button class="btn btn-primary mt-2 kwSearchPrice" id="btn-primary">Áp dụng</button>
                     </form>
+
+
                     <h1>Danh mục</h1>
                     <c:forEach items="${listCategories }" var="c" varStatus="i">
                         <label class="container" data-category="${c.categoryID}">${c.categoryName}
@@ -324,7 +339,7 @@
                                                                     </div>
                                                                     <c:choose>
                                                                         <c:when test="${p.quantityInStock>0}">
-                                                                            <div class="price__new"
+                                                                            <div class="price__new price"
                                                                                  style="margin-left: 30px">
                                                                                 <fmt:formatNumber
                                                                                         type="number"
@@ -353,7 +368,7 @@
                                                     <c:otherwise>
                                                         <c:choose>
                                                             <c:when test="${p.quantityInStock>0}">
-                                                                <div class="price__new"><fmt:formatNumber
+                                                                <div class="price__new price"><fmt:formatNumber
                                                                         type="number"
                                                                         pattern="###,###,###"
                                                                         value="${p.price}"/>
@@ -470,12 +485,12 @@
         }
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var buttons = document.querySelectorAll('.btn-primary');
 
-        buttons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                buttons.forEach(function(btn) {
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                buttons.forEach(function (btn) {
                     btn.classList.remove('active');
                 });
 
@@ -489,7 +504,7 @@
         // Kiểm tra nếu có trạng thái được lưu trước đó và áp dụng nó khi tải trang
         var activeButton = localStorage.getItem('activeButton');
         if (activeButton) {
-            buttons.forEach(function(button) {
+            buttons.forEach(function (button) {
                 if (button.getAttribute('href') === activeButton) {
                     button.classList.add('active');
                 }

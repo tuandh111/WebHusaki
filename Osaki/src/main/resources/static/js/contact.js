@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $('#sendMessage').click(function (e) {
         e.preventDefault();
-        let fullName =$('#fullname').val();
+        let fullName = $('#fullname').val();
         let email = $('#email').val();
         let message = $('#message').val();
         let isLoggedIn = $(this).data('user-id') !== '';
@@ -33,14 +33,15 @@ $(document).ready(function () {
                     message: message
                 },
                 success: function (response) {
-                    if (response == 'success'){
+                    if (response == 'success') {
+                        $("#message").val("");
                         Swal.fire({
                             title: 'Thành công', text: "Gửi email thành công", showConfirmButton: true, timer: 3500
                         })
-
-                    }else{
+                    } else {
                         Swal.fire({
-                            icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500})
+                            icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500
+                        })
                     }
 
                 },
@@ -50,7 +51,7 @@ $(document).ready(function () {
                         icon: 'error', title: 'Lỗi', text: "Có lỗi xảy ra", showConfirmButton: true, timer: 3500
                     }).then(function () {
                         // Redirect to the home page
-                     // Change '/home' to the actual URL of your home page
+                        // Change '/home' to the actual URL of your home page
                     });
                 }
             });
