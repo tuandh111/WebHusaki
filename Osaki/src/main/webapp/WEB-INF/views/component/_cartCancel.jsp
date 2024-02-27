@@ -20,7 +20,7 @@
                         <div class="col l-2 m-2 s-0"></div>
                     </div>
                     <c:forEach var="invoiceList" items="${invoiceList}">
-                        <c:if test="${invoiceList.status == 'Đa hủy đơn hàng'}">
+                        <c:if test="${invoiceList.status == 'Đã hủy đơn hàng'}">
                             <div class="row item ${invoiceList.invoiceID}">
                                 <div class="col l-4 m-4 s-8">
                                     <div class="main__cart-product">

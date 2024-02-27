@@ -218,16 +218,16 @@
                                                                                                                toán
                                                                                                                VNPAY
                             </div>
-                            <div class="main__pay-title">Phiếu ưu đãi</div>
+<%--                             <div class="main__pay-title">Phiếu ưu đãi</div> --%>
 
-                            <select name="voucher" id="voucher" required class="form-control">
-                                <option value="">Chọn voucher</option>
-                                <c:forEach var="voucherList" items="${voucherList}">
-                                    <option value="${voucherList.id}">Giam
-                                                                      gia: ${voucherList.discount * 100}</option>
-                                </c:forEach>
-                            </select>
-                            <div class="btn btn--default" id="apply">Áp dụng</div>
+                                <%--                             <select name="voucher" id="voucher" required class="form-control"> --%>
+                                <%--                                 <option value="">Chọn voucher</option> --%>
+                                <%--                                 <c:forEach var="voucherList" items="${voucherList}"> --%>
+                                <%--                                     <option value="${voucherList.id}">Giam --%>
+                                <%--                                                                       gia: ${voucherList.discount * 100}</option> --%>
+                                <%--                                 </c:forEach> --%>
+                                <%--                             </select> --%>
+                                <%--                             <div class="btn btn--default" id="apply">Áp dụng</div> --%>
                         </div>
                     </div>
                 </div>

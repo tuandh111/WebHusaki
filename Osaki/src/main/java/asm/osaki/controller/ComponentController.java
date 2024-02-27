@@ -183,7 +183,7 @@ public class ComponentController {
 
         try {
             Invoice invoice = invoiceRepository.findByInvoiceID(invoieID);
-            invoice.setStatus("Đa hủy đơn hàng");
+            invoice.setStatus("Đã hủy đơn hàng");
             invoiceRepository.save(invoice);
         } catch (Exception e) {
             e.printStackTrace();

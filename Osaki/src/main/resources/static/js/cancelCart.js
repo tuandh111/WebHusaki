@@ -31,7 +31,7 @@ $(document).ready(function () {
 
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Thanh cong',
+                                title: 'Thành công',
                                 text: "Cập nhật đơn hàng thành công !",
                                 showConfirmButton: false,
                                 timer: 3500
@@ -84,7 +84,7 @@ $(document).ready(function () {
 
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Thanh cong',
+                                title: 'Thành công',
                                 text: "Cập nhật đơn hàng thành công!",
                                 showConfirmButton: false,
                                 timer: 3500
