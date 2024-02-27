@@ -1,6 +1,9 @@
 package asm.osaki.entities.product;
 
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +25,7 @@ public class Category {
 
     @Column
     @Nationalized
+    @NotBlank(message = "(*) Vui lòng nhập tên danh mục")
     private String categoryName;
 
     @Temporal(TemporalType.DATE)

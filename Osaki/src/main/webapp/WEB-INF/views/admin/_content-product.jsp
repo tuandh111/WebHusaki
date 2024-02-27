@@ -22,7 +22,7 @@
     
     
     <div class="col-8 d-flex justify-content-end">
-                 <!-- <jsp:include page="__navigation-button.jsp" /> -->
+                 
                 <input class="form-control me-2" value="${totalElements} sản phẩm" style="max-width: 15%;background-color: #b7a888;" disabled="disabled">               
                 <c:if test="${not booleanFirst}">
                     <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-product.jsp&p=0">Đầu</a>

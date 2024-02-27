@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<c:set var="isUpdate" value="${param.isUpdate}"/>
+<%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
 <div class="row mb-4 p-5">
     <h2>Quản lý danh mục</h2>
 </div>
@@ -14,15 +14,16 @@
         data-bs-target="#collapseWidthAddCategory" aria-expanded="false" 
         aria-controls="collapseWidthAddCategory">Thêm danh mục</button> -->
         <div class="add-category">
-            <form:form action="/admin/add-category" modelAttribute="category" method="get">
+            <form:form action="/admin/add-category" modelAttribute="category" id="add-category-form" method="post">
                 <form:label path="categoryName">Tên danh mục</form:label>
-                <form:input path="categoryName" class="form-control"/>
+                <form:input path="categoryName" class="form-control"/>                            
+                <br>
                 <br>
                 <form:checkbox path="isDelete"/>
                 <form:label path="isDelete">Kich hoạt ?</form:label>
                 <br>
                 <br>
-                <form:button class="btn btn-primary">Thêm mới Danh mục</form:button>
+                <form:button class="btn btn-outline-primary add-new-category">Thêm mới Danh mục</form:button>
             </form:form>
         </div>
 
@@ -38,7 +39,7 @@
                 </form>
             </div>
             <div class="col-8 d-flex justify-content-end">
-                <!-- <jsp:include page="__navigation-button.jsp" /> -->
+                <!--  
                 <input class="form-control me-2" value="${totalElements} danh mục"
                        style="max-width: 25%;background-color: #b7a888;" disabled="disabled">
                 <c:if test="${not booleanFirst}">
@@ -53,7 +54,9 @@
                     <a class="btn btn-outline-secondary me-2" href="/admin?content=_content-category.jsp&p=${nextPage}">Tiếp</a><a
                         class="btn btn-outline-secondary me-2"
                         href="/admin?content=_content-category.jsp&p=${totalPages}">Cuối</a>
-                </c:if>
+                </c:if> -->
+                
+                <%@ include file="/WEB-INF/views/admin/__navigation-button.jsp" %>
             </div>
         </div>
         <div class="row">
@@ -81,7 +84,9 @@
                                    data-bs-target="#editCategoryModal"
                                    data-info='{"id": "${item.id}", "name": "${item.name}", "isDelete": "${item.isDelete}"}'>Sửa</a>
                                 |
-                                <a href="/admin/delete-category/${item.id}" class="text-danger"
+                               <!--   <a href="/admin/delete-category/${item.id}" class="text-danger"
+                                   style="${item.isDelete ? 'display: none;' : ''}">Xóa</a>  -->
+                                <a href="/admin/delete-category" data-delete-id="${item.id}" class="text-danger delete-category"
                                    style="${item.isDelete ? 'display: none;' : ''}">Xóa</a>
 
                             </td>
@@ -137,7 +142,7 @@
                     document.getElementById('editIsDelete').checked = false;
                 } else {
                     document.getElementById('editIsDelete').checked = true;
-                }
+                }            
             });
         });
     });
