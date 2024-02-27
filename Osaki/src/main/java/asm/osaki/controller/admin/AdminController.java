@@ -127,12 +127,6 @@ public class AdminController {
 			model.addAttribute("content", "_dashboard3.jsp");
 		}
 
-//		List<Product> item = productRepository.findAll();
-//		model.addAttribute("item",item);
-		
-		List<Category> catelist = categoryRepository.findAll();
-		model.addAttribute("cateList",catelist);
-
 		
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());
@@ -250,15 +244,52 @@ public class AdminController {
         
         return ResponseEntity.ok(htmlBuilder.toString());      
     }
-	
-
-	@GetMapping("add-or-edit-product")
-	public String addOrEditProduct(@RequestParam(name = "action") String action, Model model) {
-		model.addAttribute("action", action);
-		List<Category> categories = categoryRepository.findAll(); // Lấy danh sách danh mục từ cơ sở dữ liệu
-	    model.addAttribute("categories", categories);
-		return "redirect:/admin?content=__form-control-product.jsp&action=" + action;
+	@GetMapping("/add-or-edit/{id}")
+	public String editForm(Model model,@PathVariable("id") Integer id)
+	{
+		model.addAttribute("content","__form-control-product.jsp");
+		Product updateProduct = productRepository.findByProductID(id);
+		 model.addAttribute("updateProduct", updateProduct);
+		 
+		return "admin/admin";
 	}
+	@GetMapping("/admin/add-or-edit-product?action=edit/{id}")
+	public String addOrEditProduct( @PathVariable("id") Integer id, Model model) {
+	   // model.addAttribute("action", action);
+		 Product updateProduct = productRepository.findByProductID(id);
+		 model.addAttribute("updateProduct", updateProduct);
+	    List<Category> categories = categoryRepository.findAll(); // Lấy danh sách danh mục từ cơ sở dữ liệu
+	    model.addAttribute("categories", categories);
+	    return "redirect:/admin?content=__form-control-product.jsp";
+	}
+
+	
+	
+//	@GetMapping("add-or-edit-product/{id}")
+//	public String updateProduct(Model model, @PathVariable("id") Integer id) {
+//	    Product updateProduct = productRepository.findByProductID(id);
+//	    model.addAttribute("updateProduct", updateProduct);
+//	    List<Category> categories = categoryRepository.findAll(); // Lấy danh sách danh mục từ cơ sở dữ liệu
+//	    model.addAttribute("categories", categories);
+//	    return "/admin?content=__form-control-product"; // Trả về view trực tiếp cho trang chỉnh sửa sản phẩm
+//	}
+
+
+
+	
+//	@PostMapping("edit-product/{id}")
+//	public String updateProduct(Model model, @PathVariable("id") Integer id) {
+//		Product updateProduct = productRepository.findByProductID(id);
+//		model.addAttribute("updateProduct", updateProduct);
+//		
+//		return "redirect:/admin?content=_content-product.jsp";
+//	}
+	
+	
+	
+	
+	
+	
 	
 
 	@PostMapping("add-product")
@@ -294,7 +325,7 @@ public class AdminController {
 		
 		String upLoadDir = System.getProperty("user.dir")+ "/uploadProduct/";
 		System.out.println(upLoadDir);
-		paramService.save(fileImage, upLoadDir);
+		paramService.saveImgProduct(fileImage, upLoadDir);
 		
 		String ImageSP = fileImage.getOriginalFilename();
 		
@@ -309,6 +340,7 @@ public class AdminController {
 		imageRepository.save(imageProduct);
 		
 		
+		
 		return "redirect:/admin?content=_content-product.jsp";
 	}
 	
@@ -319,6 +351,24 @@ public class AdminController {
         sessionService.remove("userLogin");
         return "/login";
     }
-
+	
+	
+	
+	
+	@ModelAttribute("cateList")
+	public List<Category> getAllCategory(){
+		return categoryRepository.findAll();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

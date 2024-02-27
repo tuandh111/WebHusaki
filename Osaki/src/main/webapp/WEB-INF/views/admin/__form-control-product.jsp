@@ -6,13 +6,13 @@
 
 <div class="container mt-5">
 	<h3>${action=='add' ? 'Thêm' : 'Sửa'} sản phẩm</h3>
-	<form method="post" action="/admin/add-product"
+	<form method="post" <%-- action="${action=='add' ? '/admin/add-product' : '/admin/edit-product/${updateProduct.id}'}" --%>
 		enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="mb-3">
 					<label for="productName" class="form-label">Tên sản phẩm</label> <input
-						type="text" class="form-control" id="productName"
+						type="text" class="form-control" id="productName" value="${updateProduct.name}"
 						name="productName" placeholder="Tên sản phẩm">
 				</div>
 				<div class="mb-3">
