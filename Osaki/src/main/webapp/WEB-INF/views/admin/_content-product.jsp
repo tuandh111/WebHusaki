@@ -4,21 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="row mb-3 p-5">
 	<div class="d-flex flex-row">
-		<h4 class="me-2">Product</h4>
+		<h4 class="me-2">Sản phẩm</h4>
 		<a href="/admin/add-or-edit-product?action=add"
-			class="btn btn-outline-primary">Add new product</a>
+			class="btn btn-outline-primary">Thêm mới sản phẩm</a>
 	</div>
 </div>
 <div class="row p-5">
-	<div class="filer-category d-flex flex-row mb-3">
-		<select class="form-select me-2" style="max-width: 30%;">
-			<option selected>All Categories</option>
-			<option value="1">One</option>
-			<option value="2">Two</option>
-			<option value="3">Three</option>
-		</select>
-		<button class="btn btn-outline-primary">Filer</button>
-	</div>
+
 
 
 
@@ -70,9 +62,14 @@
 						<td>${item.id}</td>
 						<td>
 							<div class="d-flex">
-								<img src="/uploadProduct/${item.image}"
-									class="img-thumbnail me-3" alt="Ảnh đại diện"
-									style="width: 50px; height: 50px">
+
+						<!--		<c:forEach var="image" items="${item.image}">
+									<img src="/imageProduct/${image.image}"
+										class="img-thumbnail me-3" alt="Ảnh sản phẩm">
+								</c:forEach>-->
+								  <img  src="<c:url value='imagePro/${item.id}' />" class="img-thumbnail me-3"
+								  alt="Ảnh đại diện" style="width: 50px; height: 50px">
+
 								<div class="row">
 									<div class="col-4">
 										<i class="bi bi-bag"></i> <span>${item.countInvoice}</span>
@@ -80,9 +77,7 @@
 									<div class="col-4">
 										<i class="bi bi-balloon-heart-fill"></i> <span>${item.countWishLists}</span>
 									</div>
-									<div class="col-4">
-										<i class="bi bi-eye"></i> <span>100</span>
-									</div>
+
 								</div>
 							</div>
 						</td>
@@ -91,10 +86,9 @@
 						<td>${item.quantity}
 						<td>${item.isDelete}</td>
 						<td>${item.categoryID.categoryName}</td>
-						<td><a
-							href="/admin/add-or-edit/${item.id}"
-							class="btn btn-outline-primary">Edit</a> | <a href="#"
-							class="btn btn-outline-danger">Delete</a></td>
+						<td><a href="/admin/add-or-edit/${item.id}"
+							class="btn btn-outline-primary">Sửa</a> | <a
+							href="/admin/delete/${item.id}" class="btn btn-outline-danger">Xóa</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
