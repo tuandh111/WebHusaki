@@ -44,12 +44,8 @@ public class ListProductController {
 
     @GetMapping("list/product")
     public String listProductController(@ModelAttribute("UserC") UserCustom userCustom, Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "30") int size) {
-        String minPrice = sessionService.get("minPrice");
-        String maxPrice = sessionService.get("maxPrice");
 
         // Đưa giá trị minPrice và maxPrice vào model để sử dụng trong view
-        model.addAttribute("minPrice", minPrice);
-        model.addAttribute("maxPrice", maxPrice);
         sessionService.remove("minPrice");
         sessionService.remove("maxPrice");
 

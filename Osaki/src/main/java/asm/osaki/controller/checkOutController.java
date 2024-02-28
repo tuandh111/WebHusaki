@@ -102,13 +102,14 @@ public class checkOutController {
             cart1.setCheckPay(true);
             try {
                 Product product = productRepository.findByProductID(cart.getProduct().getProductID());
-                product.setQuantityInStock(product.getQuantityInStock() - cart.getQuantity());
-                if ( product.getQuantityInStock()==0) {
+                System.out.println("product quantityInStock: " + product.getQuantityInStock());
+                if (product.getQuantityInStock() == 0) {
                     return ResponseEntity.ok("failQuantity");
                 }
-                if(product.getQuantityInStock()-cart.getQuantity() < 0){
+                if (product.getQuantityInStock() - cart.getQuantity() < 0) {
                     return ResponseEntity.ok("NotEnoughProducts");
                 }
+                //product.setQuantityInStock(product.getQuantityInStock() - cart.getQuantity());
                 //productRepository.save(product);
                 invoiceDetailRepository.save(invoiceDetail);
                 cartRepository.save(cart1);

@@ -18,6 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Nationalized;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -137,11 +138,16 @@ public class Product {
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<Cart> productCart;
+
     @Override
     public String toString() {
         return "Product{" + "productID=" + productID + ", createAt=" + createAt + ", deleteAt=" + deleteAt + ", isDelete=" + isDelete + ", price=" + price + ", name='" + name + '\'' + ", quantityInStock=" + quantityInStock + ", uses='" + uses + '\'' + ", preserve='" + preserve + '\'' + ", skinType='" + skinType + '\'' + ", certification='" + certification + '\'' + ", DateOfManufacture=" + DateOfManufacture + ", expiry='" + expiry + '\'' + ", manufacturer='" + manufacturer + '\'' + ", ingredient='" + ingredient + '\'' + ", description='" + description + '\'' + '}';
     }
 
+    public String getFormattedDateOfManufacture() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(DateOfManufacture);
+    }
 //    @Override
 //    public String toString() {
 //        return "Product{" + "productID=" + productID + ", createAt=" + createAt + ", deleteAt=" + deleteAt + ", isDelete=" + isDelete + ", price=" + price + ", name='" + name + '\'' + ", quantityInStock=" + quantityInStock + ", uses='" + uses + '\'' + ", preserve='" + preserve + '\'' + ", skinType='" + skinType + '\'' + ", certification='" + certification + '\'' + ", DateOfManufacture=" + DateOfManufacture + ", expiry='" + expiry + '\'' + ", manufacturer='" + manufacturer + '\'' + ", ingredient='" + ingredient + '\'' + ", description='" + description + '\'' + ", wishLists=" + wishLists + '}';

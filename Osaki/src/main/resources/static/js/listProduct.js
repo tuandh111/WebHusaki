@@ -1,4 +1,65 @@
 $(document).ready(function () {
+
+    $('#btn-primary-promotional').click(function (e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+        var minPromotionalString =$('input[name="minPromotional"]').val(); // Lấy giá trị minPrice từ input
+        var minPromotional = parseInt(minPromotionalString.replace(/,/g, ''));
+        var maxPromotionaleString = $('input[name="maxPromotional"]').val(); // Lấy giá trị maxPrice từ input
+        var maxPromotional = parseInt(maxPromotionaleString.replace(/,/g, '')); // Lấy giá trị maxPrice từ input
+        console.log("min: "+ minPromotional+"max: "+ maxPromotional)
+                $('.product').each(function () {
+                    var productPromotional = parseFloat($(this).find('.product__sale-percent').text().replace(/\./g, '')) * -1;// Lấy giá sản phẩm
+                    console.log(parseFloat(productPromotional))
+                    if (productPromotional >= minPromotional && productPromotional <= maxPromotional) {
+                        console.log(1)
+                        $(this).parent('.col-lg-3').show(); // Hiển thị sản phẩm nếu nằm trong khoảng giá
+                    } else {
+                        $(this).parent('.col-lg-3').hide(); // Ẩn sản phẩm nếu không nằm trong khoảng giá
+                    }
+                });
+                updatePagination();
+        });
+
+
+
+    $('#btn-primary').click(function (e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+
+        var minPriceString =$('input[name="minPrice"]').val(); // Lấy giá trị minPrice từ input
+        var minPrice = parseInt(minPriceString.replace(/,/g, ''));
+        var maxPriceString = $('input[name="maxPrice"]').val(); // Lấy giá trị maxPrice từ input
+        var maxPrice = parseInt(maxPriceString.replace(/,/g, '')); // Lấy giá trị maxPrice từ input
+        console.log("min: "+ minPrice+"max: "+ maxPrice)
+        $.ajax({
+            type: 'GET',
+            url: '/product/filterByPrice',
+            success: function (response) {
+                $('.product').each(function () {
+                    var productPrice = parseFloat($(this).find('.price').text().replace(/\./g, ''));// Lấy giá sản phẩm
+                    console.log(parseFloat(productPrice))
+                    if (productPrice >= minPrice && productPrice <= maxPrice) {
+                        console.log(1)
+                        $(this).parent('.col-lg-3').show(); // Hiển thị sản phẩm nếu nằm trong khoảng giá
+                    } else {
+                        $(this).parent('.col-lg-3').hide(); // Ẩn sản phẩm nếu không nằm trong khoảng giá
+                    }
+                });
+                updatePagination();
+            },
+            error: function (xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Xóa sản phẩm thất bại',
+                    text: "Có lỗi xảy ra, vui lòng thử lại !",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            }
+        });
+    });
+
+
     // Sự kiện thay đổi checkbox category hoặc brand
     $('.category-checkbox').change(function () {
         var selectedCategories = [];

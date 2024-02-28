@@ -6,9 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
         labelsCtx = Object.keys(dataInventory);
         valuesCtx = Object.values(dataInventory);
     }
-   //var labelsCtx = Object.keys(dataInventory);
-   // var valuesCtx = Object.values(dataInventory);
-
     const ctx = document.getElementById('myChartLine');
     new Chart(ctx, {
         type: 'line',
@@ -31,8 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         labelsDoughnut = Object.keys(dataRevenueByCategory);
         valuesDoughnut = Object.values(dataRevenueByCategory);
     }
-    //var labelsDoughnut = Object.keys(dataRevenueByCategory);
-   // var valuesDoughnut = Object.values(dataRevenueByCategory);
+
     const doughnut = document.getElementById('myChartDoughnut');
 
     new Chart(doughnut, {

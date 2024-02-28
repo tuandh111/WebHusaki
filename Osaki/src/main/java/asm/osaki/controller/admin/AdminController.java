@@ -61,8 +61,6 @@ import asm.osaki.repositories.user_repositories.UserCustomRepository;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
 import asm.osaki.service.VisitorCounter;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -112,9 +110,7 @@ public class AdminController {
 
 			if (content.equals("_content-category.jsp")) {
 				page = categoryRepository.findAllByNameLike(keywordSearch, pageable);
-				// System.out.println("categoryAndCount1: " + page.get().count());
 				List<CategoryAndCount> convertedResults = CategoryAndCount.convert(page.getContent());
-				// System.out.println("categoryAndCount: " + convertedResults.get(0).getName());
 				model.addAttribute("categories", convertedResults);
 			} else if (content.equals("_content-account.jsp")) {
 				page = userCustomRepository.findAllByNameLike(keywordSearch, pageable);
@@ -149,10 +145,10 @@ public class AdminController {
 		}
 
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());
-		model.addAttribute("totalRevenue", currencyFormat.format(invoiceRepository.getRevenue()));
+		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());		
+		model.addAttribute("totalRevenue",invoiceRepository.getRevenue()==null?0:currencyFormat.format(invoiceRepository.getRevenue()));
 		model.addAttribute("totalComments", commentRepository.getTotalComment());
-
+		model.addAttribute("quantityNotify", invoiceRepository.getQuantityNotCompleteYet());		
 		int visitorCount = visitorCounter.getCount();
 		model.addAttribute("visitorCount", visitorCount);
 		// Lấy 3 sản phẩm từ hóa đơn gần nhất
@@ -177,9 +173,7 @@ public class AdminController {
 			e.printStackTrace();
 		}
 
-		// Biểu đồ thống kê số lượng tồn kho theo sản phẩm
-		// System.out.println("InventoryTransactions
-		// "+InventoryTransactions.convert(productRepository.fetchInventoryTransactions()).toString());
+		// Biểu đồ thống kê số lượng tồn kho theo sản phẩm		
 		List<InventoryTransactions> inventories = InventoryTransactions
 				.convert(productRepository.inventoryTransactions());
 		Map<String, Double> dataInventories = new HashMap<>();

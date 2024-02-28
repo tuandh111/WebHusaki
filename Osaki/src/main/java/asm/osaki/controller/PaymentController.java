@@ -210,7 +210,7 @@ public class PaymentController {
             }
             Optional<CardVNPay> cardVNPays= cardVNPayRepository.findById(invoiceID);
             if(cardVNPays.isPresent()){
-                model.addAttribute("payment","Thanh toan thanh cong");
+                model.addAttribute("payment","Thanh toán thành công");
             }else {
                 model.addAttribute("payment","");
             }

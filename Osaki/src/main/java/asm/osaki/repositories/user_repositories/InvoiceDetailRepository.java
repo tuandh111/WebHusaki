@@ -15,6 +15,9 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
     List<Object[]> countProductsOrderByCountDesc();
     @Query("select  p from  invoiceDetail p where p.invoiceID = ?1")
     List<InvoiceDetail> findByInvoiceID(Integer id);
+    
+    @Query("SELECT id from invoiceDetail id where id.invoiceID.invoiceID = ?1")
+    List<InvoiceDetail> findByInvoiceIdFk (String id);
 
     @Query("SELECT id1_0.quantity FROM invoiceDetail id1_0  WHERE id1_0.productID.productID = :productID")
     List<Object[]> countSoldProductsByProductID(@Param("productID") int productID);
@@ -22,7 +25,7 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
     @Query("SELECT id.productID, p.name, COUNT(id.productID) FROM invoiceDetail id JOIN id.productID p GROUP BY id.productID, p.name ORDER BY COUNT(id.productID) DESC")
     Page<Object[]> countProductsOrderByCountDesc(Pageable pageable);
 
-    @Query(value = "SELECT  i.invoiceID, i.createAt, id.productID.name, id.price, id.quantity " +
+    @Query(value = "SELECT  i.invoiceID, i.createAt, id.productID.name, id.price, id.quantity, i.status " +
             "FROM invoice i " +
             "INNER JOIN invoiceDetail id ON id.invoiceID.invoiceID = i.invoiceID " +
             "ORDER BY i.createAt DESC")

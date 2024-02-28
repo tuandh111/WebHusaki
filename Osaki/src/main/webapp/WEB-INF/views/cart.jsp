@@ -181,9 +181,9 @@
                                         <c:set var="checkCart" value="true"/>
                                     </c:if>
                                 </c:forEach>
-                                <h2>${payment}</h2>
+                                <h1>${payment}</h1>
                                 <c:if test="${!checkCart}">
-                                    <h2 class="c"><a href="/">Tiep tuc mua sam</a></h2>
+                                    <h2 class="c"><a href="/">Tiếp tục mua sắm</a></h2>
                                 </c:if>
                                 <c:if test="${checkCart}">
                                     <h2 class="c"><a href="/"></a></h2>
@@ -218,7 +218,7 @@
                                                                                                                toán
                                                                                                                VNPAY
                             </div>
-<%--                             <div class="main__pay-title">Phiếu ưu đãi</div> --%>
+                                <%--                             <div class="main__pay-title">Phiếu ưu đãi</div> --%>
 
                                 <%--                             <select name="voucher" id="voucher" required class="form-control"> --%>
                                 <%--                                 <option value="">Chọn voucher</option> --%>
@@ -235,7 +235,7 @@
         </c:when>
         <c:otherwise>
             <div class="grid wide mt-3" style="height: 100vh">
-                <h1 class="main__notify-text"><a href="login" onclick="ReturnUrl()">Vui long dang nhap</a></h1>
+                <h1 class="main__notify-text"><a href="login" onclick="ReturnUrl()">Vui lòng đăng nhập</a></h1>
             </div>
         </c:otherwise>
     </c:choose>
@@ -337,6 +337,7 @@
         return amount.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
     }
 </script>
+<script src="/js/contact.js"></script>
 <script src="/js/cartCript.js"></script>
 <script src="/js/checkout.js"></script>
 </body>
