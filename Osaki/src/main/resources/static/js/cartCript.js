@@ -174,8 +174,7 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             timer: 2000
                         });
-                    }
-                    else if (message == 'errorQuantityInStock') {
+                    } else if (message == 'errorQuantityInStock') {
                         Swal.fire({
                             icon: 'error',
                             title: 'Thêm sản phẩm thất bại',
@@ -392,18 +391,27 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             text: "Vui lòng nhập số lượng lớn hơn 0 !",
             showConfirmButton: true,
         });
-        $(".input-quantity").val(1);
-        return;
-    } else if (parseInt(quantity) >= 101) {
+        $(".input-qty").val(1);
+        quantity = 1
+    } else if (parseInt(quantity) >= 101 && parseInt(quantity) > parseInt(quantityInStock)) {
         Swal.fire({
             icon: 'error',
             title: 'Opps....',
             text: "Vui lòng nhập số lượng không lớn hơn 100 !",
             showConfirmButton: true,
         });
-        $(".input-quantity").val(100);
-        return;
-    } else if (parseInt(quantity) > parseInt(quantityInStock)) {
+        $(".input-qty").val(100);
+        quantity = 100
+    } else if (parseInt(quantity) >= 101 && parseInt(quantity) <= parseInt(quantityInStock)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Opps....',
+            text: "Vui lòng nhập số lượng không lớn hơn 100 !",
+            showConfirmButton: true,
+        });
+        $(".input-qty").val(100);
+        quantity = 100
+    } else if (parseInt(quantity) < 100 && parseInt(quantity) >= parseInt(quantityInStock)) {
         Swal.fire({
             icon: 'error',
             title: 'Opps....',
@@ -413,7 +421,6 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
         quantity = quantityInStock
         $(".input-quantity").val(quantityInStock);
     }
-
     $.ajax({
         url: "/update-cart",
         type: "POST",

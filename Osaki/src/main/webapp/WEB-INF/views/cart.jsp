@@ -260,8 +260,10 @@
         var currentValue = parseInt(inputQty.value);
         var minValue = parseInt(inputQty.getAttribute('min'));
         if (currentValue > minValue) {
-            inputQty.value = currentValue - 1;
-            calculateTotal(index)
+            if (currentValue <= parseInt(quantityInStock)) {
+                inputQty.value = currentValue - 1;
+                calculateTotal(index, quantityInStock)
+            }
         }
         changeQuantityProduct(cartId, productId, currentValue - 1, quantityInStock, price)
     }
@@ -272,9 +274,11 @@
         var minValue = parseInt(inputQty.getAttribute('min'));
         if (currentValue > minValue) {
             inputQty.value = currentValue;
-            calculateTotal(index, quantityInStock)
+
         }
+
         changeQuantityProduct(cartId, productId, currentValue, quantityInStock, price)
+        calculateTotal(index, quantityInStock)
     }
 
     function plusProduct(index, cartId, productId, quantityInStock, price) {
