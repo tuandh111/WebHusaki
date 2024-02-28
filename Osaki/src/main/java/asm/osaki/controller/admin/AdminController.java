@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -117,8 +118,10 @@ public class AdminController {
 				List<UserAndCount> convertedResults = UserAndCount.convert(page.getContent());
 				model.addAttribute("users", convertedResults);
 			} else if (content.equals("_content-product.jsp")) {
+				List<ImageProduct> imageProduct = imageRepository.findAll();
 				page = productRepository.findAllByNameLikePro(keywordSearch, pageable);
 				List<ProductAdd> convertedResults = ProductAdd.convert(page.getContent());
+				model.addAttribute("imagesProduct", imageProduct);
 				model.addAttribute("item", convertedResults);
 			} else if (content.equals("_content-order.jsp")) {
 				page = orderRepository.findAllByNameLike(keywordSearch, pageable);
@@ -229,7 +232,7 @@ public class AdminController {
 
 
 	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
-	
+
 	@PostMapping("add-product")
 	public String addProduct(@RequestParam(name = "productName") String nameProduct,
 	        @RequestParam(name = "price") Double priceProduct, @RequestParam(name = "quantity") Long quantityProduct,
@@ -265,7 +268,7 @@ public class AdminController {
 	    product.setCategoryID(category);
 	    
 	    // Lưu product vào cơ sở dữ liệu
-	    Product savedProduct = productRepository.save(product);
+	    //Product savedProduct = productRepository.save(product);
 
 	     //Lưu các ảnh sản phẩm vào thư mục và cập nhật vào cơ sở dữ liệu
 		//String upLoadDir ="\\src\\main\\resources\\static\\imageProduct";	
@@ -279,9 +282,13 @@ public class AdminController {
 		imageProduct.setProductID(product);
 		
 		if (!fileImages.isEmpty()) {
+
             String originalFilename = fileImages.getOriginalFilename();
+
             // String savePath = "/images/" + originalFilename;
             File NameFile = paramService.save(fileImages, "/imagesProduct/");
+			String absolutePath = NameFile.getAbsolutePath();
+			System.out.println("link: "+ absolutePath);
             if (NameFile != null) {
                 String imageName = NameFile.getName();
                 imageProduct.setImageName(imageName);
