@@ -276,8 +276,13 @@
                                 <td>${product.certification}</td>
                             </tr>
                             <tr>
+                                <td>Ngày sản xuất</td>
+                                <td>${product.formattedDateOfManufacture}</td>
+                            </tr>
+                            <tr>
                                 <td>Ngày hết hạn</td>
-                                <td>${product.expiry}</td>
+                                <td>
+                                    ${product.expiry}</td>
                             </tr>
                             <tr>
                                 <td>Nhà sản xuất</td>

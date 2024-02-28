@@ -516,6 +516,7 @@
 <script src="/js/listProduct.js"></script>
 <script src="../js/isotope.pkgd.js"></script>
 <!-- Script common -->
+<script src="/js/contact.js"></script>
 <script src="/js/commonscript.js"></script>
 <script src="../../js/register.js"></script>
 <script src="/js/homeScript.js"></script>

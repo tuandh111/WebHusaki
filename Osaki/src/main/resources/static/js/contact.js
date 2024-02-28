@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    console.log("this is sendMessage")
     $('#sendMessage').click(function (e) {
         e.preventDefault();
         let fullName = $('#fullname').val();

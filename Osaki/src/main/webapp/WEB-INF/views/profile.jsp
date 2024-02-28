@@ -822,6 +822,7 @@
     )
 
 </script>
+<script src="/js/contact.js"></script>
 <script src="/js/cartCript.js"></script>
 <script src="/js/checkout.js"></script>
 </body>

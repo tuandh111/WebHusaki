@@ -68,7 +68,7 @@
                         <a href="https://discord.com/channels/@me" class="social-item"><i
                                 class="fab fa-discord"></i>
                         </a>
-                        <a href="zalo://chat" class="social-item"> <img src="./images/zalo1.jpg"
+                        <a href="zalo://chat" class="social-item"> <img src="../images/zalo1.jpg"
                                                                         style="background-color:#565e64;"
                                                                         alt=""
                         />
