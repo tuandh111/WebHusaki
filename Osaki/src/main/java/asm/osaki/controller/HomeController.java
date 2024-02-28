@@ -76,7 +76,6 @@ public class HomeController {
         model.addAttribute("promotionalDetailsList1", promotionalDetailsList1);
         model.addAttribute("userLogin", userCustom);
         model.addAttribute("listProduct", productRepository.findAll());
-
         //bestSellers
         List<Object[]> bestSellers = invoiceDetailRepository.countProductsOrderByCountDesc();
         model.addAttribute("bestSellers", bestSellers);
@@ -85,7 +84,6 @@ public class HomeController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -140,7 +138,6 @@ public class HomeController {
     @ModelAttribute("likeList")
     public List<WishList> getCategories(HttpSession session) {
         UserCustom userCustom = (UserCustom) session.getAttribute("userLogin");
-
         System.out.println("userCustom1: " + userCustom);
         if (userCustom != null) {
             List<WishList> listLike = wishListRepository.findByUser(userCustom);

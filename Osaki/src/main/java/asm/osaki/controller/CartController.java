@@ -54,7 +54,6 @@ public class CartController {
     @GetMapping("cart")
     public String cardController(Model model) {
         UserCustom userCustom = sessionService.get("userLogin");
-
         if (userCustom != null) {
             List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom.getUserID());
             List<Cart> cartList = cartRepository.findAllByUser(userCustom);
@@ -95,8 +94,6 @@ public class CartController {
         }
         Cart existingCart = cartRepository.findByProductIDAndAndUserID(userCustom.getUserID(), Integer.parseInt(productID));
         Map<String, Object> jsonResponseMap = new HashMap<>();
-
-// Thêm các cặp key-value vào HashMap
         if (existingCart == null) {
             jsonResponseMap.put("cartCount", cartCount);
             jsonResponseMap.put("cartID", cartID);
@@ -129,7 +126,6 @@ public class CartController {
             } else {
                 jsonResponseMap.put("image", null);
             }
-
             jsonResponseMap.put("totalPrice", totalPrice);
             jsonResponseMap.put("quantityInStock", product.getQuantityInStock());
         }
@@ -216,8 +212,6 @@ public class CartController {
             }
             return ResponseEntity.ok(jsonResponse);
         }
-
-
     }
 
     @DeleteMapping("delete-to-cart")

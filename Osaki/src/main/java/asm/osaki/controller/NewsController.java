@@ -45,7 +45,6 @@ public class NewsController {
     public String newsController(Model model,@ModelAttribute("UserC") UserCustom userCustom1) {
         List<News> newsList = newsRepository.findAll();
         model.addAttribute("newsList", newsList);
-
         UserCustom userCustom = sessionService.get("userLogin");
         if (userCustom != null) {
             List<Voucher> voucherList = voucherRepository.findByAllUserID(userCustom.getUserID());
@@ -66,7 +65,6 @@ public class NewsController {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
             System.out.println("tota");
-
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
         }
@@ -83,7 +81,6 @@ public class NewsController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {

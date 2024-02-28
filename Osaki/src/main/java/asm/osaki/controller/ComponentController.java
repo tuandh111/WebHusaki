@@ -44,7 +44,6 @@ public class ComponentController {
     ParamService paramService;
     @Autowired
     UserCustomRepository userCustomRepository;
-
     @Autowired
     PromotionalDetailsRepository promotionalDetailsRepository;
 

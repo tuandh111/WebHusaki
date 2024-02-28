@@ -133,9 +133,7 @@ public class PaymentController {
         String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
-
         return ResponseEntity.ok(paymentUrl);
-
     }
 
     @GetMapping("/payment")

@@ -60,7 +60,6 @@ public class ProductSiteController {
         UserCustom userCustom1 = sessionService.get("userLogin");
         List<Product> productList = productRepository.findAll();
         //cart
-
         if (userCustom1 != null) {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
@@ -80,7 +79,6 @@ public class ProductSiteController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -226,7 +224,6 @@ public class ProductSiteController {
         UserCustom userCustom1 = sessionService.get("userLogin");
         List<Product> productList = productRepository.findAll();
         //cart
-
         if (userCustom1 != null) {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
@@ -246,7 +243,6 @@ public class ProductSiteController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {

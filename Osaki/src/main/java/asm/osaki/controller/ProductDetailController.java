@@ -67,7 +67,6 @@ public class ProductDetailController {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
             List<Address> addressList = addressRepository.findByUser(userCustom);
-
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
             model.addAttribute("addressList", addressList);
@@ -84,10 +83,8 @@ public class ProductDetailController {
         model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
         String inputDate = product.getExpiry();
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
         // Định dạng ngày tháng đầu ra
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
         // Chuyển đổi chuỗi ngày tháng thành đối tượng LocalDate
         LocalDate date = LocalDate.parse(inputDate, inputFormatter);
         // Định dạng lại ngày tháng và hiển thị

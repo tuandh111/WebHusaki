@@ -44,27 +44,22 @@ public class ListProductController {
 
     @GetMapping("list/product")
     public String listProductController(@ModelAttribute("UserC") UserCustom userCustom, Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "30") int size) {
-
         // Đưa giá trị minPrice và maxPrice vào model để sử dụng trong view
         sessionService.remove("minPrice");
         sessionService.remove("maxPrice");
-
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage = productRepository.findAll(pageable);
         model.addAttribute("productPage", productPage);
         UserCustom userCustom1 = sessionService.get("userLogin");
         List<Product> productList = productRepository.findAll();
         //cart
-
         if (userCustom1 != null) {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
             System.out.println("tota");
-
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
         }
-
         List<PromotionalDetails> promotionalDetailsList1 = promotionalDetailsRepository.findAll();
         model.addAttribute("promotionalDetailsList1", promotionalDetailsList1);
         model.addAttribute("userLogin", userCustom1);
@@ -76,7 +71,6 @@ public class ListProductController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -127,7 +121,6 @@ public class ListProductController {
         }
         return "listProduct";
     }
-
     @ModelAttribute("likeList")
     public List<WishList> getCategories(HttpSession session) {
         UserCustom userCustom = (UserCustom) session.getAttribute("userLogin");

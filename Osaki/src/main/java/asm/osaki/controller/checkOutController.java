@@ -124,12 +124,9 @@ public class checkOutController {
 
     public double getPriceProduct(Integer productID) {
         FlashSale isFlashSale = flashSaleRepository.findByIsStatus(false);
-
         double price = 0.0;
-
         if (isFlashSale != null) {
             List<PromotionalDetails> pmt = promotionalDetailsRepository.findByFlashSale_Id(isFlashSale.getId());
-
             Boolean isSale = false;
             for (PromotionalDetails p : pmt) {
                 if (productID == p.getProductID().getProductID()) {
@@ -144,7 +141,6 @@ public class checkOutController {
         } else {
             price = productRepository.getById(productID).getPrice();
         }
-
         return price;
     }
 

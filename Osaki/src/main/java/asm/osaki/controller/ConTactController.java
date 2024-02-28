@@ -98,7 +98,6 @@ public class ConTactController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -163,15 +162,12 @@ public class ConTactController {
             contact.setMessage(message);
         }
         contact.setUserName(userCustom.getEmail());
-
         contact.setEmail(email);
         try {
             contactRepository.save(contact);
         } catch (Exception e) {
-
             e.printStackTrace();
             return ResponseEntity.ok("fail");
-
         }
         System.out.println("postEmail: " + email);
         return ResponseEntity.ok("success");
