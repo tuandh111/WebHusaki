@@ -142,7 +142,6 @@ public class ProductSiteController {
         UserCustom userCustom1 = sessionService.get("userLogin");
         List<Product> productList = productRepository.findAll();
         //cart
-
         if (userCustom1 != null) {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
@@ -162,7 +161,6 @@ public class ProductSiteController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -296,14 +294,12 @@ public class ProductSiteController {
 
     @GetMapping("/search-all-category")
     public ResponseEntity<?> searchAllCategory(Model model) {
-
         model.addAttribute("productPage", productRepository.findAll());
         return ResponseEntity.ok("success");
     }
 
     @GetMapping("/filterByPrice")
     public String filterByPrice(@RequestParam(name = "sort") Optional<String> sort, @RequestParam(name = "minPrice", required = false) Optional<String> minPrice, @RequestParam(name = "maxPrice", required = false) Optional<String> maxPrice, Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "100") int size) {
-
         Pageable pageable = PageRequest.of(page, size);
         if ("asc".equals(sort.orElse(""))) {
             Page<Product> productPage = productRepository.findProductsByPriceRangeOrderByPriceAsc(pageable);
@@ -315,14 +311,12 @@ public class ProductSiteController {
             // Parsing minPrice and maxPrice
             double minPriceValue = minPrice.map(this::parseCurrency).orElse(Double.MIN_VALUE);
             double maxPriceValue = maxPrice.map(this::parseCurrency).orElse(Double.MAX_VALUE);
-
             // Ensure minPriceValue is less than maxPriceValue
             if (minPriceValue > maxPriceValue) {
                 double temp = minPriceValue;
                 minPriceValue = maxPriceValue;
                 maxPriceValue = temp;
             }
-
             Page<Product> productPage = productRepository.findProductsByPriceRange(minPriceValue, maxPriceValue, pageable);
             model.addAttribute("productPage", productPage);
         }
@@ -330,7 +324,6 @@ public class ProductSiteController {
         UserCustom userCustom1 = sessionService.get("userLogin");
         List<Product> productList = productRepository.findAll();
         //cart
-
         if (userCustom1 != null) {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
@@ -350,7 +343,6 @@ public class ProductSiteController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -411,10 +403,8 @@ public class ProductSiteController {
         }
         // Loại bỏ các ký tự không phải là số khỏi chuỗi giá tiền
         String cleanCurrency = currency.replaceAll("[^0-9.,]", "");
-
         // Thay thế dấu phân cách hàng nghìn bằng dấu trống
         cleanCurrency = cleanCurrency.replace(",", "");
-
         // Chuyển đổi chuỗi thành kiểu double
         double amount = Double.parseDouble(cleanCurrency);
         return amount;
@@ -422,13 +412,10 @@ public class ProductSiteController {
 
     @GetMapping("/filterByPrice1")
     public String filter(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-
         Pageable pageable = PageRequest.of(page, size);
-
         UserCustom userCustom1 = sessionService.get("userLogin");
         List<Product> productList = productRepository.findAll();
         //cart
-
         if (userCustom1 != null) {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom1);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom1);
@@ -448,7 +435,6 @@ public class ProductSiteController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -514,7 +500,6 @@ public class ProductSiteController {
 
     @GetMapping("filter-product-by-promotional")
     public String filterProductByPromotional(Model model, @RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "10") int size) {
-
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> producPromotionalDetailsPage = promotionalDetailsRepository.findAllByPromotional(pageable);
         System.out.println("listProductPromotionalDetails: "+producPromotionalDetailsPage.get().count());
