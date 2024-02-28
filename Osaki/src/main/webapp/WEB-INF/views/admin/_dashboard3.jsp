@@ -60,6 +60,7 @@
                     <th>Số lượng</th>
                     <th>Số hóa đơn</th>
                     <th>Ngày hóa đơn</th>
+                    <th>Trạng thái</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,6 +71,11 @@
                         <td>${item.quantity}</td>
                         <td>${item.invoiceID}</td>
                         <td>${item.createAt}</td>
+                        <td class="
+                            <c:if test="${item.status eq 'Đặt hàng'}">text-primary</c:if>
+                            <c:if test="${item.status eq 'Thành công'}">text-success</c:if>
+                            <c:if test="${item.status eq 'Đã hủy'}">text-danger</c:if>
+                           ">${item.status}</td>
                     </tr>
                 </c:forEach>               
             </tbody>

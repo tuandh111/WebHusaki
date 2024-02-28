@@ -53,10 +53,9 @@
                             <td style="max-width: 200px;">${item.addressCustomer}</td>
                             <td>${item.phoneCustomer}</td>                           
                             <td>${item.totalAmount}</td>                                                       
-                            <td style="max-width: 150px;">
-                               <form action="/admin/update-status-order" method="post" id="orderForm">
+                            <td style="max-width: 150px;">                    
                                     <input type="hidden" name="invoiceId" value="${item.invoiceID}">
-                                    <select name="selectedValue" onchange="this.form.submit()" class="form-select order-select-form <c:if test="${item.status eq 'Đặt hàng'}">text-primary</c:if>
+                                    <select name="selectedValue" class="form-select order-select-form <c:if test="${item.status eq 'Đặt hàng'}">text-primary</c:if>
                                     <c:if test="${item.status eq 'Thành công'}">text-success</c:if>
                                     <c:if test="${item.status eq 'Đã hủy'}">text-danger</c:if>"> 
                                         <c:choose>
@@ -68,40 +67,18 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <option value="Đặt hàng" <c:if test="${item.status eq 'Đặt hàng'}">selected</c:if>>Đặt hàng</option>
-		                                        <option value="Thành công" <c:if test="${item.status eq 'Thành công'}">selected</c:if>>Thành công</option>
-		                                        <option value="Đã hủy" <c:if test="${item.status eq 'Đã hủy'}">selected</c:if>>Đã hủy</option>
+                                                <option value="Thành công" <c:if test="${item.status eq 'Thành công'}">selected</c:if>>Thành công</option>
+                                                <option value="Đã hủy" <c:if test="${item.status eq 'Đã hủy'}">selected</c:if>>Đã hủy</option>
                                             </c:otherwise>                                        
                                         </c:choose>                                                                                                        
-                                    </select>  
-                               </form>                                                                                                                                               
-                            </td> 
-                            
+                                    </select>                                                                                                                                                                      
+                            </td>                             
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-            </div>
-            <div class="cancel-order">
-                <a data-bs-toggle="modal"
-                   data-bs-target="#listOrderCancelModal" href="#">Xem đơn hàng đã hủy >></a>
-            </div>
+            </div>           
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="listOrderCancelModal" tabindex="-1" aria-labelledby="listOrderCancelModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="listOrderCancelModalLabel">Danh sách đơn hàng đã hủy</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+

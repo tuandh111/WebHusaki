@@ -13,9 +13,13 @@
     <div class="user">
         <a href="/profile">
             <img title="${userAdminLogin.fullName}" src="/images/${userAdminLogin.image}">
-        </a>       
+        </a>     
     </div>
 </div>
+<a class="notification-icon" href="/admin?content=_content-order.jsp">
+  <ion-icon name="notifications-outline"></ion-icon>
+  <span class="notification-badge">${quantityNotify}</span>
+</a>  
 
 
            

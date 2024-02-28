@@ -21,16 +21,4 @@ public interface OrderRepository extends JpaRepository<InvoiceDetail, Integer> {
             "ORDER BY i.createAt DESC")
 	Page<Object[]> findAllByNameLike(String keywords,Pageable pageable);
 	
-	@Query("SELECT p, u, i, a " +
-            "FROM invoice i " +
-            "INNER JOIN invoiceDetail id ON id.invoiceID.invoiceID = i.invoiceID " +
-            "INNER JOIN product p ON id.productID.productID = p.productID " +
-            "INNER JOIN user_custom u ON u.userID = i.user.userID " +
-            "INNER JOIN UserAddress a ON a.user.userID = u.userID " +
-            "WHERE i.status like %?1% " +
-            "GROUP BY p, u, i, a "+
-            "ORDER BY i.createAt DESC")
-	List<Object[]> findAllOrderCancel(String keywords);
-	
-	//check
 }
