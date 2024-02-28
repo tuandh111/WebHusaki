@@ -38,7 +38,7 @@
             </a>
         </li>     
         <li>
-            <a href="#">
+            <a href="/admin?content=_content-statistics.jsp">
                 <span class="icon"><ion-icon name="pie-chart-outline"></ion-icon></span>
                 <span class="title">Thống kê</span>
             </a>

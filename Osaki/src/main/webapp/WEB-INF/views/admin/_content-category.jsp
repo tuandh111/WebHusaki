@@ -3,8 +3,9 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
-<div class="row mb-4 p-5">
-    <h2>Quản lý danh mục</h2>
+
+<div class="row mb-4 p-3 category-manager-title">
+    <h2 class="text-center">Quản lý danh mục sản phẩm</h2>
 </div>
 
 <div class="row p-5">
@@ -30,7 +31,7 @@
             <div class="col-8 mb-3">
                 <form action="/admin/category-search" method="get">
                     <div class="d-flex flex-row justify-content-end">
-                        <input class="form-control me-2" name="kwSearch" value="${keywords}" style="max-width: 60%;">
+                        <input class="form-control me-2" placeholder="Tên danh mục..." name="kwSearch" value="${keywords}" style="max-width: 60%;">
                         <button class="btn btn-outline-primary" style="max-width: 40%;">Tìm tên danh mục</button>
                     </div>
                 </form>

@@ -66,6 +66,8 @@
         (item) => item.addEventListener('mouseover', activeLink)
     )
     
+    
+
     var dataRevenueByCategory = ${dataRevenueByCategory};
     console.log(dataRevenueByCategory);
     var dataInventory = ${dataInventory};

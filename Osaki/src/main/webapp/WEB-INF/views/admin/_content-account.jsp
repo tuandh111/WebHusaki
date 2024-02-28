@@ -4,8 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
 
-<div class="row mb-4 p-3">
-    <h2>Quản lý tài khoản khách hàng</h2>
+<div class="row mb-4 p-3 user-manager-title">
+    <h2 class="text-center">Quản lý tài khoản khách hàng</h2>
 </div>
 
 <div class="row p-5">
