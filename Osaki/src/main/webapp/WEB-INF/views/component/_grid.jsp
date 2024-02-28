@@ -90,7 +90,15 @@
                     <c:forEach var="productList" items="${listProduct}">
                         <!-- Your menu items go here -->
                         <div class="product1">
-                            <img src="/images/product/product1.jpg" alt="Không có">
+                            <c:set var="foundFirst" value="false"/>
+                            <c:forEach var="imgProduct" items="${imagesProduct}"
+                                       varStatus="i">
+                                <c:if test="${!foundFirst && productList.productID == imgProduct.productID.productID}">
+                                    <c:set var="foundFirst" value="true"/>
+                                    <img src="/images/product/${imgProduct.imageName}" alt="Không có">
+                                </c:if>
+                            </c:forEach>
+
                             <div class="p-details">
                                 <h2><a href="/product/${productList.productID}">${productList.name}</a></h2>
                                 <h3><fmt:formatNumber type="number" pattern="###,###,###"
@@ -155,16 +163,19 @@
                     </div>
                     <div class="header__cart-wrap">
                         <ul class="order__list">
-                                <%--                            <c:if test="${cartList.size()==0}">--%>
-                                <%--                                <a href="/" class="btn btn--default cart-btn">Tiep tuc mua hang</a>--%>
-                                <%--                            </c:if>--%>
                             <c:forEach var="cartList" items="${cartList}" varStatus="loop">
-
                                 <li class="item-order ${cartList.cartId}">
                                     <div class="order-wrap">
-                                        <a href="product" class="order-img">
-                                            <img src="images/product/product1.jpg" alt="">
-                                        </a>
+                                        <c:set var="foundFirst" value="false"/>
+                                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                   varStatus="i">
+                                            <c:if test="${!foundFirst && cartList.product.productID == imgProduct.productID.productID}">
+                                                <c:set var="foundFirst" value="true"/>
+                                                <a href="product" class="order-img">
+                                                    <img src="../imagesProduct/${imgProduct.imageName}" alt="">
+                                                </a>
+                                            </c:if>
+                                        </c:forEach>
                                         <div class="order-main">
                                             <a href="/product/${cartList.product.productID}"
                                                class="order-main-name">${cartList.product.name}</a>

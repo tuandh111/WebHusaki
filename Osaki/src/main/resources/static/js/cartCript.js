@@ -233,7 +233,7 @@ $(document).ready(function () {
                 console.log("totalPrice:", json.totalPrice);
                 if (!check) {
                     // html
-                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
+                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="../imagesProduct/' + image + '" alt=""></a><div class="order-main">';
                     productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_' + cartID + '">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {
@@ -268,7 +268,7 @@ $(document).ready(function () {
                     $('#quantity_' + cartId).html(quantity)
                 } else if (check) {
                     document.querySelector("." + cartId + "").remove();
-                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
+                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="../imagesProduct/' + image + '" alt=""></a><div class="order-main">';
                     productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {

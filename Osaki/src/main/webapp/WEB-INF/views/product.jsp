@@ -82,48 +82,30 @@
             <div class="row">
                 <div class="col l-5 m-12 s-12">
                     <div class="owl-carousel owl-theme" id="sync1">
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product2.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product3.jpg)">
-                            </div>
-                        </a>
+                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                   varStatus="i">
+                            <c:if test="${product.productID == imgProduct.productID.productID}">
+                                <c:set var="foundFirst" value="true"/>
+                                <a href="#" class="product">
+                                    <div class="product__avt"
+                                         style="background-image: url(../imagesProduct/${imgProduct.imageName});">
+                                    </div>
+                                </a>
+                            </c:if>
+                        </c:forEach>
                     </div>
                     <div class="owl-carousel owl-theme" id="sync2">
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product2.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product3.jpg)">
-                            </div>
-                        </a>
+                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                   varStatus="i">
+                            <c:if test="${product.productID == imgProduct.productID.productID}">
+                                <c:set var="foundFirst" value="true"/>
+                                <a href="#" class="product">
+                                    <div class="product__avt"
+                                         style="background-image: url(../imagesProduct/${imgProduct.imageName});">
+                                    </div>
+                                </a>
+                            </c:if>
+                        </c:forEach>
                     </div>
 
                 </div>

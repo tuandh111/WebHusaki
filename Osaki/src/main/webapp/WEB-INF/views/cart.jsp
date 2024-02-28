@@ -91,7 +91,17 @@
                                             </div>
                                             <div class="col l-4 m-4 s-8">
                                                 <div class="main__cart-product">
-                                                    <img src="/images/product/product2.jpg" alt="">
+                                                    <c:set var="foundFirst" value="false"/>
+                                                    <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                               varStatus="i">
+                                                        <c:if test="${!foundFirst && cartList.product.productID == imgProduct.productID.productID}">
+                                                            <c:set var="foundFirst" value="true"/>
+                                                            <a href="product" class="order-img">
+                                                                <img src="../imagesProduct/${imgProduct.imageName}"
+                                                                     alt="">
+                                                            </a>
+                                                        </c:if>
+                                                    </c:forEach>
                                                     <div class="name"><a
                                                             href="/product/${cartList.product.productID}">${cartList.product.name}</a>
                                                     </div>

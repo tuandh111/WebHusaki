@@ -4,12 +4,10 @@ import asm.osaki.entities.product.Cart;
 import asm.osaki.entities.product.FlashSale;
 import asm.osaki.entities.product.Product;
 import asm.osaki.entities.product.PromotionalDetails;
+import asm.osaki.entities.product.image_product.ImageProduct;
 import asm.osaki.entities.user.*;
 import asm.osaki.model.PromotionalDetailModel;
-import asm.osaki.repositories.product_repositories.CartRepository;
-import asm.osaki.repositories.product_repositories.FlashSaleRepository;
-import asm.osaki.repositories.product_repositories.ProductRepository;
-import asm.osaki.repositories.product_repositories.PromotionalDetailsRepository;
+import asm.osaki.repositories.product_repositories.*;
 import asm.osaki.repositories.user_repositories.AddressRepository;
 import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.VoucherRepository;
@@ -45,6 +43,8 @@ public class HomeController {
     VoucherRepository voucherRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    ImageRepository imageRepository;
 
     @GetMapping({"", "/", "index", "home"})
     public String getHome(@ModelAttribute("UserC") UserCustom userCustom1, Model model, HttpSession session) {

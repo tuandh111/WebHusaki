@@ -312,8 +312,16 @@
                             <c:if test="${!p.isDelete}">
                                 <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
                                     <div class="product">
-                                        <div class="product__avt"
-                                             style="background-image: url(/images/product/product1.jpg);"></div>
+                                        <c:set var="foundFirst" value="false"/>
+                                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                   varStatus="i">
+                                            <c:if test="${!foundFirst && p.productID == imgProduct.productID.productID}">
+                                                <c:set var="foundFirst" value="true"/>
+                                                <img src="/images/product/${imgProduct.imageName}" alt="Không có"
+                                                     style="width: 210px;height: 190px">
+                                            </c:if>
+                                        </c:forEach>
+
                                         <div class="product__info">
                                             <h3 class="product__name">${p.name}</h3>
                                             <div class="product__price">

@@ -21,8 +21,15 @@
                     <div class="col-lg-2 col-md-4 col-sm-6">
                         <a href="product/${p[0].productID}">
                             <div class="product mb-3">
-                                <div class="product__avt"
-                                     style="background-image: url(images/product/product1.jpg);"></div>
+                                <c:set var="foundFirst" value="false"/>
+                                <c:forEach var="imgProduct" items="${imagesProduct}"
+                                           varStatus="i">
+                                    <c:if test="${!foundFirst && p[0].productID == imgProduct.productID.productID}">
+                                        <c:set var="foundFirst" value="true"/>
+                                        <div class="product__avt"
+                                             style="background-image: url(../imagesProduct/${imgProduct.imageName});"></div>
+                                    </c:if>
+                                </c:forEach>
                                 <div class="product__info">
                                     <h3 class="product__name">${p[0].name}</h3>
                                     <div class="product__price">
