@@ -74,7 +74,9 @@ public class Product {
 
     @Temporal(TemporalType.DATE)
     private Date DateOfManufacture;
+    
 
+    
     @Column(columnDefinition = "nvarchar(MAX)")
     @Nationalized
     private String expiry;
