@@ -45,6 +45,12 @@
             </a>
         </li>     
         <li>
+            <a href="/admin?content=news.jsp">
+                <span class="icon"><ion-icon name="list-circle-outline"></ion-icon></span>
+                <span class="title">Bản tin</span>
+            </a>
+        </li>
+        <li>
             <a href="#">
                 <span class="icon"><ion-icon name="pie-chart-outline"></ion-icon></span>
                 <span class="title">Thống kê</span>

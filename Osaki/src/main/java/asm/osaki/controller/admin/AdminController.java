@@ -39,6 +39,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import asm.osaki.entities.product.Category;
+import asm.osaki.entities.product.FlashSale;
 import asm.osaki.entities.product.Product;
 import asm.osaki.entities.product.image_product.ImageProduct;
 import asm.osaki.entities.user.UserCustom;
@@ -220,6 +221,12 @@ public class AdminController {
 		return "redirect:/admin?content=__form-control-product.jsp&action=" + action;
 	}
 	
+	@GetMapping("add-or-edit-product-sale")
+	public String addOrEditProductSale(Model model) {
+		
+		return "redirect:/admin?content=formFlashSale.jsp";
+	}
+	
 	@GetMapping("/add-or-edit/{id}")
 	public String editForm(Model model,@PathVariable("id") Integer id)
 	{
@@ -245,8 +252,21 @@ public class AdminController {
 	
 	
 
+	@PostMapping("add-product-sale")
+	public String addProductSale(
+			@RequestParam(name = "startDay") Date startDaySale,
+            @RequestParam(name = "endDay") Date endDaySale) {
+		
+		FlashSale flashSale = new FlashSale();
+		flashSale.setStartDay(startDaySale);
+		flashSale.setEndDay(endDaySale);
+		
+		flashSaleRepository.save(flashSale);
+		
+		
+		 return "redirect:/admin?content=_FlashSale.jsp";
+	}
 
-	private static final Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
 
 	@PostMapping("add-product")
 	public String addProduct(@RequestParam(name = "productName") String nameProduct,
