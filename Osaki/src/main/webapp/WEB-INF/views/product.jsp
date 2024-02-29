@@ -71,6 +71,7 @@
     }
 </style>
 <body>
+
 <div class="header scrolling" id="myHeader">
     <jsp:include page="./component/_grid.jsp"/>
     <%--menu --%>
@@ -130,7 +131,7 @@
                 <div class="col l-7 m-12s s-12 pl">
                     <div class="main__breadcrumb">
                         <div class="breadcrumb__item">
-                            <a href="/" class="breadcrumb__link">Trang chủ</a>
+                            <a href="/" class="breadcrumb__link">Trang chủ </a>
                         </div>
                         <div class="breadcrumb__item">
                             <a href="/list/product" class="breadcrumb__link">Sản phẩm</a>

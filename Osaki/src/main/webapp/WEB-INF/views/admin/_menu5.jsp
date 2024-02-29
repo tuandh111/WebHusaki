@@ -25,6 +25,13 @@
                 <span class="title">Sản phẩm</span>
             </a>
         </li>
+        
+        <li>
+            <a href="/admin?content=_FlashSale.jsp">
+                <span class="icon"><ion-icon name="pie-chart-outline"></ion-icon></span>
+                <span class="title">Sản phẩm khuyến mãi</span>
+            </a>
+        </li>
         <li>
             <a href="/admin?content=_content-category.jsp">
                 <span class="icon"><ion-icon name="list-circle-outline"></ion-icon></span>

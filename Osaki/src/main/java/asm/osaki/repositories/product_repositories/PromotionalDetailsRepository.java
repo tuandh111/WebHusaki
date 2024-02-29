@@ -20,4 +20,8 @@ public interface PromotionalDetailsRepository extends JpaRepository<PromotionalD
 
     @Query("SELECT c FROM PromotionalDetails c WHERE c.productID.productID = :productId")
     PromotionalDetails findByProductId(String productId);
+    
+ 
+    
+    
 }

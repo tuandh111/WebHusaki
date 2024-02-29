@@ -34,4 +34,6 @@ public interface InvoiceDetailRepository extends JpaRepository<InvoiceDetail,Int
     @Query("SELECT p FROM product p INNER JOIN invoiceDetail id ON p.productID = id.productID.productID" )
     Page<Product> findByProductAndInvoiceDetail(Pageable pageable);
 
+    
+    
 }

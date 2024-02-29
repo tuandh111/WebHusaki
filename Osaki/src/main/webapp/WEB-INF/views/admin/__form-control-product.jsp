@@ -61,7 +61,7 @@
 				<div class="mb-3">
 					<label for="expiry" class="form-label">Hạn sử dụng</label> <input
 						type="text" class="form-control" id="expiry" name="expiry"
-						value="${updateProduct.expiry}" placeholder="Hạn sử dụng">
+						value="" placeholder="Hạn sử dụng">
 				</div>
 				<div class="mb-3">
 					<label for="manufacturer" class="form-label">Nhà sản xuất</label> <input
@@ -94,9 +94,9 @@
 				</div>
 				<div class="mb-3">
 					<label for="imageFiles" class="form-label">Chọn hình ảnh</label> <input
-						type="file" class="form-control" id="image" name="image"
-						multiple>
+						type="file" class="form-control" id="image" name="images" multiple>
 				</div>
+
 
 			</div>
 		</div>

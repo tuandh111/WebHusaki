@@ -267,6 +267,7 @@
                 <h3><a href="/product/filterByPrice?sort=desc" class="btn btn-primary m-md-2">Giá cao đến thấp</a></h3>
                 <h3><a href="/product/filter-product-by-promotional" class="btn btn-primary m-md-2">Khuyến mãi</a></h3>
                 <h3><a href="/product/bestselling" class="btn btn-primary m-md-2">Bán chạy</a></h3>
+                 <h3><a href="/product/flashSale" class="btn btn-primary m-md-2">Flash Sale</a></h3>
                 <form action="/product/filterByPrice" style="white-space: nowrap;">
                     <input type="number" class="" style="font-size: 16px; width: 220px "
                            name="minPromotional" min="0"

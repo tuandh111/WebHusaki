@@ -46,9 +46,9 @@
                 <th>Tên sản phẩm</th>
                 <th>Giá</th>
                 <th>Tồn kho</th>
-                <th>Trang thái</th>
-                <th>Danh mục</th>
-                <th></th>
+             <th>Trang thái</th>
+              <th>Danh mục</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
@@ -78,7 +78,7 @@
                     <td>${item.name}</td>
                     <td>${item.price}</td>
                     <td>${item.quantity}
-                    <td>${item.isDelete}</td>
+                     <td>${item.isDelete}</td>
                     <td>${item.categoryID.categoryName}</td>
                     <td><a href="/admin/add-or-edit/${item.id}"
                            class="btn btn-outline-primary">Sửa</a> | <a

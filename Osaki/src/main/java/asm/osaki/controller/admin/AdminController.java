@@ -44,11 +44,13 @@ import asm.osaki.entities.product.image_product.ImageProduct;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
 import asm.osaki.model.admin.DataRevenueByCategory;
+import asm.osaki.model.admin.FlashSaleA;
 import asm.osaki.model.admin.InventoryTransactions;
 import asm.osaki.model.admin.OrderInfo;
 import asm.osaki.model.admin.ProductAdd;
 import asm.osaki.model.admin.UserAndCount;
 import asm.osaki.repositories.product_repositories.CategoryRepository;
+import asm.osaki.repositories.product_repositories.FlashSaleRepository;
 import asm.osaki.repositories.product_repositories.ImageRepository;
 import asm.osaki.repositories.product_repositories.ProductRepository;
 import asm.osaki.repositories.statistics_repositories.OrderRepository;
@@ -71,6 +73,8 @@ public class AdminController {
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ImageRepository imageRepository;
+	@Autowired
+	private FlashSaleRepository flashSaleRepository;
 	@Autowired
 	private ParamService paramService;
 	@Autowired
@@ -100,7 +104,9 @@ public class AdminController {
 			@RequestParam("kwSearch") Optional<String> kw, @RequestParam("p") Optional<Integer> p) {
 
 		if (content != null && !content.isEmpty()) {
-
+			
+			
+			
 			model.addAttribute("content", content);
 
 			String keywordSearch = kw.orElse(sessionService.get("kwSearch", ""));
@@ -128,6 +134,12 @@ public class AdminController {
 				List<OrderInfo> convertedResults = OrderInfo.convert(page.getContent());
 				model.addAttribute("orders", convertedResults);
 				System.out.println("orders " + convertedResults.toString());
+			}else if (content.equals("_FlashSale.jsp")) {
+				//page = orderRepository.findAllByNameLike(keywordSearch, pageable);
+				List<FlashSaleA> convertedResults = FlashSaleA.convert(flashSaleRepository.findProductFlashSale(false));
+			
+				model.addAttribute("flashsaleProduct", convertedResults);
+				//System.out.println("convertedResultsFlashSaleA " + convertedResults.isEmpty());
 			}
 
 			if (page != null) {
@@ -189,6 +201,9 @@ public class AdminController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+		
+		
+		
 
 		return "admin/admin";
 	}
@@ -235,18 +250,20 @@ public class AdminController {
 
 	@PostMapping("add-product")
 	public String addProduct(@RequestParam(name = "productName") String nameProduct,
-	        @RequestParam(name = "price") Double priceProduct, @RequestParam(name = "quantity") Long quantityProduct,
-	        @RequestParam(name = "uses") String usesProduct, @RequestParam(name = "preserve") String preserveProduct,
-	        @RequestParam(name = "skinType") String skinTypeProduct,
-	        @RequestParam(name = "certification") String certificationProduct,
-	        @RequestParam(name = "dateOfManufacture") Date dateOfManufactureProduct,
-	        @RequestParam(name = "expiry") String expiryProduct,
-	        @RequestParam(name = "categoryID") String categoryProduct,
-	        @RequestParam(name = "manufacturer") String manufacturerProduct,
-	        @RequestParam(name = "ingredient") String ingredientProduct,
-	        @RequestParam(name = "description") String descriptionProduct,
-	        @RequestParam(name = "image") MultipartFile fileImages,
-	        HttpServletRequest request) {
+	                         @RequestParam(name = "price") Double priceProduct,
+	                         @RequestParam(name = "quantity") Long quantityProduct,
+	                         @RequestParam(name = "uses") String usesProduct,
+	                         @RequestParam(name = "preserve") String preserveProduct,
+	                         @RequestParam(name = "skinType") String skinTypeProduct,
+	                         @RequestParam(name = "certification") String certificationProduct,
+	                         @RequestParam(name = "dateOfManufacture") Date dateOfManufactureProduct,
+	                         @RequestParam(name = "expiry") String expiryProduct,
+	                         @RequestParam(name = "categoryID") String categoryProduct,
+	                         @RequestParam(name = "manufacturer") String manufacturerProduct,
+	                         @RequestParam(name = "ingredient") String ingredientProduct,
+	                         @RequestParam(name = "description") String descriptionProduct,
+	                         @RequestParam(name = "images") List<MultipartFile> filesImages,
+	                         HttpServletRequest request) {
 
 	    // Tạo mới đối tượng Product và thiết lập các thuộc tính
 	    Product product = new Product();
@@ -262,22 +279,73 @@ public class AdminController {
 	    product.setManufacturer(manufacturerProduct);
 	    product.setIngredient(ingredientProduct);
 	    product.setDescription(descriptionProduct);
-	    
+
 	    // Tìm và thiết lập category cho product
 	    Category category = categoryRepository.findById(Integer.parseInt(categoryProduct)).orElse(null);
 	    product.setCategoryID(category);
-	    
-	    // Lưu product vào cơ sở dữ liệu
-	    //Product savedProduct = productRepository.save(product);
 
-	     //Lưu các ảnh sản phẩm vào thư mục và cập nhật vào cơ sở dữ liệu
-		//String upLoadDir ="\\src\\main\\resources\\static\\imageProduct";	
-		
-//		String upLoadDir = System.getProperty("user.dir")+ "/uploadProduct/";
-//		System.out.println(upLoadDir);				
-//		paramService.saveImgProduct(fileImages, upLoadDir);
-//		String ImageSP = fileImages.getOriginalFilename();
-		ImageProduct imageProduct = new ImageProduct();
+	    List<ImageProduct> imageProducts = new ArrayList<>();
+
+	    for (MultipartFile fileImages : filesImages) {
+	        ImageProduct imageProduct = new ImageProduct();
+	        imageProduct.setProductID(product);
+
+	        if (!fileImages.isEmpty()) {
+	            String originalFilename = fileImages.getOriginalFilename();
+	            File NameFile = paramService.save(fileImages, "/imagesProduct/");
+	            String absolutePath = NameFile.getAbsolutePath();
+	            System.out.println("link: " + absolutePath);
+	            if (NameFile != null) {
+	                String imageName = NameFile.getName();
+	                imageProduct.setImageName(imageName);
+	                imageProducts.add(imageProduct);
+	            }
+	        }
+	    }
+
+	    productRepository.save(product);
+	    imageRepository.saveAll(imageProducts);
+
+	    for (ImageProduct imageProduct : imageProducts) {
+	        String savedImageName = imageProduct.getImageName();
+	        System.out.println("Tên ảnh đã lưu: " + savedImageName);
+	    }
+
+	    return "redirect:/admin?content=_content-product.jsp";
+	}
+
+
+	
+	@PostMapping("add-or-edit/{id}")
+	public String updateProduct(@PathVariable int id,@RequestParam(name = "productName") String nameProduct,
+			@RequestParam(name = "price") Double priceProduct, @RequestParam(name = "quantity") Long quantityProduct,
+			@RequestParam(name = "uses") String usesProduct, @RequestParam(name = "preserve") String preserveProduct,
+			@RequestParam(name = "skinType") String skinTypeProduct,
+			@RequestParam(name = "certification") String certificationProduct,
+			@RequestParam(name = "dateOfManufacture") Date dateOfManufactureProduct,
+			@RequestParam(name = "expiry") String expiryProduct,
+			@RequestParam(name = "categoryID") String categoryProduct,
+			@RequestParam(name = "manufacturer") String manufacturerProduct,
+			@RequestParam(name = "ingredient") String ingredientProduct,
+			@RequestParam(name = "description") String descriptionProduct,
+			@RequestPart(name = "image")  MultipartFile fileImages) {
+		Product product = productRepository.findByProductID(id);
+		product.setName(nameProduct);
+		product.setPrice(priceProduct);
+		product.setQuantityInStock(quantityProduct);
+		product.setUses(usesProduct);
+		product.setPreserve(preserveProduct);
+		product.setSkinType(skinTypeProduct);
+		product.setCertification(certificationProduct);
+		product.setDateOfManufacture(dateOfManufactureProduct);
+		product.setExpiry(expiryProduct);
+		product.setManufacturer(manufacturerProduct);
+		product.setIngredient(ingredientProduct);
+		product.setDescription(descriptionProduct);
+		Category cate = categoryRepository.findById(Integer.parseInt(categoryProduct)).get();
+		product.setCategoryID(cate);
+
+ImageProduct imageProduct = new ImageProduct();
 		
 		imageProduct.setProductID(product);
 		
@@ -301,69 +369,6 @@ public class AdminController {
 		
 		String savedImageName = imageProduct.getImageName();
 		System.out.println("Tên ảnh đã lưu: " + savedImageName);
-
-		return "redirect:/admin?content=_content-product.jsp";
-	}
-
-	
-	@PostMapping("add-or-edit/{id}")
-	public String updateProduct(@PathVariable int id,@RequestParam(name = "productName") String nameProduct,
-			@RequestParam(name = "price") Double priceProduct, @RequestParam(name = "quantity") Long quantityProduct,
-			@RequestParam(name = "uses") String usesProduct, @RequestParam(name = "preserve") String preserveProduct,
-			@RequestParam(name = "skinType") String skinTypeProduct,
-			@RequestParam(name = "certification") String certificationProduct,
-			@RequestParam(name = "dateOfManufacture") Date dateOfManufactureProduct,
-			@RequestParam(name = "expiry") String expiryProduct,
-			@RequestParam(name = "categoryID") String categoryProduct,
-			@RequestParam(name = "manufacturer") String manufacturerProduct,
-			@RequestParam(name = "ingredient") String ingredientProduct,
-			@RequestParam(name = "description") String descriptionProduct,
-			@RequestPart(name = "image")  List<MultipartFile> fileImages) {
-		Product product = productRepository.findByProductID(id);
-		product.setName(nameProduct);
-		product.setPrice(priceProduct);
-		product.setQuantityInStock(quantityProduct);
-		product.setUses(usesProduct);
-		product.setPreserve(preserveProduct);
-		product.setSkinType(skinTypeProduct);
-		product.setCertification(certificationProduct);
-		product.setDateOfManufacture(dateOfManufactureProduct);
-		product.setExpiry(expiryProduct);
-		product.setManufacturer(manufacturerProduct);
-		product.setIngredient(ingredientProduct);
-		product.setDescription(descriptionProduct);
-		Category cate = categoryRepository.findById(Integer.parseInt(categoryProduct)).get();
-		product.setCategoryID(cate);
-
-		String upLoadDir ="static/imageProduct";
-		
-		System.out.println(upLoadDir);
-		
-		
-		List<String> savedImageNames = new ArrayList<>();
-		
-		for (String string : savedImageNames) {
-			
-		}
-		for (MultipartFile file : fileImages) {
-		    // Lưu ảnh vào thư mục chỉ định
-		    paramService.saveImgProduct(file, upLoadDir);
-
-		    // Lấy tên của ảnh đã lưu
-		    String savedImageName = file.getOriginalFilename();
-		    savedImageNames.add(savedImageName);
-
-		    // Tạo đối tượng ImageProduct và lưu vào cơ sở dữ liệu
-		    ImageProduct imageProduct = new ImageProduct();
-		    imageProduct.setImageName(savedImageName);
-		    imageProduct.setProductID(product);
-		    imageRepository.save(imageProduct);
-
-		    // In ra tên ảnh đã lưu
-		    System.out.println("Tên ảnh đã lưu: " + savedImageName);
-		}
-		
-
 
 		return "redirect:/admin?content=_content-product.jsp";
 		
