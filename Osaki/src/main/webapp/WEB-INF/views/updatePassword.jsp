@@ -83,26 +83,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-    <%--     <script --%>
-    <%--             src="<c:url value="/webjars/sweetalert2/11.7.12/dist/sweetalert2.min.js"/>"></script> --%>
-    <%--     <link rel="stylesheet" --%>
-    <%--           href="<c:url value="/webjars/sweetalert2/11.7.12/dist/sweetalert2.min.css"/>"> --%>
-    <%--     <c:if test="${views =='address'}"> --%>
-    <%--         <link rel="stylesheet" --%>
-    <%--               href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" --%>
-    <%--               integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ==" --%>
-    <%--               crossorigin="anonymous" referrerpolicy="no-referrer"/> --%>
-    <%--         <script --%>
-    <%--                 src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" --%>
-    <%--                 integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ==" --%>
-    <%--                 crossorigin="anonymous" referrerpolicy="no-referrer"></script> --%>
-    <%--     </c:if> --%>
-    <%--     <c:if test="${views =='purchasedOrder'}"> --%>
-    <%--         <link rel="stylesheet" href="../../css/purchased-order.css"> --%>
-    <%--     </c:if> --%>
-    <%--     <link rel="stylesheet" href="../../css/profile.css"> --%>
-    <%--     <link rel="stylesheet" --%>
-    <%--           href="<c:url value="/webjars/bootstrap-icons/1.10.5/font/bootstrap-icons.css" />"> --%>
+    
     <style type="text/css">
         .loadingspinner {
             --square: 26px;
@@ -361,9 +342,9 @@
 <div class="container-fluid">
     <div class="row register-background">
         <div class="col-lg-12 d-flex align-items-center">
-            <div class="container my-1 d-flex justify-content-center   formRegister">
-
-                <form action="/account/register" method="post" id="formRegister" class="form-register">
+            <div class="container my-1 d-flex justify-content-center   ">
+ 			 <form action="post-update-password/{id}" method="post" class="form-register">
+                      <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đổi mật khẩu	</h3></div>
                     <div class="form-group">
                         <label class="form-label pt-4">Mật khẩu *</label>
                         <input type="password" name="password" required="required" id="forgot_password"
@@ -380,6 +361,10 @@
                     <div class="d-flex justify-content-center mt-4 mb-3">
                         <button class="btn btn-primary form-control" id="submitUpdatePassword">Cap nhat mat khau
                         </button>
+                    </div>
+                    <div class="d-flex justify-content-center  justify-alight-center" >
+                        <a href="/login" class="btn btn-danger form-control"   >Quay lại đăng nhập
+                        </a>
                     </div>
                 </form>
             </div>

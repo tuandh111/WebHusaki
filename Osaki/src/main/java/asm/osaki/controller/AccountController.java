@@ -99,27 +99,39 @@ public class AccountController {
         return ResponseEntity.ok(jsonResponse);
     }
 
-    @GetMapping("/update-password/{id}")
+    
+    // Change Password
+    @GetMapping("/updatepassword/{id}")
     public String updatePassword(@PathVariable("id") String userID) {
         return "updatePassword";
     }
 
     @PostMapping("post-update-password/{id}")
-    public ResponseEntity<?> postUpdatePassword(@PathVariable("id") String userID) {
+    public ResponseEntity<?> postUpdatePassword(@PathVariable("id") String userID,
+    											Model model) {
 
-        String password = paramService.getString("password", "");
+        String password        = paramService.getString("password", "");
         String confirmPassword = paramService.getString("confirmPassword", "");
+        String passwordNow     = paramService.getString("passwordNow","");
+        
+        UserCustom userCustom = userCustomRepository.findByUserID(Integer.parseInt(userID));
+        
         if (!password.equalsIgnoreCase(confirmPassword)) {
             return ResponseEntity.ok("errorPassword");
         }
         System.out.println("id: " + userID + "password :" + password + " " + confirmPassword);
-        UserCustom userCustom = userCustomRepository.findByUserID(Integer.parseInt(userID));
-        userCustom.setPassword(Bcrypt.hashPassword(password));
-        try {
-            userCustomRepository.save(userCustom);
-        } catch (Exception e) {
-            return ResponseEntity.ok("fail");
-        }
+      
+        
+        	 
+	  userCustom.setPassword(Bcrypt.hashPassword(password));
+	  try {
+          userCustomRepository.save(userCustom);
+      } catch (Exception e) {
+          return ResponseEntity.ok("fail");
+      }
+     
+      
+      
         return ResponseEntity.ok("success");
     }
 

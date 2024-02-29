@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -15,8 +14,7 @@
 			<tr>
 				<td width="60px">
 					<div class="img-thumbnail imgBox">
-						<img src="/images/${userLogin.image}">
-					
+						<img src="/images/${userLogin.image}">					
 					</div>
 					 
 				</td>
@@ -33,7 +31,12 @@
 				        data-info-account='{"userID":"${userLogin.userID}", "email":"${userLogin.email}","name":"${userLogin.fullName}"    }'>
 				        Xem thông tin
 				    </a>
+				   	
 				</td>
+				<td>
+					 <a  href="./updatepassword/${userLogin.userID}"  >Đổi mật khẩu</a>
+				</td>
+				 
 
 
 			</tr>
