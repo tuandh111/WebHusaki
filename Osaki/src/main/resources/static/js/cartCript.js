@@ -391,25 +391,25 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             text: "Vui lòng nhập số lượng lớn hơn 0 !",
             showConfirmButton: true,
         });
-        $(".input-qty").val(1);
+        $(".input-quantity").val(1);
         quantity = 1
-    } else if (parseInt(quantity) >= 101 && parseInt(quantity) > parseInt(quantityInStock)) {
+    } else if (parseInt(quantity) > 100 &&  parseInt(quantityInStock)>100) {
         Swal.fire({
             icon: 'error',
             title: 'Opps....',
             text: "Vui lòng nhập số lượng không lớn hơn 100 !",
             showConfirmButton: true,
         });
-        $(".input-qty").val(100);
+        $(".input-quantity").val(100);
         quantity = 100
-    } else if (parseInt(quantity) >= 101 && parseInt(quantity) <= parseInt(quantityInStock)) {
+    } else if (parseInt(quantity) >100 && parseInt(quantityInStock)<=100) {
         Swal.fire({
             icon: 'error',
             title: 'Opps....',
             text: "Vui lòng nhập số lượng không lớn hơn 100 !",
             showConfirmButton: true,
         });
-        $(".input-qty").val(100);
+        $(".input-quantity").val(quantityInStock);
         quantity = 100
     } else if (parseInt(quantity) < 100 && parseInt(quantity) >= parseInt(quantityInStock)) {
         Swal.fire({

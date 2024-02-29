@@ -283,8 +283,9 @@
         var currentValue = parseInt(inputQty.value);
         var minValue = parseInt(inputQty.getAttribute('min'));
         if (currentValue > minValue) {
-            inputQty.value = currentValue;
-
+            if (currentValue <= parseInt(quantityInStock)) {
+                inputQty.value = currentValue;
+            }
         }
 
         changeQuantityProduct(cartId, productId, currentValue, quantityInStock, price)
