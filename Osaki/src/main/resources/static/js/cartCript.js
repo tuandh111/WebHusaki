@@ -137,9 +137,17 @@ $(document).ready(function () {
                     // Gửi số lượng cùng với ID sản phẩm
                 },
                 success: function (response) {
-                    var json = JSON.parse(response);
+                    if (response == 'errorQuantityInStock') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm sản phẩm thất bại',
+                            text: "Số lượng thêm vào lớn hơn hàng tồn kho!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        return
+                    }var json = JSON.parse(response);
                     var message = json.message;
-
                     if (message == 'fail') {
                         Swal.fire({
                             icon: 'warning',

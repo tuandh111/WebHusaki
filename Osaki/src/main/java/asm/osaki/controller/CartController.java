@@ -187,6 +187,7 @@ public class CartController {
                 newCart.setUser(userCustom);
                 newCart.setProduct(productRepository.findByProductID(Integer.parseInt(productID)));
                 newCart.setQuantity(Integer.parseInt(quantity));
+                if(Integer.parseInt(quantity)>product.getQuantityInStock())return ResponseEntity.ok("errorQuantityInStock") ;
                 newCart.setCheckPay(false);
                 cartRepository.save(newCart);
                 Map<String, Object> json = new HashMap<>();
