@@ -180,7 +180,7 @@ $(document).ready(function () {
                         error: function (xhr, status, error) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Thanh toan thất bại',
+                                title: 'Thanh toán thất bại',
                                 text: "Có lỗi xảy ra, vui lòng thử lại !",
                                 showConfirmButton: false,
                                 timer: 1500

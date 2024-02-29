@@ -203,7 +203,7 @@
                     </div>
                     <div class="col l-4 m-12 s-12">
                         <div class="main__pay">
-                            <div class="main__pay-title">Tổng số lượng</div>
+                            <div class="main__pay-title">Chi tiết giỏ hàng</div>
                             <div class="pay-info">
                                 <div class="main__pay-text">
                                     Giao hàng
@@ -270,10 +270,10 @@
         var currentValue = parseInt(inputQty.value);
         var minValue = parseInt(inputQty.getAttribute('min'));
         if (currentValue > minValue) {
-            if (currentValue <= parseInt(quantityInStock)) {
-                inputQty.value = currentValue - 1;
-                calculateTotal(index, quantityInStock)
-            }
+
+            inputQty.value = currentValue - 1;
+            calculateTotal(index, quantityInStock)
+
         }
         changeQuantityProduct(cartId, productId, currentValue - 1, quantityInStock, price)
     }
@@ -304,10 +304,10 @@
         var currentValue = parseInt(inputQty.value);
         var maxValue = parseInt(inputQty.getAttribute('max'));
         if (currentValue < maxValue) {
-            if (currentValue < parseInt(quantityInStock)) {
-                inputQty.value = currentValue + 1;
-                calculateTotal(index, quantityInStock)
-            }
+
+            inputQty.value = currentValue + 1;
+            calculateTotal(index, quantityInStock)
+
         }
         changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
     }

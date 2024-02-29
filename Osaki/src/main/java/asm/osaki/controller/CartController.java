@@ -48,6 +48,7 @@ public class CartController {
 
     @Autowired
     AddressRepository addressRepository;
+
     @Autowired
     VoucherRepository voucherRepository;
 
@@ -165,12 +166,16 @@ public class CartController {
             if (existingCart != null) {
                 // Nếu sản phẩm đã tồn tại, chỉ cập nhật số lượng
                 Map<String, Object> json = new HashMap<>();
+                if(Integer.parseInt(quantity)>100){
+                    return ResponseEntity.ok("errorQuantity_") ;
+                }
                 if (existingCart.getQuantity() + Integer.parseInt(quantity) <= product.getQuantityInStock()) {
                     existingCart.setQuantity(existingCart.getQuantity() + Integer.parseInt(quantity));
                     cartRepository.save(existingCart);
                     json.put("message", "successUpdate");
                     json.put("cartID", existingCart.getCartId());
-                } else {
+                }
+                else {
                     json.put("message", "errorQuantityInStock");
                 }
                 String jsonResponse = null;
@@ -188,6 +193,7 @@ public class CartController {
                 newCart.setProduct(productRepository.findByProductID(Integer.parseInt(productID)));
                 newCart.setQuantity(Integer.parseInt(quantity));
                 if(Integer.parseInt(quantity)>product.getQuantityInStock())return ResponseEntity.ok("errorQuantityInStock") ;
+                if(Integer.parseInt(quantity)>100)return ResponseEntity.ok("errorQuantity_") ;
                 newCart.setCheckPay(false);
                 cartRepository.save(newCart);
                 Map<String, Object> json = new HashMap<>();

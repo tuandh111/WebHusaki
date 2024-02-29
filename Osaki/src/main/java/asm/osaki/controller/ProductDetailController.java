@@ -39,22 +39,18 @@ public class ProductDetailController {
     CommentRepository commentRepository;
     @Autowired
     ParamService paramService;
-
     @Autowired
     CartRepository cartRepository;
     @Autowired
     SessionService sessionService;
-
     @Autowired
     PromotionalDetailsRepository promotionalDetailsRepository;
-
     @Autowired
     AddressRepository addressRepository;
     @Autowired
     VoucherRepository voucherRepository;
     @Autowired
     InvoiceDetailRepository invoiceDetailRepository;
-
     @Autowired
     WishListRepository wishListRepository;
 
@@ -93,6 +89,7 @@ public class ProductDetailController {
         model.addAttribute("product", product);
         model.addAttribute("comment", commentRepository.findByProductID(product, Sort.by(Sort.Direction.ASC, "createAt")));
         System.out.println("run successfully product" + product);
+
         return "product";
     }
 

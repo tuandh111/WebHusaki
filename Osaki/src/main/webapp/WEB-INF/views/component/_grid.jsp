@@ -70,7 +70,7 @@
             <span></span>
         </div>
         <a href="home" class="header__logo">
-            <img src="/imagesAdmin/hasagi-logo.jpg" width="40px">
+            <img src="/imagesAdmin/hasagi-logo.jpg" width="40px" style=" border-radius: 50%;">
         </a>
         <div class="header__search">
             <div class="header__search-wrap">

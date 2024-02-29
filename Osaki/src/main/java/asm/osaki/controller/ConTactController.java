@@ -157,7 +157,7 @@ public class ConTactController {
         Contact contact = new Contact();
         UserCustom userCustom = userCustomRepository.findByEmail(email);
         if (username.equalsIgnoreCase("") || message.equalsIgnoreCase("")) {
-            contact.setMessage("Tôi muốn nhận khuyen mãi mới nhất");
+            contact.setMessage("Tôi muốn nhận khuyến mãi mới nhất");
         } else {
             contact.setMessage(message);
         }

@@ -36,7 +36,7 @@ $(document).ready(function () {
                         } else if (response == 'errorPassword') {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Thanh cong',
+                                title: 'Xác nhận tài khoản',
                                 text: "Nhập lại mật khẩu không chính xác !",
                                 showConfirmButton: false,
                                 timer: 3500
@@ -44,7 +44,7 @@ $(document).ready(function () {
                         } else {
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Thanh cong',
+                                title: 'Thành công',
                                 text: "Cập nhật mật khẩu thành công !",
                                 showConfirmButton: false,
                                 timer: 3500

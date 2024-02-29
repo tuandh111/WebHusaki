@@ -41,6 +41,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 <style>
+    .text-decoration-line-through {
+        text-decoration: line-through;
+    }
+
     .swal2-popup {
         font-size: 2rem;
     }
@@ -125,6 +129,12 @@
                     <h3 class="productInfo__name">
                         ${product.name}
                     </h3>
+                    <c:if test="${product.quantityInStock == 0}">
+                        <h1 style="color: red">Hết hàng</h1>
+                    </c:if>
+                    <c:if test="${product.quantityInStock > 0}">
+                        <h1 style="color: red">Còn hàng</h1>
+                    </c:if>
                     <div class="productInfo__price">
                         <c:set var="checkLike" value="false"/>
                         <c:set var="checkLikePrice" value=""/>

@@ -14,7 +14,6 @@
 
     <div class="grid wide">
 
-        <h3 class="category__title">Hoàng Tuấn Cometics</h3>
         <h3 class="category__heading">SẢN PHẨM FLASH SALE</h3>
         <c:if test="${!checkDay}">
             <h2 id="countdown"></h2>
@@ -35,7 +34,7 @@
                                     <c:if test="${c.categoryID == p.categoryID.categoryID}">
                                         <c:if test="${pdProduct.productID.productID == p.productID}">
                                             <div class="col-lg-2 col-md-4 col-sm-6">
-                                                <a href="product/${p.productID}">
+                                                <a href="/product/${p.productID}">
                                                     <div class="product">
                                                         <c:set var="foundFirst" value="false"/>
                                                         <c:forEach var="imgProduct" items="${imagesProduct}"

@@ -45,6 +45,10 @@
     <script src="./owlCarousel/owl.carousel.min.js"></script>
 </head>
 <style>
+      .text-muted{
+        text-decoration: line-through;
+        margin-right: 54px;
+    }
     .swal2-popup {
         font-size: 2rem;
     }

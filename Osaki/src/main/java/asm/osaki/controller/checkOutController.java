@@ -40,16 +40,22 @@ public class checkOutController {
 
     @Autowired
     CartRepository cartRepository;
+
     @Autowired
     ParamService paramService;
+
     @Autowired
     InvoiceRepository invoiceRepository;
+
     @Autowired
     FlashSaleRepository flashSaleRepository;
+
     @Autowired
     PromotionalDetailsRepository promotionalDetailsRepository;
+
     @Autowired
     ProductRepository productRepository;
+
     @Autowired
     InvoiceDetailRepository invoiceDetailRepository;
 

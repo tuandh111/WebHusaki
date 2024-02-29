@@ -48,6 +48,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 <style>
+    .text-muted{
+        text-decoration: line-through;
+        margin-right: 54px;
+    }
     .swal2-popup {
         font-size: 2rem;
     }

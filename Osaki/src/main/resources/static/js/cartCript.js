@@ -146,7 +146,18 @@ $(document).ready(function () {
                             timer: 2000
                         });
                         return
-                    }var json = JSON.parse(response);
+                    }
+                    if (response == 'errorQuantity_') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm sản phẩm thất bại',
+                            text: "Số lượng không được vươt quá 100!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        return
+                    }
+                    var json = JSON.parse(response);
                     var message = json.message;
                     if (message == 'fail') {
                         Swal.fire({
@@ -418,8 +429,8 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             showConfirmButton: true,
         });
         $(".input-quantity").val(quantityInStock);
-        quantity = 100
-    } else if (parseInt(quantity) < 100 && parseInt(quantity) >= parseInt(quantityInStock)) {
+        quantity = quantityInStock
+    } else if (parseInt(quantity) <= 100 && parseInt(quantity) > parseInt(quantityInStock)) {
         Swal.fire({
             icon: 'error',
             title: 'Opps....',

@@ -36,7 +36,7 @@ $(document).ready(function () {
                     if (response == 'success') {
                         $("#message").val("");
                         Swal.fire({
-                            title: 'Thành công', text: "Gửi email thành công", showConfirmButton: true, timer: 3500
+                            title: 'Thành công', text: "Liên hệ thông tin thành công", showConfirmButton: true, timer: 3500
                         })
                     } else {
                         Swal.fire({
