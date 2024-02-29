@@ -191,13 +191,13 @@
                                         <c:set var="checkCart" value="true"/>
                                     </c:if>
                                 </c:forEach>
-                                <h1>${payment}</h1>
                                 <c:if test="${!checkCart}">
                                     <h2 class="c"><a href="/">Tiếp tục mua sắm</a></h2>
                                 </c:if>
                                 <c:if test="${checkCart}">
                                     <h2 class="c"><a href="/"></a></h2>
                                 </c:if>
+                                <h1>${payment}</h1>
                             </div>
                         </div>
                     </div>
@@ -281,13 +281,20 @@
     function onchangeProduct(index, cartId, productId, quantityInStock, price) {
         var inputQty = document.querySelectorAll('.input-qty')[index];
         var currentValue = parseInt(inputQty.value);
+        var maxValue = parseInt(inputQty.getAttribute('max'));
         var minValue = parseInt(inputQty.getAttribute('min'));
-        if (currentValue > minValue) {
-            if (currentValue <= parseInt(quantityInStock)) {
-                inputQty.value = currentValue;
-            }
-        }
+        if (currentValue > minValue && currentValue <= 100) {
 
+            inputQty.value = currentValue;
+            console.log(3)
+        } else if (currentValue > 100) {
+            if (parseInt(quantityInStock) > 100)
+                inputQty.value = 100;
+            else inputQty.value = quantityInStock;
+            console.log(4)
+        } else if (currentValue < 0) {
+            inputQty.value = 1;
+        }
         changeQuantityProduct(cartId, productId, currentValue, quantityInStock, price)
         calculateTotal(index, quantityInStock)
     }

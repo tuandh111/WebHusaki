@@ -368,18 +368,19 @@
                     <div class="d-flex justify-content-center mt-2"><h3 class="authen-modal__title  ">Đăng ký</h3></div>
                     <div class="form-group">
                         <label class="form-label " style="font-size: 16px">Họ Tên *</label>
-                        <form:input path="fullName" class="form-control" style="font-size: 16px"/>
+                        <form:input path="fullName" class="form-control" style="font-size: 16px" required="required"/>
                         <small class="text-danger" id="fullNameError"></small>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label pt-4" style="font-size: 16px">Tài khoản Email *</label>
-                        <form:input path="email" id="password" type="email" class="form-control"
+                        <form:input path="email" id="password" type="email" class="form-control" required="required"
                                     style="font-size: 16px"/>
                         <small class="text-danger" id="emailError"></small>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label pt-4" style="font-size: 16px">Mật khẩu *</label>
-                        <form:input path="password" type="password" class="form-control" style="font-size: 16px"/>
+                        <form:input path="password" type="password" class="form-control" required="required"
+                                    style="font-size: 16px"/>
                         <small class="text-danger" id="passwordError"></small>
                     </div>
                     <div class="form-group">

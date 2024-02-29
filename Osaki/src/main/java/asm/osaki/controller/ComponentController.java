@@ -53,7 +53,7 @@ public class ComponentController {
         return "product";
     }
 
-    @GetMapping("/access-denied")
+    @GetMapping({"/access-denied", "/NotEnoughProducts", "product/NotEnoughProducts"})
     public String notFound() {
         return "notFound";
     }

@@ -393,7 +393,7 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
         });
         $(".input-quantity").val(1);
         quantity = 1
-    } else if (parseInt(quantity) > 100 &&  parseInt(quantityInStock)>100) {
+    } else if (parseInt(quantity) > 100 && parseInt(quantityInStock) > 100) {
         Swal.fire({
             icon: 'error',
             title: 'Opps....',
@@ -402,7 +402,7 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
         });
         $(".input-quantity").val(100);
         quantity = 100
-    } else if (parseInt(quantity) >100 && parseInt(quantityInStock)<=100) {
+    } else if (parseInt(quantity) > 100 && parseInt(quantityInStock) <= 100) {
         Swal.fire({
             icon: 'error',
             title: 'Opps....',

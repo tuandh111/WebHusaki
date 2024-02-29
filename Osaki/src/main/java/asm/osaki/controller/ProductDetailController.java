@@ -141,7 +141,6 @@ public class ProductDetailController {
     @ModelAttribute("likeList")
     public List<WishList> getCategories(HttpSession session) {
         UserCustom userCustom = (UserCustom) session.getAttribute("userLogin");
-
         System.out.println("userCustom1: " + userCustom);
         if (userCustom != null) {
             List<WishList> listLike = wishListRepository.findByUser(userCustom);
