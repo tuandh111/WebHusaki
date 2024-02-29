@@ -233,6 +233,12 @@ public class AdminController {
 
 		return "redirect:/admin?content=formFlashSale.jsp";
 	}
+	
+	@GetMapping("add-or-edit-news")
+	public String addOrEditNews(Model model) {
+
+		return "redirect:/admin?content=form-news.jsp";
+	}
 
 	@GetMapping("/add-or-edit/{id}")
 	public String editForm(Model model, @PathVariable("id") Integer id) {
@@ -248,20 +254,6 @@ public class AdminController {
 		model.addAttribute("content", "formFlashSale.jsp");
 		   // Lấy thông tin flashSale từ repository
 	    FlashSale flashSale = flashSaleRepository.findByIsSale(id);
-	    
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	   	String date = null;
-		date = dateFormat.format(flashSale.getStartDay());
-		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date2 = null;
-		try {
-			date2 = dateFormat2.parse(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    // Cập nhật thuộc tính StartDay của flashSale với ngày đã định dạng lại
-	    flashSale.setStartDay(date2);
 	    
 	    // Đặt thuộc tính "sale" vào model
 	    model.addAttribute("sale", flashSale);

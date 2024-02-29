@@ -45,7 +45,7 @@
             </a>
         </li>     
         <li>
-            <a href="/admin?content=news.jsp">
+            <a href="/admin?content=_content-news.jsp">
                 <span class="icon"><ion-icon name="list-circle-outline"></ion-icon></span>
                 <span class="title">Bản tin</span>
             </a>
