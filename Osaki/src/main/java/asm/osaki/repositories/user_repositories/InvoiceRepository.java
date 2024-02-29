@@ -18,9 +18,7 @@ public interface InvoiceRepository extends JpaRepository<Invoice, String> {
 	@Query("select count(i) from  invoice i")
 	Integer getTotalInvoice();
 
-	@Query("select sum(i.totalAmount) from  invoice i where i.status like '%Thành công%'")
-	Double getRevenue();
+	
 
-	@Query("select count(i) from  invoice i where i.isDelete=false ")
-	Integer getQuantityNotCompleteYet();
+	
 }

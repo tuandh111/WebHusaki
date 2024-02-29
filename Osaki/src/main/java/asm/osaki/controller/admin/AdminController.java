@@ -49,7 +49,6 @@ import asm.osaki.repositories.statistics_repositories.StatisticsRepository;
 import asm.osaki.model.admin.ProductLatest;
 
 import asm.osaki.repositories.user_repositories.CommentRepository;
-import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.InvoiceRepository;
 
 import asm.osaki.repositories.user_repositories.UserCustomRepository;
@@ -73,8 +72,6 @@ public class AdminController {
 	private UserCustomRepository userCustomRepository;
 	@Autowired
 	private InvoiceRepository invoiceRepository;
-	@Autowired
-	private InvoiceDetailRepository invoiceDetailRepository;
 	@Autowired
 	private CommentRepository commentRepository;
 	@Autowired
@@ -169,26 +166,24 @@ public class AdminController {
 			model.addAttribute("content", "_dashboard3.jsp");
 		}
 
-		List<Category> catelist = categoryRepository.findAll();
-		model.addAttribute("cateList", catelist);
 
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());		
-		model.addAttribute("totalRevenue",invoiceRepository.getRevenue()==null?0:currencyFormat.format(invoiceRepository.getRevenue()));
+		model.addAttribute("totalRevenue",statisticsRepository.getRevenue()==null?0:currencyFormat.format(statisticsRepository.getRevenue()));
 		model.addAttribute("totalComments", commentRepository.getTotalComment());
-		model.addAttribute("quantityNotify", invoiceRepository.getQuantityNotCompleteYet());		
+		model.addAttribute("quantityNotify", statisticsRepository.getQuantityNotCompleteYet());		
 		int visitorCount = visitorCounter.getCount();
         model.addAttribute("visitorCount", visitorCount);
 		// Lấy 3 sản phẩm từ hóa đơn gần nhất
 		Pageable pageable = PageRequest.of(p.orElse(0), 3);
 		model.addAttribute("recentProduct",
-				ProductLatest.convert(invoiceDetailRepository.findTop3ProductLatest(pageable)));
+				ProductLatest.convert(statisticsRepository.findTop3ProductLatest(pageable)));
 
 		// lấy tài khoản admin đăng nhập
 		model.addAttribute("userAdminLogin", sessionService.get("userLogin"));
 
 		// Biểu đồ  thống kê doanh thu theo danh mục
-		List<DataRevenueByCategory> datas = DataRevenueByCategory.convert(categoryRepository.dataRevenueByCategory());
+		List<DataRevenueByCategory> datas = DataRevenueByCategory.convert(statisticsRepository.dataRevenueByCategory());
 		Map<String, Double> dataRevenueByCategory = new HashMap<>();
 		for (DataRevenueByCategory data : datas) {
 			dataRevenueByCategory.put(data.getCategoryName(), data.getTotalAmount());
@@ -203,7 +198,7 @@ public class AdminController {
 
 		// Biểu đồ thống kê số lượng tồn kho theo sản phẩm		
 		List<InventoryTransactions> inventories = InventoryTransactions
-				.convert(productRepository.inventoryTransactions());
+				.convert(statisticsRepository.inventoryTransactions());
 		Map<String, Double> dataInventories = new HashMap<>();
 		for (InventoryTransactions data : inventories) {
 			dataInventories.put(data.getName(), data.getQuantityInstock());
@@ -280,8 +275,5 @@ public class AdminController {
 		return "redirect:/login";
 	}
 	
-//	@ModelAttribute("quantityNotify")
-//	public Integer getAuantityNotify() {
-//		return invoiceRepository.getQuantityNotCompleteYet();
-//	}
+
 }

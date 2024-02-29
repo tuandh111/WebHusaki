@@ -47,7 +47,7 @@
                     <c:forEach var="item" items="${orders}">
                         <tr>
                             <td>${item.invoiceID}</td>
-                           <td><img src="/uploadProduct/${item.imageProduct}" class="img-thumbnail" title="Ảnh sản phẩm"
+                           <td><img src="../imagesProduct/${item.imageProduct}" class="img-thumbnail" title="Ảnh sản phẩm"
                                      style="width: 50px;height: 50px">
                             </td>
                             <td>${item.nameProduct}</td> 

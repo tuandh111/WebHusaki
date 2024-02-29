@@ -45,6 +45,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			+ "INNER JOIN invoiceDetail id ON id.productID.productID = p.productID " + "GROUP BY p")
 	List<Object[]> fetchInventoryTransactions();
 
-	@Query("SELECT p FROM product p")
-	List<Object[]> inventoryTransactions();
 }
