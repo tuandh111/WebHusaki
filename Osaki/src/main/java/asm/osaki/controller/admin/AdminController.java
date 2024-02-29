@@ -6,7 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +21,7 @@ import java.util.Optional;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.task.TaskExecutionProperties.Simple;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +30,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -105,9 +112,7 @@ public class AdminController {
 			@RequestParam("kwSearch") Optional<String> kw, @RequestParam("p") Optional<Integer> p) {
 
 		if (content != null && !content.isEmpty()) {
-			
-			
-			
+
 			model.addAttribute("content", content);
 
 			String keywordSearch = kw.orElse(sessionService.get("kwSearch", ""));
@@ -135,12 +140,16 @@ public class AdminController {
 				List<OrderInfo> convertedResults = OrderInfo.convert(page.getContent());
 				model.addAttribute("orders", convertedResults);
 				System.out.println("orders " + convertedResults.toString());
-			}else if (content.equals("_FlashSale.jsp")) {
-				//page = orderRepository.findAllByNameLike(keywordSearch, pageable);
-				List<FlashSaleA> convertedResults = FlashSaleA.convert(flashSaleRepository.findProductFlashSale(false));
-			
-				model.addAttribute("flashsaleProduct", convertedResults);
-				//System.out.println("convertedResultsFlashSaleA " + convertedResults.isEmpty());
+			} else if (content.equals("_FlashSale.jsp")) {
+				// page = orderRepository.findAllByNameLike(keywordSearch, pageable);
+//				List<FlashSaleA> convertedResults = FlashSaleA.convert(flashSaleRepository.findProductFlashSale(false));
+//			
+//				model.addAttribute("flashsaleProduct", convertedResults);
+				// System.out.println("convertedResultsFlashSaleA " +
+				// convertedResults.isEmpty());
+
+				List<FlashSale> sale = flashSaleRepository.findAll();
+				model.addAttribute("FlashSale", sale);
 			}
 
 			if (page != null) {
@@ -161,10 +170,11 @@ public class AdminController {
 		}
 
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());		
-		model.addAttribute("totalRevenue",invoiceRepository.getRevenue()==null?0:currencyFormat.format(invoiceRepository.getRevenue()));
+		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());
+		model.addAttribute("totalRevenue",
+				invoiceRepository.getRevenue() == null ? 0 : currencyFormat.format(invoiceRepository.getRevenue()));
 		model.addAttribute("totalComments", commentRepository.getTotalComment());
-		model.addAttribute("quantityNotify", invoiceRepository.getQuantityNotCompleteYet());		
+		model.addAttribute("quantityNotify", invoiceRepository.getQuantityNotCompleteYet());
 		int visitorCount = visitorCounter.getCount();
 		model.addAttribute("visitorCount", visitorCount);
 		// Lấy 3 sản phẩm từ hóa đơn gần nhất
@@ -189,7 +199,7 @@ public class AdminController {
 			e.printStackTrace();
 		}
 
-		// Biểu đồ thống kê số lượng tồn kho theo sản phẩm		
+		// Biểu đồ thống kê số lượng tồn kho theo sản phẩm
 		List<InventoryTransactions> inventories = InventoryTransactions
 				.convert(productRepository.inventoryTransactions());
 		Map<String, Double> dataInventories = new HashMap<>();
@@ -202,9 +212,6 @@ public class AdminController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 
 		return "admin/admin";
 	}
@@ -220,124 +227,73 @@ public class AdminController {
 		model.addAttribute("categories", categories);
 		return "redirect:/admin?content=__form-control-product.jsp&action=" + action;
 	}
-	
+
 	@GetMapping("add-or-edit-product-sale")
 	public String addOrEditProductSale(Model model) {
-		
+
 		return "redirect:/admin?content=formFlashSale.jsp";
 	}
-	
+
 	@GetMapping("/add-or-edit/{id}")
-	public String editForm(Model model,@PathVariable("id") Integer id)
-	{
-		model.addAttribute("content","__form-control-product.jsp");
+	public String editForm(Model model, @PathVariable("id") Integer id) {
+		model.addAttribute("content", "__form-control-product.jsp");
 		Product updateProduct = productRepository.findByProductID(id);
-		 model.addAttribute("updateProduct", updateProduct);
-		 
+		model.addAttribute("updateProduct", updateProduct);
+
 		return "admin/admin";
 	}
-	
-	
-	
-	
-	@GetMapping("/delete/{id}")
-	public String deleteForm(Model model,@PathVariable("id") Integer id)
-	{
-		Product deletePd = productRepository.findByProductID(id);
-		 productRepository.delete(deletePd);
-		 
-		 return "redirect:/admin?content=_content-product.jsp";
+
+	@GetMapping("/add-or-edit-product/{id}")
+	public String editSale(Model model, @PathVariable("id") Integer id) throws ParseException {
+		model.addAttribute("content", "formFlashSale.jsp");
+		   // Lấy thông tin flashSale từ repository
+	    FlashSale flashSale = flashSaleRepository.findByIsSale(id);
+	    
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   	String date = null;
+		date = dateFormat.format(flashSale.getStartDay());
+		DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date date2 = null;
+		try {
+			date2 = dateFormat2.parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    // Cập nhật thuộc tính StartDay của flashSale với ngày đã định dạng lại
+	    flashSale.setStartDay(date2);
+	    
+	    // Đặt thuộc tính "sale" vào model
+	    model.addAttribute("sale", flashSale);
+		return "admin/admin";
 	}
-	
-	
-	
+
+	@GetMapping("/delete/{id}")
+	public String deleteForm(Model model, @PathVariable("id") Integer id) {
+		Product deletePd = productRepository.findByProductID(id);
+		productRepository.delete(deletePd);
+
+		return "redirect:/admin?content=_content-product.jsp";
+	}
 
 	@PostMapping("add-product-sale")
-	public String addProductSale(
-			@RequestParam(name = "startDay") Date startDaySale,
-            @RequestParam(name = "endDay") Date endDaySale) {
-		
+	public String addProductSale(@RequestParam(name = "startDay") Date startDaySale,
+			@RequestParam(name = "endDay") Date endDaySale, @RequestParam(name = "status") boolean status) {
+
+		UserCustom user = sessionService.get("userLogin");
 		FlashSale flashSale = new FlashSale();
 		flashSale.setStartDay(startDaySale);
 		flashSale.setEndDay(endDaySale);
-		
-		flashSaleRepository.save(flashSale);
-		
-		
-		 return "redirect:/admin?content=_FlashSale.jsp";
-	}
+		flashSale.setStatus(status);
+		flashSale.setUser(user);
 
+		flashSaleRepository.save(flashSale);
+
+		return "redirect:/admin?content=_FlashSale.jsp";
+	}
 
 	@PostMapping("add-product")
 	public String addProduct(@RequestParam(name = "productName") String nameProduct,
-	                         @RequestParam(name = "price") Double priceProduct,
-	                         @RequestParam(name = "quantity") Long quantityProduct,
-	                         @RequestParam(name = "uses") String usesProduct,
-	                         @RequestParam(name = "preserve") String preserveProduct,
-	                         @RequestParam(name = "skinType") String skinTypeProduct,
-	                         @RequestParam(name = "certification") String certificationProduct,
-	                         @RequestParam(name = "dateOfManufacture") Date dateOfManufactureProduct,
-	                         @RequestParam(name = "expiry") String expiryProduct,
-	                         @RequestParam(name = "categoryID") String categoryProduct,
-	                         @RequestParam(name = "manufacturer") String manufacturerProduct,
-	                         @RequestParam(name = "ingredient") String ingredientProduct,
-	                         @RequestParam(name = "description") String descriptionProduct,
-	                         @RequestParam(name = "images") List<MultipartFile> filesImages,
-	                         HttpServletRequest request) {
-
-	    // Tạo mới đối tượng Product và thiết lập các thuộc tính
-	    Product product = new Product();
-	    product.setName(nameProduct);
-	    product.setPrice(priceProduct);
-	    product.setQuantityInStock(quantityProduct);
-	    product.setUses(usesProduct);
-	    product.setPreserve(preserveProduct);
-	    product.setSkinType(skinTypeProduct);
-	    product.setCertification(certificationProduct);
-	    product.setDateOfManufacture(dateOfManufactureProduct);
-	    product.setExpiry(expiryProduct);
-	    product.setManufacturer(manufacturerProduct);
-	    product.setIngredient(ingredientProduct);
-	    product.setDescription(descriptionProduct);
-
-	    // Tìm và thiết lập category cho product
-	    Category category = categoryRepository.findById(Integer.parseInt(categoryProduct)).orElse(null);
-	    product.setCategoryID(category);
-
-	    List<ImageProduct> imageProducts = new ArrayList<>();
-
-	    for (MultipartFile fileImages : filesImages) {
-	        ImageProduct imageProduct = new ImageProduct();
-	        imageProduct.setProductID(product);
-
-	        if (!fileImages.isEmpty()) {
-	            String originalFilename = fileImages.getOriginalFilename();
-	            File NameFile = paramService.save(fileImages, "/imagesProduct/");
-	            String absolutePath = NameFile.getAbsolutePath();
-	            System.out.println("link: " + absolutePath);
-	            if (NameFile != null) {
-	                String imageName = NameFile.getName();
-	                imageProduct.setImageName(imageName);
-	                imageProducts.add(imageProduct);
-	            }
-	        }
-	    }
-
-	    productRepository.save(product);
-	    imageRepository.saveAll(imageProducts);
-
-	    for (ImageProduct imageProduct : imageProducts) {
-	        String savedImageName = imageProduct.getImageName();
-	        System.out.println("Tên ảnh đã lưu: " + savedImageName);
-	    }
-
-	    return "redirect:/admin?content=_content-product.jsp";
-	}
-
-
-	
-	@PostMapping("add-or-edit/{id}")
-	public String updateProduct(@PathVariable int id,@RequestParam(name = "productName") String nameProduct,
 			@RequestParam(name = "price") Double priceProduct, @RequestParam(name = "quantity") Long quantityProduct,
 			@RequestParam(name = "uses") String usesProduct, @RequestParam(name = "preserve") String preserveProduct,
 			@RequestParam(name = "skinType") String skinTypeProduct,
@@ -348,7 +304,70 @@ public class AdminController {
 			@RequestParam(name = "manufacturer") String manufacturerProduct,
 			@RequestParam(name = "ingredient") String ingredientProduct,
 			@RequestParam(name = "description") String descriptionProduct,
-			@RequestPart(name = "image")  MultipartFile fileImages) {
+			@RequestParam(name = "images") List<MultipartFile> filesImages, HttpServletRequest request) {
+
+		// Tạo mới đối tượng Product và thiết lập các thuộc tính
+		Product product = new Product();
+		product.setName(nameProduct);
+		product.setPrice(priceProduct);
+		product.setQuantityInStock(quantityProduct);
+		product.setUses(usesProduct);
+		product.setPreserve(preserveProduct);
+		product.setSkinType(skinTypeProduct);
+		product.setCertification(certificationProduct);
+		product.setDateOfManufacture(dateOfManufactureProduct);
+		product.setExpiry(expiryProduct);
+		product.setManufacturer(manufacturerProduct);
+		product.setIngredient(ingredientProduct);
+		product.setDescription(descriptionProduct);
+
+		// Tìm và thiết lập category cho product
+		Category category = categoryRepository.findById(Integer.parseInt(categoryProduct)).orElse(null);
+		product.setCategoryID(category);
+
+		List<ImageProduct> imageProducts = new ArrayList<>();
+
+		for (MultipartFile fileImages : filesImages) {
+			ImageProduct imageProduct = new ImageProduct();
+			imageProduct.setProductID(product);
+
+			if (!fileImages.isEmpty()) {
+				String originalFilename = fileImages.getOriginalFilename();
+				File NameFile = paramService.save(fileImages, "/imagesProduct/");
+				String absolutePath = NameFile.getAbsolutePath();
+				System.out.println("link: " + absolutePath);
+				if (NameFile != null) {
+					String imageName = NameFile.getName();
+					imageProduct.setImageName(imageName);
+					imageProducts.add(imageProduct);
+				}
+			}
+		}
+
+		productRepository.save(product);
+		imageRepository.saveAll(imageProducts);
+
+		for (ImageProduct imageProduct : imageProducts) {
+			String savedImageName = imageProduct.getImageName();
+			System.out.println("Tên ảnh đã lưu: " + savedImageName);
+		}
+
+		return "redirect:/admin?content=_content-product.jsp";
+	}
+
+	@PostMapping("add-or-edit/{id}")
+	public String updateProduct(@PathVariable int id, @RequestParam(name = "productName") String nameProduct,
+			@RequestParam(name = "price") Double priceProduct, @RequestParam(name = "quantity") Long quantityProduct,
+			@RequestParam(name = "uses") String usesProduct, @RequestParam(name = "preserve") String preserveProduct,
+			@RequestParam(name = "skinType") String skinTypeProduct,
+			@RequestParam(name = "certification") String certificationProduct,
+			@RequestParam(name = "dateOfManufacture") Date dateOfManufactureProduct,
+			@RequestParam(name = "expiry") String expiryProduct,
+			@RequestParam(name = "categoryID") String categoryProduct,
+			@RequestParam(name = "manufacturer") String manufacturerProduct,
+			@RequestParam(name = "ingredient") String ingredientProduct,
+			@RequestParam(name = "description") String descriptionProduct,
+			@RequestPart(name = "image") MultipartFile fileImages) {
 		Product product = productRepository.findByProductID(id);
 		product.setName(nameProduct);
 		product.setPrice(priceProduct);
@@ -365,47 +384,43 @@ public class AdminController {
 		Category cate = categoryRepository.findById(Integer.parseInt(categoryProduct)).get();
 		product.setCategoryID(cate);
 
-ImageProduct imageProduct = new ImageProduct();
-		
+		ImageProduct imageProduct = new ImageProduct();
+
 		imageProduct.setProductID(product);
-		
+
 		if (!fileImages.isEmpty()) {
 
-            String originalFilename = fileImages.getOriginalFilename();
+			String originalFilename = fileImages.getOriginalFilename();
 
-            // String savePath = "/images/" + originalFilename;
-            File NameFile = paramService.save(fileImages, "/imagesProduct/");
+			// String savePath = "/images/" + originalFilename;
+			File NameFile = paramService.save(fileImages, "/imagesProduct/");
 			String absolutePath = NameFile.getAbsolutePath();
-			System.out.println("link: "+ absolutePath);
-            if (NameFile != null) {
-                String imageName = NameFile.getName();
-                imageProduct.setImageName(imageName);
-            }
-            //	String iamgeA = fileInput.getOriginalFilename();
-        }
+			System.out.println("link: " + absolutePath);
+			if (NameFile != null) {
+				String imageName = NameFile.getName();
+				imageProduct.setImageName(imageName);
+			}
+			// String iamgeA = fileInput.getOriginalFilename();
+		}
 
 		productRepository.save(product);
 		imageRepository.save(imageProduct);
-		
+
 		String savedImageName = imageProduct.getImageName();
 		System.out.println("Tên ảnh đã lưu: " + savedImageName);
 
 		return "redirect:/admin?content=_content-product.jsp";
-		
 
 	}
-	
-	
-
 
 	@GetMapping("logout")
 	public String logout(@ModelAttribute("UserC") UserCustom userCustom) {
 		sessionService.remove("userLogin");
 		return "redirect:/login";
 	}
-	
+
 	@ModelAttribute("cateList")
-	public List<Category> getAllCategory(){
+	public List<Category> getAllCategory() {
 		return categoryRepository.findAll();
 	}
 

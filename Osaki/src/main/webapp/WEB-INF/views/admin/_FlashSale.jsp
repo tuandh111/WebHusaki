@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <div class="row mb-3 p-5">
 	<div class="d-flex flex-row">
 		<h4 class="me-2">Sản phẩm khuyến mãi</h4>
@@ -43,17 +44,34 @@
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Start Day</th>
-					<th>End Day</th>
+					<th>Ngày bắt đầu</th>
+					<th>Ngày kết thúc</th>
+					<th>Trạng thái</th>
+					<th></th>
 					
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="discount" items="${flashsaleProduct}">
+				<c:forEach var="discount" items="${FlashSale}">
 					<tr>
 						<td>${discount.id}</td>
-						<td>${discount.startDay}</td>
-						<td>${discount.endDay}</td>
+						<td>
+						<fmt:formatDate pattern="dd/MM/yyyy" value="${discount.startDay}"/>
+						</td>
+						
+						
+						<td>
+						<fmt:formatDate pattern="dd/MM/yyyy" value="${discount.endDay}"/>
+						</td>
+						<td><c:choose>
+							<c:when test="${discount.status}">Ngưng hoạt động</c:when>
+							<c:otherwise>Đang hoạt động</c:otherwise>
+						</c:choose></td>
+						<td>
+						<a href="admin/add-or-edit-product/${discount.id }">Sửa</a>|
+						<a href="#">Xóa</a>
+						</td>
+						
 					
 					</tr>
 				</c:forEach>
