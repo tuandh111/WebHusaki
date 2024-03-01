@@ -225,9 +225,9 @@ public class AdminController {
     }
 
     @GetMapping("add-or-edit-product-sale")
-    public String addOrEditProductSale(Model model) {
-
-		return "redirect:/admin?content=formFlashSale.jsp";
+    public String addOrEditProductSale(@RequestParam(name = "action") String action,Model model) {
+    	 model.addAttribute("action", action);
+		return "redirect:/admin?content=formFlashSale.jsp&action=" + action;
 	}
 	
 	@GetMapping("add-or-edit-news")
@@ -245,11 +245,11 @@ public class AdminController {
         return "admin/admin";
     }
 
-    @GetMapping("/add-or-edit-product/{id}")
+    @GetMapping("/add-or-edit-sale/{id}")
     public String editSale(Model model, @PathVariable("id") Integer id) throws ParseException {
         model.addAttribute("content", "formFlashSale.jsp");
         // Lấy thông tin flashSale từ repository
-        FlashSale flashSale = flashSaleRepository.findByIsSale(id);
+        FlashSale flashSale = flashSaleRepository.findByid(id);
         java.util.Date startDate = flashSale.getStartDay();
         java.util.Date endDate = flashSale.getEndDay();
         LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -258,8 +258,9 @@ public class AdminController {
         java.util.Date newEndDate = java.sql.Date.valueOf(localEndDate);
         flashSale.setStartDay(newStartDate);
         flashSale.setEndDay(newEndDate);
+        
         // Đặt thuộc tính "sale" vào model
-        model.addAttribute("sale", flashSale);
+        model.addAttribute("saleProduct", flashSale);
         return "admin/admin";
     }
 
@@ -285,6 +286,29 @@ public class AdminController {
 
         return "redirect:/admin?content=_FlashSale.jsp";
     }
+    
+    @GetMapping("/delete-sale/{id}")
+    public String deleteSale(@PathVariable int id) {
+    	flashSaleRepository.deleteById(id);
+    	 return "redirect:/admin?content=_FlashSale.jsp";
+    }
+    
+    @PostMapping("/add-or-edit-sale/{id}")
+    public String UpdateProductSale(@PathVariable int id,@RequestParam(name = "startDay") Date startDaySale, @RequestParam(name = "endDay") Date endDaySale, @RequestParam(name = "status") Boolean status) {
+    	
+        UserCustom user = sessionService.get("userLogin");
+        FlashSale flashSale =  flashSaleRepository.findByIsSale(id);
+      
+        flashSale.setStartDay(startDaySale);
+        flashSale.setEndDay(endDaySale);
+        flashSale.setStatus(status);
+        flashSale.setUser(user);
+
+        flashSaleRepository.save(flashSale);
+
+        return "redirect:/admin?content=_FlashSale.jsp";
+    }
+    
 
     @PostMapping("add-product")
     public String addProduct(@RequestParam(name = "productName") String nameProduct, @RequestParam(name = "price") Double priceProduct, @RequestParam(name = "quantity") Long quantityProduct, @RequestParam(name = "uses") String usesProduct, @RequestParam(name = "preserve") String preserveProduct, @RequestParam(name = "skinType") String skinTypeProduct, @RequestParam(name = "certification") String certificationProduct, @RequestParam(name = "dateOfManufacture") Date dateOfManufactureProduct, @RequestParam(name = "expiry") String expiryProduct, @RequestParam(name = "categoryID") String categoryProduct, @RequestParam(name = "manufacturer") String manufacturerProduct, @RequestParam(name = "ingredient") String ingredientProduct, @RequestParam(name = "description") String descriptionProduct, @RequestParam(name = "images") List<MultipartFile> filesImages, HttpServletRequest request) {

@@ -5,8 +5,8 @@
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <div class="row mb-3 p-5">
 	<div class="d-flex flex-row">
-		<h4 class="me-2">Sản phẩm khuyến mãi</h4>
-		<a href="/admin/add-or-edit-product-sale"
+		<h4 class="me-2">Khuyến mãi</h4>
+		<a href="/admin/add-or-edit-product-sale?action=add"
 			class="btn btn-outline-primary">Thêm mới khuyến mãi</a>
 	</div>
 </div>
@@ -68,9 +68,11 @@
 							<c:otherwise>Đang hoạt động</c:otherwise>
 						</c:choose></td>
 						<td>
-						<a href="admin/add-or-edit-product/${discount.id }">Sửa</a>|
-						<a href="#">Xóa</a>
+						<a href="admin/add-or-edit-sale/${discount.id }">Sửa</a>|
+						<a href="admin/delete-sale/${discount.id }">Xóa</a>
 						</td>
+						
+						
 						
 					
 					</tr>

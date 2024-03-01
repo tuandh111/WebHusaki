@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface FlashSaleRepository extends JpaRepository<FlashSale, Integer> {
     FlashSale findByIsStatus(boolean status);
+    FlashSale findByid(Integer id);
     
     @Query("select p.productID.productID, f.startDay, f.endDay from FlashSale f "
     		+ "inner join PromotionalDetails p on p.flashSale.id=f.id "

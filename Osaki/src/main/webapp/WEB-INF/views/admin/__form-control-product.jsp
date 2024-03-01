@@ -5,7 +5,7 @@
 <c:set var="action" value="${param.action}" />
 
 <div class="container mt-5">
-	<h3>${action=='add' ? 'Thêm' : 'Sửa'}sảnphẩm</h3>
+	<h3>${action=='add' ? 'Thêm' : 'Sửa'} sản phẩm</h3>
 	<form method="post"
 		action="${action=='add' ? '/admin/add-product' : updateProduct.productID}"
 		enctype="multipart/form-data">
