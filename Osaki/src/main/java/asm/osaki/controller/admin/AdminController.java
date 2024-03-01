@@ -44,6 +44,8 @@ import asm.osaki.entities.product.image_product.ImageProduct;
 import asm.osaki.entities.user.UserCustom;
 import asm.osaki.model.admin.CategoryAndCount;
 import asm.osaki.model.admin.DataRevenueByCategory;
+import asm.osaki.model.admin.DataRevenueByMonth;
+import asm.osaki.model.admin.DataRevenueByProduct;
 import asm.osaki.model.admin.InventoryTransactions;
 import asm.osaki.model.admin.OrderInfo;
 import asm.osaki.model.admin.ProductAdd;
@@ -52,10 +54,10 @@ import asm.osaki.repositories.product_repositories.CategoryRepository;
 import asm.osaki.repositories.product_repositories.ImageRepository;
 import asm.osaki.repositories.product_repositories.ProductRepository;
 import asm.osaki.repositories.statistics_repositories.OrderRepository;
+import asm.osaki.repositories.statistics_repositories.StatisticsRepository;
 import asm.osaki.model.admin.ProductLatest;
 
 import asm.osaki.repositories.user_repositories.CommentRepository;
-import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.InvoiceRepository;
 
 import asm.osaki.repositories.user_repositories.UserCustomRepository;
@@ -80,11 +82,11 @@ public class AdminController {
 	@Autowired
 	private InvoiceRepository invoiceRepository;
 	@Autowired
-	private InvoiceDetailRepository invoiceDetailRepository;
-	@Autowired
 	private CommentRepository commentRepository;
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private StatisticsRepository statisticsRepository;
 	@Autowired
 	private SessionService sessionService;
 	@Autowired
@@ -124,8 +126,35 @@ public class AdminController {
 			} else if (content.equals("_content-order.jsp")) {
 				page = orderRepository.findAllByNameLike(keywordSearch, pageable);
 				List<OrderInfo> convertedResults = OrderInfo.convert(page.getContent());
-				model.addAttribute("orders", convertedResults);
-				System.out.println("orders " + convertedResults.toString());
+				model.addAttribute("orders", convertedResults);				
+				System.out.println("orders "+ convertedResults.toString());
+								
+			}else if(content.equals("_content-statistics.jsp")) {
+				List<DataRevenueByMonth> datas = DataRevenueByMonth.convert(statisticsRepository.dataRevenueByMonth());
+				Map<Integer, Double> dataRevenueByMonth = new HashMap<>();
+				for (DataRevenueByMonth data : datas) {
+					dataRevenueByMonth.put(data.getMonh(), data.getTotalAmount());
+				}
+
+				try {
+					String dataRevenueByMonthJson = objectMapper.writeValueAsString(dataRevenueByMonth);
+					model.addAttribute("dataRevenueByMonth", dataRevenueByMonthJson);
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
+				
+				List<DataRevenueByProduct> datasP = DataRevenueByProduct.convert(statisticsRepository.dataRevenueByProduct());
+				Map<String, Double> dataRevenueByProduct = new HashMap<>();
+				for (DataRevenueByProduct data : datasP) {
+					dataRevenueByProduct.put(data.getNameProduct(), data.getTotalAmount());
+				}
+
+				try {
+					String dataRevenueByProductJson = objectMapper.writeValueAsString(dataRevenueByProduct);
+					model.addAttribute("dataRevenueByProduct", dataRevenueByProductJson);
+				} catch (JsonProcessingException e) {
+					e.printStackTrace();
+				}
 			}
 
 			if (page != null) {
@@ -147,21 +176,21 @@ public class AdminController {
 
 		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 		model.addAttribute("totalInv", invoiceRepository.getTotalInvoice());		
-		model.addAttribute("totalRevenue",invoiceRepository.getRevenue()==null?0:currencyFormat.format(invoiceRepository.getRevenue()));
+		model.addAttribute("totalRevenue",statisticsRepository.getRevenue()==null?0:currencyFormat.format(statisticsRepository.getRevenue()));
 		model.addAttribute("totalComments", commentRepository.getTotalComment());
-		model.addAttribute("quantityNotify", invoiceRepository.getQuantityNotCompleteYet());		
+		model.addAttribute("quantityNotify", statisticsRepository.getQuantityNotCompleteYet());		
 		int visitorCount = visitorCounter.getCount();
 		model.addAttribute("visitorCount", visitorCount);
 		// Lấy 3 sản phẩm từ hóa đơn gần nhất
 		Pageable pageable = PageRequest.of(p.orElse(0), 3);
 		model.addAttribute("recentProduct",
-				ProductLatest.convert(invoiceDetailRepository.findTop3ProductLatest(pageable)));
+				ProductLatest.convert(statisticsRepository.findTop3ProductLatest(pageable)));
 
 		// lấy tài khoản admin đăng nhập
 		model.addAttribute("userAdminLogin", sessionService.get("userLogin"));
 
-		// Biểu đồ line thống kê doanh thu theo danh mục
-		List<DataRevenueByCategory> datas = DataRevenueByCategory.convert(categoryRepository.dataRevenueByCategory());
+		// Biểu đồ  thống kê doanh thu theo danh mục
+		List<DataRevenueByCategory> datas = DataRevenueByCategory.convert(statisticsRepository.dataRevenueByCategory());
 		Map<String, Double> dataRevenueByCategory = new HashMap<>();
 		for (DataRevenueByCategory data : datas) {
 			dataRevenueByCategory.put(data.getCategoryName(), data.getTotalAmount());
@@ -176,7 +205,7 @@ public class AdminController {
 
 		// Biểu đồ thống kê số lượng tồn kho theo sản phẩm		
 		List<InventoryTransactions> inventories = InventoryTransactions
-				.convert(productRepository.inventoryTransactions());
+				.convert(statisticsRepository.inventoryTransactions());
 		Map<String, Double> dataInventories = new HashMap<>();
 		for (InventoryTransactions data : inventories) {
 			dataInventories.put(data.getName(), data.getQuantityInstock());

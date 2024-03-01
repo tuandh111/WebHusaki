@@ -624,3 +624,20 @@ body {
 .cancel-order a {
     color: red;    
 }
+
+.order-manager-title, .user-manager-title, .category-manager-title {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    min-height: 200px;
+}
+
+.order-manager-title h2, .user-manager-title h2, .category-manager-title h2 {
+    background: var(--white);
+    padding: 50px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;    
+}

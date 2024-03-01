@@ -2,10 +2,12 @@
          pageEncoding="UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
 
-<div class="row mb-4 p-3">
-    <h2>Quản lý đơn hàng</h2>
+<div class="row mb-4 p-3 order-manager-title">
+    <h2 class="text-center">Quản lý đơn hàng</h2>
 </div>
 
 <div class="row p-5">
@@ -45,14 +47,16 @@
                     <c:forEach var="item" items="${orders}">
                         <tr>
                             <td>${item.invoiceID}</td>
-                           <td><img src="/uploadProduct/${item.imageProduct}" class="img-thumbnail" title="Ảnh sản phẩm"
+                           <td><img src="../imagesProduct/${item.imageProduct}" class="img-thumbnail" title="Ảnh sản phẩm"
                                      style="width: 50px;height: 50px">
                             </td>
                             <td>${item.nameProduct}</td> 
                             <td>${item.nameCustomer}</td>
                             <td style="max-width: 200px;">${item.addressCustomer}</td>
                             <td>${item.phoneCustomer}</td>                           
-                            <td>${item.totalAmount}</td>                                                       
+                            <td>
+                                 <fmt:formatNumber value="${item.totalAmount}" pattern="#,###.00 vnd"></fmt:formatNumber>                           
+                            </td>                                                       
                             <td style="max-width: 150px;">                    
                                     <input type="hidden" name="invoiceId" value="${item.invoiceID}">
                                     <select name="selectedValue" class="form-select order-select-form <c:if test="${item.status eq 'Đặt hàng'}">text-primary</c:if>

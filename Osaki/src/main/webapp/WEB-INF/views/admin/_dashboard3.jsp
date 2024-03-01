@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%@ include file="/WEB-INF/views/admin/__topbar.jsp" %>
 
@@ -67,10 +67,15 @@
                 <c:forEach var="item" items="${recentProduct}">
                     <tr>
                         <td>${item.name}</td>
-                        <td>${item.price}</td>
+                        <!--  <td>${item.price}</td> -->
+                        <td>
+                            <fmt:formatNumber value="${item.price}" pattern="#,###.00 vnd"></fmt:formatNumber>
+                        </td>                        
                         <td>${item.quantity}</td>
                         <td>${item.invoiceID}</td>
-                        <td>${item.createAt}</td>
+                        <td>
+                            <fmt:formatDate value="${item.createAt}" pattern="dd-MM-yyyy"/>                        
+                        </td>
                         <td class="
                             <c:if test="${item.status eq 'Đặt hàng'}">text-primary</c:if>
                             <c:if test="${item.status eq 'Thành công'}">text-success</c:if>

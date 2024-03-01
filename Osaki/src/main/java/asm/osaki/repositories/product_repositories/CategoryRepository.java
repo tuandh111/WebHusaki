@@ -24,11 +24,5 @@ public interface CategoryRepository extends JpaRepository<Category,Integer> {
 	@Query("select c, size(c.products) from category c where c.categoryName like %?1% order by c.categoryID desc")
 	Page<Object[]> findAllByNameLike(String keywords, Pageable pageable);
 	
-	@Query("SELECT c, SUM(id.price * id.quantity) " +
-            "FROM invoice i " +
-            "INNER JOIN invoiceDetail id ON id.invoiceID.invoiceID = i.invoiceID " +
-            "INNER JOIN product p ON id.productID.productID = p.productID " +
-            "INNER JOIN category c ON c.categoryID = p.categoryID.categoryID " +
-            "GROUP BY c")
-	List<Object[]> dataRevenueByCategory();
+	
 }
