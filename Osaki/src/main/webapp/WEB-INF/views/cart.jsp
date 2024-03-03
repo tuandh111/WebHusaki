@@ -85,9 +85,10 @@
                                 <c:set var="checkCart" value="false"/>
                                 <c:forEach var="cartList" items="${cartList}" varStatus="loop">
                                     <c:if test="${!cartList.checkPay}">
-                                        <div class="row item " id="${cartList.cartId}">
+
+                                        <div class="row item ${cartList.product.productID}" id="${cartList.cartId}">
                                             <div class="col l-1 m-1 s-0">
-                                                    ${loop.index+1}
+                                                <input type="checkbox" value="${cartList.product.productID}" checked>
                                             </div>
                                             <div class="col l-4 m-4 s-8">
                                                 <div class="main__cart-product">
@@ -153,7 +154,8 @@
                                                            data-product-id="${cartList.product.productID}"
                                                            data-user-id="${userLogin.userID}"
                                                            onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`) ">
-                                                    <input aria-label="quantity" class="input-qty" max="100" min="1"
+                                                    <input aria-label="quantity" class="input-qty"
+                                                           max="${cartList.product.quantityInStock}" min="1"
                                                            name="" type="number"
                                                            onblur="handleBlur(this,`${cartList.product.quantityInStock}`,`${loop.index}`)"
                                                            onchange="onchangeProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`)"
@@ -283,15 +285,9 @@
         var currentValue = parseInt(inputQty.value);
         var maxValue = parseInt(inputQty.getAttribute('max'));
         var minValue = parseInt(inputQty.getAttribute('min'));
-        if (currentValue > minValue && currentValue <= 100) {
-
+        if (currentValue > minValue && currentValue <= parseInt(quantityInStock)) {
             inputQty.value = currentValue;
             console.log(3)
-        } else if (currentValue > 100) {
-            if (parseInt(quantityInStock) > 100)
-                inputQty.value = 100;
-            else inputQty.value = quantityInStock;
-            console.log(4)
         } else if (currentValue < 0) {
             inputQty.value = 1;
         }
@@ -307,7 +303,9 @@
 
             inputQty.value = currentValue + 1;
             calculateTotal(index, quantityInStock)
-
+            if (currentValue > parseInt(quantityInStock)) {
+                inputQty.value = quantityInStock
+            }
         }
         changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
     }
@@ -317,11 +315,9 @@
         var quantity = parseInt(inputQty.value);
         var pricePerProduct = parseFloat(document.querySelectorAll('.total-moneyPrice')[index].innerText.replace(/[,.đ]/g, ''));
         var total = quantity * pricePerProduct;
-        if (quantity <= 100) {
-            if (quantity <= parseInt(quantityInStock)) {
-                var formattedTotal = formatMoney(total);
-                document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
-            }
+        if (quantity <= parseInt(quantityInStock)) {
+            var formattedTotal = formatMoney(total);
+            document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
         }
     }
 

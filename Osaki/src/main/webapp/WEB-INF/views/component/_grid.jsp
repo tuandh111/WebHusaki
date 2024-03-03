@@ -95,7 +95,7 @@
                                        varStatus="i">
                                 <c:if test="${!foundFirst && productList.productID == imgProduct.productID.productID}">
                                     <c:set var="foundFirst" value="true"/>
-                                    <img src="/images/product/${imgProduct.imageName}" alt="Không có">
+                                    <img src="/imagesProduct/${imgProduct.imageName}" alt="Không có">
                                 </c:if>
                             </c:forEach>
 
@@ -249,6 +249,15 @@
                 </c:otherwise>
             </c:choose>
         </div>
+        <c:choose>
+            <c:when test="${userLogin==null}">
+
+
+            </c:when>
+            <c:otherwise>
+
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 <script>

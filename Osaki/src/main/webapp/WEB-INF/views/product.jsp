@@ -176,7 +176,7 @@
                                    data-product-id="${product.productID}"
                                    data-user-id="${userLogin.userID}"
                                    onclick="minusProduct(0) ">
-                            <input aria-label="quantity" class="input-qty" max="10" min="1"
+                            <input aria-label="quantity" class="input-qty" max="${product.quantityInStock}" min="1"
                                    name="" type="number" value="1">
                             <input class="plus is-form" type="button" value="+"
                                    data-product-id="${product.productID}"
@@ -309,7 +309,7 @@
                         </div>
                     </div>
                     <div class="tabs ">
-                        <div class="tab-item acitve ">
+                        <div class="tab-item acitve">
                             Đánh giá
                         </div>
                         <div class="line "></div>
@@ -336,7 +336,7 @@
                                           placeholder="Vui lòng viết đánh giá của bạn "></textarea>
 
                                 <input class="btn btn--default" id="comment" data-product-id="${product.productID}"
-                                       data-user-id="${userLogin.userID}" value="Đánh giá">
+                                       data-user-id="${userLogin.userID}" value="Đánh giá" style="margin-top: 10px">
                             </form>
 
                         </div>
@@ -437,9 +437,20 @@
                                 <c:if test="${!c.isDelete }">
                                     <c:if test="${c.categoryID == product.categoryID.categoryID}">
                                         <a href="/product/${p.productID} " class="product ">
-                                            <div class="product__avt "
-                                                 style="background-image: url(/images/product/product1.jpg) ">
-                                            </div>
+
+                                            <c:set var="foundFirst" value="false"/>
+                                            <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                       varStatus="i">
+                                                <c:if test="${!foundFirst && p.productID == imgProduct.productID.productID}">
+                                                    <c:set var="foundFirst" value="true"/>
+                                                    <div class="product__avt "
+                                                         style="background-image: url(/imagesProduct/${imgProduct.imageName}) ">
+                                                    </div>
+
+                                                </c:if>
+                                            </c:forEach>
+
+
                                             <div class="product__info ">
                                                 <h3 class="product__name ">${p.name}</h3>
                                                 <div class="product__price ">

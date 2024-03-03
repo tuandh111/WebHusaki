@@ -6,6 +6,12 @@ $(document).ready(function () {
         var selectedOption = $("#address").find('option:selected');
         var phoneID = selectedOption.val();
         console.log("SDT: " + phoneID);
+        var checkedValues = $("input[type='checkbox']:checked").map(function() {
+            return $(this).val(); // Trả về giá trị của checkbox đã chọn
+        }).get();
+
+        // Hiển thị mảng giá trị đã lấy được
+        console.log("Checked values: ", checkedValues);
         if (!isLoggedIn) {
             Swal.fire({
                 icon: 'error',
@@ -32,6 +38,7 @@ $(document).ready(function () {
                         type: 'POST',
                         url: '/add-checkout',
                         data: {
+                            checkedValues:JSON.stringify(checkedValues),
                             phoneID: phoneID
                         },
                         success: function (response) {
@@ -69,7 +76,11 @@ $(document).ready(function () {
                                 $('.checkout_').html("<h2>Đặt hàng thành công</h2>");
                                 $('.header__cart-amount').html("0");
                                 $('.order__list').html("<a href='/'>Tiếp tục mua sắm</a>");
-                                $('#out').html("");
+                                //$('#out').html("");
+                                checkedValues.forEach(function(value) {
+                                    // Xóa class của các phần tử có giá trị là value
+                                    $("." + value).remove();
+                                });
                                 $('.total-money').html("");
 
                             } else if (response == 'errorProduct') {
@@ -121,6 +132,7 @@ $(document).ready(function () {
         e.preventDefault();
         let isLoggedIn = $(this).data('user-id') !== '';
         let phoneID = $('#address').val();
+
         console.log("phone: " + phoneID)
         if (!isLoggedIn) {
             Swal.fire({

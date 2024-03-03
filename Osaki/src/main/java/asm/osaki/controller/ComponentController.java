@@ -11,6 +11,8 @@ import asm.osaki.repositories.product_repositories.*;
 import asm.osaki.repositories.user_repositories.*;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 
@@ -217,14 +220,31 @@ public class ComponentController {
         model.addAttribute("userLogin", userCustom1);
         return "profile";
     }
+    private Map<String, Object> convertToMap(InvoiceDetail invoiceDetail) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", invoiceDetail.getInvoiceID().getInvoiceID());
+        map.put("price", invoiceDetail.getPrice());
+        map.put("quantity", invoiceDetail.getQuantity());
+        // Thêm các trường khác tương tự
 
+        return map;
+    }
+    @GetMapping("/detailCart/{id}")
+    public ResponseEntity<?> getDetailCart(@PathVariable("id") String id) {
+        System.out.println("invoiceID: " + id);
+        System.out.println("this is get cart detail");
+
+        List<InvoiceDetail> invoiceDetailList = invoiceDetailRepository.findByInvoiceIdFk(id);
+
+        List<Map<String, Object>> resultMapList = invoiceDetailList.stream()
+                                                          .map(this::convertToMap)
+                                                          .collect(Collectors.toList());
+
+        return ResponseEntity.ok(resultMapList);
+    }
 
     @PostMapping("edit-info-account")
-    public String editInfoAccount(Model model,
-            @RequestParam("idInput") Integer idInput,
-            @RequestParam("file") MultipartFile fileInput,
-            @RequestParam("fullName") String nameInput,
-            HttpSession session) {
+    public String editInfoAccount(Model model, @RequestParam("idInput") Integer idInput, @RequestParam("file") MultipartFile fileInput, @RequestParam("fullName") String nameInput, HttpSession session) {
         System.out.println("idInputxxxxx" + idInput);
         UserCustom userCustom = userCustomRepository.findByUserID(idInput);
         //model.addAttribute("address", addressRepository.findByUser(userCustom));

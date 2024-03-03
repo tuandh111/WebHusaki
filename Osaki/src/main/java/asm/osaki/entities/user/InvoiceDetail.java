@@ -1,6 +1,7 @@
 package asm.osaki.entities.user;
 
 import asm.osaki.entities.product.Product;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,6 +44,7 @@ public class InvoiceDetail {
     @JoinColumn(name = "invoice_id")
     private Invoice invoiceID;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product productID;

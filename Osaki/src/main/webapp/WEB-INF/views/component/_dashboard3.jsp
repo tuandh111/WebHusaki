@@ -35,8 +35,7 @@
                 <td>${address.phoneID}</td>
                 <td>${address.address}</td>
                 <td><a class="updateAddress " href="#" data-address-id="${address.phoneID}"
-                       data-user-id="${userLogin.userID}"
-                >Cập nhật</a>
+                       data-user-id="${userLogin.userID}">Cập nhật</a>
                 </td>
                 <td class="removeAddress " data-address-id="${address.phoneID}">Xóa</td>
             </tr>

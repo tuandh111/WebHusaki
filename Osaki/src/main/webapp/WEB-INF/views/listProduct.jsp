@@ -318,7 +318,7 @@
                                                        varStatus="i">
                                                 <c:if test="${!foundFirst && p.productID == imgProduct.productID.productID}">
                                                     <c:set var="foundFirst" value="true"/>
-                                                    <img src="../imagesProduct/${imgProduct.imageName}" alt="Không có"
+                                                    <img src="/imagesProduct/${imgProduct.imageName}" alt="Không có"
                                                          style="width: 210px;height: 190px">
                                                 </c:if>
                                             </c:forEach>

@@ -48,7 +48,7 @@
                     <c:forEach var="listPercent" items="${listPercent}">
                         <c:if test="${listProduct.productID ==listPercent.productID.productID}">
                             <div class="slide active"
-                                 style="background-image:url(images/slider/slide-${i.index+2}.jpg)">
+                                 style="background-image:url(images/slider/slide-6.jpg)">
                                 <div class="container">
                                     <div class="caption">
                                         <h1>Giảm giá
