@@ -220,7 +220,11 @@ public class ComponentController {
 
 
     @PostMapping("edit-info-account")
-    public String editInfoAccount(Model model, @RequestParam("idInput") Integer idInput, @RequestParam("file") MultipartFile fileInput, @RequestParam("fullName") String nameInput, HttpSession session) {
+    public String editInfoAccount(Model model,
+            @RequestParam("idInput") Integer idInput,
+            @RequestParam("file") MultipartFile fileInput,
+            @RequestParam("fullName") String nameInput,
+            HttpSession session) {
         System.out.println("idInputxxxxx" + idInput);
         UserCustom userCustom = userCustomRepository.findByUserID(idInput);
         //model.addAttribute("address", addressRepository.findByUser(userCustom));
