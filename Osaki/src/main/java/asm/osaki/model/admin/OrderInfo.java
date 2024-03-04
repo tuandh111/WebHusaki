@@ -14,8 +14,8 @@ import lombok.Data;
 
 @Data
 public class OrderInfo {
-	private String imageProduct;
-	private String nameProduct;
+//	private String imageProduct;
+//	private String nameProduct;
 	private String nameCustomer;
 	private String addressCustomer;
 	private String phoneCustomer;
@@ -28,19 +28,19 @@ public class OrderInfo {
 		List<OrderInfo> finalList = new ArrayList<OrderInfo>();
 		for (Object[] o : list) {
 			OrderInfo orderInfo = new OrderInfo();
-			Product product = (Product) o[0];
-			List<ImageProduct> productImages = product.getProductImages();
+//			Product product = (Product) o[1];
+//			List<ImageProduct> productImages = product.getProductImages();
 			
 			UserCustom userCustom = (UserCustom) o[1];
-			Invoice invoice = (Invoice) o[2];
-			Address address = (Address) o[3];
-			if(productImages.isEmpty()) {
-				orderInfo.setImageProduct(null);
-			}else {
-				orderInfo.setImageProduct(productImages.get(0).getImageName());
-			}
+			Invoice invoice = (Invoice) o[0];
+			Address address = (Address) o[2];
+//			if(productImages.isEmpty()) {
+//				orderInfo.setImageProduct(null);
+//			}else {
+//				orderInfo.setImageProduct(productImages.get(0).getImageName());
+//			}
 			
-			orderInfo.setNameProduct(product.getName());
+//			orderInfo.setNameProduct(product.getName());
 			orderInfo.setNameCustomer(userCustom.getFullName());
 			orderInfo.setAddressCustomer(address.getAddress());
 			orderInfo.setPhoneCustomer(address.getPhoneID());

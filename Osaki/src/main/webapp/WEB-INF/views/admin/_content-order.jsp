@@ -32,8 +32,8 @@
                     <thead>
                     <tr>
                         <th>Mã đơn hàng</th>
-                        <th>Ảnh sản phẩm</th>
-                        <th>Tên sản phẩm</th>
+                        <!--  <th>Ảnh sản phẩm</th>
+                        <th>Tên sản phẩm</th>-->
                         <th>Khách hàng</th>
                         <th>Địa chỉ</th>
                         <th>Số điện thoại</th>
@@ -47,15 +47,12 @@
                     <c:forEach var="item" items="${orders}">
                         <tr>
                             <td>${item.invoiceID}</td>
-                           <td><img src="../imagesProduct/${item.imageProduct}" class="img-thumbnail" title="Ảnh sản phẩm"
-                                     style="width: 50px;height: 50px">
-                            </td>
-                            <td>${item.nameProduct}</td> 
+                            
                             <td>${item.nameCustomer}</td>
                             <td style="max-width: 200px;">${item.addressCustomer}</td>
                             <td>${item.phoneCustomer}</td>                           
                             <td>
-                                 <fmt:formatNumber value="${item.totalAmount}" pattern="#,###.00 vnd"></fmt:formatNumber>                           
+                                 <fmt:formatNumber value="${item.totalAmount}" pattern="#,### đ"></fmt:formatNumber>                           
                             </td>                                                       
                             <td style="max-width: 150px;">                    
                                     <input type="hidden" name="invoiceId" value="${item.invoiceID}">
@@ -76,8 +73,15 @@
                                             </c:otherwise>                                        
                                         </c:choose>                                                                                                        
                                     </select>                                                                                                                                                                      
-                            </td>                             
+                            </td>
+                            <td>
+                                <a href="#"
+                                   data-bs-toggle="modal"
+                                   data-bs-target="#oderDetailModal"
+                                   class="open-detail-order" data-invoice-id="${item.invoiceID}">Xem chị tiết</a>                                                                 
+                            </td>                                                    
                         </tr>
+                                                                        
                     </c:forEach>
                     </tbody>
                 </table>
@@ -86,3 +90,31 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="oderDetailModal" tabindex="-1" aria-labelledby="oderDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="oderDetailModalLabel">Chi tiết đơn hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover">
+              <thead>
+                   <tr>
+                      <th>Ảnh sản phẩm</th>
+                      <th>Tên sản phẩm</th>
+                      <th>Số lượng</th>
+                      <th>Giá</th>
+                  </tr>
+               </thead>
+               <tbody>            
+               </tbody>                                   
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

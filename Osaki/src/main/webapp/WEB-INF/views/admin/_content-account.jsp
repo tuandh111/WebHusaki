@@ -60,7 +60,6 @@
                             </td>
 
                             <td>
-                                <!-- href="/admin/list-invoice-by-user/${item.userID}" -->
                                 <a href="#"
                                    data-bs-toggle="modal"
                                    data-bs-target="#listInvoiceByUserModal"
