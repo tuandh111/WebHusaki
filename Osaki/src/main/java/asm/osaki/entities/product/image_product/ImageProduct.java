@@ -33,8 +33,10 @@ public class ImageProduct {
     @Column
     private Boolean isDelete;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "productImages")
     private Product productID;
+    
+    //cascade = CascadeType.REMOVE
 
 }

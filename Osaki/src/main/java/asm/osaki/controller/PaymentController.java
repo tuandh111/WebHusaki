@@ -133,16 +133,14 @@ public class PaymentController {
         String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
-
         return ResponseEntity.ok(paymentUrl);
-
     }
 
     @GetMapping("/payment")
     public String paymentController(Model model, @RequestParam("PhoneID") String PhoneID, @RequestParam("vnp_Amount") String vnp_Amount, @RequestParam("vnp_BankCode") String vnp_BankCode, @RequestParam("vnp_BankTranNo") String vnp_BankTranNo, @RequestParam("vnp_CardType") String vnp_CardType, @RequestParam("vnp_OrderInfo") String vnp_OrderInfo, @RequestParam("vnp_PayDate") String vnp_PayDate, @RequestParam("vnp_ResponseCode") String vnp_ResponseCode, @RequestParam("vnp_TmnCode") String vnp_TmnCode, @RequestParam("vnp_TransactionNo") String vnp_TransactionNo, @RequestParam("vnp_TransactionStatus") String vnp_TransactionStatus, @RequestParam("vnp_TxnRef") String vnp_TxnRef, @RequestParam("vnp_SecureHash") String vnp_SecureHash) {
         // Thực hiện xử lý các tham số truy vấn ở đây
         http:
-//localhost:8080/cart?vnp_Amount=250000000
+        //localhost:8080/cart?vnp_Amount=250000000
         // &vnp_BankCode=NCB&
         // vnp_BankTranNo=VNP14299889&
         //vnp_CardType=ATM&
@@ -210,7 +208,7 @@ public class PaymentController {
             }
             Optional<CardVNPay> cardVNPays= cardVNPayRepository.findById(invoiceID);
             if(cardVNPays.isPresent()){
-                model.addAttribute("payment","Thanh toan thanh cong");
+                model.addAttribute("payment","Thanh toán thành công");
             }else {
                 model.addAttribute("payment","");
             }

@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import asm.osaki.entities.product.Category;
 import asm.osaki.entities.product.Product;
 import asm.osaki.entities.product.image_product.ImageProduct;
 import asm.osaki.entities.user.UserCustom;
 import lombok.Data;
 @Data
 public class ProductAdd {
-	
+	private int id;
 	private String name;
 	private double price;
 	private int quantity;
@@ -23,6 +24,8 @@ public class ProductAdd {
 	private String ingredient;
 	private String image;
 	private String description;
+	 private Boolean isDelete;
+	 private Category categoryID;
 	
 	private int countInvoice;
 	private int countWishLists;
@@ -34,6 +37,7 @@ public class ProductAdd {
 			ImageProduct imgproduct = new ImageProduct();
 			
 			Product product = (Product) o[0];
+			addProduct.setId(product.getProductID());
 			addProduct.setName(product.getName());
 			addProduct.setPrice(product.getPrice());
 			addProduct.setQuantity((int) product.getQuantityInStock());
@@ -44,6 +48,8 @@ public class ProductAdd {
 			addProduct.setDateOfManufacture(product.getDateOfManufacture());
 			addProduct.setExpiry(product.getExpiry());
 			addProduct.setIngredient(product.getIngredient());
+			addProduct.setIsDelete(product.getIsDelete());
+			addProduct.setCategoryID(product.getCategoryID());
 			
 			addProduct.setImage(imgproduct.getImageName());
 

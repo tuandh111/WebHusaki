@@ -48,6 +48,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 <style>
+    .text-muted{
+        text-decoration: line-through;
+        margin-right: 54px;
+    }
     .swal2-popup {
         font-size: 2rem;
     }
@@ -176,26 +180,31 @@
             <div class="col l-6 m-12 s-12">
                 <div class="contact__wrap">
                     <div class="contact__img">
-                        <img src="http://mauweb.monamedia.net/vanihome/wp-content/uploads/2018/04/logo-mona.png"
-                             alt="">
+                        <img src="/imagesAdmin/hasagi-logo.jpg" width="40px">
                     </div>
                     <ul class="contact__info">
                         <li class="contact__text">
-                            <i class="fas fa-map-marked-alt"></i> Ap khanh hoi, Thi tran nga 6, Huyen Chau Thanh, Tinh
-                                                                  Hau Giang
+
+
+                            <a href="https://maps.google.com/?q=Thị trấn Ngã Sáu, Huyện Châu Thành, Tỉnh Hậu Giang"
+                               target="_blank">
+                                <i class="fas fa-map-marked-alt"></i> Ap khanh hoi, Thi tran nga 6, Huyen Chau Thanh,
+                                                                      Tinh
+                                                                      Hau Giang
+                            </a>
                         </li>
                         <li>
                             <a href="tel:0383 658 814" class="contact__link">
                                 <i class="fas fa-phone"></i> 0383 658 814
                             </a>
-                            <a href="tel:076 922 0162" class="contact__link">
+                            <a href="tel:0383 658 814" class="contact__link">
                                 &#8212; 0383 658 814
                             </a>
                         </li>
 
                         <li>
-                            <a href="#" class="contact__link">
-                                <i class="fas fa-envelope"></i> tuandhpc05076@fpt.edu.vn
+                            <a href="mailto:hoangtuan97531@gmail.com" class="contact__link">
+                                <i class="fas fa-envelope"></i>hoangtuan97531@gmail.com
                             </a>
                         </li>
                     </ul>

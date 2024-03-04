@@ -85,13 +85,24 @@
                                 <c:set var="checkCart" value="false"/>
                                 <c:forEach var="cartList" items="${cartList}" varStatus="loop">
                                     <c:if test="${!cartList.checkPay}">
-                                        <div class="row item " id="${cartList.cartId}">
+
+                                        <div class="row item ${cartList.product.productID}" id="${cartList.cartId}">
                                             <div class="col l-1 m-1 s-0">
-                                                    ${loop.index+1}
+                                                <input type="checkbox" value="${cartList.product.productID}" checked>
                                             </div>
                                             <div class="col l-4 m-4 s-8">
                                                 <div class="main__cart-product">
-                                                    <img src="/images/product/product2.jpg" alt="">
+                                                    <c:set var="foundFirst" value="false"/>
+                                                    <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                               varStatus="i">
+                                                        <c:if test="${!foundFirst && cartList.product.productID == imgProduct.productID.productID}">
+                                                            <c:set var="foundFirst" value="true"/>
+                                                            <a href="product" class="order-img">
+                                                                <img src="../imagesProduct/${imgProduct.imageName}"
+                                                                     alt="">
+                                                            </a>
+                                                        </c:if>
+                                                    </c:forEach>
                                                     <div class="name"><a
                                                             href="/product/${cartList.product.productID}">${cartList.product.name}</a>
                                                     </div>
@@ -143,7 +154,8 @@
                                                            data-product-id="${cartList.product.productID}"
                                                            data-user-id="${userLogin.userID}"
                                                            onclick="minusProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`) ">
-                                                    <input aria-label="quantity" class="input-qty" max="100" min="1"
+                                                    <input aria-label="quantity" class="input-qty"
+                                                           max="${cartList.product.quantityInStock}" min="1"
                                                            name="" type="number"
                                                            onblur="handleBlur(this,`${cartList.product.quantityInStock}`,`${loop.index}`)"
                                                            onchange="onchangeProduct(${loop.index},`${cartList.cartId}`, `${cartList.product.productID}`,`${cartList.product.quantityInStock}`,`${cartList.product.price }`)"
@@ -181,19 +193,19 @@
                                         <c:set var="checkCart" value="true"/>
                                     </c:if>
                                 </c:forEach>
-                                <h2>${payment}</h2>
                                 <c:if test="${!checkCart}">
-                                    <h2 class="c"><a href="/">Tiep tuc mua sam</a></h2>
+                                    <h2 class="c"><a href="/">Tiếp tục mua sắm</a></h2>
                                 </c:if>
                                 <c:if test="${checkCart}">
                                     <h2 class="c"><a href="/"></a></h2>
                                 </c:if>
+                                <h1>${payment}</h1>
                             </div>
                         </div>
                     </div>
                     <div class="col l-4 m-12 s-12">
                         <div class="main__pay">
-                            <div class="main__pay-title">Tổng số lượng</div>
+                            <div class="main__pay-title">Chi tiết giỏ hàng</div>
                             <div class="pay-info">
                                 <div class="main__pay-text">
                                     Giao hàng
@@ -218,7 +230,7 @@
                                                                                                                toán
                                                                                                                VNPAY
                             </div>
-<%--                             <div class="main__pay-title">Phiếu ưu đãi</div> --%>
+                                <%--                             <div class="main__pay-title">Phiếu ưu đãi</div> --%>
 
                                 <%--                             <select name="voucher" id="voucher" required class="form-control"> --%>
                                 <%--                                 <option value="">Chọn voucher</option> --%>
@@ -235,7 +247,7 @@
         </c:when>
         <c:otherwise>
             <div class="grid wide mt-3" style="height: 100vh">
-                <h1 class="main__notify-text"><a href="login" onclick="ReturnUrl()">Vui long dang nhap</a></h1>
+                <h1 class="main__notify-text"><a href="login" onclick="ReturnUrl()">Vui lòng đăng nhập</a></h1>
             </div>
         </c:otherwise>
     </c:choose>
@@ -260,8 +272,10 @@
         var currentValue = parseInt(inputQty.value);
         var minValue = parseInt(inputQty.getAttribute('min'));
         if (currentValue > minValue) {
+
             inputQty.value = currentValue - 1;
-            calculateTotal(index)
+            calculateTotal(index, quantityInStock)
+
         }
         changeQuantityProduct(cartId, productId, currentValue - 1, quantityInStock, price)
     }
@@ -269,12 +283,16 @@
     function onchangeProduct(index, cartId, productId, quantityInStock, price) {
         var inputQty = document.querySelectorAll('.input-qty')[index];
         var currentValue = parseInt(inputQty.value);
+        var maxValue = parseInt(inputQty.getAttribute('max'));
         var minValue = parseInt(inputQty.getAttribute('min'));
-        if (currentValue > minValue) {
+        if (currentValue > minValue && currentValue <= parseInt(quantityInStock)) {
             inputQty.value = currentValue;
-            calculateTotal(index, quantityInStock)
+            console.log(3)
+        } else if (currentValue < 0) {
+            inputQty.value = 1;
         }
         changeQuantityProduct(cartId, productId, currentValue, quantityInStock, price)
+        calculateTotal(index, quantityInStock)
     }
 
     function plusProduct(index, cartId, productId, quantityInStock, price) {
@@ -282,9 +300,11 @@
         var currentValue = parseInt(inputQty.value);
         var maxValue = parseInt(inputQty.getAttribute('max'));
         if (currentValue < maxValue) {
-            if (currentValue < parseInt(quantityInStock)) {
-                inputQty.value = currentValue + 1;
-                calculateTotal(index, quantityInStock)
+
+            inputQty.value = currentValue + 1;
+            calculateTotal(index, quantityInStock)
+            if (currentValue > parseInt(quantityInStock)) {
+                inputQty.value = quantityInStock
             }
         }
         changeQuantityProduct(cartId, productId, currentValue + 1, quantityInStock, price)
@@ -295,11 +315,9 @@
         var quantity = parseInt(inputQty.value);
         var pricePerProduct = parseFloat(document.querySelectorAll('.total-moneyPrice')[index].innerText.replace(/[,.đ]/g, ''));
         var total = quantity * pricePerProduct;
-        if (quantity <= 100) {
-            if (quantity <= parseInt(quantityInStock)) {
-                var formattedTotal = formatMoney(total);
-                document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
-            }
+        if (quantity <= parseInt(quantityInStock)) {
+            var formattedTotal = formatMoney(total);
+            document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
         }
     }
 
@@ -337,6 +355,7 @@
         return amount.toFixed(0).replace(/\d(?=(\d{3})+$)/g, '$&,');
     }
 </script>
+<script src="/js/contact.js"></script>
 <script src="/js/cartCript.js"></script>
 <script src="/js/checkout.js"></script>
 </body>

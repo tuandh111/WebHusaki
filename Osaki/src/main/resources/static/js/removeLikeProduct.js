@@ -32,7 +32,7 @@ $(document).ready(function () {
 
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Thanh cong',
+                                title: 'Thành công',
                                 text: "Xóa thích sản phẩm thành công !",
                                 showConfirmButton: false,
                                 timer: 3500

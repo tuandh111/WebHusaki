@@ -50,14 +50,14 @@
             </div>
             <form action="login" method="post" id="loginForm">
                 <div class="form-group">
-                    <label class="form-label">Địa chỉ email *</label>
-                    <input name="LGemail" type="email" class="form-control" id="ForgotEmail">
+                    <label class="form-label" style="font-size: 16px;">Địa chỉ email *</label>
+                    <input name="LGemail" type="email" class="form-control" id="ForgotEmail" style="font-size: 16px;">
                 </div>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary mt-3 " id="submitForgotPassword">Xac nhận</button>
+                    <button class="btn btn-primary mt-3 " id="submitForgotPassword" style="font-size: 16px;">Xác nhận</button>
                 </div>
             </form>
-            <a class="authen__link" href="/login">Quay lại </a>
+            <a class="authen__link" href="/login" style="font-size: 16px;text-decoration: none;">Quay lại </a>
         </div>
 
     </div>

@@ -41,7 +41,7 @@ $(document).ready(function () {
                     var fullname = jsonComment.fullName
                     if (messageResponse === "success") {
                         Swal.fire({
-                            title: 'Thanh cong', text: "Binh luan thanh cong", showConfirmButton: true, timer: 3500
+                            title: 'Thành công', text: "Bình luận thành công", showConfirmButton: true, timer: 3500
                         });
                         var commentHTML = '<li class="rate__item">\n' +
                             '                                    <div class="rate__info">\n' +

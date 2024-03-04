@@ -98,7 +98,6 @@ public class ConTactController {
         for (Object[] result : bestSellers) {
             System.out.println("ProductID: " + result[0] + ", Name: " + result[1] + ", Count: " + result[2]);
         }
-
         //flashSale
         FlashSale flashSale = flashSaleRepository.findByIsStatus(false);
         if (flashSale != null) {
@@ -158,20 +157,17 @@ public class ConTactController {
         Contact contact = new Contact();
         UserCustom userCustom = userCustomRepository.findByEmail(email);
         if (username.equalsIgnoreCase("") || message.equalsIgnoreCase("")) {
-            contact.setMessage("Tôi muốn nhận khuyen mãi mới nhất");
+            contact.setMessage("Tôi muốn nhận khuyến mãi mới nhất");
         } else {
             contact.setMessage(message);
         }
         contact.setUserName(userCustom.getEmail());
-
         contact.setEmail(email);
         try {
             contactRepository.save(contact);
         } catch (Exception e) {
-
             e.printStackTrace();
             return ResponseEntity.ok("fail");
-
         }
         System.out.println("postEmail: " + email);
         return ResponseEntity.ok("success");

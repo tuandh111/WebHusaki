@@ -41,6 +41,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
 </head>
 <style>
+    .text-decoration-line-through {
+        text-decoration: line-through;
+    }
+
     .swal2-popup {
         font-size: 2rem;
     }
@@ -82,48 +86,30 @@
             <div class="row">
                 <div class="col l-5 m-12 s-12">
                     <div class="owl-carousel owl-theme" id="sync1">
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product2.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product3.jpg)">
-                            </div>
-                        </a>
+                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                   varStatus="i">
+                            <c:if test="${product.productID == imgProduct.productID.productID}">
+                                <c:set var="foundFirst" value="true"/>
+                                <a href="#" class="product">
+                                    <div class="product__avt"
+                                         style="background-image: url(../imagesProduct/${imgProduct.imageName});">
+                                    </div>
+                                </a>
+                            </c:if>
+                        </c:forEach>
                     </div>
                     <div class="owl-carousel owl-theme" id="sync2">
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product1.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product2.jpg)">
-                            </div>
-                        </a>
-                        <a href="#" class="product">
-                            <div class="product__avt"
-                                 style="background-image: url(/images/product/product3.jpg)">
-                            </div>
-                        </a>
+                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                   varStatus="i">
+                            <c:if test="${product.productID == imgProduct.productID.productID}">
+                                <c:set var="foundFirst" value="true"/>
+                                <a href="#" class="product">
+                                    <div class="product__avt"
+                                         style="background-image: url(../imagesProduct/${imgProduct.imageName});">
+                                    </div>
+                                </a>
+                            </c:if>
+                        </c:forEach>
                     </div>
 
                 </div>
@@ -143,6 +129,12 @@
                     <h3 class="productInfo__name">
                         ${product.name}
                     </h3>
+                    <c:if test="${product.quantityInStock == 0}">
+                        <h1 style="color: red">Hết hàng</h1>
+                    </c:if>
+                    <c:if test="${product.quantityInStock > 0}">
+                        <h1 style="color: red">Còn hàng</h1>
+                    </c:if>
                     <div class="productInfo__price">
                         <c:set var="checkLike" value="false"/>
                         <c:set var="checkLikePrice" value=""/>
@@ -184,7 +176,7 @@
                                    data-product-id="${product.productID}"
                                    data-user-id="${userLogin.userID}"
                                    onclick="minusProduct(0) ">
-                            <input aria-label="quantity" class="input-qty" max="10" min="1"
+                            <input aria-label="quantity" class="input-qty" max="${product.quantityInStock}" min="1"
                                    name="" type="number" value="1">
                             <input class="plus is-form" type="button" value="+"
                                    data-product-id="${product.productID}"
@@ -276,8 +268,13 @@
                                 <td>${product.certification}</td>
                             </tr>
                             <tr>
+                                <td>Ngày sản xuất</td>
+                                <td>${product.formattedDateOfManufacture}</td>
+                            </tr>
+                            <tr>
                                 <td>Ngày hết hạn</td>
-                                <td>${product.expiry}</td>
+                                <td>
+                                    ${product.expiry}</td>
                             </tr>
                             <tr>
                                 <td>Nhà sản xuất</td>
@@ -312,7 +309,7 @@
                         </div>
                     </div>
                     <div class="tabs ">
-                        <div class="tab-item acitve ">
+                        <div class="tab-item acitve">
                             Đánh giá
                         </div>
                         <div class="line "></div>
@@ -339,7 +336,7 @@
                                           placeholder="Vui lòng viết đánh giá của bạn "></textarea>
 
                                 <input class="btn btn--default" id="comment" data-product-id="${product.productID}"
-                                       data-user-id="${userLogin.userID}" value="Đánh giá">
+                                       data-user-id="${userLogin.userID}" value="Đánh giá" style="margin-top: 10px">
                             </form>
 
                         </div>
@@ -440,9 +437,20 @@
                                 <c:if test="${!c.isDelete }">
                                     <c:if test="${c.categoryID == product.categoryID.categoryID}">
                                         <a href="/product/${p.productID} " class="product ">
-                                            <div class="product__avt "
-                                                 style="background-image: url(/images/product/product1.jpg) ">
-                                            </div>
+
+                                            <c:set var="foundFirst" value="false"/>
+                                            <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                       varStatus="i">
+                                                <c:if test="${!foundFirst && p.productID == imgProduct.productID.productID}">
+                                                    <c:set var="foundFirst" value="true"/>
+                                                    <div class="product__avt "
+                                                         style="background-image: url(/imagesProduct/${imgProduct.imageName}) ">
+                                                    </div>
+
+                                                </c:if>
+                                            </c:forEach>
+
+
                                             <div class="product__info ">
                                                 <h3 class="product__name ">${p.name}</h3>
                                                 <div class="product__price ">

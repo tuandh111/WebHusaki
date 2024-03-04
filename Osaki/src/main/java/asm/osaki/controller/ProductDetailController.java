@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,24 +39,21 @@ public class ProductDetailController {
     CommentRepository commentRepository;
     @Autowired
     ParamService paramService;
-
     @Autowired
     CartRepository cartRepository;
     @Autowired
     SessionService sessionService;
-
     @Autowired
     PromotionalDetailsRepository promotionalDetailsRepository;
-
     @Autowired
     AddressRepository addressRepository;
     @Autowired
     VoucherRepository voucherRepository;
     @Autowired
     InvoiceDetailRepository invoiceDetailRepository;
-
     @Autowired
     WishListRepository wishListRepository;
+
     @GetMapping("product/{id}")
     public String Product(@ModelAttribute("UserC") UserCustom userCustom1, @PathVariable("id") Integer productId, Model model) {
         Product product = productRepository.findByProductID(productId);
@@ -64,7 +63,6 @@ public class ProductDetailController {
             List<Cart> cartList = cartRepository.findAllByUser(userCustom);
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
             List<Address> addressList = addressRepository.findByUser(userCustom);
-
             model.addAttribute("totalPrice", totalPrice);
             model.addAttribute("cartList", cartList);
             model.addAttribute("addressList", addressList);
@@ -72,16 +70,26 @@ public class ProductDetailController {
         }
         List<PromotionalDetails> promotionalDetailsList = promotionalDetailsRepository.findAll();
         List<Object[]> integerList = invoiceDetailRepository.countSoldProductsByProductID(product.getProductID());
-        int price=0;
-        for (Object[] integer: integerList){
+        int price = 0;
+        for (Object[] integer : integerList) {
             int productPrice = ((Number) integer[0]).intValue(); // Ép kiểu Object sang Number và sau đó lấy giá trị int
             price += productPrice;
         }
-        model.addAttribute("count",price);
+        model.addAttribute("count", price);
         model.addAttribute("promotionalDetailsList1", promotionalDetailsList);
+        String inputDate = product.getExpiry();
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        // Định dạng ngày tháng đầu ra
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        // Chuyển đổi chuỗi ngày tháng thành đối tượng LocalDate
+        LocalDate date = LocalDate.parse(inputDate, inputFormatter);
+        // Định dạng lại ngày tháng và hiển thị
+        String formattedDate = date.format(outputFormatter);
+        product.setExpiry(formattedDate);
         model.addAttribute("product", product);
         model.addAttribute("comment", commentRepository.findByProductID(product, Sort.by(Sort.Direction.ASC, "createAt")));
         System.out.println("run successfully product" + product);
+
         return "product";
     }
 
@@ -126,10 +134,10 @@ public class ProductDetailController {
         }
         return ResponseEntity.ok(jsonResponse);
     }
+
     @ModelAttribute("likeList")
     public List<WishList> getCategories(HttpSession session) {
         UserCustom userCustom = (UserCustom) session.getAttribute("userLogin");
-
         System.out.println("userCustom1: " + userCustom);
         if (userCustom != null) {
             List<WishList> listLike = wishListRepository.findByUser(userCustom);

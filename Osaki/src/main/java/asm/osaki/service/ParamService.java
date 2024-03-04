@@ -124,10 +124,12 @@ public class ParamService {
 	            System.out.println(e);
 	        }
 	    }
-	    return null;
+	    return null; 
 	}
 	
-	public File save2(MultipartFile file, String path) {
+	
+	//saveImgProduct
+	public File saveImgProduct(MultipartFile file, String path) {
 		try {
             File savePath = new File(path);
             if (!savePath.exists()) {

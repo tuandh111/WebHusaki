@@ -106,7 +106,6 @@ public class AccountController {
 
     @PostMapping("post-update-password/{id}")
     public ResponseEntity<?> postUpdatePassword(@PathVariable("id") String userID) {
-
         String password = paramService.getString("password", "");
         String confirmPassword = paramService.getString("confirmPassword", "");
         if (!password.equalsIgnoreCase(confirmPassword)) {
@@ -143,7 +142,6 @@ public class AccountController {
             }
             return ResponseEntity.ok(response);
         }
-
         if (!response.isEmpty()) {
             return ResponseEntity.ok(response);
         } else {
@@ -154,7 +152,6 @@ public class AccountController {
             userCustom.setRoleName(roleRepository.getById(1));
             try {
                 mailerService.sendVerify(new MailInfo(userCustom.getEmail(), "Chao mung ban den voi Hasagi", "Day la ma xac nhan cua ban: " + verify));
-
                 response.put("userID", userCustom.getUserID());
                 response.put("fullName", userCustom.getFullName());
                 response.put("password", userCustom.getPassword());
@@ -192,7 +189,6 @@ public class AccountController {
 
     @GetMapping("login")
     public String login(@ModelAttribute("UserC") UserCustom userCustom, Model model) {
-
         model.addAttribute("LGemail", cookieService.getValue("LGemail"));
         model.addAttribute("LGPassword", cookieService.getValue("LGPassword"));
         System.out.println("check: " + cookieService.getValue("check"));

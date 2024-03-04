@@ -5,89 +5,99 @@
 <c:set var="action" value="${param.action}" />
 
 <div class="container mt-5">
-	<h3>${action=='add' ? 'Thêm' : 'Sửa'} sản phẩm</h3>
-	<form method="post" action="/admin/add-product"
+	<h3>${action=='add' ? 'Thêm' : 'Sửa'}sảnphẩm</h3>
+	<form method="post"
+		action="${action=='add' ? '/admin/add-product' : updateProduct.productID}"
 		enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="mb-3">
-					<label for="productName" class="form-label">Tên sản phẩm</label> <input
-						type="text" class="form-control" id="productName"
-						name="productName" placeholder="Tên sản phẩm">
+					<label for="productName" class="form-label">Tên sản phẩm
+						${updateProduct.productID}</label> <input type="text" class="form-control"
+						id="productName" value="${updateProduct.name}" name="productName"
+						placeholder="Tên sản phẩm">
 				</div>
 				<div class="mb-3">
 					<label for="price" class="form-label">Giá</label> <input
 						type="number" class="form-control" id="price" name="price"
-						placeholder="Giá">
+						value="${updateProduct.price}" placeholder="Giá">
 				</div>
 				<div class="mb-3">
 					<label for="quantity" class="form-label">Số lượng trong kho</label>
 					<input type="number" class="form-control" min="0" id="quantity"
-						name="quantity" placeholder="Số lượng">
+						value="${updateProduct.quantityInStock}" name="quantity"
+						placeholder="Số lượng">
 				</div>
 				<div class="mb-3">
 					<label for="uses" class="form-label">Cách sử dụng</label> <input
 						type="text" class="form-control" id="uses" name="uses"
-						placeholder="Cách sử dụng">
+						value="${updateProduct.uses}" placeholder="Cách sử dụng">
 				</div>
 				<div class="mb-3">
 					<label for="preserve" class="form-label">Cách bảo quản</label> <input
 						type="text" class="form-control" id="preserve" name="preserve"
-						placeholder="Cách bảo quản">
+						value="${updateProduct.preserve}" placeholder="Cách bảo quản">
 				</div>
 				<div class="mb-3">
 					<label for="skinType" class="form-label">Loại da</label> <input
 						type="text" class="form-control" id="skinType" name="skinType"
-						placeholder="Loại da">
+						value="${updateProduct.skinType}" placeholder="Loại da">
 				</div>
 				<div class="mb-3">
 					<label for="certification" class="form-label">Chứng nhận</label> <input
 						type="text" class="form-control" id="certification"
-						name="certification" placeholder="Chứng nhận">
+						value="${updateProduct.certification}" name="certification"
+						placeholder="Chứng nhận">
+				</div>
+				<div class="mb-3">
+					<label for="dateOfManufacture" class="form-label">Ngày sản
+						xuất</label> <input type="date" class="form-control"
+						value="${updateProduct.dateOfManufacture}" id="dateOfManufacture"
+						name="dateOfManufacture">
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="mb-3">
-					<label for="dateOfManufacture" class="form-label">Ngày sản
-						xuất</label> <input type="text" class="form-control"
-						id="dateOfManufacture" name="dateOfManufacture">
-				</div>
+
 				<div class="mb-3">
 					<label for="expiry" class="form-label">Hạn sử dụng</label> <input
 						type="text" class="form-control" id="expiry" name="expiry"
-						placeholder="Hạn sử dụng">
+						value="${updateProduct.expiry}" placeholder="Hạn sử dụng">
 				</div>
 				<div class="mb-3">
 					<label for="manufacturer" class="form-label">Nhà sản xuất</label> <input
 						type="text" class="form-control" id="manufacturer"
-						name="manufacturer" placeholder="Nhà sản xuất">
+						value="${updateProduct.manufacturer}" name="manufacturer"
+						placeholder="Nhà sản xuất">
 				</div>
 				<div class="mb-3">
 					<label for="ingredient" class="form-label">Thành phần</label> <input
 						type="text" class="form-control" id="ingredient" name="ingredient"
-						placeholder="Thành phần">
+						value="${updateProduct.ingredient}" placeholder="Thành phần">
 				</div>
 				<div class="mb-3">
 					<label for="description" class="form-label">Mô tả</label>
 					<textarea class="form-control" id="description" name="description"
-						placeholder="Mô tả" rows="4"></textarea>
+						value="${updateProduct.description}" placeholder="Mô tả" rows="3"></textarea>
 				</div>
 
 				<div class="mb-3">
-                    <label for="categoryID" class="form-label">Danh mục sản phẩm</label>
-                    <select class="form-select" id="categoryID" name="categoryID">
-                        <option value="">Chọn danh mục</option>
-                   
-                        <c:forEach var="category" items="${cateList}">
-                            <option value="${category.categoryID}">${category.categoryName}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-				<div class="mb-3">
-					<label for="image" class="form-label">Hình ảnh</label> <input
-						type="file" class="form-control" id="image" name="image"
-						placeholder="Hình ảnh">
+					<label for="categoryID" class="form-label">Danh mục sản
+						phẩm</label> <select class="form-select" id="categoryID" name="categoryID"
+						value="${updateProduct.categoryID}">
+						<option value="">Chọn danh mục</option>
+
+						<c:forEach var="category" items="${cateList}">
+							<option value="${category.categoryID}"
+								${updateProduct.categoryID.categoryID == category.categoryID ?'selected':''}>${category.categoryName}</option>
+						</c:forEach>
+					</select>
 				</div>
+				<div class="mb-3">
+					<label for="imageFiles" class="form-label">Chọn hình ảnh</label> <input
+						type="file" class="form-control" id="image" name="image"
+						multiple>
+				</div>
+
 			</div>
 		</div>
 		<div class="d-flex justify-content-end">

@@ -17,7 +17,7 @@
         </li>
         <li>
             <a href="/profile?content=_dashboard3">
-                <span class="icon"><i class="bi bi-person-circle"></i></span>
+                <span class="icon"><i class="bi bi-person-lines-fill"></i></span>
                 <span class="title">Tài khoản</span>
             </a>
         </li>

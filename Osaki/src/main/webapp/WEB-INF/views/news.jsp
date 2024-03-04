@@ -28,6 +28,8 @@
     <link rel="stylesheet" href="./css/common.css">
     <!-- index -->
     <link rel="stylesheet" type="text/css" href="./css/new.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <script>
         var loader = function () {
@@ -43,6 +45,10 @@
     <script src="./owlCarousel/owl.carousel.min.js"></script>
 </head>
 <style>
+      .text-muted{
+        text-decoration: line-through;
+        margin-right: 54px;
+    }
     .swal2-popup {
         font-size: 2rem;
     }
@@ -197,6 +203,7 @@
 
     <!-- Script common -->
     <script src="/js/commonscript.js"></script>
+    <script src="/js/contact.js"></script>
 </div>
 
 </body>

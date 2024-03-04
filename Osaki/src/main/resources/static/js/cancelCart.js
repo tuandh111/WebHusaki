@@ -14,18 +14,13 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    type: 'POST',
-                    url: '/update-cart-product',
-                    data: {
+                    type: 'POST', url: '/update-cart-product', data: {
                         invoiceID: invoiceID,
 
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response == 'fail') {
                             Swal.fire({
-                                icon: 'warning',
-                                title: 'Something wrong !',
-                                showConfirmButton: true
+                                icon: 'warning', title: 'Something wrong !', showConfirmButton: true
                             });
                         } else {
 
@@ -38,8 +33,7 @@ $(document).ready(function () {
                             });
                             $('.' + invoiceID).remove();
                         }
-                    },
-                    error: function (xhr, status, error) {
+                    }, error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Xóa sản phẩm thất bại',
@@ -68,17 +62,12 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    type: 'POST',
-                    url: '/update-cart-product-restore',
-                    data: {
+                    type: 'POST', url: '/update-cart-product-restore', data: {
                         invoiceID: invoiceID
-                    },
-                    success: function (response) {
+                    }, success: function (response) {
                         if (response == 'fail') {
                             Swal.fire({
-                                icon: 'warning',
-                                title: 'Đã có lỗi xảy ra!',
-                                showConfirmButton: true
+                                icon: 'warning', title: 'Đã có lỗi xảy ra!', showConfirmButton: true
                             });
                         } else {
 
@@ -91,8 +80,7 @@ $(document).ready(function () {
                             });
                             $('.' + invoiceID).remove();
                         }
-                    },
-                    error: function (xhr, status, error) {
+                    }, error: function (xhr, status, error) {
                         Swal.fire({
                             icon: 'error',
                             title: 'Xóa sản phẩm thất bại',
@@ -105,4 +93,38 @@ $(document).ready(function () {
             }
         })
     })
+
+    $('.detailCart').click(function () {
+        var invoiceID = $(this).data('address-id');
+        console.log("invoiceID: " + invoiceID)
+        $.ajax({
+            type: 'GET', url: '/detailCart/' + invoiceID, success: function (response) {
+                var invoiceDetails = response;
+                $("#myModal .modal-body").empty();
+                let table = $("<table>").addClass("table table-striped").css("font-size", "16px");
+                let headerRow = $("<tr>");
+                $("<th>").text("Mã đơn hàng").appendTo(headerRow);
+                $("<th>").text("Số lượng").appendTo(headerRow);
+                $("<th>").text("Giá").appendTo(headerRow);
+                $("<th>").text("Tổng tiền").appendTo(headerRow);
+                table.append(headerRow);
+                invoiceDetails.forEach(item => {
+                    let row = $("<tr>");
+                    $("<td>").text(item.id).appendTo(row);
+                    $("<td>").text(item.quantity).appendTo(row);
+                    let priceTotal = item.price.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+                    $("<td>").text(priceTotal).appendTo(row);
+                    let total = item.quantity * item.price;
+                    let formattedTotal = total.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+                    $("<td>").text(formattedTotal).appendTo(row);
+                    table.append(row);
+                });
+                $("#myModal .modal-body").append(table);
+                $("#myModal").modal("show");
+                console.log(invoiceDetails)
+            }, error: function (error) {
+                console.log(error);
+            }
+        });
+    });
 })

@@ -137,9 +137,28 @@ $(document).ready(function () {
                     // Gửi số lượng cùng với ID sản phẩm
                 },
                 success: function (response) {
+                    if (response == 'errorQuantityInStock') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm sản phẩm thất bại',
+                            text: "Số lượng thêm vào lớn hơn hàng tồn kho!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        return
+                    }
+                    if (response == 'errorQuantity_') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thêm sản phẩm thất bại',
+                            text: "Số lượng không được vươt quá 100!",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        return
+                    }
                     var json = JSON.parse(response);
                     var message = json.message;
-
                     if (message == 'fail') {
                         Swal.fire({
                             icon: 'warning',
@@ -174,8 +193,7 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             timer: 2000
                         });
-                    }
-                    else if (message == 'errorQuantityInStock') {
+                    } else if (message == 'errorQuantityInStock') {
                         Swal.fire({
                             icon: 'error',
                             title: 'Thêm sản phẩm thất bại',
@@ -234,7 +252,7 @@ $(document).ready(function () {
                 console.log("totalPrice:", json.totalPrice);
                 if (!check) {
                     // html
-                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
+                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="../imagesProduct/' + image + '" alt=""></a><div class="order-main">';
                     productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_' + cartID + '">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {
@@ -269,7 +287,7 @@ $(document).ready(function () {
                     $('#quantity_' + cartId).html(quantity)
                 } else if (check) {
                     document.querySelector("." + cartId + "").remove();
-                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="images/product/product1.jpg" alt=""></a><div class="order-main">';
+                    var productHtml = '<li class="item-order ' + cartId + '"> <div class="order-wrap"><a href="product" class="order-img"><img src="../imagesProduct/' + image + '" alt=""></a><div class="order-main">';
                     productHtml += '<a href="/product/' + productId + '" class="order-main-name">' + productName + '</a><div class="order-main-price"><span id="quantity_${cartList.cartId}">' + quantity + '</span>';
                     productHtml += '   X   <span>'
                     if (originalPrice > discountedPrice) {
@@ -393,16 +411,7 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
             showConfirmButton: true,
         });
         $(".input-quantity").val(1);
-        return;
-    } else if (parseInt(quantity) >= 101) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Opps....',
-            text: "Vui lòng nhập số lượng không lớn hơn 100 !",
-            showConfirmButton: true,
-        });
-        $(".input-quantity").val(100);
-        return;
+        quantity = 1
     } else if (parseInt(quantity) > parseInt(quantityInStock)) {
         Swal.fire({
             icon: 'error',
@@ -413,7 +422,6 @@ function changeQuantityProduct(cartId, productId, quantity, quantityInStock, pri
         quantity = quantityInStock
         $(".input-quantity").val(quantityInStock);
     }
-
     $.ajax({
         url: "/update-cart",
         type: "POST",

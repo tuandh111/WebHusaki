@@ -14,7 +14,6 @@
 
     <div class="grid wide">
 
-        <h3 class="category__title">Hoàng Tuấn Cometics</h3>
         <h3 class="category__heading">SẢN PHẨM FLASH SALE</h3>
         <c:if test="${!checkDay}">
             <h2 id="countdown"></h2>
@@ -35,76 +34,86 @@
                                     <c:if test="${c.categoryID == p.categoryID.categoryID}">
                                         <c:if test="${pdProduct.productID.productID == p.productID}">
                                             <div class="col-lg-2 col-md-4 col-sm-6">
-                                                <div class="product">
-                                                    <div class="product__avt"
-                                                         style="background-image: url(images/product/product1.jpg);"></div>
-                                                    <div class="product__info">
-                                                        <h3 class="product__name">${p.name}</h3>
-                                                        <div class="product__price">
-                                                            <div class="price__old">
-                                                                <fmt:formatNumber
-                                                                        type="number"
-                                                                        pattern="###,###,###"
-                                                                        value="${p.price}"/> <span
-                                                                    class="price__unit"> đ</span>
-                                                            </div>
-                                                            <c:choose>
-                                                                <c:when test="${p.quantityInStock>0}">
-                                                                    <div class="price__new"><fmt:formatNumber
+                                                <a href="/product/${p.productID}">
+                                                    <div class="product">
+                                                        <c:set var="foundFirst" value="false"/>
+                                                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                                   varStatus="i">
+                                                            <c:if test="${!foundFirst && p.productID == imgProduct.productID.productID}">
+                                                                <c:set var="foundFirst" value="true"/>
+                                                                <div class="product__avt"
+                                                                     style="background-image: url(../imagesProduct/${imgProduct.imageName});"></div>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <div class="product__info">
+                                                            <h3 class="product__name">${p.name}</h3>
+                                                            <div class="product__price">
+                                                                <div class="price__old">
+                                                                    <fmt:formatNumber
                                                                             type="number"
                                                                             pattern="###,###,###"
-                                                                            value="${pdProduct.discountedPrice}"/>
-                                                                        <span class="price__unit">đ</span></div>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <span class="price__unit">Tạm hết hàng</span>
-                                                                </c:otherwise>
-                                                            </c:choose>
-                                                        </div>
-                                                        <div class="product__sale">
+                                                                            value="${p.price}"/> <span
+                                                                        class="price__unit"> đ</span>
+                                                                </div>
+                                                                <c:choose>
+                                                                    <c:when test="${p.quantityInStock>0}">
+                                                                        <div class="price__new"><fmt:formatNumber
+                                                                                type="number"
+                                                                                pattern="###,###,###"
+                                                                                value="${pdProduct.discountedPrice}"/>
+                                                                            <span class="price__unit">đ</span></div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <span class="price__unit">Tạm hết hàng</span>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </div>
+                                                            <div class="product__sale">
                                                                         <span class="product__sale-percent">
                                                                                         -<fmt:formatNumber type="number"
                                                                                                            pattern="###,###,###"
                                                                                                            value="${(p.price - pdProduct.discountedPrice)/p.price *100}"/>%
                                                                         </span>
-                                                            <span class="product__sale-text"
-                                                                  style="font-size: 8px">Giảm</span>
+                                                                <span class="product__sale-text"
+                                                                      style="font-size: 8px">Giảm</span>
+                                                            </div>
                                                         </div>
+                                                        <a href="product/${p.productID}" class="viewDetail">Xem chi
+                                                                                                            tiết</a>
+
+                                                        <a href="#" title="cart" data-product-id="${p.productID}"
+                                                           data-user-id="${userLogin.userID}" class="addToCart">Thêm vào
+                                                                                                                giỏ</a>
+
+                                                        <c:set var="checkLike" value="false"/>
+                                                        <c:forEach items="${likeList }" var="lp" varStatus="i">
+                                                            <c:if test="${lp.productID.productID == p.productID }">
+                                                                <c:set var="checkLike" value="true"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <c:choose>
+                                                            <c:when test="${checkLike }">
+                                                                <a title="Wishlist" href="#"
+                                                                   class="siteLikeProduct m-md-3"
+                                                                   data-product-id="${p.productID}"
+                                                                   data-user-id="${userLogin.userID}">
+                                                                    <i class="bi-heart-fill"></i>
+                                                                    <span class="title-like">Xóa yêu thích</span>
+                                                                </a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a title="Wishlist" href="#"
+                                                                   class="siteLikeProduct m-md-3"
+                                                                   data-product-id="${p.productID}"
+                                                                   data-user-id="${userLogin.userID}">
+                                                                    <i class="bi-heart"></i>
+                                                                    <span class="title-like">Thêm vào yêu thích</span>
+                                                                </a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <span class="category">${c.categoryName}</span>
                                                     </div>
-                                                    <a href="product/${p.productID}" class="viewDetail">Xem chi tiết</a>
-
-                                                    <a href="#" title="cart" data-product-id="${p.productID}"
-                                                       data-user-id="${userLogin.userID}" class="addToCart">Thêm vào
-                                                                                                            giỏ</a>
-
-                                                    <c:set var="checkLike" value="false"/>
-                                                    <c:forEach items="${likeList }" var="lp" varStatus="i">
-                                                        <c:if test="${lp.productID.productID == p.productID }">
-                                                            <c:set var="checkLike" value="true"/>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                    <c:choose>
-                                                        <c:when test="${checkLike }">
-                                                            <a title="Wishlist" href="#"
-                                                               class="siteLikeProduct m-md-3"
-                                                               data-product-id="${p.productID}"
-                                                               data-user-id="${userLogin.userID}">
-                                                                <i class="bi-heart-fill"></i>
-                                                                <span class="title-like">Xóa yêu thích</span>
-                                                            </a>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <a title="Wishlist" href="#"
-                                                               class="siteLikeProduct m-md-3"
-                                                               data-product-id="${p.productID}"
-                                                               data-user-id="${userLogin.userID}">
-                                                                <i class="bi-heart"></i>
-                                                                <span class="title-like">Thêm vào yêu thích</span>
-                                                            </a>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <span class="category">${c.categoryName}</span>
-                                                </div>
+                                                </a>
                                             </div>
                                         </c:if>
                                     </c:if>
@@ -116,8 +125,7 @@
             </c:if>
         </div>
 
-        <h3 class="category__title mt-3">Hoàng Tuấn Cometics</h3>
-        <h3 class="category__heading">SẢN PHẨM THEO DANH MỤC</h3>
+        <h3 class="category__heading mt-5">SẢN PHẨM THEO DANH MỤC</h3>
         <div class="tabs">
             <c:forEach items="${listCategories }" var="c" varStatus="i">
                 <c:if test="${!c.isDelete }">
@@ -140,94 +148,205 @@
                                     <c:if test="${!p.isDelete}">
                                         <c:if test="${c.categoryID == p.categoryID.categoryID}">
                                             <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
-                                                <div class="product">
-                                                    <div class="product__avt"
-                                                         style="background-image: url(images/product/product1.jpg);"></div>
-                                                    <div class="product__info">
-                                                        <h3 class="product__name">${p.name}</h3>
-                                                        <div class="product__price">
-                                                            <c:set var="checkListPromotionalDetail" value="false"/>
-                                                            <c:forEach var="pdProduct" items="${listPromotionalDetail}">
-                                                                <c:if test="${pdProduct.productID.productID == p.productID}">
-                                                                    <c:set var="checkListPromotionalDetail"
-                                                                           value="true"/>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                            <c:choose>
-                                                                <c:when test="${checkListPromotionalDetail}">
-                                                                    <c:forEach var="pdProduct"
-                                                                               items="${listPromotionalDetail}">
-                                                                        <c:if test="${pdProduct.productID.productID == p.productID}">
-                                                                            <div class="product__price">
-                                                                                <div class="price__old">
-                                                                                    <fmt:formatNumber
-                                                                                            type="number"
-                                                                                            pattern="###,###,###"
-                                                                                            value="${p.price}"/> <span
-                                                                                        class="price__unit"> đ</span>
+                                                <a href="product/${p.productID}">
+                                                    <div class="product">
+                                                        <c:set var="foundFirst" value="false"/>
+                                                        <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                                   varStatus="i">
+                                                            <c:if test="${!foundFirst && p.productID == imgProduct.productID.productID}">
+                                                                <c:set var="foundFirst" value="true"/>
+                                                                <div class="product__avt"
+                                                                     style="background-image: url(../imagesProduct/${imgProduct.imageName});"></div>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <div class="product__info">
+                                                            <h3 class="product__name">${p.name}</h3>
+                                                            <div class="product__price">
+                                                                <c:set var="checkListPromotionalDetail" value="false"/>
+                                                                <c:forEach var="pdProduct"
+                                                                           items="${listPromotionalDetail}">
+                                                                    <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                                        <c:set var="checkListPromotionalDetail"
+                                                                               value="true"/>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <c:choose>
+                                                                    <c:when test="${checkListPromotionalDetail}">
+                                                                        <c:forEach var="pdProduct"
+                                                                                   items="${listPromotionalDetail}">
+                                                                            <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                                                <div class="product__price">
+                                                                                    <div class="price__old">
+                                                                                        <fmt:formatNumber
+                                                                                                type="number"
+                                                                                                pattern="###,###,###"
+                                                                                                value="${p.price}"/>
+                                                                                        <span
+                                                                                                class="price__unit"> đ</span>
+                                                                                    </div>
+                                                                                    <c:choose>
+                                                                                        <c:when test="${p.quantityInStock>0}">
+                                                                                            <div class="price__new"
+                                                                                                 style="margin-left: 30px">
+                                                                                                <fmt:formatNumber
+                                                                                                        type="number"
+                                                                                                        pattern="###,###,###"
+                                                                                                        value="${pdProduct.discountedPrice}"/>
+                                                                                                <span class="price__unit">đ</span>
+                                                                                            </div>
+                                                                                        </c:when>
+                                                                                        <c:otherwise>
+                                                                                            <span class="price__unit">Tạm hết hàng</span>
+                                                                                        </c:otherwise>
+                                                                                    </c:choose>
                                                                                 </div>
-                                                                                <c:choose>
-                                                                                    <c:when test="${p.quantityInStock>0}">
-                                                                                        <div class="price__new"
-                                                                                             style="margin-left: 30px">
-                                                                                            <fmt:formatNumber
-                                                                                                    type="number"
-                                                                                                    pattern="###,###,###"
-                                                                                                    value="${pdProduct.discountedPrice}"/>
-                                                                                            <span class="price__unit">đ</span>
-                                                                                        </div>
-                                                                                    </c:when>
-                                                                                    <c:otherwise>
-                                                                                        <span class="price__unit">Tạm hết hàng</span>
-                                                                                    </c:otherwise>
-                                                                                </c:choose>
-                                                                            </div>
-                                                                            <div class="product__sale">
+                                                                                <div class="product__sale">
                                                                                 <span class="product__sale-percent">
                                                                                         -<fmt:formatNumber type="number"
                                                                                                            pattern="###,###,###"
                                                                                                            value="${(p.price - pdProduct.discountedPrice)/p.price *100}"/>%
                                                                         </span>
-                                                                                <span class="product__sale-text"
-                                                                                      style="font-size: 8px">Giảm</span>
-                                                                            </div>
-                                                                        </c:if>
-                                                                    </c:forEach>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <c:choose>
-                                                                        <c:when test="${p.quantityInStock>0}">
-                                                                            <div class="price__new"><fmt:formatNumber
-                                                                                    type="number"
-                                                                                    pattern="###,###,###"
-                                                                                    value="${p.price}"/>
-                                                                                <span class="price__unit">đ</span></div>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                            <span class="price__unit">Tạm hết hàng</span>
-                                                                        </c:otherwise>
-                                                                    </c:choose>
-                                                                </c:otherwise>
-                                                            </c:choose>
+                                                                                    <span class="product__sale-text"
+                                                                                          style="font-size: 8px">Giảm</span>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <c:choose>
+                                                                            <c:when test="${p.quantityInStock>0}">
+                                                                                <div class="price__new">
+                                                                                    <fmt:formatNumber
+                                                                                            type="number"
+                                                                                            pattern="###,###,###"
+                                                                                            value="${p.price}"/>
+                                                                                    <span class="price__unit">đ</span>
+                                                                                </div>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <span class="price__unit">Tạm hết hàng</span>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </c:otherwise>
+                                                                </c:choose>
 
-                                                            <c:forEach var="pdProduct" items="${listPromotionalDetail}">
-                                                                <c:if test="${pdProduct.productID.productID == p.productID}">
-                                                                    <div class="product__sale">
+                                                                <c:forEach var="pdProduct"
+                                                                           items="${listPromotionalDetail}">
+                                                                    <c:if test="${pdProduct.productID.productID == p.productID}">
+                                                                        <div class="product__sale">
                                                                         <span
                                                                                 class="product__sale-percent">
                                                                                         -<fmt:formatNumber type="number"
                                                                                                            pattern="###,###,###"
                                                                                                            value="${(p.price - pdProduct.discountedPrice)/p.price *100}"/>%
                                                                         </span>
-                                                                        <span class="product__sale-text"
-                                                                              style="font-size: 8px">Giảm</span>
-                                                                    </div>
-                                                                </c:if>
-                                                            </c:forEach>
+                                                                            <span class="product__sale-text"
+                                                                                  style="font-size: 8px">Giảm</span>
+                                                                        </div>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </div>
+                                                        </div>
+                                                        <a href="product/${p.productID}" class="viewDetail">Xem chi
+                                                                                                            tiết</a>
+                                                        <a href="#" title="cart" data-product-id="${p.productID}"
+                                                           data-user-id="${userLogin.userID}" class="addToCart">Thêm vào
+                                                                                                                giỏ</a>
+                                                        <c:set var="checkLike" value="false"/>
+                                                        <c:forEach items="${likeList }" var="lp" varStatus="i">
+                                                            <c:if test="${lp.productID.productID == p.productID }">
+                                                                <c:set var="checkLike" value="true"/>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <c:choose>
+                                                            <c:when test="${checkLike }">
+                                                                <a title="Wishlist" href="#"
+                                                                   class="siteLikeProduct m-md-3"
+                                                                   data-product-id="${p.productID}"
+                                                                   data-user-id="${userLogin.userID}">
+                                                                    <i class="bi-heart-fill"></i>
+                                                                    <span class="title-like">Xóa yêu thích</span>
+                                                                </a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a title="Wishlist" href="#"
+                                                                   class="siteLikeProduct m-md-3"
+                                                                   data-product-id="${p.productID}"
+                                                                   data-user-id="${userLogin.userID}">
+                                                                    <i class="bi-heart"></i>
+                                                                    <span class="title-like">Thêm vào yêu thích</span>
+                                                                </a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                        <span class="category">${c.categoryName}</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </c:if>
+                                    </c:if>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:if>
+            </c:forEach>
+        </div>
+
+        <h3 class="category__heading">SẢN PHẨM KHUYẾN MÃI</h3>
+        <div class="row mt-3">
+            <c:forEach items="${listCategories }" var="c" varStatus="i">
+                <c:if test="${!c.isDelete }">
+                    <c:forEach var="p" items="${listProduct}">
+                        <c:forEach var="pdProduct" items="${listPromotionalDetail}">
+                            <c:if test="${!p.isDelete}">
+                                <c:if test="${c.categoryID == p.categoryID.categoryID}">
+                                    <c:if test="${pdProduct.productID.productID == p.productID}">
+                                        <div class="col-lg-2 col-md-4 col-sm-6">
+                                            <a href="product/${p.productID}">
+                                                <div class="product">
+                                                    <c:set var="foundFirst" value="false"/>
+                                                    <c:forEach var="imgProduct" items="${imagesProduct}"
+                                                               varStatus="i">
+                                                        <c:if test="${!foundFirst && p.productID == imgProduct.productID.productID}">
+                                                            <c:set var="foundFirst" value="true"/>
+                                                            <div class="product__avt"
+                                                                 style="background-image: url(../imagesProduct/${imgProduct.imageName});"></div>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    <div class="product__info">
+                                                        <h3 class="product__name">${p.name}</h3>
+                                                        <div class="product__price">
+                                                            <div class="price__old">
+                                                                <fmt:formatNumber
+                                                                        type="number"
+                                                                        pattern="###,###,###"
+                                                                        value="${p.price}"/> <span
+                                                                    class="price__unit"> đ</span>
+                                                            </div>
+                                                            <c:choose>
+                                                                <c:when test="${p.quantityInStock>0}">
+                                                                    <div class="price__new"><fmt:formatNumber
+                                                                            type="number"
+                                                                            pattern="###,###,###"
+                                                                            value="${pdProduct.discountedPrice}"/>
+                                                                        <span class="price__unit">đ</span></div>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <span class="price__unit">Tạm hết hàng</span>
+                                                                </c:otherwise>
+                                                            </c:choose>
+
+                                                        </div>
+                                                        <div class="product__sale">
+                                                              <span class="product__sale-percent">
+                                                                    -<fmt:formatNumber type="number"
+                                                                                       pattern="###,###,###"
+                                                                                       value="${(p.price - pdProduct.discountedPrice)/p.price *100}"/>%
+                                                                </span>
+                                                            <span class="product__sale-text">Giảm</span>
                                                         </div>
                                                     </div>
-                                                    <a href="product/${p.productID}" class="viewDetail">Xem chi
-                                                                                                        tiết</a>
+                                                    <a href="product/${p.productID}" class="viewDetail">Xem chi tiết</a>
                                                     <a href="#" title="cart" data-product-id="${p.productID}"
                                                        data-user-id="${userLogin.userID}" class="addToCart">Thêm vào
                                                                                                             giỏ</a>
@@ -259,96 +378,7 @@
                                                     </c:choose>
                                                     <span class="category">${c.categoryName}</span>
                                                 </div>
-                                            </div>
-                                        </c:if>
-                                    </c:if>
-                                </c:forEach>
-                            </div>
-                        </div>
-                    </c:if>
-                </c:if>
-            </c:forEach>
-        </div>
-
-        <h3 class="category__title">Hoàng Tuấn Cometics</h3>
-        <h3 class="category__heading">SẢN PHẨM KHUYẾN MÃI</h3>
-        <div class="row mt-3">
-            <c:forEach items="${listCategories }" var="c" varStatus="i">
-                <c:if test="${!c.isDelete }">
-                    <c:forEach var="p" items="${listProduct}">
-                        <c:forEach var="pdProduct" items="${listPromotionalDetail}">
-                            <c:if test="${!p.isDelete}">
-                                <c:if test="${c.categoryID == p.categoryID.categoryID}">
-                                    <c:if test="${pdProduct.productID.productID == p.productID}">
-                                        <div class="col-lg-2 col-md-4 col-sm-6">
-                                            <div class="product">
-                                                <div class="product__avt"
-                                                     style="background-image: url(images/product/product1.jpg);"></div>
-                                                <div class="product__info">
-                                                    <h3 class="product__name">${p.name}</h3>
-                                                    <div class="product__price">
-                                                        <div class="price__old">
-                                                            <fmt:formatNumber
-                                                                    type="number"
-                                                                    pattern="###,###,###"
-                                                                    value="${p.price}"/> <span
-                                                                class="price__unit"> đ</span>
-                                                        </div>
-                                                        <c:choose>
-                                                            <c:when test="${p.quantityInStock>0}">
-                                                                <div class="price__new"><fmt:formatNumber
-                                                                        type="number"
-                                                                        pattern="###,###,###"
-                                                                        value="${pdProduct.discountedPrice}"/>
-                                                                    <span class="price__unit">đ</span></div>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <span class="price__unit">Tạm hết hàng</span>
-                                                            </c:otherwise>
-                                                        </c:choose>
-
-                                                    </div>
-                                                    <div class="product__sale">
-                                                              <span class="product__sale-percent">
-                                                                    -<fmt:formatNumber type="number"
-                                                                                       pattern="###,###,###"
-                                                                                       value="${(p.price - pdProduct.discountedPrice)/p.price *100}"/>%
-                                                                </span>
-                                                        <span class="product__sale-text">Giảm</span>
-                                                    </div>
-                                                </div>
-                                                <a href="product/${p.productID}" class="viewDetail">Xem chi tiết</a>
-                                                <a href="#" title="cart" data-product-id="${p.productID}"
-                                                   data-user-id="${userLogin.userID}" class="addToCart">Thêm vào
-                                                                                                        giỏ</a>
-                                                <c:set var="checkLike" value="false"/>
-                                                <c:forEach items="${likeList }" var="lp" varStatus="i">
-                                                    <c:if test="${lp.productID.productID == p.productID }">
-                                                        <c:set var="checkLike" value="true"/>
-                                                    </c:if>
-                                                </c:forEach>
-                                                <c:choose>
-                                                    <c:when test="${checkLike }">
-                                                        <a title="Wishlist" href="#"
-                                                           class="siteLikeProduct m-md-3"
-                                                           data-product-id="${p.productID}"
-                                                           data-user-id="${userLogin.userID}">
-                                                            <i class="bi-heart-fill"></i>
-                                                            <span class="title-like">Xóa yêu thích</span>
-                                                        </a>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <a title="Wishlist" href="#"
-                                                           class="siteLikeProduct m-md-3"
-                                                           data-product-id="${p.productID}"
-                                                           data-user-id="${userLogin.userID}">
-                                                            <i class="bi-heart"></i>
-                                                            <span class="title-like">Thêm vào yêu thích</span>
-                                                        </a>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                <span class="category">${c.categoryName}</span>
-                                            </div>
+                                            </a>
                                         </div>
                                     </c:if>
                                 </c:if>

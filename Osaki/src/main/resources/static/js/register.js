@@ -59,7 +59,7 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: 'error',
                     title: 'Lỗi',
-                    text: 'lõi',
+                    text: 'Đã có lỗi xảy ra',
                     showConfirmButton: true,
                     timer: 1500
                 });// Truyền thông báo lỗi từ server
