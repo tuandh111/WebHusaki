@@ -85,12 +85,15 @@
                                 <c:set var="checkCart" value="false"/>
                                 <c:forEach var="cartList" items="${cartList}" varStatus="loop">
                                     <c:if test="${!cartList.checkPay}">
-
                                         <div class="row item ${cartList.product.productID}" id="${cartList.cartId}">
                                             <div class="col l-1 m-1 s-0">
-                                                <input type="checkbox" value="${cartList.product.productID}" checked>
+                                                <input type="checkbox" class="productCheckbox" data-cart-id="123"
+                                                       data-product-id="456" data-quantity-in-stock="10"
+                                                       data-price="${cartList.product.price}"
+                                                       value="${cartList.product.productID}"
+                                                       checked>
                                             </div>
-                                            <div class="col l-4 m-4 s-8">
+                                            <div class=" col l-4 m-4 s-8">
                                                 <div class="main__cart-product">
                                                     <c:set var="foundFirst" value="false"/>
                                                     <c:forEach var="imgProduct" items="${imagesProduct}"
@@ -215,7 +218,7 @@
                                 </div>
                             </div>
                             <div class="pay-info">
-                                <div class="total-money">Tổng tiền: <fmt:formatNumber
+                                <div class="total-money" id="totalMoneyAll">Tổng tiền: <fmt:formatNumber
                                         type="number"
                                         pattern="###,###,###"
                                         value="${totalPrice}"/> ₫
@@ -230,16 +233,6 @@
                                                                                                                toán
                                                                                                                VNPAY
                             </div>
-                                <%--                             <div class="main__pay-title">Phiếu ưu đãi</div> --%>
-
-                                <%--                             <select name="voucher" id="voucher" required class="form-control"> --%>
-                                <%--                                 <option value="">Chọn voucher</option> --%>
-                                <%--                                 <c:forEach var="voucherList" items="${voucherList}"> --%>
-                                <%--                                     <option value="${voucherList.id}">Giam --%>
-                                <%--                                                                       gia: ${voucherList.discount * 100}</option> --%>
-                                <%--                                 </c:forEach> --%>
-                                <%--                             </select> --%>
-                                <%--                             <div class="btn btn--default" id="apply">Áp dụng</div> --%>
                         </div>
                     </div>
                 </div>
@@ -262,6 +255,32 @@
 <!-- Script common -->
 <script src="/js/commonscript.js"></script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const checkboxes = document.querySelectorAll(".productCheckbox");
+        checkboxes.forEach(function (checkbox, index) {
+            checkbox.dataset.index = index;
+            checkbox.addEventListener("change", function () {
+                // Nếu checkbox được chọn
+                const cartId = this.getAttribute("data-cart-id");
+                const productId = this.getAttribute("data-product-id");
+                const quantityInStock = this.getAttribute("data-quantity-in-stock");
+                const price = this.getAttribute("data-price");
+                const checkboxIndex = this.dataset.index;
+                const totalPriceElement = document.querySelector(".total-money");
+                const totalPriceText = totalPriceElement.textContent;
+                const totalPriceValue = parseInt(totalPriceText.replace(/\D/g, ''));
+
+                if (this.checked) {
+                    console.log(0)
+
+                } else {
+                    console.log(1)
+                }
+                calculateTotal(index, quantityInStock)
+            });
+        });
+    });
+
     function ReturnUrl() {
         // Xóa mục 'returnUrl' khỏi localStorage
         localStorage.setItem('returnUrl', window.location.href);
@@ -285,9 +304,12 @@
         var currentValue = parseInt(inputQty.value);
         var maxValue = parseInt(inputQty.getAttribute('max'));
         var minValue = parseInt(inputQty.getAttribute('min'));
-        if (currentValue > minValue && currentValue <= parseInt(quantityInStock)) {
+        var checkbox = document.querySelectorAll('.productCheckbox')[index];
+        console.log("checkbox: " + checkbox.checked)
+        if (currentValue > minValue && currentValue <= parseInt(quantityInStock) && checkbox.checked) {
             inputQty.value = currentValue;
             console.log(3)
+
         } else if (currentValue < 0) {
             inputQty.value = 1;
         }
@@ -300,7 +322,6 @@
         var currentValue = parseInt(inputQty.value);
         var maxValue = parseInt(inputQty.getAttribute('max'));
         if (currentValue < maxValue) {
-
             inputQty.value = currentValue + 1;
             calculateTotal(index, quantityInStock)
             if (currentValue > parseInt(quantityInStock)) {
@@ -315,10 +336,47 @@
         var quantity = parseInt(inputQty.value);
         var pricePerProduct = parseFloat(document.querySelectorAll('.total-moneyPrice')[index].innerText.replace(/[,.đ]/g, ''));
         var total = quantity * pricePerProduct;
+        var checkbox = document.querySelectorAll('.productCheckbox')[index];
+        if (!checkbox.checked) {
+            // Nếu không được chọn, đặt tổng giá trị thành 0
+            const totalPriceElement = document.querySelector(".total-money");
+            const totalPriceText = totalPriceElement.textContent;
+            const totalPrice = parseInt(totalPriceText.replace(/\D/g, ''));
+            const totalP = parseInt(totalPrice) - parseInt(total)
+            console.log("Tổng tiền cần thanh toán:" + totalPrice)
+            console.log("Tổng tiền cần thanh toán sp:" + total)
+            console.log("Tổng tiền cần thanh toán sau tru:" + totalP)
+            var totalMoneyElement1 = document.getElementById('totalMoneyAll');
+            totalMoneyElement1.innerHTML = 'Tổng tiền: ' + formatMoney(totalP) + ' ₫';
+            console.log(3)
+        } else {
+            console.log(4)
+            const totalPriceElement = document.querySelector(".total-money");
+            const totalPriceText = totalPriceElement.textContent;
+            const totalPrice = parseInt(totalPriceText.replace(/\D/g, ''));
+            var totalMoneyElement = document.getElementById('totalMoneyAll');
+            totalMoneyElement.innerHTML = 'Tổng tiền: ' + formatMoney(totalPrice) + ' ₫';
+        }
+        if (!isAnyCheckboxChecked()) {
+            var totalMoneyElement = document.getElementById('totalMoneyAll');
+            totalMoneyElement.innerHTML = 'Tổng tiền: ' + formatMoney(0) + ' ₫';
+        }
         if (quantity <= parseInt(quantityInStock)) {
             var formattedTotal = formatMoney(total);
             document.querySelectorAll('#calculateTotalPrice')[index].innerText = formattedTotal + ' đ';
         }
+    }
+
+    function isAnyCheckboxChecked() {
+        var checkboxes = document.querySelectorAll('.productCheckbox');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                return true; // Nếu tìm thấy checkbox được chọn, trả về true ngay lập tức
+            }
+        }
+
+        return false; // Nếu không tìm thấy checkbox nào được chọn, trả về false
     }
 
     function calculateTotal1(index, cartId, productId, quantityInStock, price) {

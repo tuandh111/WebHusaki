@@ -51,11 +51,18 @@
                                 </div>
 
                                 <div class="col l-1 m-1 s-0">
+                                    <div class="main__cart-product">
+                                        <div class="container mt-3">
+                                            <h5 href="#" class="detailCart" data-address-id="${invoiceList.invoiceID}">
+                                                Chi tiết đơn hàng
+                                            </h5>
+                                        </div>
+                                    </div>
                                     <div class="RestoreCart${invoiceList.invoiceID}">
-                                        <h2 class="main__cart-icon RestoreCart"
+                                        <h3 class="main__cart-icon RestoreCart"
                                             data-invoice-id="${invoiceList.invoiceID}">
                                             Khôi phục đơn hàng
-                                        </h2>
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
@@ -63,6 +70,29 @@
                     </c:forEach>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" style="font-size: 16px">Chi tiết đơn hàng</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
         </div>
     </div>
 </div>
