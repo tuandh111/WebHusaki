@@ -55,20 +55,22 @@ public class PaymentController {
 
     @GetMapping("/pay")
     public ResponseEntity<?> getPay() throws UnsupportedEncodingException {
-        String phoneID = paramService.getString("phoneID","");
+        String phoneID = paramService.getString("phoneID", "");
+        String numericValue = paramService.getString("numericValue", "");
         UserCustom userCustom = sessionService.get("userLogin");
         List<Cart> cartList = cartRepository.findAllByUser(userCustom);
 
-        for (Cart cart : cartList){
+        for (Cart cart : cartList) {
             Product product = productRepository.findByProductID(cart.getProduct().getProductID());
-            if ( product.getQuantityInStock()==0) {
+            if (product.getQuantityInStock() == 0) {
                 return ResponseEntity.ok("failQuantity");
-            }if(product.getQuantityInStock()-cart.getQuantity() < 0 ){
+            }
+            if (product.getQuantityInStock() - cart.getQuantity() < 0) {
                 return ResponseEntity.ok("NotEnoughProducts");
             }
         }
 
-        long totalPrice = (long) sessionService.totalPriceCartByUserId(userCustom);
+        long totalPrice = Long.parseLong(numericValue);
         System.out.println("tp" + totalPrice);
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
@@ -94,7 +96,7 @@ public class PaymentController {
         vnp_Params.put("vnp_OrderType", orderType);
 
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl+"?PhoneID="+phoneID);
+        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl + "?PhoneID=" + phoneID);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -165,7 +167,7 @@ public class PaymentController {
         System.out.println("vnp_SecureHash: " + vnp_SecureHash);
         UserCustom userCustom = sessionService.get("userLogin");
         Optional<Address> address = addressRepository.findById(PhoneID);
-        if(address.isPresent()) {
+        if (address.isPresent()) {
             double totalPrice = sessionService.totalPriceCartByUserId(userCustom);
             System.out.println("totalPrice: " + totalPrice);
             String invoiceID = Config.getRandomString(8);
@@ -206,16 +208,17 @@ public class PaymentController {
                 cardVNPay.setIsDelete(false);
                 cardVNPayRepository.save(cardVNPay);
             }
-            Optional<CardVNPay> cardVNPays= cardVNPayRepository.findById(invoiceID);
-            if(cardVNPays.isPresent()){
-                model.addAttribute("payment","Thanh toán thành công");
-            }else {
-                model.addAttribute("payment","");
+            Optional<CardVNPay> cardVNPays = cardVNPayRepository.findById(invoiceID);
+            if (cardVNPays.isPresent()) {
+                model.addAttribute("payment", "Thanh toán thành công");
+            } else {
+                model.addAttribute("payment", "");
             }
         }
 
         return "cart";
     }
+
     public double getPriceProduct(Integer productID) {
         FlashSale isFlashSale = flashSaleRepository.findByIsStatus(false);
 

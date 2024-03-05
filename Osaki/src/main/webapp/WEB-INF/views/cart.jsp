@@ -87,7 +87,8 @@
                                     <c:if test="${!cartList.checkPay}">
                                         <div class="row item ${cartList.product.productID}" id="${cartList.cartId}">
                                             <div class="col l-1 m-1 s-0">
-                                                <input type="checkbox" class="productCheckbox" data-cart-id="123"
+                                                <input type="checkbox" class="productCheckbox"
+                                                       data-cart-id="${cartList.cartId}"
                                                        data-product-id="456" data-quantity-in-stock="10"
                                                        data-price="${cartList.product.price}"
                                                        value="${cartList.product.productID}"
@@ -339,7 +340,7 @@
         var checkbox = document.querySelectorAll('.productCheckbox')[index];
         if (!checkbox.checked) {
             // Nếu không được chọn, đặt tổng giá trị thành 0
-            const totalPriceElement = document.querySelector(".total-money");
+            const totalPriceElement = document.getElementById("totalMoneyAll");
             const totalPriceText = totalPriceElement.textContent;
             const totalPrice = parseInt(totalPriceText.replace(/\D/g, ''));
             const totalP = parseInt(totalPrice) - parseInt(total)
@@ -351,11 +352,12 @@
             console.log(3)
         } else {
             console.log(4)
-            const totalPriceElement = document.querySelector(".total-money");
+            const totalPriceElement = document.getElementById("totalMoneyAll");
             const totalPriceText = totalPriceElement.textContent;
             const totalPrice = parseInt(totalPriceText.replace(/\D/g, ''));
+            const totalP = parseInt(totalPrice) + parseInt(total)
             var totalMoneyElement = document.getElementById('totalMoneyAll');
-            totalMoneyElement.innerHTML = 'Tổng tiền: ' + formatMoney(totalPrice) + ' ₫';
+            totalMoneyElement.innerHTML = 'Tổng tiền: ' + formatMoney(totalP) + ' ₫';
         }
         if (!isAnyCheckboxChecked()) {
             var totalMoneyElement = document.getElementById('totalMoneyAll');

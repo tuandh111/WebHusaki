@@ -18,6 +18,8 @@ import asm.osaki.repositories.user_repositories.InvoiceDetailRepository;
 import asm.osaki.repositories.user_repositories.InvoiceRepository;
 import asm.osaki.service.ParamService;
 import asm.osaki.service.SessionService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.restfb.types.User;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class checkOutController {
@@ -77,7 +77,7 @@ public class checkOutController {
         String[] numbers = checkedValues.split(",");
         for (String number : numbers) {
             number = number.replace("\"", "");
-            System.out.println("Number: " +Integer.parseInt( number.trim())); // Sử dụng trim() để loại bỏ khoảng trắng dư thừa
+            System.out.println("Number: " + Integer.parseInt(number.trim())); // Sử dụng trim() để loại bỏ khoảng trắng dư thừa
         }
         String phoneID = paramService.getString("phoneID", "");
         if (phoneID.equalsIgnoreCase("")) {
@@ -108,37 +108,48 @@ public class checkOutController {
         for (Cart cart : cartItems) {
             for (String number : numbers) {
                 number = number.replace("\"", "");
-                if(Integer.parseInt(number.trim()) == cart.getProduct().getProductID()){
-                InvoiceDetail invoiceDetail = new InvoiceDetail();
-                Cart cart1 = cart;
-                invoiceDetail.setCreateAt(new Date());
-                invoiceDetail.setInvoiceID(invoice1);
-                invoiceDetail.setPrice(Double.parseDouble(String.valueOf(getPriceProduct(cart.getProduct().getProductID()))));
-                invoiceDetail.setQuantity(cart.getQuantity());
-                invoiceDetail.setIsDelete(false);
-                invoiceDetail.setProductID(cart.getProduct());
-                cart1.setCheckPay(true);
-                try {
-                    Product product = productRepository.findByProductID(cart.getProduct().getProductID());
-                    System.out.println("product quantityInStock: " + product.getQuantityInStock());
-                    if (product.getQuantityInStock() == 0) {
-                        return ResponseEntity.ok("failQuantity");
+                if (Integer.parseInt(number.trim()) == cart.getProduct().getProductID()) {
+                    InvoiceDetail invoiceDetail = new InvoiceDetail();
+                    Cart cart1 = cart;
+                    invoiceDetail.setCreateAt(new Date());
+                    invoiceDetail.setInvoiceID(invoice1);
+                    invoiceDetail.setPrice(Double.parseDouble(String.valueOf(getPriceProduct(cart.getProduct().getProductID()))));
+                    invoiceDetail.setQuantity(cart.getQuantity());
+                    invoiceDetail.setIsDelete(false);
+                    invoiceDetail.setProductID(cart.getProduct());
+                    cart1.setCheckPay(true);
+                    try {
+                        Product product = productRepository.findByProductID(cart.getProduct().getProductID());
+                        System.out.println("product quantityInStock: " + product.getQuantityInStock());
+                        if (product.getQuantityInStock() == 0) {
+                            return ResponseEntity.ok("failQuantity");
+                        }
+                        if (product.getQuantityInStock() - cart.getQuantity() < 0) {
+                            return ResponseEntity.ok("NotEnoughProducts");
+                        }
+                        product.setQuantityInStock(product.getQuantityInStock() - cart.getQuantity());
+                        productRepository.save(product);
+                        invoiceDetailRepository.save(invoiceDetail);
+                        cartRepository.save(cart1);
+                    } catch (Exception e) {
+                        return ResponseEntity.ok("fail");
                     }
-                    if (product.getQuantityInStock() - cart.getQuantity() < 0) {
-                        return ResponseEntity.ok("NotEnoughProducts");
-                    }
-                    product.setQuantityInStock(product.getQuantityInStock() - cart.getQuantity());
-                    productRepository.save(product);
-                    invoiceDetailRepository.save(invoiceDetail);
-                    cartRepository.save(cart1);
-                } catch (Exception e) {
-                    return ResponseEntity.ok("fail");
-                }
                 }
             }
         }
 
-        return ResponseEntity.ok("success");
+        int cartCount = cartRepository.findAllByUser(userCustom).size();
+        Map<String, Object> jsonRemove = new HashMap<>();
+        jsonRemove.put("cartCount", cartCount);
+        jsonRemove.put("totalPrice", sessionService.totalPriceCartByUserId(userCustom));
+        System.out.println(jsonRemove);
+        String jsonResponse = null;
+        try {
+            jsonResponse = new ObjectMapper().writeValueAsString(jsonRemove);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok(jsonResponse);
     }
 
     public double getPriceProduct(Integer productID) {

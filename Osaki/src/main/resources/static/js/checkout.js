@@ -6,10 +6,13 @@ $(document).ready(function () {
         var selectedOption = $("#address").find('option:selected');
         var phoneID = selectedOption.val();
         console.log("SDT: " + phoneID);
-        var checkedValues = $("input[type='checkbox']:checked").map(function() {
+        var checkedValues = $("input[type='checkbox']:checked").map(function () {
             return $(this).val(); // Trả về giá trị của checkbox đã chọn
         }).get();
-
+        var checkedCartIds = $("input.productCheckbox:checked").map(function () {
+            return $(this).data("cart-id");
+        }).get();
+        console.log("cartId: " + checkedCartIds)
         // Hiển thị mảng giá trị đã lấy được
         console.log("Checked values: ", checkedValues);
         if (!isLoggedIn) {
@@ -35,18 +38,12 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
                     // Nếu người dùng chọn Yes
                     $.ajax({
-                        type: 'POST',
-                        url: '/add-checkout',
-                        data: {
-                            checkedValues:JSON.stringify(checkedValues),
-                            phoneID: phoneID
-                        },
-                        success: function (response) {
+                        type: 'POST', url: '/add-checkout', data: {
+                            checkedValues: JSON.stringify(checkedValues), phoneID: phoneID
+                        }, success: function (response) {
                             if (response == 'fail') {
                                 Swal.fire({
-                                    icon: 'error',
-                                    title: 'Có lỗi xảy ra vui lòng thử lại !',
-                                    showConfirmButton: true
+                                    icon: 'error', title: 'Có lỗi xảy ra vui lòng thử lại !', showConfirmButton: true
                                 });
 
                             } else if (response == 'failQuantity') {
@@ -64,24 +61,6 @@ $(document).ready(function () {
                                     text: 'Không đủ sản phẩm để bán !',
                                     showConfirmButton: true
                                 });
-
-                            } else if (response == 'success') {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Đặt hàng thành công!',
-                                    showConfirmButton: false,
-                                    timer: 2500
-                                });
-                                $('.messageSuccessfully').html("<a href='/'>Tiếp tuc mua sắm</a>");
-                                $('.checkout_').html("<h2>Đặt hàng thành công</h2>");
-                                $('.header__cart-amount').html("0");
-                                $('.order__list').html("<a href='/'>Tiếp tục mua sắm</a>");
-                                //$('#out').html("");
-                                checkedValues.forEach(function(value) {
-                                    // Xóa class của các phần tử có giá trị là value
-                                    $("." + value).remove();
-                                });
-                                $('.total-money').html("");
 
                             } else if (response == 'errorProduct') {
                                 Swal.fire({
@@ -107,9 +86,50 @@ $(document).ready(function () {
                                     }
                                 });
 
+                            } else {
+                                var jsonRemove = JSON.parse(response);
+                                let cartCount = jsonRemove.cartCount;
+                                let totalPrice = jsonRemove.totalPrice;
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Đặt hàng thành công!',
+                                    showConfirmButton: false,
+                                    timer: 2500
+                                });
+                                $('.messageSuccessfully').html("<a href='/'>Tiếp tục mua sắm</a>");
+                                $('.checkout_').html("<h2>Đặt hàng thành công</h2>");
+                                //$('.header__cart-amount').html("0");
+                                //$('.order__list').html("<a href='/'>Tiếp tục mua sắm</a>");
+                                //$('#out').html("");
+                                $.each(checkedValues, function (index, value) {
+                                    // Loại bỏ phần tử có lớp CSS tương ứng với giá trị value
+                                    $("." + value).remove();
+                                    console.log("value: " + value)
+                                });
+                                $.each(checkedCartIds, function (index, value) {
+                                    // Loại bỏ phần tử có lớp CSS tương ứng với giá trị value
+                                    $("." + value).remove();
+                                    console.log("value: " + value)
+                                });
+
+                                $('.header__cart-amount').append('  <div class="header__cart-amount">\n' +
+                                    '                            ' + cartCount + '\n' +
+                                    '                    </div>')
+                                if (cartCount < 1) {
+                                    $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/">Tiếp tục mua sắm</a></h2>')
+                                    $('.total-money').html("Tổng tiền: 0 đ")
+                                    $('#out').html("<h1><a href='/'>Tiếp tục mua sắm</a></h1>");
+                                    console.log("ok")
+                                } else {
+                                    $('#ContinueShopping').html('<h2 class="c" style="text-align: center"><a href="/"></a></h2>')
+                                    var formattedPrice = totalPrice.toLocaleString('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    });
+                                    $('.total-money').text("Tổng tiền: " + formattedPrice)
+                                }
                             }
-                        },
-                        error: function (xhr, status, error) {
+                        }, error: function (xhr, status, error) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Thanh toán thất bại',
@@ -131,9 +151,25 @@ $(document).ready(function () {
     $('#vnpay').click(function (e) {
         e.preventDefault();
         let isLoggedIn = $(this).data('user-id') !== '';
-        let phoneID = $('#address').val();
+        var selectedOption = $("#address").find('option:selected');
+        var phoneID = selectedOption.val();
+        console.log("SDT: " + phoneID);
+        var checkedValues = $("input[type='checkbox']:checked").map(function () {
+            return $(this).val(); // Trả về giá trị của checkbox đã chọn
+        }).get();
+        var checkedCartIds = $("input.productCheckbox:checked").map(function () {
+            return $(this).data("cart-id");
+        }).get();
+        const totalPriceElement = document.getElementById('totalMoneyAll');
+        console.log("totalPrice: " + totalPriceElement.textContent)
+        var numericString = totalPriceElement.textContent.replace(/\D/g, '');
 
-        console.log("phone: " + phoneID)
+// Chuyển đổi chuỗi số thành số nguyên
+        var numericValue = parseInt(numericString, 10);
+
+        console.log(numericValue);
+        // Hiển thị mảng giá trị đã lấy được
+        console.log("Checked values: ", checkedValues);
         if (!isLoggedIn) {
             Swal.fire({
                 icon: 'error',
@@ -157,17 +193,13 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
                     // Nếu người dùng chọn Yes
                     $.ajax({
-                        type: 'GET',
-                        url: '/pay',
-                        data: {
+                        type: 'GET', url: '/pay', data: {
+                            numericValue: numericValue,
                             phoneID: phoneID
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             if (response == 'fail') {
                                 Swal.fire({
-                                    icon: 'warning',
-                                    title: 'Something wrong !',
-                                    showConfirmButton: true
+                                    icon: 'warning', title: 'Something wrong !', showConfirmButton: true
                                 });
                             } else if (response == 'failQuantity') {
                                 Swal.fire({
@@ -188,8 +220,7 @@ $(document).ready(function () {
                             } else {
                                 window.location.href = response;
                             }
-                        },
-                        error: function (xhr, status, error) {
+                        }, error: function (xhr, status, error) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Thanh toán thất bại',
@@ -235,15 +266,11 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
                     // Nếu người dùng chọn Yes
                     $.ajax({
-                        type: 'GET',
-                        url: '/pay',
-                        data: {
+                        type: 'GET', url: '/pay', data: {
                             phoneID: phoneID
-                        },
-                        success: function (response) {
+                        }, success: function (response) {
                             window.location.href = response;
-                        },
-                        error: function (xhr, status, error) {
+                        }, error: function (xhr, status, error) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Thanh toán thất bại',
