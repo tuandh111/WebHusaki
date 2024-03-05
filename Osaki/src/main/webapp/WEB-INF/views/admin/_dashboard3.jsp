@@ -55,24 +55,24 @@
         <table class="table table-hover table-custom">
             <thead>
                 <tr>
-                    <th>Sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-                    <th>Số hóa đơn</th>
-                    <th>Ngày hóa đơn</th>
+                    <th>Mã đơn hàng</th>
+                    <th>Tên khách hàng</th>
+                    <th>Địa chỉ</th>
+                    <th>Tổng tiền</th>
+                    <th>Ngày đơn hàng</th>
                     <th>Trạng thái</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="item" items="${recentProduct}">
                     <tr>
-                        <td>${item.name}</td>
-                        <!--  <td>${item.price}</td> -->
-                        <td>
-                            <fmt:formatNumber value="${item.price}" pattern="#,###.00 vnd"></fmt:formatNumber>
-                        </td>                        
-                        <td>${item.quantity}</td>
                         <td>${item.invoiceID}</td>
+                        <td>${item.nameCustomer}</td> 
+                        <td>${item.addressCustomer}</td>                      
+                        <td>
+                            <fmt:formatNumber value="${item.totalAmount}" pattern="#,### đ"></fmt:formatNumber>
+                        </td>                        
+                                               
                         <td>
                             <fmt:formatDate value="${item.createAt}" pattern="dd-MM-yyyy"/>                        
                         </td>

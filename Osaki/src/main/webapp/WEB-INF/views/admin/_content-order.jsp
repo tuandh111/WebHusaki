@@ -32,6 +32,7 @@
                     <thead>
                     <tr>
                         <th>Mã đơn hàng</th>
+                        <th>Ngày đặt hàng</th>
                         <!--  <th>Ảnh sản phẩm</th>
                         <th>Tên sản phẩm</th>-->
                         <th>Khách hàng</th>
@@ -47,7 +48,9 @@
                     <c:forEach var="item" items="${orders}">
                         <tr>
                             <td>${item.invoiceID}</td>
-                            
+                            <td>
+                                 <fmt:formatDate value="${item.createAt}" pattern="dd-MM-yyyy"/>                        
+                            </td>
                             <td>${item.nameCustomer}</td>
                             <td style="max-width: 200px;">${item.addressCustomer}</td>
                             <td>${item.phoneCustomer}</td>                           

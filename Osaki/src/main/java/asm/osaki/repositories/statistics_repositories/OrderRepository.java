@@ -10,16 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import asm.osaki.entities.user.InvoiceDetail;
 
 public interface OrderRepository extends JpaRepository<InvoiceDetail, Integer> {	
-	//@Query("SELECT i, p, u, a " +
-	//        "FROM invoice i " +
-	//        "INNER JOIN invoiceDetail id ON id.invoiceID.invoiceID = i.invoiceID " +
-	//        "INNER JOIN product p ON id.productID.productID = p.productID " +
-	//        "INNER JOIN user_custom u ON u.userID = i.user.userID " +
-	//        "INNER JOIN UserAddress a ON a.user.userID = u.userID " +
-	//        "WHERE p.name like %?1% " +
-	//        "GROUP BY i, p, u, a "+
-	//        "ORDER BY i.createAt DESC")
-	// Page<Object[]> findAllByNameLike(String keywords,Pageable pageable);
 	
 	@Query("SELECT i, u, a " +
             "FROM invoice i " +
