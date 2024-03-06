@@ -7,6 +7,7 @@ import asm.osaki.entities.product.Product;
 import lombok.Data;
 @Data
 public class DataRevenueByProduct {
+	private int productID;
 	private String nameProduct;
 	private Double totalAmount;
 	
@@ -15,6 +16,7 @@ public class DataRevenueByProduct {
 		for (Object[] o : list) {
 			DataRevenueByProduct dataRevenueByProduct = new DataRevenueByProduct();
 			Product product = (Product) o[0];
+			dataRevenueByProduct.setProductID(product.getProductID());
 			dataRevenueByProduct.setNameProduct(product.getName());;
 			dataRevenueByProduct.setTotalAmount((Double) o[1]);
 			finalList.add(dataRevenueByProduct);

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         data: {
             labels: labelsCtx,
             datasets: [{
-                label: 'Sản phẩm tồn kho',
+                label: '5 Sản phẩm tồn kho thấp nhất',
                 data: valuesCtx,
                 borderWidth: 1
             }]
