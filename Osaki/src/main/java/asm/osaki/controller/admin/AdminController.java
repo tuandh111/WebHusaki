@@ -133,9 +133,9 @@ public class AdminController {
 
             } else if (content.equals("_content-statistics.jsp")) {
                 List<DataRevenueByProduct> datasP = DataRevenueByProduct.convert(statisticsRepository.dataRevenueByProduct());
-                Map<String, Double> dataRevenueByProduct = new HashMap<>();
+                Map<Integer, Double> dataRevenueByProduct = new HashMap<>();
                 for (DataRevenueByProduct data : datasP) {
-                    dataRevenueByProduct.put(data.getNameProduct(), data.getTotalAmount());
+                    dataRevenueByProduct.put(data.getProductID(), data.getTotalAmount());
                 }
                 List<DataRevenueByMonth> datas = DataRevenueByMonth.convert(statisticsRepository.dataRevenueByMonth());
                 Map<Integer, Double> dataRevenueByMonth = new HashMap<>();
@@ -153,13 +153,6 @@ public class AdminController {
                 }
 
             } else if (content.equals("_FlashSale.jsp")) {
-                // page = orderRepository.findAllByNameLike(keywordSearch, pageable);
-//				List<FlashSaleA> convertedResults = FlashSaleA.convert(flashSaleRepository.findProductFlashSale(false));
-//
-//				model.addAttribute("flashsaleProduct", convertedResults);
-                // System.out.println("convertedResultsFlashSaleA " +
-                // convertedResults.isEmpty());
-
                 List<FlashSale> sale = flashSaleRepository.findAll();
                 model.addAttribute("FlashSale", sale);
             }
@@ -188,10 +181,11 @@ public class AdminController {
         model.addAttribute("quantityNotify", statisticsRepository.getQuantityNotCompleteYet());
         int visitorCount = visitorCounter.getCount();
         model.addAttribute("visitorCount", visitorCount);
-        // Lấy 3 sản phẩm từ hóa đơn gần nhất
-        Pageable pageable = PageRequest.of(p.orElse(0), 3);
-        model.addAttribute("recentProduct", ProductLatest.convert(statisticsRepository.findTop3ProductLatest(pageable)));
-
+        // Lấy 5 đơn hàng mới nhất
+        Pageable pageableRecent = PageRequest.of(p.orElse(0), 5);      
+        Page<Object[]> pageRecent = orderRepository.findAllByNameLike("", pageableRecent);
+        List<OrderInfo> convertedResultsRecent = OrderInfo.convert(pageRecent.getContent());
+        model.addAttribute("recentProduct",convertedResultsRecent );
         // lấy tài khoản admin đăng nhập
         model.addAttribute("userAdminLogin", sessionService.get("userLogin"));
 
@@ -209,11 +203,11 @@ public class AdminController {
             e.printStackTrace();
         }
 
-        // Biểu đồ thống kê số lượng tồn kho theo sản phẩm
+        // Biểu đồ thống kê 5 sản phẩm có lượng tồn kho thấp nhất
         List<InventoryTransactions> inventories = InventoryTransactions.convert(statisticsRepository.inventoryTransactions());
-        Map<String, Double> dataInventories = new HashMap<>();
+        Map<Integer, Double> dataInventories = new HashMap<>();
         for (InventoryTransactions data : inventories) {
-            dataInventories.put(data.getName(), data.getQuantityInstock());
+            dataInventories.put(data.getId(), data.getQuantityInstock());
         }
         try {
             String dataInventoriesJson = objectMapper.writeValueAsString(dataInventories);
